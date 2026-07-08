@@ -870,7 +870,7 @@
 
     .chip-label {
       font-size: 11px;
-      color: #d0d7de;
+      color: #5A6474;
     }
 
     .chip-divider {
@@ -1459,7 +1459,8 @@
     }
 
     /* room at bottom so content isn't hidden behind the fixed bar */
-    #screen-apply-urn {
+    #screen-apply-urn,
+    #screen-register-form {
       padding-bottom: 72px;
     }
 
@@ -1577,13 +1578,6 @@
     <!-- ═══════════ SIDEBAR ═══════════ -->
     <aside class="sidebar" id="sidebar">
 
-      <div class="sidebar-entity">
-        <div class="sidebar-collapsed-avatar">ABC</div>
-        <div class="sidebar-entity-name">ABC Pharmaceuticals Ltd.</div>
-        <div class="sidebar-entity-sub">CIN: U24231MH2010PLC204896</div>
-        <div class="sidebar-urn-chip"><span class="urn-dot"></span> 2 Active URNs</div>
-      </div>
-
       <div style="flex:1; overflow-y:auto; overflow-x:hidden; padding-bottom:12px;">
 
         <div class="nav-group-label">Main Menu</div>
@@ -1624,6 +1618,9 @@
         <div class="nav-sub-group" id="urnSub" style="display:none;">
           <div class="nav-sub" onclick="showScreen('apply-urn','nav-myurns')">
             <span class="nav-sub-dot"></span> Apply for New URN
+          </div>
+          <div class="nav-sub" onclick="showScreen('myurns','nav-myurns')">
+            <span class="nav-sub-dot"></span> Surrender URN
           </div>
         </div>
 
@@ -1726,7 +1723,7 @@
         <div class="page-header">
           <div>
             <div class="page-greeting">Good morning, Rajesh Kumar</div>
-            <div class="page-sub">ABC Pharmaceuticals Ltd. &nbsp;·&nbsp; Mumbai Zonal Office Jurisdiction</div>
+            <div class="page-sub">ABC Pharmaceuticals Ltd &nbsp;·&nbsp; Mumbai Zonal Office Jurisdiction</div>
           </div>
           <div class="page-session">
             Last login: 15 Jun 2026, 06:30 PM
@@ -1737,25 +1734,21 @@
           <div class="kpi-card" style="border-top-color:#2E6EBF;" onclick="showScreen('myurns','nav-myurns')">
             <div class="kpi-label">Active URNs</div>
             <div class="kpi-value" style="color:#1A2332;">2</div>
-            <div class="kpi-note" style="color:#5A6474;">Both under Mumbai Zone</div>
             <div class="kpi-cta">View My URNs &rarr;</div>
           </div>
           <div class="kpi-card" style="border-top-color:#C0392B;">
             <div class="kpi-label">Pending Queries</div>
             <div class="kpi-value" style="color:#C0392B;">3</div>
-            <div class="kpi-note" style="color:#C0392B;">&#9888; Response required</div>
             <div class="kpi-cta" style="color:#C0392B;">Respond now &rarr;</div>
           </div>
           <div class="kpi-card" style="border-top-color:#C2611C;">
             <div class="kpi-label">Q1 2026 Return Due</div>
             <div class="kpi-value" style="color:#C2611C;">5 days</div>
-            <div class="kpi-note" style="color:#C2611C;">&#9873; Deadline: 21 Jun 2026</div>
             <div class="kpi-cta" style="color:#C2611C;">File now &rarr;</div>
           </div>
           <div class="kpi-card" style="border-top-color:#1E7B4B;">
             <div class="kpi-label">Open Incidents</div>
             <div class="kpi-value" style="color:#1E7B4B;">0</div>
-            <div class="kpi-note" style="color:#1E7B4B;">&#10003; No active incidents</div>
             <div class="kpi-cta">View history &rarr;</div>
           </div>
         </div>
@@ -1804,24 +1797,6 @@
               &rarr;</button>
           </div>
 
-          <div class="notif-item" style="border-top:1px solid #EAECF0;">
-            <div class="notif-indicator" style="background:#5A6474;"></div>
-            <div class="notif-body">
-              <div class="notif-tag" style="background:#F0F2F5;color:#5A6474;">Update</div>
-              <div class="notif-text">Consignment Note <strong>#GN-2026-089</strong> acknowledged by XYZ Chemicals Pvt.
-                Ltd.</div>
-              <div class="notif-meta">14 Jun 2026</div>
-            </div>
-          </div>
-          <div class="notif-item">
-            <div class="notif-indicator" style="background:#1E7B4B;"></div>
-            <div class="notif-body">
-              <div class="notif-tag" style="background:#EAF5EE;color:#1E7B4B;">Update</div>
-              <div class="notif-text">Q4 2025 Return (Form E) reviewed by Zonal Office &mdash; no discrepancies found.
-              </div>
-              <div class="notif-meta">10 Jun 2026</div>
-            </div>
-          </div>
         </div>
 
         <div class="quick-section">
@@ -1857,15 +1832,38 @@
 
         <div class="breadcrumb">
           <a onclick="showScreen('dashboard','nav-dashboard')">Home</a>
-          &nbsp;&#8250;&nbsp; <span>My URNs</span>
+          &nbsp;&#8250;&nbsp; <span>My URN</span>
         </div>
 
         <div class="myurns-header">
           <div>
-            <div class="page-title">My URNs</div>
-            <div class="page-title-sub">ABC Pharmaceuticals Ltd. &nbsp;·&nbsp; Mumbai Zonal Office Jurisdiction</div>
+            <div class="page-title">My URN</div>
+            <div class="page-title-sub">ABC Pharmaceuticals Ltd &nbsp;·&nbsp; Mumbai Zonal Office Jurisdiction</div>
           </div>
           <button class="btn-primary" onclick="showScreen('apply-urn','nav-myurns')">+ Apply for New URN</button>
+        </div>
+
+        <!-- Substances at a glance -->
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:14px 16px;margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">
+            Controlled Substances in the Company</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <div style="border:1px solid #E8EBEF;border-radius:5px;padding:8px 12px;min-width:170px;">
+              <div style="font-size:12px;font-weight:600;color:#1A2332;">Acetic Anhydride</div>
+              <div style="font-size:10px;color:#8B98A8;margin-top:2px;">Manufacture, Sale, Storage &middot; URN
+                PREP/ZO-MH/2026/00142</div>
+            </div>
+            <div style="border:1px solid #E8EBEF;border-radius:5px;padding:8px 12px;min-width:170px;">
+              <div style="font-size:12px;font-weight:600;color:#1A2332;">Ephedrine</div>
+              <div style="font-size:10px;color:#8B98A8;margin-top:2px;">Manufacture, Sale, Storage &middot; URN
+                PREP/ZO-MH/2026/00142</div>
+            </div>
+            <div style="border:1px solid #E8EBEF;border-radius:5px;padding:8px 12px;min-width:170px;">
+              <div style="font-size:12px;font-weight:600;color:#1A2332;">Pseudoephedrine</div>
+              <div style="font-size:10px;color:#8B98A8;margin-top:2px;">Purchase, Storage, Consumption &middot; URN
+                PREP/ZO-MH/2025/00089</div>
+            </div>
+          </div>
         </div>
 
         <!-- Summary strip -->
@@ -2054,7 +2052,7 @@
 
         <div class="breadcrumb">
           <a onclick="showScreen('dashboard','nav-dashboard')">Home</a> &nbsp;&#8250;&nbsp;
-          <a onclick="showScreen('myurns','nav-myurns')">My URNs</a> &nbsp;&#8250;&nbsp;
+          <a onclick="showScreen('myurns','nav-myurns')">My URN</a> &nbsp;&#8250;&nbsp;
           <span>Apply for New URN</span>
         </div>
 
@@ -3304,37 +3302,52 @@
                 Select Form</div>
               <div
                 style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
-                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''">
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('E')">
                 <span
                   style="background:#EEF2F8;color:#1E4A8A;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">E</span>
                 Manufacturer Quarterly Return
               </div>
               <div
                 style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
-                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''">
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('H')">
                 <span
                   style="background:#F0EEF8;color:#5A3A9A;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">H</span>
                 Inter-zone Movement Report
               </div>
               <div
                 style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
-                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''">
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('L')">
                 <span
                   style="background:#EEF6F0;color:#1E6A40;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">L</span>
                 B2B / Broker Portal Return
               </div>
               <div style="border-top:1px solid #F0F2F5;"></div>
-              <div style="padding:9px 14px; font-size:12px; color:#C0C8D0; display:flex; align-items:center; gap:8px;"
-                title="Consumer companies only">
+              <div
+                style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('F')">
                 <span
-                  style="background:#F0F2F5;color:#A0A8B0;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">F</span>
-                Consumer Return &nbsp;<span style="font-size:10px;">not applicable</span>
+                  style="background:#F0F2F5;color:#5A6474;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">F</span>
+                Consumer Return
               </div>
-              <div style="padding:9px 14px; font-size:12px; color:#C0C8D0; display:flex; align-items:center; gap:8px;"
-                title="Inactive until NCB activates">
+              <div
+                style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('C')">
                 <span
-                  style="background:#F0F2F5;color:#A0A8B0;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">C/D</span>
-                Daily Register &nbsp;<span style="font-size:10px;">inactive</span>
+                  style="background:#F0F2F5;color:#5A6474;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">C</span>
+                Register of Manufacture (Daily Register)
+              </div>
+              <div
+                style="padding:9px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:8px;"
+                onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+                onclick="toggleDropdown('filingDropdown'); openRegisterForm('D')">
+                <span
+                  style="background:#F0F2F5;color:#5A6474;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:700;">D</span>
+                Register of Consumption, Sale, Import/Export (Daily Register)
               </div>
             </div>
           </div>
@@ -3377,7 +3390,7 @@
               <span
                 style="display:inline-block;background:#FDECEA;color:#C0392B;border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700;margin-bottom:6px;">Not
                 Started</span><br>
-              <button class="action-btn">File Now &rarr;</button>
+              <button class="action-btn" onclick="openRegisterForm('E')">File Now &rarr;</button>
             </div>
           </div>
 
@@ -3425,7 +3438,7 @@
               <span
                 style="display:inline-block;background:#FDECEA;color:#C0392B;border-radius:3px;padding:1px 6px;font-size:9px;font-weight:700;margin-bottom:6px;">Not
                 Started</span><br>
-              <button class="action-btn">File Now &rarr;</button>
+              <button class="action-btn" onclick="openRegisterForm('E')">File Now &rarr;</button>
             </div>
           </div>
 
@@ -3439,7 +3452,10 @@
               <select
                 style="padding:5px 8px;border:1px solid #D0D5DC;border-radius:4px;font-size:11px;font-family:inherit;color:#5A6474;background:#fff;">
                 <option>All Forms</option>
+                <option>Form C</option>
+                <option>Form D</option>
                 <option>Form E</option>
+                <option>Form F</option>
                 <option>Form H</option>
                 <option>Form L</option>
               </select>
@@ -4019,6 +4035,53 @@
         <div class="spacer"></div>
       </div>
 
+      <!-- ─────────────────────────────
+         SCREEN: FILE NEW RETURN — REGISTER / QUARTERLY FORM
+    ──────────────────────────────── -->
+      <div id="screen-register-form" class="screen" style="display:none;">
+
+        <div class="breadcrumb">
+          <a onclick="showScreen('dashboard','nav-dashboard')">Home</a> &nbsp;&#8250;&nbsp;
+          <a id="regFormCrumbParent" onclick="showScreen('returns','nav-returns')">Returns Filing</a> &nbsp;&#8250;&nbsp;
+          <span id="regFormCrumb">Form</span>
+        </div>
+
+        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px; gap:16px;">
+          <div>
+            <div class="page-title" id="regFormTitle">Form</div>
+            <div class="page-title-sub" id="regFormSub"></div>
+          </div>
+        </div>
+
+        <div class="fb-layout">
+          <div class="fb-rail">
+            <div class="fb-rail-title">Form Progress</div>
+            <div class="fb-rail-steps" id="regRailSteps">
+              <div class="fb-rail-track">
+                <div class="fb-rail-fill" id="regRailFill" style="height:0%;"></div>
+              </div>
+            </div>
+            <div class="fb-rail-footer">
+              <div class="fb-rail-dot"></div>
+              Draft saved automatically
+            </div>
+          </div>
+
+          <div class="fb-form-area" id="regFormArea"></div>
+        </div>
+
+        <div class="fb-action-bar">
+          <div class="fb-action-bar-left">
+            <button class="fb-btn-ghost" id="regBtnBack" onclick="regBack()" style="display:none;">&larr; Back</button>
+          </div>
+          <div class="fb-action-bar-right">
+            <button class="fb-btn-draft">Save draft</button>
+            <button class="fb-btn-primary" id="regBtnNext" onclick="regNext()">Next &rarr;</button>
+          </div>
+        </div>
+
+      </div>
+
       <div id="screen-consignments" class="screen" style="display:none;">
         <div class="breadcrumb"><a onclick="showScreen('dashboard','nav-dashboard')">Home</a> &nbsp;&#8250;&nbsp;
           <span>Consignment Notes</span>
@@ -4029,7 +4092,7 @@
             <div class="page-title">Consignment Notes (Form G)</div>
             <div class="page-title-sub">Notes accompanying every outward movement of controlled substance</div>
           </div>
-          <button class="btn-primary">+ Generate Consignment Note</button>
+          <button class="btn-primary" onclick="openRegisterForm('G')">+ Generate Consignment Note</button>
         </div>
 
         <div class="summary-strip">
@@ -4158,7 +4221,7 @@
             <div class="page-title-sub">Applications to destroy controlled substance stock, reviewed by the Zonal Office
             </div>
           </div>
-          <button class="btn-primary">+ Apply for Destruction</button>
+          <button class="btn-primary" onclick="openRegisterForm('I')">+ Apply for Destruction</button>
         </div>
 
         <div class="summary-strip">
@@ -4584,7 +4647,6 @@
 
   </div>
 
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <script>
     function toggleDropdown(id) {
@@ -4601,6 +4663,559 @@
           document.removeEventListener('click', closeDD);
         });
       }, 0);
+    }
+
+    function regTh(text, extra, colspan, rowspan) {
+      return '<th' + (colspan ? ' colspan="' + colspan + '"' : '') + (rowspan ? ' rowspan="' + rowspan + '"' : '') + ' style="text-align:left;font-size:10px;color:#8B98A8;font-weight:700;padding:6px 8px;background:#FAFBFC;border:1px solid #E0E4E8;' + (extra || '') + '">' + text + '</th>';
+    }
+    function regTd(placeholder) {
+      return '<td style="border:1px solid #E0E4E8;padding:4px;"><input type="text" class="fb-rinput" placeholder="' + (placeholder || '') + '"></td>';
+    }
+    function regHeaderFields(regNoLabel) {
+      return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">' +
+        '<div class="fb-field"><label>' + regNoLabel + '</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Month</label><input type="text" placeholder="e.g. June 2026"></div>' +
+        '</div>' +
+        '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>Name of controlled substance</label>' +
+        '<select><option value="">Select...</option><option>Acetic Anhydride</option><option>Ephedrine</option><option>Pseudoephedrine</option></select></div>';
+    }
+    function regNotes(items) {
+      return '<div class="fb-note" style="margin-top:16px;"><ol>' + items.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ol></div>';
+    }
+
+    /* ── Stacked entry cards (replaces wide scrolling tables) ── */
+    var regCardConfigs = {};
+
+    function regFieldHtml(f) {
+      if (f.type === 'select') {
+        var opts = '<option value="">Select...</option>' + (f.options || []).map(function (o) { return '<option>' + o + '</option>'; }).join('');
+        return '<select>' + opts + '</select>';
+      }
+      if (f.type === 'textarea') {
+        return '<textarea rows="2" placeholder="' + (f.placeholder || '') + '"></textarea>';
+      }
+      return '<input type="text" placeholder="' + (f.placeholder || '') + '">';
+    }
+
+    function regRenderCard(groups, n) {
+      var html = '<div data-reg-card style="border:1px solid #E0E4E8;border-radius:6px;padding:14px 16px;margin-bottom:10px;background:#FAFBFC;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+        '<span style="font-size:10px;color:#8B98A8;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">Entry ' + n + '</span>' +
+        (n > 1 ? '<span style="font-size:11px;color:#C0392B;cursor:pointer;" onclick="this.closest(\'[data-reg-card]\').remove()">Remove</span>' : '') +
+        '</div>';
+      groups.forEach(function (g) {
+        if (g.heading) html += '<div style="font-size:10px;font-weight:700;color:#5A6474;margin:10px 0 6px;">' + g.heading + '</div>';
+        html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">';
+        g.fields.forEach(function (f) {
+          html += '<div class="fb-field"><label>' + f.label + '</label>' + regFieldHtml(f) + '</div>';
+        });
+        html += '</div>';
+      });
+      html += '</div>';
+      return html;
+    }
+
+    function regCardsBlock(containerId, groups, initialCount) {
+      regCardConfigs[containerId] = { groups: groups, count: initialCount || 1 };
+      var html = '<div id="' + containerId + '">';
+      for (var i = 1; i <= (initialCount || 1); i++) html += regRenderCard(groups, i);
+      html += '</div>';
+      html += '<button onclick="regAddCard(\'' + containerId + '\')" style="background:#fff;border:1px dashed #2E6EBF;color:#2E6EBF;border-radius:4px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin-top:4px;">+ Add entry</button>';
+      return html;
+    }
+
+    function regAddCard(containerId) {
+      var cfg = regCardConfigs[containerId];
+      if (!cfg) return;
+      cfg.count++;
+      var container = document.getElementById(containerId);
+      if (container) container.insertAdjacentHTML('beforeend', regRenderCard(cfg.groups, cfg.count));
+    }
+
+    function formCSteps() {
+      var step1 = regHeaderFields('Registration number issued under sub-clause (1) of clause 4');
+      var html = regCardsBlock('regCRows', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'Quantity in hand at the beginning of the day', placeholder: 'kg' },
+          { label: 'Quantity of the substance manufactured', placeholder: 'kg' }
+        ] },
+        { heading: 'Details of quantity of controlled substance sent out of the factory', fields: [
+          { label: 'Serial No.' },
+          { label: 'Quantity sent', placeholder: 'kg' },
+          { label: 'To whom sent (Registration number, name and address of the person and location of the premises to be given)', type: 'textarea' }
+        ] },
+        { fields: [
+          { label: 'Total quantity sent out of the factory', placeholder: 'kg' },
+          { label: 'Handling losses, if any', placeholder: 'kg' },
+          { label: 'Quantity in hand at the close of the day', placeholder: 'kg' },
+          { label: 'Initial of the authorised person' }
+        ] }
+      ]);
+      html += regNotes([
+        'The quantity shall be indicated in kilograms.',
+        'This record shall be maintained on day-to-day basis and entries shall be made for each day the establishment opens for work irrespective of whether there is any transaction or not and entries shall be completed for each day before the close of the day and the person authorised to maintain the accounts shall put his initial after the entries. Each page of the register shall contain the running serial number.',
+        'If more than one controlled substance is dealt with, separate register shall be maintained for each of such substances.'
+      ]);
+      return [
+        { label: 'Register Details', html: step1 },
+        { label: 'Daily Entries', html: html }
+      ];
+    }
+
+    function formDSteps() {
+      var step1 = regHeaderFields('Registration number issued under sub-clause (1) of clause 4');
+      var html = regCardsBlock('regDRows', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'Quantity in hand at the beginning of the day', placeholder: 'kg' }
+        ] },
+        { heading: 'Details of quantity of the substance received / imported', fields: [
+          { label: 'Sl. No.' },
+          { label: 'Quantity', placeholder: 'kg' },
+          { label: 'From whom received (Registration number, name and address of the person to be given)', type: 'textarea' },
+          { label: 'Consignment Note / Bill of Entry No.' }
+        ] },
+        { heading: 'Details of quantity of the substance distributed / sold / exported / consumed', fields: [
+          { label: 'Sl. No.' },
+          { label: 'Quantity', placeholder: 'kg' },
+          { label: 'To whom sold/sent (Registration number, name and address of the person and location of the premises to be given)', type: 'textarea' },
+          { label: 'Consignment Note / Issue Slip No.' },
+          { label: 'Consumed', placeholder: 'kg' },
+          { label: 'Purpose for consumption' }
+        ] },
+        { fields: [
+          { label: 'Handling loss, if any', placeholder: 'kg' },
+          { label: 'Quantity in hand at the close of day', placeholder: 'kg' },
+          { label: 'Initial of the authorised person' }
+        ] }
+      ]);
+      html += regNotes([
+        'The quantity shall be indicated in kilograms.',
+        'This record shall be maintained on day-to-day basis and entries shall be made for each day the establishment opens for work irrespective of whether there is any transaction or not and entries shall be completed for each day before the close of the day and the person authorised to maintain the accounts shall put his initial after the entries. Each page of the register shall contain the running serial number.',
+        'If more than one controlled substance is dealt with, separate register shall be maintained for each of such substances.',
+        'In case of import/export, in place of registration number, number and date of the No Objection Certificate issued by the Narcotics Commissioner shall be indicated.',
+        'Strike out whichever is not applicable.'
+      ]);
+      return [
+        { label: 'Register Details', html: step1 },
+        { label: 'Daily Entries', html: html }
+      ];
+    }
+
+    function formESteps() {
+      var step1 = '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>Return for the quarter ending on</label><input type="text" placeholder="DD/MM/YYYY"></div>';
+      step1 += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>1. Registration number issued under sub-clause (1) of clause 4</label><input type="text"></div>' +
+        '<div class="fb-field"><label>2. Name of the manufacturer</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field"><label>3. Address</label><textarea rows="2"></textarea></div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">' +
+        '<div class="fb-field"><label>4. Name of the controlled substance</label>' +
+        '<select><option value="">Select...</option><option>Acetic Anhydride</option><option>Ephedrine</option><option>Pseudoephedrine</option></select></div>' +
+        '<div class="fb-field"><label>5. Opening balance of the controlled substance at the beginning of the quarter</label><input type="text" placeholder="kg"></div>' +
+        '</div>';
+      var html = '<div class="fb-field"><label>6. Details of manufacture and sale</label></div>';
+      html += '<div style="font-size:10px;font-weight:700;color:#5A6474;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Manufacture</div>';
+      html += regCardsBlock('regERowsMfg', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'Quantity', placeholder: 'kg' }
+        ] }
+      ]);
+      html += '<div class="fb-field" style="max-width:50%;margin-top:10px;"><label>Total quantity manufactured</label><input type="text" placeholder="kg"></div>';
+      html += '<div style="font-size:10px;font-weight:700;color:#5A6474;text-transform:uppercase;letter-spacing:0.05em;margin:18px 0 6px;">Sale</div>';
+      html += regCardsBlock('regERowsSale', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'To whom sold (Registration Number, Name and address of the person and location of the premises)', type: 'textarea' },
+          { label: 'Consignment Note No.' },
+          { label: 'Quantity', placeholder: 'kg' }
+        ] }
+      ]);
+      html += '<div class="fb-field" style="max-width:50%;margin-top:10px;margin-bottom:16px;"><label>Total quantity sold</label><input type="text" placeholder="kg"></div>';
+      var step3 = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>7. Closing balance at the end of the quarter</label><input type="text" placeholder="kg"></div>' +
+        '<div class="fb-field"><label>8. Whether the return is filed within the due date</label>' +
+        '<div style="display:flex;gap:18px;padding-top:4px;"><label class="fb-chk"><input type="radio" name="regEOnTime"> Yes</label><label class="fb-chk"><input type="radio" name="regEOnTime" checked> No</label></div></div>' +
+        '</div>' +
+        '<div class="fb-field"><label>9. If the return is not filed within the due date, specify details of the fine paid for delay in submission of the return</label><textarea rows="2"></textarea></div>';
+      step3 += '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;margin-top:6px;">' +
+        '<div style="font-size:11px;color:#5A6474;margin-bottom:12px;">Certified that the information given below is correct and the relevant records are available with me/us.</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Designation</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Date</label><input type="text" placeholder="DD/MM/YYYY"></div>' +
+        '</div></div>';
+      step3 += regNotes([
+        'The quantity should be indicated in kilograms.',
+        'For each controlled substance, separate return shall be sent.',
+        'This return is to be sent to the concerned Zonal Director of the Narcotics Control Bureau.',
+        'In case of import/export, in place of registration number, number and date of the No Objection Certificate issued by the Narcotics Commissioner shall be indicated.'
+      ]);
+      return [
+        { label: 'Return Details', html: step1 },
+        { label: 'Manufacture & Sale', html: html },
+        { label: 'Closing & Certification', html: step3 }
+      ];
+    }
+
+    function formFSteps() {
+      var step1 = '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>Return for the quarter ending on</label><input type="text" placeholder="DD/MM/YYYY"></div>';
+      step1 += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>1. Registration number issued under sub-clause (1) of clause 4</label><input type="text"></div>' +
+        '<div class="fb-field"><label>2. Name of the seller, distributor, exporter, importer or consumer</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field"><label>3. Address</label><textarea rows="2"></textarea></div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">' +
+        '<div class="fb-field"><label>4. Name of the controlled substance</label>' +
+        '<select><option value="">Select...</option><option>Acetic Anhydride</option><option>Ephedrine</option><option>Pseudoephedrine</option></select></div>' +
+        '<div class="fb-field"><label>5. Opening balance of the controlled substance at the beginning of the quarter</label><input type="text" placeholder="kg"></div>' +
+        '</div>';
+      var html = '<div class="fb-field"><label>6. Details of quantity received and sold, consumed or exported</label></div>';
+      html += '<div style="font-size:10px;font-weight:700;color:#5A6474;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Receipt / Import</div>';
+      html += regCardsBlock('regFRows1', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'Received/imported from whom (Name and address of the person)', type: 'textarea' },
+          { label: 'Consignment Note No. / Bill of Entry No.' },
+          { label: 'Quantity received/imported', placeholder: 'kg' },
+          { label: 'Total', placeholder: 'kg' }
+        ] }
+      ]);
+      html += '<div style="font-size:10px;font-weight:700;color:#5A6474;text-transform:uppercase;letter-spacing:0.05em;margin:18px 0 6px;">Sale, Consumption or Export</div>';
+      html += regCardsBlock('regFRows2', [
+        { fields: [
+          { label: 'Date', placeholder: 'DD/MM/YYYY' },
+          { label: 'To whom sent (Name and address of the person)', type: 'textarea' },
+          { label: 'Consignment Note No.' },
+          { label: 'Quantity sold/consumed/export', placeholder: 'kg' },
+          { label: 'Total', placeholder: 'kg' }
+        ] }
+      ]);
+      var step3 = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>7. Closing balance at the end of the quarter</label><input type="text" placeholder="kg"></div>' +
+        '<div class="fb-field"><label>8. Whether the return is filed within the due date</label>' +
+        '<div style="display:flex;gap:18px;padding-top:4px;"><label class="fb-chk"><input type="radio" name="regFOnTime"> Yes</label><label class="fb-chk"><input type="radio" name="regFOnTime" checked> No</label></div></div>' +
+        '</div>';
+      step3 += '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;margin-top:6px;">' +
+        '<div style="font-size:11px;color:#5A6474;margin-bottom:12px;">Certified that the information given above is correct and the relevant records are available with me/us.</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Designation</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Date</label><input type="text" placeholder="DD/MM/YYYY"></div>' +
+        '</div></div>';
+      step3 += regNotes([
+        'The quantity should be indicated in kilograms.',
+        'For each controlled substance, separate return shall be sent.',
+        'Strike out whichever is not applicable.',
+        'In case of import/export, number and date of the No Objection Certificate issued by the Narcotics Commissioner shall be indicated under the column imported from whom/to whom sent.',
+        'This return is to be sent to the concerned Zonal Director of the Narcotics Control Bureau.'
+      ]);
+      return [
+        { label: 'Return Details', html: step1 },
+        { label: 'Receipt & Sale Details', html: html },
+        { label: 'Closing & Certification', html: step3 }
+      ];
+    }
+
+    function formGSteps() {
+      var step1 = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>Sl. No.</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Date and time of dispatch of the consignment</label><input type="text" placeholder="DD/MM/YYYY, HH:MM"></div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>1. Registration Number of the consignor issued under sub-clause (1) of clause 4</label><input type="text"></div>' +
+        '<div class="fb-field"><label>4. Registration number of the consignee issued under sub-clause (1) of clause 4</label><input type="text"></div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">' +
+        '<div class="fb-field"><label>2. Name and address of the consignor</label><textarea rows="2"></textarea></div>' +
+        '<div class="fb-field"><label>3. Name and address of the consignee</label><textarea rows="2"></textarea></div>' +
+        '</div>';
+      var html = '<div class="fb-field"><label>5. Description and quantity of the consignment</label></div>';
+      html += '<div style="overflow-x:auto;margin-bottom:16px;"><table style="width:100%;border-collapse:collapse;min-width:600px;">';
+      html += '<thead><tr>' + regTh('Particulars of Controlled Substance', 'vertical-align:bottom;', null, 2) + regTh('No. of package', 'vertical-align:bottom;', null, 2) + regTh('Quantity (in Kilogram)', 'text-align:center;', 2) + '</tr><tr>' +
+        regTh('Gross Weight') + regTh('Net Weight') +
+        '</tr></thead><tbody id="regGRows">' +
+        '<tr>' + regTd() + regTd() + regTd() + regTd() + '</tr>' +
+        '</tbody></table></div>' +
+        '<button onclick="regAddRow(\'regGRows\',4)" style="background:#fff;border:1px dashed #2E6EBF;color:#2E6EBF;border-radius:4px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:16px;">+ Add row</button>';
+      html += '<div class="fb-field"><label>6. Mode of transport (Particulars of the transporter, registration number of the vehicle / R.R. / L.R. if the transport is by Railway or Goods Transport, if any)</label><textarea rows="2"></textarea></div>';
+      html += '<div class="fb-field"><label>7. The total number of temper-proof seals affixed on motorised tankers/other packages and each of their description</label><textarea rows="2"></textarea></div>';
+      var step3 = '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;margin-bottom:16px;">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature of the consignor with date</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name in capital letters</label><input type="text"></div>' +
+        '</div></div>';
+      step3 += '<div class="fb-field"><label>8. Date and time of receipt by the consignee and his remarks</label><textarea rows="2"></textarea></div>';
+      step3 += '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature of the consignee</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name in capital letters</label><input type="text"></div>' +
+        '</div></div>';
+      step3 += regNotes([
+        'The Consignment Note should be serially numbered on annual basis.',
+        'The consignor should record a certificate on the cover page of each book containing consignment notes indicating the number of pages contained in the consignment Note-Book.',
+        'The books containing Consignment Notes used or currently in use shall be produced to the authorised officer whenever called upon.'
+      ]);
+      return [
+        { label: 'Consignor & Consignee', html: step1 },
+        { label: 'Consignment Details', html: html },
+        { label: 'Signatures', html: step3 }
+      ];
+    }
+
+    function formHSteps() {
+      var step1 = '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>Return for the quarter ending on</label><input type="text" placeholder="DD/MM/YYYY"></div>';
+      step1 += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>1. Registration Number of the consignor issued under sub-clause (1) of clause 4</label><input type="text"></div>' +
+        '<div class="fb-field"><label>2. Name of the consignor</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field"><label>3. Address</label><textarea rows="2"></textarea></div>' +
+        '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>4. Name of the controlled substance</label>' +
+        '<select><option value="">Select...</option><option>Acetic Anhydride</option><option>Ephedrine</option><option>Pseudoephedrine</option></select></div>';
+      var html = '<div class="fb-field"><label>5. Details of the consignments sent to the area of jurisdiction of the Zonal Director, Narcotics Control Bureau to whom the report is sent</label></div>';
+      html += '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;min-width:820px;">';
+      html += '<thead><tr>' +
+        regTh('Sl. No.') + regTh('Dated on which sent') + regTh('Quantity') +
+        regTh('To whom sent (indicate registration number issued under sub-clause (1) of clause 4, name and address)') +
+        regTh('Consignment Note No.') + regTh('Mode of transport') +
+        '</tr></thead><tbody id="regHRows">' +
+        '<tr>' + regTd() + regTd() + regTd() + regTd() + regTd() + regTd() + '</tr>' +
+        '</tbody></table></div>' +
+        '<button onclick="regAddRow(\'regHRows\',6)" style="background:#fff;border:1px dashed #2E6EBF;color:#2E6EBF;border-radius:4px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin:10px 0 16px;">+ Add row</button>';
+      html += '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name in block letter</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Designation</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field" style="max-width:33%;margin-top:10px;"><label>Date</label><input type="text" placeholder="DD/MM/YYYY"></div>' +
+        '</div>';
+      html += regNotes([
+        'The quantity shall be indicated in kilograms.',
+        'For each controlled substance a separate return shall be sent.'
+      ]);
+      return [
+        { label: 'Return Details', html: step1 },
+        { label: 'Consignment Details & Signature', html: html }
+      ];
+    }
+
+    function regAddRow(tbodyId, colCount) {
+      var tbody = document.getElementById(tbodyId);
+      if (!tbody) return;
+      var tr = document.createElement('tr');
+      var cells = '';
+      for (var i = 0; i < colCount; i++) cells += regTd();
+      tr.innerHTML = cells;
+      tbody.appendChild(tr);
+    }
+
+    function formISteps() {
+      function irow(label, field) {
+        return '<div style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #F0F2F5;align-items:flex-start;">' +
+          '<div style="width:340px;flex-shrink:0;font-size:12px;color:#3A4A5A;">' + label + '</div>' +
+          '<div style="flex:1;">' + field + '</div></div>';
+      }
+      var inp = '<input type="text" style="width:100%;padding:7px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">';
+      var txa = '<textarea rows="2" style="width:100%;padding:7px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;"></textarea>';
+      var sub = '<select style="width:100%;padding:7px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;"><option value="">Select...</option><option>Acetic Anhydride</option><option>Ephedrine</option><option>Pseudoephedrine</option></select>';
+      var yn = '<div style="display:flex;gap:18px;"><label class="fb-chk"><input type="radio" name="regIField"> Yes</label><label class="fb-chk"><input type="radio" name="regIField" checked> No</label></div>';
+      var step1 = '<div style="border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;">' +
+        irow('1. Registration Number issued under sub-clause (1) of clause 4', inp) +
+        irow('2. Name and address of the applicant', txa) +
+        irow('3. Name of the controlled substance', sub) +
+        irow('4. Quantity of controlled substance to be destroyed', '<input type="text" placeholder="kg" style="width:100%;padding:7px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">') +
+        irow('5. Type of packing and number of packages', inp) +
+        '</div>';
+      var html = '<div style="border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;">' +
+        irow('6. Place of storage of the controlled substance, if different from Sr. No. 2 above', txa) +
+        irow('7. Reasons why such destruction is required', txa) +
+        irow('8. Manner and place where the controlled substance is proposed to be destroyed', txa) +
+        irow('9. Whether the quantity of controlled substance is appearing in Form 2 or 3 Register, if yes enclose copy of the relevant page of the register', yn + '<div style="margin-top:8px;" class="fb-upload">Upload · PDF / JPEG · max 5 MB</div>') +
+        irow('10. Whether the quantity of controlled substance is appearing in the returns filed, if yes enclose copy of the last return filed', yn + '<div style="margin-top:8px;" class="fb-upload">Upload · PDF / JPEG · max 5 MB</div>') +
+        '</div>';
+      var step3 = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">' +
+        '<div class="fb-field"><label>Date</label><input type="text" placeholder="DD/MM/YYYY"></div>' +
+        '<div class="fb-field"><label>Place</label><input type="text"></div>' +
+        '</div>';
+      step3 += '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;">' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Designation</label><input type="text"></div>' +
+        '</div></div>';
+      step3 += regNotes([
+        'The quantity shall be indicated in kilograms.',
+        'For destruction of each controlled substance in Schedule A, separate application shall be sent.',
+        'This application is to be sent to the concerned Zonal Director of the Narcotics Control Bureau.'
+      ]);
+      return [
+        { label: 'Application Details', html: step1 },
+        { label: 'Destruction Details', html: html },
+        { label: 'Certification', html: step3 }
+      ];
+    }
+
+    function regLCols() {
+      return regTh('Date of enquiry/registration/posting') +
+        regTh('Controlled substance and quantity, if any and rate quoted') +
+        regTh('Name, address, telephone no, email of intending buyer') +
+        regTh('URN No. issued by') +
+        regTh('IP address') +
+        regTh('Payment details') +
+        regTh('PAN/CIN/GST No./IEC code/drug license') +
+        regTh('Copy of the registration obtained');
+    }
+
+    function formLSteps() {
+      var step1 = '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>Return for the quarter ending on</label><input type="text" placeholder="DD/MM/YYYY"></div>';
+      step1 += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">' +
+        '<div class="fb-field"><label>1. Registration number issued under sub-clause ___ of ___ clause ___</label><input type="text"></div>' +
+        '<div class="fb-field"><label>2. Name of the Broker/Intermediary Portal</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field"><label>3. Address</label><textarea rows="2"></textarea></div>' +
+        '<div class="fb-field"><label>4. Portal details</label><textarea rows="2"></textarea></div>' +
+        '<div class="fb-field" style="max-width:50%;margin-bottom:16px;"><label>5. Total Enquiries hosted during the quarter</label><input type="text"></div>';
+
+      var step2 = '<div class="fb-field"><label>6. Details of the enquiries hosted by the Broker/B2B Platform for seller/supplier, distributor, exporter or consumer of controlled substances</label></div>';
+      step2 += '<div style="overflow-x:auto;margin-bottom:6px;"><table style="width:100%;border-collapse:collapse;min-width:1100px;">';
+      step2 += '<thead><tr>' + regLCols() + '</tr></thead><tbody id="regLRows1">' +
+        '<tr>' + Array(8).fill(0).map(function () { return regTd(); }).join('') + '</tr>' +
+        '</tbody></table></div>' +
+        '<button onclick="regAddRow(\'regLRows1\',8)" style="background:#fff;border:1px dashed #2E6EBF;color:#2E6EBF;border-radius:4px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:16px;">+ Add row</button>';
+
+      var step3 = '<div class="fb-field"><label>7. Details of the enquiries hosted by the Broker/B2B Platform for Importer, Buyers or users of controlled substances</label></div>';
+      step3 += '<div style="overflow-x:auto;margin-bottom:6px;"><table style="width:100%;border-collapse:collapse;min-width:1100px;">';
+      step3 += '<thead><tr>' + regLCols() + '</tr></thead><tbody id="regLRows2">' +
+        '<tr>' + Array(8).fill(0).map(function () { return regTd(); }).join('') + '</tr>' +
+        '</tbody></table></div>' +
+        '<button onclick="regAddRow(\'regLRows2\',8)" style="background:#fff;border:1px dashed #2E6EBF;color:#2E6EBF;border-radius:4px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:16px;">+ Add row</button>';
+
+      var step4 = '<div style="background:#FAFBFC;border:1px solid #E0E4E8;border-radius:5px;padding:14px 16px;">' +
+        '<div style="font-size:11px;color:#5A6474;margin-bottom:12px;">Certified that the information given above is correct and the relevant records are available with me/us.</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">' +
+        '<div class="fb-field"><label>Signature</label><div class="fb-upload">Upload · PDF / JPEG · max 5 MB</div></div>' +
+        '<div class="fb-field"><label>Name</label><input type="text"></div>' +
+        '<div class="fb-field"><label>Designation</label><input type="text"></div>' +
+        '</div>' +
+        '<div class="fb-field" style="max-width:33%;margin-top:10px;"><label>Date</label><input type="text" placeholder="DD/MM/YYYY"></div>' +
+        '</div>';
+      step4 += regNotes(['The details of the enquiries for domestic sale purchase of controlled substance other than Schedule A need not be filed.']);
+      return [
+        { label: 'Broker Details', html: step1 },
+        { label: 'Enquiries — Sellers/Suppliers', html: step2 },
+        { label: 'Enquiries — Importers/Buyers', html: step3 },
+        { label: 'Certification', html: step4 }
+      ];
+    }
+
+    var regFormOrigin = null;
+    var regSteps = [];
+    var regStepCur = 1;
+
+    function openRegisterForm(type) {
+      var titles = {
+        C: ['FORM C', 'Register of Manufacture of Controlled Substances in Schedule A · [See sub-clause (5) of clause 4]'],
+        D: ['FORM D', 'Register of Consumption, Sale, Import or Export of Controlled Substance in Schedule A · [See sub-clause (5) of clause 4]'],
+        E: ['FORM E', 'Quarterly Return of Manufacture of Controlled Substance in Schedule A · [See sub-clause (6) of clause 4]'],
+        F: ['FORM F', 'Quarterly Return of Receipt, Import, Sale, Consumption or Export of Controlled Substance · [See sub-clause (6) of clause 4]'],
+        G: ['FORM G', 'Consignment Note (To accompany a consignment of controlled substance) · [See sub-clause (1) of clause 7]'],
+        H: ['FORM H', 'Quarterly Report on Transport of Controlled Substance to a Consignee Outside the Zone of a Consignor · [See sub-clause (9) of clause 7]'],
+        I: ['FORM I', 'Application for Destruction of Controlled Substance in Schedule A · [See sub-clause (1) of clause 9]'],
+        L: ['FORM L', 'Quarterly Return for Inquiries Hosted/Dealt by Broker/B2B Portals for Controlled Substances in Schedule A · [See sub-clause (6) of clause 4]']
+      };
+      var stepFns = { C: formCSteps, D: formDSteps, E: formESteps, F: formFSteps, G: formGSteps, H: formHSteps, I: formISteps, L: formLSteps };
+      var origins = {
+        C: ['returns', 'nav-returns', 'Returns Filing'], D: ['returns', 'nav-returns', 'Returns Filing'],
+        E: ['returns', 'nav-returns', 'Returns Filing'], F: ['returns', 'nav-returns', 'Returns Filing'],
+        H: ['returns', 'nav-returns', 'Returns Filing'], L: ['returns', 'nav-returns', 'Returns Filing'],
+        G: ['consignments', 'nav-substance', 'Consignment Notes'],
+        I: ['destruction', 'nav-substance', 'Destruction']
+      };
+      var origin = origins[type];
+      regFormOrigin = origin;
+      regSteps = stepFns[type]();
+
+      document.getElementById('regFormTitle').textContent = titles[type][0];
+      document.getElementById('regFormSub').textContent = titles[type][1];
+      document.getElementById('regFormCrumb').textContent = titles[type][0];
+      var parentCrumb = document.getElementById('regFormCrumbParent');
+      parentCrumb.textContent = origin[2];
+      parentCrumb.onclick = function () { showScreen(origin[0], origin[1]); };
+
+      var railHtml = '<div class="fb-rail-track"><div class="fb-rail-fill" id="regRailFill" style="height:0%;"></div></div>';
+      regSteps.forEach(function (s, i) {
+        railHtml += '<div class="fb-vstep' + (i === 0 ? ' active' : '') + '" data-step="' + (i + 1) + '" onclick="regGoStep(' + (i + 1) + ')">' +
+          '<div class="fb-vnum" id="regvnum' + (i + 1) + '">' + (i + 1) + '</div>' +
+          '<div class="fb-vstep-text"><div class="fb-vstep-label">' + s.label + '</div>' +
+          '<div class="fb-vstep-status" id="regvstat' + (i + 1) + '">' + (i === 0 ? 'In progress' : 'Pending') + '</div></div></div>';
+      });
+      document.getElementById('regRailSteps').innerHTML = railHtml;
+
+      var panelsHtml = regSteps.map(function (s, i) {
+        return '<div class="fb-panel' + (i === 0 ? ' fb-panel-active' : '') + '" id="regPanel' + (i + 1) + '">' +
+          '<div class="fb-card"><div class="fb-card-body">' + s.html + '</div></div></div>';
+      }).join('');
+      document.getElementById('regFormArea').innerHTML = panelsHtml;
+
+      regStepCur = 1;
+      showScreen('register-form', origin[1]);
+    }
+
+    function regGoStep(step) {
+      regStepCur = step;
+      for (var i = 1; i <= regSteps.length; i++) {
+        var panel = document.getElementById('regPanel' + i);
+        if (panel) panel.classList.toggle('fb-panel-active', i === step);
+      }
+      document.querySelectorAll('#regRailSteps .fb-vstep').forEach(function (s) {
+        var n = parseInt(s.dataset.step, 10);
+        s.classList.remove('active', 'done');
+        var num = document.getElementById('regvnum' + n);
+        var stat = document.getElementById('regvstat' + n);
+        if (n === step) {
+          s.classList.add('active');
+          if (stat) stat.textContent = 'In progress';
+          if (num) num.textContent = n;
+        } else if (n < step) {
+          s.classList.add('done');
+          if (stat) stat.textContent = 'Complete';
+          if (num) num.innerHTML = '&#10003;';
+        } else {
+          if (stat) stat.textContent = 'Pending';
+          if (num) num.textContent = n;
+        }
+      });
+      var fill = document.getElementById('regRailFill');
+      if (fill) fill.style.height = ((step - 1) / regSteps.length * 100) + '%';
+
+      var btnBack = document.getElementById('regBtnBack');
+      var btnNext = document.getElementById('regBtnNext');
+      if (btnBack) btnBack.style.display = (step > 1) ? 'inline-block' : 'none';
+      if (btnNext) btnNext.textContent = (step === regSteps.length) ? 'Submit' : 'Next →';
+
+      window.scrollTo(0, 0);
+    }
+
+    function regNext() {
+      if (regStepCur < regSteps.length) {
+        regGoStep(regStepCur + 1);
+      } else if (regFormOrigin) {
+        showScreen(regFormOrigin[0], regFormOrigin[1]);
+      }
+    }
+
+    function regBack() {
+      if (regStepCur > 1) regGoStep(regStepCur - 1);
+    }
+
+    function closeRegisterForm() {
+      if (regFormOrigin) showScreen(regFormOrigin[0], regFormOrigin[1]);
+      else showScreen('returns', 'nav-returns');
     }
 
     function selectSubstance(el) {

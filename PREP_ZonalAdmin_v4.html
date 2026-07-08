@@ -895,6 +895,10 @@
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="nav-label">Applications</span><span class="nav-badge">6</span><span
             class="nav-tooltip">Applications</span>
         </div>
+        <div class="nav-item" id="znav-companies" onclick="showZScreen('companies',this)">
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg></div><span class="nav-label">Company Registrations</span><span
+            class="nav-tooltip">Company Registrations</span>
+        </div>
         <div class="nav-item" id="znav-returns" onclick="showZScreen('returns',this)">
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="nav-label">Returns</span><span class="nav-tooltip">Returns</span>
         </div>
@@ -926,27 +930,22 @@
           <div class="kpi-tile primary">
             <div class="kpi-tile-label">Waiting for my approval</div>
             <div class="kpi-tile-value" style="color:#C2611C;">5</div>
-            <div class="kpi-tile-sub">New URNs, changes and surrenders</div>
           </div>
           <div class="kpi-tile">
             <div class="kpi-tile-label">Open investigations</div>
             <div class="kpi-tile-value" style="color:#5A3A9A;">2</div>
-            <div class="kpi-tile-sub">1 waiting for my decision</div>
           </div>
           <div class="kpi-tile alert">
             <div class="kpi-tile-label">Return issues</div>
             <div class="kpi-tile-value" style="color:#C0392B;">1</div>
-            <div class="kpi-tile-sub">Figures don't match</div>
           </div>
           <div class="kpi-tile" style="border-top-color:#C2611C;">
             <div class="kpi-tile-label">Non-filers</div>
             <div class="kpi-tile-value" style="color:#C2611C;">5</div>
-            <div class="kpi-tile-sub">Q1 2026 late</div>
           </div>
           <div class="kpi-tile">
             <div class="kpi-tile-label">Active URNs</div>
             <div class="kpi-tile-value" style="color:#1A2332;">48</div>
-            <div class="kpi-tile-sub">Mumbai Zone</div>
           </div>
         </div>
 
@@ -1780,6 +1779,184 @@
                 <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Closed</span></td>
                 <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;"
                     onclick="openInvDetail('closed')">View</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="zscreen-companies" class="zscreen" style="display:none;">
+        <div style="margin-bottom:16px;">
+          <div style="font-size:18px;font-weight:700;color:#1A2332;">Company Registrations</div>
+          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Onboard a new company entity onto the PREP
+            portal for Mumbai Zonal Office</div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+            Entity Details</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Company /
+                Entity Name <span style="color:#C0392B;">*</span></label>
+              <input type="text" placeholder="e.g. Sunrise Chemicals Pvt. Ltd."
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Business
+                Constitution <span style="color:#C0392B;">*</span></label>
+              <select
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
+                <option value="">Select...</option>
+                <option>Proprietorship</option>
+                <option>Partnership</option>
+                <option>Registered Company</option>
+                <option>Unregistered Company</option>
+                <option>Trust</option>
+                <option>Society</option>
+                <option>Others</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">CIN /
+                Registration Number</label>
+              <input type="text"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">PAN
+                (Permanent Account Number) <span style="color:#C0392B;">*</span></label>
+              <input type="text" placeholder="ABCDE1234F"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+            Registered Address</div>
+          <div style="margin-bottom:14px;">
+            <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Address
+              <span style="color:#C0392B;">*</span></label>
+            <input type="text" placeholder="Plot / premises number / street / locality"
+              style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">State
+                <span style="color:#C0392B;">*</span></label>
+              <select
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
+                <option value="">Select...</option>
+                <option>Maharashtra</option>
+                <option>Delhi</option>
+                <option>Gujarat</option>
+                <option>Karnataka</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">City
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">PIN code
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text" maxlength="6" placeholder="6 digits"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Zonal
+                Office <span style="color:#C0392B;">*</span></label>
+              <select
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
+                <option>Mumbai</option>
+                <option>Delhi</option>
+                <option>Chennai</option>
+                <option>Kolkata</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+            Primary Contact / Portal Admin</div>
+          <div style="font-size:11px;color:#8B98A8;margin-bottom:12px;">This person will receive the login invite as
+            the Company Admin for this entity.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Name
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Designation
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Email
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Mobile
+                <span style="color:#C0392B;">*</span></label>
+              <input type="text" maxlength="10" placeholder="10 digits"
+                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-bottom:24px;">
+          <button
+            style="background:#2E6EBF;color:#fff;border:none;border-radius:5px;padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Register
+            Company &amp; Send Invite</button>
+          <button
+            style="background:#fff;border:1px solid #D0D5DC;color:#5A6474;border-radius:5px;padding:9px 18px;font-size:12px;cursor:pointer;font-family:inherit;">Cancel</button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;">
+          <div style="font-size:13px;font-weight:600;color:#1A2332;padding:12px 16px;border-bottom:1px solid #E0E4E8;">
+            Recently Registered Companies</div>
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th class="zth">Company</th>
+                <th class="zth">CIN</th>
+                <th class="zth">Zone</th>
+                <th class="zth">Admin Contact</th>
+                <th class="zth">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ztd">ABC Pharmaceuticals Ltd.</td>
+                <td class="ztd">U24231MH2010PLC204896</td>
+                <td class="ztd">Mumbai Zone</td>
+                <td class="ztd">Rajesh Kumar</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Active</span></td>
+              </tr>
+              <tr>
+                <td class="ztd">Sunrise Chemicals Pvt. Ltd.</td>
+                <td class="ztd">U24299MH2018PTC312044</td>
+                <td class="ztd">Mumbai Zone</td>
+                <td class="ztd">A. Sharma</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Active</span></td>
+              </tr>
+              <tr>
+                <td class="ztd">Meridian Labs Pvt. Ltd.</td>
+                <td class="ztd">&mdash;</td>
+                <td class="ztd">Mumbai Zone</td>
+                <td class="ztd">P. Nair</td>
+                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Invite Sent</span></td>
               </tr>
             </tbody>
           </table>
@@ -2677,9 +2854,6 @@
         cell('Closing — declared', zfmt(s.declared), '#1A2332', 'From filed returns') +
         cell('Gap', gapVal, gapColor, gapSub, true) +
         '</div>';
-      var callout = (diff === 0)
-        ? '<div style="margin-top:12px;background:#EAF5EE;border:1px solid #CFE6D8;border-radius:5px;padding:8px 10px;font-size:11px;color:#1E7B4B;">Declared closing matches the computed figure. Nothing to review here.</div>'
-        : '<div style="margin-top:12px;background:#FDECEA;border:1px solid #F2C9C4;border-radius:5px;padding:8px 10px;font-size:11px;color:#A32D2D;">Declared closing is ' + zfmt(Math.abs(diff)) + ' kg ' + (diff < 0 ? 'below' : 'above') + ' what the movements add up to. This gap is the review signal — open the flagged quarter or company below.</div>';
       function bl(label, val) {
         return '<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px;"><span style="color:#5A6474;">' + label + '</span><span style="color:#1A2332;font-weight:500;">' + zfmt(val) + '</span></div>';
       }
@@ -2692,7 +2866,7 @@
         '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;border-top:1px solid #E0E4E8;padding-top:10px;font-size:12px;">' +
         '<span style="color:#5A6474;">Closing implied by movements (Opening + In − Out) <span style="font-weight:600;color:#1A2332;">' + zfmt(computed) + '</span></span>' +
         '<span style="color:#5A6474;">Declared in returns <span style="font-weight:600;color:#1A2332;">' + zfmt(s.declared) + '</span></span></div>';
-      document.getElementById('zSubLedger').innerHTML = strip + callout + breakdown;
+      document.getElementById('zSubLedger').innerHTML = strip + breakdown;
 
       // Concern signals
       document.getElementById('zSignals').innerHTML = signals.length
