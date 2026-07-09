@@ -18,6 +18,31 @@
       color: #1A2332;
       font-size: 13px;
       min-height: 100vh;
+      zoom: 1.1;
+    }
+
+    /* ── Thin, light scrollbars ── */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #C7CDD6 transparent;
+    }
+
+    *::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background: #C7CDD6;
+      border-radius: 8px;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background: #AEB6C2;
     }
 
     /* ── Header ── */
@@ -1560,13 +1585,44 @@
           <path d="M9.09 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3" />
           <line x1="12" y1="17" x2="12.01" y2="17" />
         </svg> Help</div>
-      <div class="header-user">
-        <div class="user-avatar">RK</div>
-        <div>
-          <div class="user-name">Rajesh Kumar</div>
-          <div class="user-role-label">Company Admin &nbsp;·&nbsp; ABC Pharmaceuticals Ltd.</div>
+      <div style="position:relative;">
+        <div class="header-user" onclick="toggleDropdown('userSwitchMenu')">
+          <div class="user-avatar">RK</div>
+          <div>
+            <div class="user-name">Rajesh Kumar</div>
+            <div class="user-role-label">Company Admin &nbsp;·&nbsp; ABC Pharmaceuticals Ltd.</div>
+          </div>
+          <span style="color:#9aadc1; margin-left:4px; font-size:10px;">&#9660;</span>
         </div>
-        <span style="color:#9aadc1; margin-left:4px; font-size:10px;">&#9660;</span>
+        <div id="userSwitchMenu"
+          style="display:none; position:absolute; right:0; top:calc(100% + 8px); background:#fff; border:1px solid #D0D5DC; border-radius:6px; min-width:240px; z-index:300; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+          <div
+            style="padding:8px 14px; font-size:10px; color:#8B98A8; text-transform:uppercase; letter-spacing:0.06em; border-bottom:1px solid #F0F2F5; background:#FAFBFC;">
+            Switch Workspace</div>
+          <div style="padding:10px 14px; font-size:12px; color:#1A2332; display:flex; align-items:center; gap:9px; background:#F5F7FA;">
+            <span style="width:26px;height:26px;border-radius:50%;background:#263040;color:#7A9AB8;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">RK</span>
+            <div style="flex:1;">
+              <div style="font-weight:600;">Company Admin</div>
+              <div style="font-size:10.5px;color:#8B98A8;">ABC Pharmaceuticals Ltd.</div>
+            </div>
+            <span style="color:#1E7B4B;font-size:14px;">&#10003;</span>
+          </div>
+          <div style="padding:10px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:9px;"
+            onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+            onclick="window.location.href='PREP_ZonalAdmin_v4.html'">
+            <span style="width:26px;height:26px;border-radius:50%;background:#263040;color:#7A9AB8;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">AD</span>
+            <div style="flex:1;">
+              <div style="font-weight:600;">Zonal Admin</div>
+              <div style="font-size:10.5px;color:#8B98A8;">Mumbai Zone</div>
+            </div>
+          </div>
+          <div style="border-top:1px solid #F0F2F5;"></div>
+          <div style="padding:9px 14px; font-size:12px; color:#A32D2D; cursor:pointer;"
+            onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
+            onclick="window.location.href='index.html'">
+            Sign out
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -1639,7 +1695,7 @@
           <span class="nav-tooltip">Returns Filing</span>
         </div>
         <div class="nav-sub-group" id="returnSub" style="display:none;">
-          <div class="nav-sub">
+          <div class="nav-sub" onclick="showScreen('returns','nav-returns')">
             <span class="nav-sub-dot"></span> File New Return
           </div>
         </div>
@@ -1866,34 +1922,6 @@
           </div>
         </div>
 
-        <!-- Summary strip -->
-        <div class="summary-strip">
-          <div class="summary-chip">
-            <div>
-              <div class="chip-value">2</div>
-              <div class="chip-label">Active URNs</div>
-            </div>
-          </div>
-          <div class="summary-chip">
-            <div>
-              <div class="chip-value" style="color:#C2611C;">1</div>
-              <div class="chip-label">Pending Approval</div>
-            </div>
-          </div>
-          <div class="summary-chip">
-            <div>
-              <div class="chip-value" style="color:#C0392B;">2</div>
-              <div class="chip-label">Returns Due</div>
-            </div>
-          </div>
-          <div class="summary-chip">
-            <div>
-              <div class="chip-value" style="color:#1E7B4B;">0</div>
-              <div class="chip-label">Inactive / Surrendered</div>
-            </div>
-          </div>
-        </div>
-
         <!-- Search -->
         <div style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
           <input type="text" placeholder="Search by URN number, substance, or zone..."
@@ -1906,40 +1934,24 @@
           </select>
         </div>
 
-        <!-- Tabs -->
-        <div style="background:#fff; border:1px solid #E0E4E8; border-radius:6px 6px 0 0; border-bottom:none;">
-          <div class="tab-row">
-            <div class="tab active" onclick="filterUrns('all', this)">All <span class="tab-count">3</span></div>
-            <div class="tab" onclick="filterUrns('active', this)">Active <span class="tab-count">2</span></div>
-            <div class="tab" onclick="filterUrns('pending', this)">Pending Approval <span class="tab-count">1</span>
-            </div>
-            <div class="tab" onclick="filterUrns('inactive', this)">Inactive <span class="tab-count">0</span></div>
-          </div>
-        </div>
-
         <!-- Full URN table -->
         <div class="urn-full-table-wrap">
           <table class="urn-full-table">
             <thead>
               <tr>
-                <th>URN Number</th>
                 <th>Controlled Substances</th>
                 <th>Registered Purpose</th>
                 <th>Zonal Office</th>
                 <th>Date Issued</th>
                 <th>Status</th>
                 <th>Returns — Q1 2026</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
               </tr>
             </thead>
             <tbody>
 
               <!-- Active row 1 — multiple substances -->
               <tr class="row-active">
-                <td>
-                  <span class="urn-num">PREP/ZO-MH/2026/00142</span>
-                  <span class="urn-sub-text">Issued 15 Feb 2026</span>
-                </td>
                 <td>
                   <div style="display:flex; flex-direction:column; gap:4px;">
                     <span
@@ -1959,7 +1971,7 @@
                   <span style="color:#C2611C;font-size:11px;font-weight:600;">2 returns pending</span><br>
                   <span style="color:#8B98A8;font-size:10px;">One per substance &nbsp;·&nbsp; Due 21 Jun</span>
                 </td>
-                <td>
+                <!-- <td>
                   <div class="row-actions">
                     <span class="rlink">View</span>
                     <span class="rsep">|</span>
@@ -1967,15 +1979,11 @@
                     <span class="rsep">|</span>
                     <span class="rlink off" data-tip="Stock must be nil to surrender">Surrender</span>
                   </div>
-                </td>
+                </td> -->
               </tr>
 
               <!-- Active row 2 — single substance -->
               <tr class="row-active">
-                <td>
-                  <span class="urn-num">PREP/ZO-MH/2025/00089</span>
-                  <span class="urn-sub-text">Issued 03 Nov 2025</span>
-                </td>
                 <td>
                   <div style="display:flex; flex-direction:column; gap:4px;">
                     <span
@@ -1992,7 +2000,7 @@
                   <span style="color:#C2611C;font-size:11px;font-weight:600;">1 return pending</span><br>
                   <span style="color:#8B98A8;font-size:10px;">Due 21 Jun 2026</span>
                 </td>
-                <td>
+                <!-- <td>
                   <div class="row-actions">
                     <span class="rlink">View</span>
                     <span class="rsep">|</span>
@@ -2000,15 +2008,11 @@
                     <span class="rsep">|</span>
                     <span class="rlink off" data-tip="Stock must be nil to surrender">Surrender</span>
                   </div>
-                </td>
+                </td> -->
               </tr>
 
               <!-- Pending application row -->
               <tr class="row-pending row-active">
-                <td>
-                  <span class="urn-num" style="color:#5A6474;">Application PREP/ZO-MH/2026/APP-019</span>
-                  <span class="urn-sub-text">Submitted 10 Jun 2026</span>
-                </td>
                 <td>
                   <div style="display:flex; flex-direction:column; gap:4px;">
                     <span
@@ -2026,7 +2030,7 @@
                   <span class="status-pill" style="background:#FBF0E7;color:#C2611C;">&#9679; Under Review</span>
                 </td>
                 <td style="color:#8B98A8; font-size:11px;">Not applicable</td>
-                <td>
+                <!-- <td>
                   <div class="row-actions">
                     <span class="rlink">View</span>
                     <span class="rsep">|</span>
@@ -2034,7 +2038,7 @@
                     <span class="rsep">|</span>
                     <span class="rlink off" data-tip="Available after URN is issued">Surrender</span>
                   </div>
-                </td>
+                </td> -->
               </tr>
 
             </tbody>
@@ -5714,8 +5718,9 @@
       var sub = document.getElementById(subId);
       var arrow = document.getElementById(arrowId);
       if (!sub) return;
-      sub.style.display = 'block';
-      if (arrow) arrow.classList.add('open');
+      var willOpen = sub.style.display !== 'block';
+      sub.style.display = willOpen ? 'block' : 'none';
+      if (arrow) arrow.classList.toggle('open', willOpen);
     }
 
     function showScreen(screenId, navId) {
@@ -5750,23 +5755,6 @@
       }
     }
 
-    function filterUrns(type, tabEl) {
-      document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-      tabEl.classList.add('active');
-
-      var rows = document.querySelectorAll('.urn-full-table tbody tr');
-      rows.forEach(function (row) {
-        if (type === 'all') {
-          row.style.display = '';
-        } else if (type === 'active') {
-          row.style.display = row.classList.contains('row-active') && !row.classList.contains('row-pending') ? '' : 'none';
-        } else if (type === 'pending') {
-          row.style.display = row.classList.contains('row-pending') ? '' : 'none';
-        } else if (type === 'inactive') {
-          row.style.display = 'none';
-        }
-      });
-    }
   </script>
 
 </body>

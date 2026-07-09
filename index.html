@@ -2,13 +2,856 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PREP Portal — Narcotics Control Bureau</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: 210 20% 98%;
+      --foreground: 214 85% 14%;
+      --card: 0 0% 100%;
+      --primary: 213 75% 34%;
+      --primary-foreground: 0 0% 98%;
+      --muted: 213 20% 94%;
+      --muted-foreground: 213 16% 47%;
+      --accent: 38 57% 56%;
+      --accent-foreground: 214 85% 14%;
+      --destructive: 0 72% 51%;
+      --border: 213 20% 88%;
+      --parchment: 40 30% 96%;
+      --success: 152 60% 40%;
+      --nav-bg: 214 85% 14%;
+      --nav-foreground: 213 20% 90%;
+      --gradient-brand: linear-gradient(145deg, #164f97 0%, #052041 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ── Thin, light scrollbars ── */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--border)) transparent;
+    }
+
+    *::-webkit-scrollbar { width: 7px; height: 7px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 8px; }
+    *::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
+    img { max-width: 100%; display: block; }
+
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+
+    /* ── GoI top strip ── */
+    .gov-strip {
+      background: hsl(var(--nav-bg));
+      color: hsl(var(--nav-foreground));
+      font-size: 11px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .gov-strip .left, .gov-strip .right { display: flex; align-items: center; gap: 12px; }
+    .gov-strip .sep { opacity: 0.5; }
+    .gov-strip a:hover { color: hsl(var(--accent)); }
+    @media (max-width: 768px) { .gov-strip .right { display: none; } }
+
+    /* ── Header ── */
+    .site-header {
+      background: hsl(var(--card));
+      border-bottom: 1px solid hsl(var(--border));
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+    }
+    .brand-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      border: none;
+      text-align: left;
+    }
+    .brand-btn img { width: 48px; height: 48px; object-fit: contain; }
+    .brand-title { font-size: 22px; font-weight: 700; line-height: 1.15; }
+    .brand-sub { font-size: 12px; color: hsl(var(--muted-foreground)); }
+    .main-nav { display: flex; align-items: center; gap: 20px; font-size: 14px; }
+    .main-nav button { background: none; border: none; color: hsl(var(--foreground) / 0.7); font-size: 14px; transition: color .15s; }
+    .main-nav button:hover { color: hsl(var(--accent)); }
+    @media (max-width: 992px) { .main-nav { display: none; } }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 11px 20px;
+      border: 1px solid transparent;
+      transition: opacity .15s, background .15s;
+    }
+    .btn-accent { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+    .btn-accent:hover { opacity: 0.9; }
+    .btn-outline { background: transparent; border-color: rgba(255,255,255,0.3); color: #fff; }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+    .btn-primary { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); width: 100%; }
+    .btn-primary:hover { opacity: 0.92; }
+
+    .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      color: hsl(var(--nav-foreground));
+      background-image: var(--gradient-brand);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      opacity: 0.07;
+      background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .hero-blob-1, .hero-blob-2 { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(70px); }
+    .hero-blob-1 { top: -128px; right: -128px; width: 384px; height: 384px; background: hsl(var(--accent) / 0.2); }
+    .hero-blob-2 { bottom: -160px; left: -80px; width: 448px; height: 448px; background: hsl(var(--primary) / 0.3); }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 32px;
+      align-items: stretch;
+      padding: 56px 16px;
+    }
+    @media (max-width: 992px) { .hero-grid { grid-template-columns: 1fr; padding: 40px 16px; } }
+
+    .hero-left { display: flex; flex-direction: column; height: 100%; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+      padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,0.1);
+      font-size: 12px; margin-bottom: 20px;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: hsl(var(--accent)); }
+    .hero-left h1 { font-size: 44px; font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 18px; }
+    .hero-left h1 span { color: hsl(var(--accent)); }
+    .hero-left h2 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .hero-left p.lead { font-size: 17px; color: #fff; max-width: 560px; margin-bottom: 24px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: auto; }
+    .hero-highlights {
+      margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    @media (max-width: 640px) { .hero-highlights { grid-template-columns: 1fr; } }
+    .hero-highlights .hl { display: flex; align-items: center; gap: 10px; }
+    .hero-highlights .hl .box {
+      width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hero-highlights .hl .box .icon { color: hsl(var(--accent)); }
+    .hero-highlights .hl span { font-size: 12px; color: #fff; }
+
+    /* ── Login card ── */
+    .login-card {
+      background: hsl(var(--card));
+      color: hsl(var(--foreground));
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .login-card h3 { font-size: 18px; font-weight: 700; }
+    .login-card .sub { font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 4px; margin-bottom: 20px; }
+    .field { margin-bottom: 12px; }
+    .field label { font-size: 12px; font-weight: 500; display: block; margin-bottom: 4px; }
+    .field input {
+      width: 100%; padding: 9px 12px; border: 1px solid hsl(var(--border)); border-radius: 6px;
+      font-size: 14px; font-family: inherit; background: hsl(var(--card)); color: hsl(var(--foreground));
+    }
+    .field input:focus { outline: 2px solid hsl(var(--primary) / 0.4); outline-offset: 1px; }
+    .captcha-row { display: flex; gap: 8px; }
+    .captcha-box {
+      padding: 9px 14px; background: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: 6px;
+      font-family: monospace; font-size: 14px; letter-spacing: 0.2em; user-select: none;
+    }
+    .field-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+    .field-row a:hover { text-decoration: underline; }
+    .field-row label { display: flex; align-items: center; gap: 6px; color: hsl(var(--muted-foreground)); font-weight: 400; cursor: pointer; }
+    .login-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid hsl(var(--border)); text-align: center; }
+    .login-footer p { font-size: 12px; color: hsl(var(--muted-foreground)); }
+
+    /* ── Section shell ── */
+    section { padding: 64px 16px; }
+    .section-title h2 { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+    .section-title .bar { width: 64px; height: 4px; background: hsl(var(--accent)); border-radius: 999px; }
+    .bg-light { background: hsl(var(--background)); }
+    .bg-band { color: hsl(var(--nav-foreground)); background-image: var(--gradient-brand); }
+    .bg-parchment { background: hsl(var(--parchment)); }
+    .bg-white { background: #fff; }
+
+    /* ── About ── */
+    .stat-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 32px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid hsl(var(--border)); }
+    .stat-chips .chip { display: flex; align-items: baseline; gap: 8px; }
+    .stat-chips .chip .n { font-size: 24px; font-weight: 700; color: hsl(var(--accent)); font-family: monospace; }
+    .stat-chips .chip .l { font-size: 12px; color: hsl(var(--muted-foreground)); text-transform: uppercase; letter-spacing: 0.05em; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tab-btn {
+      display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 14px; font-weight: 600;
+      border-radius: 999px; border: 1px solid hsl(var(--border)); background: hsl(var(--background));
+      color: hsl(var(--muted-foreground));
+    }
+    .tab-btn.active { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border-color: hsl(var(--accent)); }
+    .tab-btn:hover:not(.active) { border-color: hsl(var(--accent) / 0.4); color: hsl(var(--foreground)); }
+    .about-panel { display: grid; grid-template-columns: 3fr 2fr; border: 1px solid hsl(var(--border)); border-radius: 4px; overflow: hidden; }
+    @media (max-width: 992px) { .about-panel { grid-template-columns: 1fr; } }
+    .about-text { padding: 32px; background: hsl(var(--background)); }
+    .about-text p { font-size: 14px; color: hsl(var(--foreground) / 0.8); margin-bottom: 16px; line-height: 1.7; }
+    .about-side {
+      padding: 32px; color: hsl(var(--nav-foreground)); position: relative; overflow: hidden;
+      background-image: linear-gradient(145deg, #093871 0%, #052041 100%);
+    }
+    .about-side .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: hsl(var(--accent)); font-weight: 700; margin-bottom: 20px; }
+    .hier-list { list-style: none; position: relative; padding-left: 20px; display: flex; flex-direction: column; gap: 20px; }
+    .hier-list::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 1px; background: rgba(255,255,255,0.2); }
+    .hier-list li { position: relative; font-size: 14px; }
+    .hier-list li::before { content: ""; position: absolute; left: -20px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); box-shadow: 0 0 0 4px #052041; }
+    .hier-list li.first::before { background: hsl(var(--accent)); }
+    .hier-list .t { font-weight: 600; color: #fff; }
+    .hier-list .s { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+    /* ── Notifications ── */
+    .notif-list { position: relative; padding-left: 32px; }
+    .notif-list::before { content: ""; position: absolute; left: 3px; top: 12px; bottom: 12px; width: 1px; background: hsl(var(--accent) / 0.4); }
+    .notif-item { position: relative; margin-bottom: 12px; }
+    .notif-item::before { content: ""; position: absolute; left: -29px; top: 16px; width: 10px; height: 10px; border-radius: 50%; background: hsl(var(--accent)); box-shadow: 0 0 0 4px #052041; }
+    .notif-card {
+      display: grid; grid-template-columns: 7rem 1fr auto; gap: 24px; align-items: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      padding: 12px 16px; transition: background .15s, border-color .15s;
+    }
+    .notif-card:hover { background: rgba(255,255,255,0.1); border-color: hsl(var(--accent) / 0.4); }
+    .notif-card .date { font-size: 12px; color: rgba(255,255,255,0.6); font-family: monospace; }
+    .notif-card .title { font-size: 14px; color: rgba(255,255,255,0.9); }
+    .notif-card .icon { color: rgba(255,255,255,0.4); }
+    @media (max-width: 640px) { .notif-card { grid-template-columns: 1fr; gap: 6px; } .notif-card .icon { display: none; } }
+    .notif-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 8px; }
+    .notif-head h2 { font-size: 30px; font-weight: 700; color: #fff; }
+    .notif-head .bar { width: 64px; height: 1px; background: hsl(var(--accent)); margin-top: 12px; }
+    .view-all { font-size: 12px; color: hsl(var(--accent)); display: flex; align-items: center; gap: 4px; }
+    .view-all:hover { text-decoration: underline; }
+
+    /* ── Do's & Don'ts ── */
+    .dd-head { text-align: center; margin-bottom: 40px; }
+    .dd-head h2 { font-size: 30px; font-weight: 700; }
+    .dd-head .bar { width: 64px; height: 1px; background: hsl(var(--accent)); margin: 12px auto 0; }
+    .dd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 768px) { .dd-grid { grid-template-columns: 1fr; } }
+    .dd-panel { border-radius: 12px; padding: 24px; border: 1px solid; border-left-width: 4px; }
+    .dd-do { background: hsl(152 70% 40% / 0.06); border-color: hsl(152 70% 40% / 0.2); border-left-color: hsl(152 70% 40%); }
+    .dd-dont { background: hsl(var(--destructive) / 0.05); border-color: hsl(var(--destructive) / 0.2); border-left-color: hsl(var(--destructive)); }
+    .dd-title { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .dd-title .badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .dd-do .badge { background: hsl(152 70% 40% / 0.15); color: hsl(152 70% 40%); }
+    .dd-dont .badge { background: hsl(var(--destructive) / 0.15); color: hsl(var(--destructive)); }
+    .dd-title h3 { font-size: 16px; font-weight: 600; }
+    .dd-panel ul { list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: hsl(var(--foreground) / 0.85); }
+    .dd-panel li { display: flex; gap: 12px; }
+    .dd-panel li .icon { margin-top: 2px; }
+    .dd-do li .icon { color: hsl(152 70% 40%); }
+    .dd-dont li .icon { color: hsl(var(--destructive)); }
+
+    /* ── Forms ── */
+    .forms-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; border-top: 1px solid rgba(255,255,255,0.15); }
+    @media (max-width: 768px) { .forms-grid { grid-template-columns: 1fr; } }
+    .form-row {
+      display: grid; grid-template-columns: 5rem 1fr; align-items: center; gap: 16px;
+      padding: 14px 8px; border-bottom: 1px solid rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer;
+    }
+    .form-row:hover { background: rgba(255,255,255,0.1); }
+    .form-row .code { font-size: 12px; font-family: monospace; color: hsl(var(--accent)); }
+    .form-row .title { font-size: 14px; color: rgba(255,255,255,0.9); }
+    .form-row:hover .title { color: hsl(var(--accent)); }
+
+    /* ── FAQ ── */
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; } }
+    .faq-col { display: flex; flex-direction: column; gap: 8px; }
+    details.faq-item { border: 1px solid hsl(var(--border)); border-radius: 8px; background: hsl(var(--background)); padding: 0 16px; }
+    details.faq-item summary {
+      list-style: none; padding: 12px 0; font-size: 14px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary:hover { color: hsl(var(--accent)); }
+    details.faq-item summary .icon { color: hsl(var(--accent)); margin-top: 2px; }
+    details.faq-item .a { font-size: 12px; color: hsl(var(--muted-foreground)); line-height: 1.7; padding-bottom: 12px; padding-left: 28px; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card {
+      padding: 24px; border-radius: 16px; border: 1px solid hsl(var(--border)); background: hsl(var(--card));
+      transition: transform .15s, box-shadow .15s;
+    }
+    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -10px rgba(0,0,0,0.15); }
+    .contact-card .badge {
+      width: 48px; height: 48px; border-radius: 50%; margin-bottom: 16px;
+      background: linear-gradient(135deg, hsl(var(--accent) / 0.25), hsl(var(--accent) / 0.05));
+      display: flex; align-items: center; justify-content: center; color: hsl(var(--accent));
+    }
+    .contact-card .label { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .contact-card .lines { font-size: 12px; color: hsl(var(--muted-foreground)); line-height: 1.7; }
+
+    /* ── Locations ── */
+    .loc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .loc-grid { grid-template-columns: repeat(2, 1fr); } }
+    .loc-card {
+      padding: 20px; border-radius: 12px; border: 1px solid hsl(var(--border)); background: hsl(var(--card));
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .loc-card:hover { border-color: hsl(var(--accent) / 0.4); box-shadow: 0 10px 25px -12px rgba(0,0,0,0.15); }
+    .loc-card .icon { color: hsl(var(--accent)); width: 20px; height: 20px; margin-bottom: 12px; }
+    .loc-card .zone { font-size: 16px; font-weight: 600; }
+    .loc-card .city { font-size: 14px; color: hsl(var(--muted-foreground)); margin-top: 4px; }
+    .loc-more { margin-top: 24px; text-align: center; }
+    .loc-more button { background: none; border: none; font-size: 14px; font-weight: 600; color: hsl(var(--accent)); }
+    .loc-more button:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      color: hsl(var(--nav-foreground));
+      background-image: var(--gradient-brand);
+      padding-top: 56px;
+      border-top: 3px solid hsl(var(--accent));
+    }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 48px; padding-bottom: 48px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+    .f-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .f-brand img { width: 44px; height: 44px; object-fit: contain; }
+    .f-brand span { color: #fff; font-weight: 700; font-size: 19px; }
+    footer p.desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+    .f-social { display: flex; gap: 10px; margin-top: 16px; }
+    .f-social div {
+      width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 700;
+    }
+    footer h5 { color: hsl(var(--accent)); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 16px; }
+    .f-links { display: flex; flex-direction: column; gap: 8px; }
+    .f-links button, .f-links a { background: none; border: none; text-align: left; font-size: 13px; color: rgba(255,255,255,0.6); }
+    .f-links button:hover, .f-links a:hover { color: hsl(var(--accent)); }
+    footer .legal-text { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 12px; }
+    .footer-bottom {
+      max-width: 1280px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .visitor-badge {
+      font-size: 11.5px; font-weight: 600; color: hsl(var(--accent)); background: hsl(var(--accent) / 0.15);
+      border: 1px solid hsl(var(--accent) / 0.3); padding: 4px 12px; border-radius: 999px;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>hemml</h1>
+
+  <!-- GoI Top Strip -->
+  <div class="gov-strip">
+    <div class="left">
+      <span>भारत सरकार | Government of India</span>
+      <span class="sep">|</span>
+      <span>Ministry of Home Affairs</span>
+      <span class="sep">|</span>
+      <span>Narcotics Control Bureau</span>
+    </div>
+    <div class="right">
+      <a href="#home">Skip to Main Content</a>
+      <span class="sep">|</span>
+      <a href="#home">Screen Reader</a>
+      <span class="sep">|</span>
+      <a href="#home">A- A A+</a>
+    </div>
+  </div>
+
+  <!-- NCB Header -->
+  <header class="site-header">
+    <div class="wrap">
+      <button class="brand-btn" onclick="scrollToId('home')">
+        <img src="favicon.png" alt="NCB">
+        <div>
+          <div class="brand-title">Narcotics Control Bureau</div>
+          <div class="brand-sub">PREP Portal</div>
+        </div>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <button data-scroll="home">Home</button>
+        <button data-scroll="about">About</button>
+        <button data-scroll="notifications">Notifications</button>
+        <button data-scroll="dos-donts">Do's &amp; Don'ts</button>
+        <button data-scroll="forms">List of Forms</button>
+        <button data-scroll="faqs">FAQs</button>
+        <button data-scroll="contact">Contact Us</button>
+        <button data-scroll="locations">NCB Locations</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero" style="padding:0;">
+    <div class="hero-blob-1"></div>
+    <div class="hero-blob-2"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge"><span class="dot"></span>Authorized under the NDPS Act, 1985</div>
+        <h1><span>PREP</span></h1>
+        <h2>Precursor Regulation &amp; Evaluation Portal</h2>
+        <p class="lead">A unified national platform for the regulation, monitoring, and evaluation of controlled precursor chemicals across India — from registration to lifecycle tracking.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="PREP_CompanyAdmin_v4.html">
+            Apply for URN
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <button class="btn btn-outline" onclick="scrollToId('about')">Learn More</button>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="hl">
+            <div class="box"><svg class="icon" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.35 8.95a1 1 0 0 1-1.3 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <span>Easy and secure process</span>
+          </div>
+          <div class="hl">
+            <div class="box"><svg class="icon" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.5 15h11"/><path d="M8.5 2h7"/></svg></div>
+            <span>Lifecycle Tracking</span>
+          </div>
+          <div class="hl">
+            <div class="box"><svg class="icon" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+            <span>Real-time Insights</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;">
+        <form class="login-card" id="loginForm">
+          <h3>Sign In to PREP</h3>
+          <p class="sub">Access your role-specific dashboard</p>
+
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Enter username" autocomplete="username">
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter password" autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="captcha">Captcha</label>
+            <div class="captcha-row">
+              <div class="captcha-box">7K9X2A</div>
+              <input id="captcha" type="text" placeholder="Enter captcha" style="flex:1;">
+            </div>
+          </div>
+          <div class="field-row">
+            <label><input type="checkbox" id="remember"> Remember me</label>
+            <a href="#home">Forgot password?</a>
+          </div>
+          <div style="margin-top:auto;padding-top:4px;">
+            <button type="submit" class="btn btn-primary">
+              Sign In
+              <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <div class="login-footer">
+            <p>New to PREP? Contact your Zonal NCB office for credentials.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="bg-light">
+    <div class="wrap">
+      <div class="section-title" style="margin-bottom:32px;">
+        <h2 id="aboutHeading">About PREP</h2>
+        <div class="bar"></div>
+      </div>
+
+      <div class="stat-chips">
+        <div class="chip"><span class="n">07</span><span class="l">Regional Offices</span></div>
+        <div class="chip"><span class="n">13</span><span class="l">Zonal Offices</span></div>
+        <div class="chip"><span class="n">08</span><span class="l">Controlled Substances</span></div>
+      </div>
+
+      <div class="tabs" id="aboutTabs">
+        <button class="tab-btn active" data-tab="prep">
+          <svg class="icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          PREP
+        </button>
+        <button class="tab-btn" data-tab="precursor">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.5 15h11"/><path d="M8.5 2h7"/></svg>
+          Precursor
+        </button>
+        <button class="tab-btn" data-tab="urn">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><line x1="12" x2="12" y1="16" y2="16"/><line x1="12" x2="12" y1="8" y2="12"/></svg>
+          URN
+        </button>
+      </div>
+
+      <div class="about-panel">
+        <div class="about-text" id="aboutText">
+          <!-- injected by JS -->
+        </div>
+        <div class="about-side">
+          <div class="label">Administrative Hierarchy</div>
+          <ul class="hier-list">
+            <li class="first"><div class="t">NCB Headquarters</div><div class="s">New Delhi</div></li>
+            <li><div class="t">Regional Offices</div><div class="s">7 Offices</div></li>
+            <li><div class="t">Zonal Offices</div><div class="s">13 Zones</div></li>
+            <li><div class="t">Registered Companies</div><div class="s">Industry</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notifications -->
+  <section id="notifications" class="bg-band">
+    <div class="wrap">
+      <div class="notif-head">
+        <div>
+          <h2>Notifications</h2>
+          <div class="bar"></div>
+        </div>
+        <a class="view-all" href="#notifications">View All
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="notif-list">
+        <div class="notif-item">
+          <a class="notif-card" href="files/OCTOBER_14_2019.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="date">14 Oct 2019</div>
+            <div class="title">Amendment to RCS Order 2013 — Schedule A Substance Threshold Limits Revised</div>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="notif-item">
+          <a class="notif-card" href="files/FEBRUARY_27_2018.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="date">27 Feb 2018</div>
+            <div class="title">Regulation of Controlled Substances (Amendment) Order, 2018</div>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="notif-item">
+          <a class="notif-card" href="files/SEPTEMBER_23_2013.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="date">23 Sep 2013</div>
+            <div class="title">Regulation of Controlled Substances (Amendment) Order, 2013</div>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="notif-item">
+          <a class="notif-card" href="files/MARCH_26_2013.pdf" target="_blank" rel="noopener noreferrer">
+            <div class="date">26 Mar 2013</div>
+            <div class="title">Regulation of Controlled Substances Order, 2013 (Original)</div>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Do's & Don'ts -->
+  <section id="dos-donts" class="bg-light">
+    <div class="wrap">
+      <div class="dd-head">
+        <h2>Do's &amp; Don'ts</h2>
+        <div class="bar"></div>
+      </div>
+      <div class="dd-grid">
+        <div class="dd-panel dd-do">
+          <div class="dd-title">
+            <div class="badge"><svg class="icon" style="width:18px;height:18px;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></div>
+            <h3>Do's</h3>
+          </div>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>File quarterly returns within stipulated deadlines using Form E and Form F.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Report any loss, damage, or pilferage immediately to the NCB Zonal Office and on the PREP portal.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Store controlled substances in a locked, secure facility with restricted access.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Keep all licenses and approvals readily available for inspection by NCB officers at any time.</span></li>
+          </ul>
+        </div>
+        <div class="dd-panel dd-dont">
+          <div class="dd-title">
+            <div class="badge"><svg class="icon" style="width:18px;height:18px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+            <h3>Don'ts</h3>
+          </div>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Do not sell or transfer controlled substances without prior written permission from NCB.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Do not exceed the approved consumption or production limits without obtaining prior authorization.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Do not destroy or dispose of controlled substances without obtaining prior permission from the Zonal NCB office.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Do not delay filing of quarterly returns — monetary and legal penalties apply for late submission.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- List of Forms -->
+  <section id="forms" class="bg-band">
+    <div class="wrap">
+      <h2 style="font-size:30px;font-weight:700;margin-bottom:8px;color:#fff;">List of Forms</h2>
+      <div style="width:64px;height:1px;background:hsl(var(--accent));margin-bottom:32px;"></div>
+      <div class="forms-grid">
+        <div class="form-row"><div class="code">Form A</div><div class="title">Registration for manufacture / distribution / sale / purchase / possession / storage / consumption of controlled substance in Schedule-A (URN Generation)</div></div>
+        <div class="form-row"><div class="code">Form B</div><div class="title">Application for registration for manufacture / distribution / sale / purchase / possession / storage / consumption of controlled substance in Schedule-A</div></div>
+        <div class="form-row"><div class="code">Form C</div><div class="title">Register of manufacture of controlled substances in Schedule-A</div></div>
+        <div class="form-row"><div class="code">Form D</div><div class="title">Register of consumption, sale, import or export of controlled substance in Schedule-A</div></div>
+        <div class="form-row"><div class="code">Form E</div><div class="title">Quarterly return of manufacture of controlled substance in Schedule-A</div></div>
+        <div class="form-row"><div class="code">Form F</div><div class="title">Quarterly return of receipt, import, sale, consumption or export of controlled substance</div></div>
+        <div class="form-row"><div class="code">Form G</div><div class="title">Consignment Note (To accompany a consignment of controlled substance)</div></div>
+        <div class="form-row"><div class="code">Form H</div><div class="title">Quarterly report on transport of controlled substance to a consignee outside the zone of a consignor</div></div>
+        <div class="form-row"><div class="code">Form I</div><div class="title">Application for destruction of Controlled Substance in Schedule-A</div></div>
+        <div class="form-row"><div class="code">Form L</div><div class="title">Quarterly return for inquiries hosted/dealt by broker/B2B portals for controlled substances in Schedule-A</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faqs" class="bg-parchment">
+    <div class="wrap">
+      <div class="section-title" style="margin-bottom:32px;">
+        <h2>Frequently Asked Questions</h2>
+        <div class="bar"></div>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-col">
+          <details class="faq-item">
+            <summary><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>What is PREP and who needs to register?</summary>
+            <div class="a">PREP (Precursor Register and Evaluation Portal) is the official online portal of the Narcotics Control Bureau (NCB), Ministry of Home Affairs, Government of India. It is established under the NDPS Act, 1985 and the Regulation of Controlled Substances (RCS) Order, 2013. Any entity — manufacturer, trader, importer, exporter, or research institution — dealing in the 8 controlled substances must register and obtain a Unique Registration Number (URN).</div>
+          </details>
+          <details class="faq-item">
+            <summary><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>What are the 8 controlled substances regulated under NDPS Act, 1985?</summary>
+            <div class="a">NCB regulates 8 controlled substances: (1) Opium derivatives — Morphine, Codeine, Thebaine, (2) Heroin (Diacetylmorphine), (3) Cannabis — Marijuana, Hashish/Charas, and Ganja, (4) Coca alkaloids — Cocaine, (5) Methamphetamine, (6) Amphetamine, (7) LSD (Lysergic Acid Diethylamide), and (8) Methaqualone.</div>
+          </details>
+          <details class="faq-item">
+            <summary><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>What happens if a loss, theft, or damage of a controlled substance occurs?</summary>
+            <div class="a">Any loss, damage, or pilferage must be reported immediately to the NCB Zonal Office and recorded on the PREP portal using the incident reporting module. Failure to report within the stipulated time attracts penalties under the NDPS Act, 1985.</div>
+          </details>
+        </div>
+        <div class="faq-col">
+          <details class="faq-item">
+            <summary><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How do I apply for a URN (Unique Registration Number)?</summary>
+            <div class="a">Log in to the PREP portal and fill Form B (Application for URN Registration) with complete company details, list of controlled substances handled, and supporting documents. The concerned NCB Zonal Office will review it and issue Form A (URN Certificate) upon approval.</div>
+          </details>
+          <details class="faq-item">
+            <summary><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Can controlled substances be sold or transferred without NCB permission?</summary>
+            <div class="a">No. Sale or transfer of any controlled substance requires prior written permission from NCB. The buyer must hold a valid URN for the specific substance. All consignments must be accompanied by Form G (Consignment Note) and an intimation must be filed via Form H. Transfers without NCB authorisation are a punishable offence under the NDPS Act, 1985.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-white">
+    <div class="wrap">
+      <div class="section-title" style="margin-bottom:32px;">
+        <h2>Contact Us</h2>
+        <div class="bar"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="badge"><svg class="icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="label">Headquarters</div>
+          <div class="lines">
+            <div>Narcotics Control Bureau</div>
+            <div>West Block-1, Wing No. 5</div>
+            <div>R.K. Puram, New Delhi - 110066</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="badge"><svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="label">Helpdesk</div>
+          <div class="lines">
+            <div>Toll Free: 1800-XXX-XXXX</div>
+            <div>Office: 011-XXXXXXX</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="badge"><svg class="icon" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+          <div class="label">Email</div>
+          <div class="lines">
+            <div>Support: support@ncbpreregister.in</div>
+            <div>RTI: digital@ncb.gov.in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section id="locations" class="bg-light">
+    <div class="wrap">
+      <div class="section-title" style="margin-bottom:32px;">
+        <h2>NCB Locations</h2>
+        <div class="bar"></div>
+      </div>
+      <div class="loc-grid">
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Headquarters</div><div class="city">New Delhi</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Amritsar Zone</div><div class="city">Amritsar</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Chandigarh Zone</div><div class="city">Chandigarh</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Jammu Zone</div><div class="city">Jammu</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Srinagar Zone</div><div class="city">Srinagar</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Delhi Zone</div><div class="city">New Delhi</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Dehradun Zone</div><div class="city">Dehradun</div></div>
+        <div class="loc-card"><svg class="icon loc-icon" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="zone">Gorakhpur Zone</div><div class="city">Gorakhpur</div></div>
+      </div>
+      <div class="loc-more">
+        <button onclick="scrollToId('locations')">See All Zones →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <div class="f-brand">
+          <img src="favicon.png" alt="NCB">
+          <span>Narcotics Control Bureau</span>
+        </div>
+        <p class="desc">Government of India, Ministry of Home Affairs. Precursor Register and Evaluation Portal (PREP) — Official platform for controlled substance compliance.</p>
+        <div class="f-social">
+          <div>𝕏</div><div>f</div><div>▶</div>
+        </div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <div class="f-links">
+          <button onclick="scrollToId('home')">Home</button>
+          <button onclick="scrollToId('about')">About PREP</button>
+          <button onclick="scrollToId('notifications')">Notifications</button>
+          <button onclick="scrollToId('forms')">Forms</button>
+          <button onclick="scrollToId('faqs')">FAQ</button>
+          <button onclick="scrollToId('contact')">Contact Us</button>
+        </div>
+      </div>
+      <div>
+        <h5>Important Links</h5>
+        <div class="f-links">
+          <a href="#home">NDPS Act, 1985</a>
+          <a href="#home">RCS Order, 2013</a>
+          <a href="#home">MHA Website</a>
+        </div>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <p class="legal-text">The information provided on this portal is for official use. Unauthorized access or misuse is a punishable offence under the IT Act, 2000 and NDPS Act, 1985.</p>
+        <div class="f-links">
+          <a href="#home">Website Policy</a>
+          <a href="#home">Accessibility Statement</a>
+          <a href="#home">© 2026 NCB, Government of India</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Last Updated: June 2026 | Best viewed in Chrome, Firefox, Edge | Official website of NCB, Government of India</p>
+      <span class="visitor-badge">👁 1,42,867 Visitors</span>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToId(id) {
+      var el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.querySelectorAll('#mainNav [data-scroll]').forEach(function (btn) {
+      btn.addEventListener('click', function () { scrollToId(btn.getAttribute('data-scroll')); });
+    });
+
+    // ── About tabs ──
+    var ABOUT_TABS = {
+      prep: {
+        label: 'PREP',
+        heading: 'About the PREP Portal',
+        paras: [
+          "PREP is the official digital platform of India's Narcotics Control Bureau (NCB), established under the NDPS Act, 1985 and the RCS Order, 2013. It is a centralized system for registering and monitoring all entities that handle controlled precursor chemicals.",
+          "Through a four-tier hierarchy — NCB HQ, Regional Offices, Zonal Offices, and Registered Companies — PREP enables real-time oversight of controlled substance flows across India, mandating quarterly compliance reporting.",
+          "The portal streamlines the registration process, eliminates physical paperwork, and provides a secure, user-friendly interface for businesses to submit their quarterly returns, manage their URN status, and communicate directly with regulatory authorities."
+        ]
+      },
+      precursor: {
+        label: 'Precursor',
+        heading: 'What are Precursor Chemicals?',
+        paras: [
+          "Under the NDPS Act, 1985 and the RCS Order, 2013, NCB regulates 8 primary controlled precursor chemicals. These dual-use chemicals have legitimate industrial applications but are strictly monitored to prevent diversion into illicit drug synthesis.",
+          "Any entity manufacturing, trading, importing, or using these substances must register on the PREP portal and obtain a URN. Strict monitoring prevents their diversion into illicit drug manufacturing pipelines.",
+          "NCB focus on 8 major controlled substances: Acetic anhydride, N-Acetylanthranilic acid, Anthranilic acid, Ephedrine and its salts, Pseudoephedrine and its salts, 4-Anilino-N-phenethylpiperidine (ANPP)I, N-Phenethyl-4-piperidone (NPP)I, 2-Bromo-4-Methylpropiophenone"
+        ]
+      },
+      urn: {
+        label: 'URN',
+        heading: 'Unique Registration Number (URN)',
+        paras: [
+          "A URN (Unique Registration Number) is the mandatory licence issued by NCB to manufacturers, traders, importers, exporters, and research institutions dealing in controlled substances. Operating without a valid URN is a punishable offence under the NDPS Act, 1985.",
+          "To apply, submit Form B on the PREP portal. After verification by the NCB Zonal Office, Form A (URN Certificate) is issued. URNs must be renewed annually and holders must file quarterly returns (Form E & F) within 30 days of each quarter end.",
+          "Holding a valid URN implies strict adherence to all statutory guidelines, including maintaining accurate stock registers, reporting suspicious transactions, and cooperating with NCB inspections to maintain the integrity of the chemical supply chain."
+        ]
+      }
+    };
+
+    function renderAboutTab(key) {
+      var tab = ABOUT_TABS[key];
+      document.getElementById('aboutHeading').textContent = 'About ' + tab.label;
+      document.getElementById('aboutText').innerHTML = tab.paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      document.querySelectorAll('#aboutTabs .tab-btn').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-tab') === key);
+      });
+    }
+    document.querySelectorAll('#aboutTabs .tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { renderAboutTab(btn.getAttribute('data-tab')); });
+    });
+    renderAboutTab('prep');
+
+    // ── Login ──
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      window.location.href = 'PREP_CompanyAdmin_v4.html';
+    });
+  </script>
+
 </body>
 
 </html>
