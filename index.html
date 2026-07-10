@@ -208,6 +208,95 @@
     .field-row label { display: flex; align-items: center; gap: 6px; color: hsl(var(--muted-foreground)); font-weight: 400; cursor: pointer; }
     .login-footer { margin-top: 16px; padding-top: 16px; border-top: 1px solid hsl(var(--border)); text-align: center; }
     .login-footer p { font-size: 12px; color: hsl(var(--muted-foreground)); }
+    .login-footer a { color: hsl(var(--primary)); font-weight: 600; }
+    .login-footer a:hover { text-decoration: underline; }
+
+    /* ── Registration modal ── */
+    .field select {
+      width: 100%; padding: 9px 12px; border: 1px solid hsl(var(--border)); border-radius: 6px;
+      font-size: 14px; font-family: inherit; background: hsl(var(--card)); color: hsl(var(--foreground));
+    }
+    .field input[type="file"] { padding: 7px 8px; font-size: 12px; }
+    .field-hint { font-size: 11px; color: hsl(var(--muted-foreground)); margin-top: 3px; }
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(5,32,65,0.55);
+      align-items: center; justify-content: center; z-index: 500; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: hsl(var(--card)); border-radius: 12px; max-width: 560px; width: 100%;
+      max-height: 90vh; overflow-y: auto; padding: 28px; position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%;
+      border: none; background: hsl(var(--muted)); color: hsl(var(--foreground)); font-size: 16px;
+      display: flex; align-items: center; justify-content: center; line-height: 1;
+    }
+    .modal-close:hover { background: hsl(var(--border)); }
+    .modal-card h3 { font-size: 19px; font-weight: 700; padding-right: 24px; }
+    .modal-card .sub { font-size: 12px; color: hsl(var(--muted-foreground)); margin-top: 4px; margin-bottom: 20px; }
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; row-gap: 16px; column-gap: 16px; }
+    @media (max-width: 560px) { .modal-grid { grid-template-columns: 1fr; } }
+    .modal-grid .field.full { grid-column: 1 / -1; }
+    .modal-grid .field, .form-step .field { margin-bottom: 0; }
+    .form-section-label {
+      grid-column: 1 / -1; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: hsl(var(--accent)); font-weight: 700; padding-bottom: 6px; border-bottom: 1px solid hsl(var(--border));
+    }
+    .form-section-label.first { margin-top: 0; }
+    .field input:disabled { background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); }
+    .btn-ghost { background: transparent; border-color: hsl(var(--border)); color: hsl(var(--foreground)); width: auto; }
+    .btn-ghost:hover { background: hsl(var(--muted)); }
+
+    /* ── Email / mobile OTP verification ── */
+    .field-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .field-label-row label { margin-bottom: 0; }
+    .verify-link {
+      background: none; border: none; padding: 0; font-size: 11.5px; font-weight: 700;
+      color: hsl(var(--primary)); display: inline-flex; align-items: center; gap: 4px;
+    }
+    .verify-link:hover:not(:disabled) { text-decoration: underline; }
+    .verify-link:disabled { color: hsl(152 70% 40%); cursor: default; }
+    .otp-inline { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .otp-inline input {
+      width: 108px; padding: 8px 10px; border: 1px solid hsl(var(--border)); border-radius: 6px;
+      font-size: 13px; letter-spacing: 0.15em; font-family: inherit;
+    }
+    .otp-hint { font-size: 10.5px; color: hsl(var(--muted-foreground)); white-space: nowrap; }
+    .verify-note { font-size: 11px; margin-top: 0; }
+    .verify-note:empty { display: none; }
+    .verify-note.ok { color: hsl(152 70% 40%); font-weight: 600; }
+    .verify-note.err { color: hsl(var(--destructive)); font-weight: 600; }
+
+    /* ── Registration stepper ── */
+    .reg-stepper { display: flex; align-items: flex-start; justify-content: center; margin-bottom: 24px; }
+    .reg-step-dot { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+    .reg-step-dot span {
+      width: 26px; height: 26px; border-radius: 50%; background: hsl(var(--muted)); color: hsl(var(--muted-foreground));
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      transition: background .15s, color .15s;
+    }
+    .reg-step-dot label { font-size: 10px; color: hsl(var(--muted-foreground)); white-space: nowrap; }
+    .reg-step-dot.active span { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+    .reg-step-dot.active label { color: hsl(var(--foreground)); font-weight: 600; }
+    .reg-step-dot.done span { background: hsl(152 70% 40%); color: #fff; }
+    .reg-step-line { flex: 0 1 80px; height: 2px; background: hsl(var(--border)); margin: 12px 10px 0; }
+    .reg-step-line.done { background: hsl(152 70% 40%); }
+
+    /* ── Multi-step form ── */
+    .form-step { display: none; grid-template-columns: 1fr 1fr; row-gap: 16px; column-gap: 16px; }
+    .form-step.active { display: grid; }
+    @media (max-width: 560px) { .form-step { grid-template-columns: 1fr; } }
+    .form-step .field.full { grid-column: 1 / -1; }
+    .reg-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+    .register-success { text-align: center; padding: 24px 0; }
+    .register-success .badge {
+      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px; background: hsl(152 70% 40% / 0.12);
+      color: hsl(152 70% 40%); display: flex; align-items: center; justify-content: center;
+    }
+    .register-success h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .register-success p { font-size: 13px; color: hsl(var(--muted-foreground)); max-width: 360px; margin: 0 auto; }
 
     /* ── Section shell ── */
     section { padding: 64px 16px; }
@@ -492,12 +581,170 @@
           </div>
 
           <div class="login-footer">
-            <p>New to PREP? Contact your Zonal NCB office for credentials.</p>
+            <p>New applicant? <a href="#" onclick="openRegisterModal(event)">Register here</a></p>
           </div>
         </form>
       </div>
     </div>
   </section>
+
+  <!-- Registration modal -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closeRegisterModal()" aria-label="Close">&times;</button>
+
+      <div id="registerFormWrap">
+        <h3>New Applicant Registration</h3>
+        <p class="sub">Register on PREP to apply for a URN and manage your compliance filings</p>
+
+        <div class="reg-stepper" id="regStepper">
+          <div class="reg-step-dot active"><span>1</span><label>Your Details</label></div>
+          <div class="reg-step-line"></div>
+          <div class="reg-step-dot"><span>2</span><label>Address &amp; Document</label></div>
+        </div>
+
+        <form id="registerForm">
+          <div class="form-step active">
+            <div class="field">
+              <label for="regUsername">Username</label>
+              <input id="regUsername" type="text" placeholder="Choose a username" required>
+            </div>
+            <div class="field">
+              <label for="regPan">PAN</label>
+              <input id="regPan" type="text" placeholder="ABCDE1234F" maxlength="10" style="text-transform:uppercase;" required>
+            </div>
+            <div class="field">
+              <label for="regPassword">Password</label>
+              <input id="regPassword" type="password" placeholder="Create a password" minlength="8" required>
+            </div>
+            <div class="field">
+              <label for="regConfirmPassword">Confirm Password</label>
+              <input id="regConfirmPassword" type="password" placeholder="Re-enter password" minlength="8" required>
+            </div>
+
+            <div class="field">
+              <div class="field-label-row">
+                <label for="regEmail">Email</label>
+                <button type="button" class="verify-link" id="regEmailSendBtn" onclick="sendOtp('email')">Send OTP</button>
+              </div>
+              <input id="regEmail" type="email" placeholder="you@example.com" required>
+              <div class="otp-inline" id="regEmailOtpRow" style="display:none;">
+                <input type="text" id="regEmailOtp" maxlength="6" placeholder="Enter OTP">
+                <button type="button" class="verify-link" onclick="verifyOtp('email')">Verify</button>
+                <span class="otp-hint">Demo OTP: 123456</span>
+              </div>
+              <div class="verify-note" id="regEmailStatus"></div>
+            </div>
+            <div class="field">
+              <div class="field-label-row">
+                <label for="regMobile">Mobile Number</label>
+                <button type="button" class="verify-link" id="regMobileSendBtn" onclick="sendOtp('mobile')">Send OTP</button>
+              </div>
+              <input id="regMobile" type="tel" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+              <div class="otp-inline" id="regMobileOtpRow" style="display:none;">
+                <input type="text" id="regMobileOtp" maxlength="6" placeholder="Enter OTP">
+                <button type="button" class="verify-link" onclick="verifyOtp('mobile')">Verify</button>
+                <span class="otp-hint">Demo OTP: 123456</span>
+              </div>
+              <div class="verify-note" id="regMobileStatus"></div>
+            </div>
+            <div class="field">
+              <label for="regApplicantType">Type of Applicant</label>
+              <select id="regApplicantType" required>
+                <option value="">Select applicant type</option>
+                <option>Manufacturer</option>
+                <option>Trader</option>
+                <option>Importer</option>
+                <option>Exporter</option>
+                <option>Research Institution</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="regEntityType">Entity Type</label>
+              <select id="regEntityType" required>
+                <option value="">Select entity type</option>
+                <option>Sole Proprietorship</option>
+                <option>Partnership</option>
+                <option>Limited Liability Partnership (LLP)</option>
+                <option>Private Limited Company</option>
+                <option>Public Limited Company</option>
+                <option>Registered Society / Trust</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field full">
+              <label for="regAddress">Registered Entity Address</label>
+              <input id="regAddress" type="text" placeholder="Building, street, area" required>
+            </div>
+            <div class="field">
+              <label for="regState">State</label>
+              <select id="regState" required>
+                <option value="">Select state</option>
+                <option>Andhra Pradesh</option>
+                <option>Bihar</option>
+                <option>Delhi</option>
+                <option>Gujarat</option>
+                <option>Haryana</option>
+                <option>Karnataka</option>
+                <option>Kerala</option>
+                <option>Madhya Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Punjab</option>
+                <option>Rajasthan</option>
+                <option>Tamil Nadu</option>
+                <option>Telangana</option>
+                <option>Uttar Pradesh</option>
+                <option>Uttarakhand</option>
+                <option>West Bengal</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="regDistrict">District</label>
+              <input id="regDistrict" type="text" placeholder="Enter district" required>
+            </div>
+            <div class="field">
+              <label for="regPincode">Pin Code</label>
+              <input id="regPincode" type="text" placeholder="6-digit PIN code" pattern="[0-9]{6}" maxlength="6" required>
+            </div>
+            <div class="field">
+              <label for="regCountry">Country</label>
+              <input id="regCountry" type="text" value="India" disabled>
+            </div>
+
+            <div class="field full">
+              <label for="regDoc">Upload Document</label>
+              <input id="regDoc" type="file" accept=".pdf,.jpg,.jpeg,.png" required>
+              <div class="field-hint">PAN card / incorporation certificate, PDF or JPEG, max 5 MB</div>
+            </div>
+          </div>
+
+          <div class="reg-nav">
+            <button type="button" class="btn btn-ghost" id="regBackBtn" onclick="regBack()" style="visibility:hidden;">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+              Back
+            </button>
+            <button type="button" class="btn btn-primary" id="regNextBtn" onclick="regNext()" style="width:auto;">
+              Next
+              <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <button type="submit" class="btn btn-primary" id="regSubmitBtn" style="width:auto;display:none;">
+              Submit Registration
+              <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="register-success" id="registerSuccess" style="display:none;">
+        <div class="badge"><svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h4>Registration Submitted</h4>
+        <p>Please login using your mobile number / email / username and password once your application is verified by the concerned NCB Zonal Office.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- About -->
   <section id="about" class="bg-light">
@@ -849,6 +1096,155 @@
     document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
       window.location.href = 'PREP_CompanyAdmin_v4.html';
+    });
+
+    // ── Registration modal ──
+    var registerModal = document.getElementById('registerModal');
+    var registerForm = document.getElementById('registerForm');
+
+    var regSteps = document.querySelectorAll('#registerForm .form-step');
+    var regDots = document.querySelectorAll('#regStepper .reg-step-dot');
+    var regLines = document.querySelectorAll('#regStepper .reg-step-line');
+    var regStepIndex = 0;
+
+    function regRenderStep() {
+      regSteps.forEach(function (el, i) { el.classList.toggle('active', i === regStepIndex); });
+      regDots.forEach(function (dot, i) {
+        dot.classList.toggle('active', i === regStepIndex);
+        dot.classList.toggle('done', i < regStepIndex);
+      });
+      regLines.forEach(function (line, i) { line.classList.toggle('done', i < regStepIndex); });
+      document.getElementById('regBackBtn').style.visibility = regStepIndex === 0 ? 'hidden' : 'visible';
+      document.getElementById('regNextBtn').style.display = regStepIndex === regSteps.length - 1 ? 'none' : 'inline-flex';
+      document.getElementById('regSubmitBtn').style.display = regStepIndex === regSteps.length - 1 ? 'inline-flex' : 'none';
+    }
+
+    // ── Email / mobile OTP verification (demo only — OTP is always 123456) ──
+    var OTP_FIELDS = {
+      email: { input: 'regEmail', sendBtn: 'regEmailSendBtn', otpRow: 'regEmailOtpRow', otpInput: 'regEmailOtp', status: 'regEmailStatus', label: 'email' },
+      mobile: { input: 'regMobile', sendBtn: 'regMobileSendBtn', otpRow: 'regMobileOtpRow', otpInput: 'regMobileOtp', status: 'regMobileStatus', label: 'mobile number' }
+    };
+    var regVerified = { email: false, mobile: false };
+
+    function sendOtp(type) {
+      var f = OTP_FIELDS[type];
+      var input = document.getElementById(f.input);
+      if (!input.checkValidity()) { input.reportValidity(); return; }
+      document.getElementById(f.otpRow).style.display = 'flex';
+      document.getElementById(f.sendBtn).textContent = 'Resend OTP';
+      var status = document.getElementById(f.status);
+      status.textContent = '';
+      status.className = 'verify-note';
+    }
+
+    function verifyOtp(type) {
+      var f = OTP_FIELDS[type];
+      var otp = document.getElementById(f.otpInput).value;
+      var status = document.getElementById(f.status);
+      if (otp === '123456') {
+        regVerified[type] = true;
+        status.textContent = '';
+        status.className = 'verify-note';
+        document.getElementById(f.otpRow).style.display = 'none';
+        document.getElementById(f.input).disabled = true;
+        var btn = document.getElementById(f.sendBtn);
+        btn.disabled = true;
+        btn.innerHTML = '&#10003; Verified';
+      } else {
+        status.textContent = 'Incorrect OTP. Please try again.';
+        status.className = 'verify-note err';
+      }
+    }
+
+    function regResetOtpFields() {
+      regVerified = { email: false, mobile: false };
+      ['email', 'mobile'].forEach(function (type) {
+        var f = OTP_FIELDS[type];
+        document.getElementById(f.input).disabled = false;
+        document.getElementById(f.otpRow).style.display = 'none';
+        document.getElementById(f.otpInput).value = '';
+        var btn = document.getElementById(f.sendBtn);
+        btn.disabled = false;
+        btn.textContent = 'Send OTP';
+        var status = document.getElementById(f.status);
+        status.textContent = '';
+        status.className = 'verify-note';
+      });
+    }
+
+    function regValidateStep(index) {
+      var fields = regSteps[index].querySelectorAll('input, select');
+      for (var i = 0; i < fields.length; i++) {
+        if (!fields[i].checkValidity()) { fields[i].reportValidity(); return false; }
+      }
+      if (index === 0) {
+        var pw = document.getElementById('regPassword');
+        var cpw = document.getElementById('regConfirmPassword');
+        if (pw.value !== cpw.value) {
+          cpw.setCustomValidity('Passwords do not match');
+          cpw.reportValidity();
+          return false;
+        }
+        cpw.setCustomValidity('');
+
+        if (!regVerified.email) {
+          var eStatus = document.getElementById('regEmailStatus');
+          eStatus.textContent = 'Please verify your email to continue.';
+          eStatus.className = 'verify-note err';
+          return false;
+        }
+        if (!regVerified.mobile) {
+          var mStatus = document.getElementById('regMobileStatus');
+          mStatus.textContent = 'Please verify your mobile number to continue.';
+          mStatus.className = 'verify-note err';
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function regNext() {
+      if (!regValidateStep(regStepIndex)) return;
+      if (regStepIndex < regSteps.length - 1) { regStepIndex++; regRenderStep(); }
+    }
+
+    function regBack() {
+      if (regStepIndex > 0) { regStepIndex--; regRenderStep(); }
+    }
+
+    function openRegisterModal(e) {
+      if (e) e.preventDefault();
+      registerForm.reset();
+      regResetOtpFields();
+      regStepIndex = 0;
+      regRenderStep();
+      document.getElementById('registerFormWrap').style.display = 'block';
+      document.getElementById('registerSuccess').style.display = 'none';
+      registerModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeRegisterModal() {
+      registerModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('regConfirmPassword').addEventListener('input', function () {
+      this.setCustomValidity('');
+    });
+
+    registerForm.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && regStepIndex < regSteps.length - 1) {
+        e.preventDefault();
+        regNext();
+      }
+    });
+
+    registerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!regValidateStep(regStepIndex)) return;
+      document.getElementById('registerFormWrap').style.display = 'none';
+      document.getElementById('registerSuccess').style.display = 'block';
     });
   </script>
 
