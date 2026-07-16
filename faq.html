@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — PREP Portal</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: 210 20% 98%;
+      --foreground: 214 85% 14%;
+      --card: 0 0% 100%;
+      --primary: 213 75% 34%;
+      --primary-foreground: 0 0% 98%;
+      --muted: 213 20% 94%;
+      --muted-foreground: 213 16% 47%;
+      --accent: 38 57% 56%;
+      --accent-foreground: 214 85% 14%;
+      --destructive: 0 72% 51%;
+      --border: 213 20% 88%;
+      --success: 152 60% 40%;
+      --nav-bg: 214 85% 14%;
+      --nav-foreground: 213 20% 90%;
+      --gradient-brand: linear-gradient(145deg, #164f97 0%, #052041 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: hsl(var(--primary)); text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    * { scrollbar-width: thin; scrollbar-color: hsl(var(--border)) transparent; }
+    *::-webkit-scrollbar { width: 7px; height: 7px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 8px; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+
+    /* ── GoI top strip ── */
+    .gov-strip {
+      background: hsl(var(--nav-bg));
+      color: hsl(var(--nav-foreground));
+      font-size: 11px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .gov-strip .left, .gov-strip .right { display: flex; align-items: center; gap: 12px; }
+    .gov-strip .sep { opacity: 0.5; }
+    .gov-strip a { color: inherit; }
+    .gov-strip a:hover { color: hsl(var(--accent)); }
+    @media (max-width: 768px) { .gov-strip .right { display: none; } }
+
+    /* ── Header ── */
+    .site-header {
+      background: hsl(var(--card));
+      border-bottom: 1px solid hsl(var(--border));
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .site-header .inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;
+    }
+    .brand-btn { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-btn img { width: 48px; height: 48px; object-fit: contain; }
+    .brand-title { font-size: 22px; font-weight: 700; line-height: 1.15; color: hsl(var(--foreground)); }
+    .brand-sub { font-size: 12px; color: hsl(var(--muted-foreground)); }
+    .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: hsl(var(--muted-foreground)); }
+    .back-link:hover { color: hsl(var(--accent)); }
+    .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ── Hero band ── */
+    .faq-hero {
+      position: relative;
+      color: hsl(var(--nav-foreground));
+      background-image: var(--gradient-brand);
+      overflow: hidden;
+      padding: 48px 16px;
+    }
+    .faq-hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      opacity: 0.06;
+      background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .faq-hero-blob { position: absolute; top: -96px; right: -96px; width: 320px; height: 320px; border-radius: 50%; background: hsl(var(--accent) / 0.2); filter: blur(70px); pointer-events: none; }
+    .faq-hero .inner { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+    .faq-hero .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.1); font-size: 11px; margin-bottom: 16px;
+    }
+    .faq-hero .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: hsl(var(--accent)); }
+    .faq-hero h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .faq-hero .bar { width: 56px; height: 2px; background: hsl(var(--accent)); border-radius: 999px; margin-bottom: 16px; }
+    .faq-hero p { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 560px; }
+
+    /* ── Body ── */
+    .faq-body { padding: 40px 16px 64px; }
+
+    .faq-search { position: relative; margin-bottom: 20px; }
+    .faq-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #a0aec0; }
+    .faq-search input {
+      width: 100%; padding: 13px 14px 13px 42px; border: 1.5px solid hsl(var(--border)); border-radius: 8px;
+      font-family: inherit; font-size: 14px; background: hsl(var(--card)); outline: none; color: hsl(var(--foreground));
+    }
+    .faq-search input:focus { border-color: hsl(var(--primary)); }
+
+    .faq-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .faq-tab-btn {
+      display: flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13px; font-weight: 600;
+      border-radius: 999px; border: 1px solid hsl(var(--border)); background: hsl(var(--card));
+      color: hsl(var(--muted-foreground));
+    }
+    .faq-tab-btn .count { font-size: 11px; opacity: 0.75; }
+    .faq-tab-btn.active { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border-color: hsl(var(--accent)); }
+    .faq-tab-btn:hover:not(.active) { border-color: hsl(var(--accent) / 0.4); color: hsl(var(--foreground)); }
+
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-empty { text-align: center; color: hsl(var(--muted-foreground)); padding: 40px 0; font-size: 14px; }
+
+    details.faq-item { border: 1px solid hsl(var(--border)); border-radius: 8px; background: hsl(var(--card)); padding: 0 16px; }
+    details.faq-item summary {
+      list-style: none; padding: 14px 0; font-size: 14px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 12px; color: hsl(var(--foreground));
+    }
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary:hover { color: hsl(var(--accent)); }
+    details.faq-item summary .qmark { color: hsl(var(--accent)); margin-top: 1px; flex-shrink: 0; }
+    details.faq-item summary .qtext { flex: 1; }
+    details.faq-item summary .cat-chip {
+      font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: hsl(var(--muted-foreground));
+      background: hsl(var(--muted)); padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 1px; white-space: nowrap;
+    }
+    details.faq-item .a { font-size: 13px; color: hsl(var(--muted-foreground)); line-height: 1.75; padding: 0 0 16px 28px; }
+    details.faq-item .a p { margin: 10px 0; }
+    details.faq-item .a p:first-child { margin-top: 0; }
+    details.faq-item .a ul, details.faq-item .a ol { margin: 8px 0 8px 18px; }
+    details.faq-item .a li { margin-bottom: 4px; }
+    details.faq-item .a b { color: hsl(var(--foreground)); }
+
+    /* ── Footer ── */
+    footer { color: hsl(var(--nav-foreground)); background-image: var(--gradient-brand); padding-top: 56px; border-top: 3px solid hsl(var(--accent)); margin-top: 20px; }
+    .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 48px; padding: 0 16px 48px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+    .f-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .f-brand img { width: 44px; height: 44px; object-fit: contain; }
+    .f-brand span { color: #fff; font-weight: 700; font-size: 19px; }
+    footer p.desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+    .f-social { display: flex; gap: 10px; margin-top: 16px; }
+    .f-social div { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 700; }
+    footer h5 { color: hsl(var(--accent)); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 16px; }
+    .f-links { display: flex; flex-direction: column; gap: 8px; }
+    .f-links a { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .f-links a:hover { color: hsl(var(--accent)); }
+    footer .legal-text { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 12px; }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .visitor-badge { font-size: 11.5px; font-weight: 600; color: hsl(var(--accent)); background: hsl(var(--accent) / 0.15); border: 1px solid hsl(var(--accent) / 0.3); padding: 4px 12px; border-radius: 999px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- GoI Top Strip -->
+  <div class="gov-strip">
+    <div class="left">
+      <span>भारत सरकार | Government of India</span>
+      <span class="sep">|</span>
+      <span>Ministry of Home Affairs</span>
+      <span class="sep">|</span>
+      <span>Narcotics Control Bureau</span>
+    </div>
+    <div class="right">
+      <a href="index.html">Skip to Main Content</a>
+      <span class="sep">|</span>
+      <a href="index.html">Screen Reader</a>
+      <span class="sep">|</span>
+      <a href="index.html">A- A A+</a>
+    </div>
+  </div>
+
+  <!-- NCB Header -->
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand-btn" href="index.html">
+        <img src="favicon.png" alt="NCB">
+        <div>
+          <div class="brand-title">Narcotics Control Bureau</div>
+          <div class="brand-sub">PREP Portal</div>
+        </div>
+      </a>
+      <a class="back-link" href="index.html">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero band -->
+  <section class="faq-hero">
+    <div class="faq-hero-blob"></div>
+    <div class="inner">
+      <div class="badge"><span class="dot"></span>URN Registration &amp; Compliance</div>
+      <h1>Frequently Asked Questions</h1>
+      <div class="bar"></div>
+      <p>Answers to common queries on URN application, addition of premises, end products, consumption capacity, and surrendering the URN — as clarified by NCB.</p>
+    </div>
+  </section>
+
+  <!-- FAQ list -->
+  <section class="faq-body">
+    <div class="wrap">
+      <div class="faq-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="faqSearch" type="text" placeholder="Search FAQs...">
+      </div>
+      <div class="faq-tabs" id="faqTabs"></div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="f-brand">
+          <img src="favicon.png" alt="NCB">
+          <span>Narcotics Control Bureau</span>
+        </div>
+        <p class="desc">Government of India, Ministry of Home Affairs. Precursor Register and Evaluation Portal (PREP) — Official platform for controlled substance compliance.</p>
+        <div class="f-social">
+          <div>𝕏</div><div>f</div><div>▶</div>
+        </div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <div class="f-links">
+          <a href="index.html">Home</a>
+          <a href="zones.html">NCB Locations</a>
+          <a href="faq.html">FAQs</a>
+        </div>
+      </div>
+      <div>
+        <h5>Important Links</h5>
+        <div class="f-links">
+          <a href="index.html">NDPS Act, 1985</a>
+          <a href="index.html">RCS Order, 2013</a>
+          <a href="index.html">MHA Website</a>
+        </div>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <p class="legal-text">The information provided on this portal is for official use. Unauthorized access or misuse is a punishable offence under the IT Act, 2000 and NDPS Act, 1985.</p>
+        <div class="f-links">
+          <a href="index.html">Website Policy</a>
+          <a href="index.html">Accessibility Statement</a>
+          <a href="index.html">© 2026 NCB, Government of India</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Last Updated: June 2026 | Best viewed in Chrome, Firefox, Edge | Official website of NCB, Government of India</p>
+      <span class="visitor-badge">👁 1,42,867 Visitors</span>
+    </div>
+  </footer>
+
+  <script src="files/faqData.js"></script>
+  <script>
+    var state = { category: 'all', query: '' };
+
+    function getFiltered() {
+      var q = state.query.toLowerCase();
+      return FAQ_DATA.filter(function (item) {
+        var catMatch = state.category === 'all' || item.category === state.category;
+        var textMatch = !q ||
+          item.q.toLowerCase().indexOf(q) !== -1 ||
+          item.a.toLowerCase().indexOf(q) !== -1;
+        return catMatch && textMatch;
+      });
+    }
+
+    function categoryLabel(id) {
+      for (var i = 0; i < FAQ_CATEGORIES.length; i++) { if (FAQ_CATEGORIES[i].id === id) return FAQ_CATEGORIES[i].label; }
+      return id;
+    }
+
+    function renderTabs() {
+      var tabsEl = document.getElementById('faqTabs');
+      var tabs = [{ id: 'all', label: 'All Questions' }].concat(FAQ_CATEGORIES);
+      tabsEl.innerHTML = tabs.map(function (t) {
+        var count = t.id === 'all' ? FAQ_DATA.length : FAQ_DATA.filter(function (f) { return f.category === t.id; }).length;
+        var active = state.category === t.id;
+        return (
+          '<button class="faq-tab-btn' + (active ? ' active' : '') + '" data-cat="' + t.id + '">' +
+            t.label + ' <span class="count">(' + count + ')</span>' +
+          '</button>'
+        );
+      }).join('');
+      Array.prototype.forEach.call(tabsEl.querySelectorAll('.faq-tab-btn'), function (btn) {
+        btn.addEventListener('click', function () {
+          state.category = btn.getAttribute('data-cat');
+          render();
+        });
+      });
+    }
+
+    function renderList() {
+      var listEl = document.getElementById('faqList');
+      var filtered = getFiltered();
+      if (filtered.length === 0) {
+        listEl.innerHTML = '<p class="faq-empty">No matching questions found.</p>';
+        return;
+      }
+      listEl.innerHTML = filtered.map(function (item) {
+        return (
+          '<details class="faq-item">' +
+            '<summary>' +
+              '<svg class="icon qmark" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>' +
+              '<span class="qtext">' + item.q + '</span>' +
+              '<span class="cat-chip">' + categoryLabel(item.category) + '</span>' +
+            '</summary>' +
+            '<div class="a">' + item.a + '</div>' +
+          '</details>'
+        );
+      }).join('');
+    }
+
+    function render() {
+      renderTabs();
+      renderList();
+    }
+
+    document.getElementById('faqSearch').addEventListener('input', function (e) {
+      state.query = e.target.value;
+      render();
+    });
+
+    render();
+  </script>
+
+</body>
+
+</html>
