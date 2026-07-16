@@ -29,11 +29,11 @@ var FAQ_DATA = [
     a: 'More than one address can be registered in one application if both are falling under the jurisdiction of the same Zonal unit of the Narcotics Control Bureau. A separate URN will be issued for each such premise. <b>For utilizing this option, the name of the company should be exactly same in both of the addresses.</b>' },
 
   { id: 'urn-6', category: 'urn',
-    q: 'Can we register more than one premise with more than one control substance in one application?',
+    q: 'Can we register more than one premise with more than one controlled substance in one application?',
     a: 'If registration is required in case of more than one premise, more than one Controlled Substance and more than one activity, applicant has to indicate the specific activities to be undertaken substance-wise from particular premises. Accordingly, URN will be issued for each premise separately.' },
 
   { id: 'urn-7', category: 'urn',
-    q: 'What will be the name and address of the jurisdictional exercise range?',
+    q: 'What will be the name and address of the jurisdictional excise range?',
     a: 'Jurisdictional GST range of the applicant and its details may be filled.' },
 
   { id: 'urn-8', category: 'urn',
@@ -55,7 +55,7 @@ var FAQ_DATA = [
 
   { id: 'urn-12', category: 'urn',
     q: 'If I would like to manufacture a Schedule A controlled substance, which nature of activity should be chosen in the Form B?',
-    a: 'In that case, "Manufacture" should be chosen along with "Possession and Storage". <b>If the manufacturing of Control Substance is for own consumption, "Consumption" also be selected. If the manufacturing of Control Substance is for sale, "Distribution and Sale" also be selected.</b>' },
+    a: 'In that case, "Manufacture" should be chosen along with "Possession and Storage". <b>If the manufacturing of Controlled Substance is for own consumption, "Consumption" also be selected. If the manufacturing of Controlled Substance is for sale, "Distribution and Sale" also be selected.</b>' },
 
   { id: 'urn-13', category: 'urn',
     q: 'We have license for Purchase, Storage, Possession and Consumption. Now can we sell off the controlled substance that is in our store, as we no longer need it for our production process?',
