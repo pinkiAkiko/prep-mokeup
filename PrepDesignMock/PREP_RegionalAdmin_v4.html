@@ -4,7 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PREP Portal — Zonal Admin</title>
+  <title>PREP Portal — Regional Admin</title>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       TABLE OF CONTENTS — jump by searching banner text (Cmd/Ctrl+F)
+         Styles   → search  "<style>"
+         Scripts  → search  "<script>"
+         Screens  → search  "SCREEN: <name>"
+           · Dashboard
+           · Applications (URN review)
+           · Returns
+           · URN Management
+           · Substance
+           · Investigations (Loss & Damage)
+           · Analytics
+  ═══════════════════════════════════════════════════════════════════ -->
   <style>
     * {
       margin: 0;
@@ -18,31 +31,6 @@
       color: #1A2332;
       font-size: 13px;
       min-height: 100vh;
-      zoom: 1.1;
-    }
-
-    /* ── Thin, light scrollbars ── */
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: #C7CDD6 transparent;
-    }
-
-    *::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
-    }
-
-    *::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    *::-webkit-scrollbar-thumb {
-      background: #C7CDD6;
-      border-radius: 8px;
-    }
-
-    *::-webkit-scrollbar-thumb:hover {
-      background: #AEB6C2;
     }
 
     /* Header */
@@ -79,7 +67,7 @@
       justify-content: center;
       cursor: pointer;
       flex-shrink: 0;
-      color: #8B98A8;
+      color: #73808F;
       font-size: 16px;
       user-select: none;
     }
@@ -184,6 +172,90 @@
       font-size: 10px;
     }
 
+    .user-menu-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 240px;
+      background: #1E2A3A;
+      border: 1px solid #2E3F54;
+      border-radius: 8px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+      padding: 6px;
+      display: none;
+      z-index: 300;
+    }
+
+    .user-menu-dropdown.open {
+      display: block;
+    }
+
+    .user-menu-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #6A7A8A;
+      padding: 8px 10px 6px;
+    }
+
+    .user-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .user-menu-item:hover {
+      background: #263040;
+    }
+
+    .user-menu-item.active {
+      background: #23324A;
+      cursor: default;
+    }
+
+    .user-menu-item .uma {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #263040;
+      border: 1.5px solid #3A4F66;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7A9AB8;
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .user-menu-item .umt {
+      display: block;
+      font-size: 12px;
+      color: #CBD5E0;
+      font-weight: 500;
+    }
+
+    .user-menu-item .ums {
+      display: block;
+      font-size: 10px;
+      color: #8b98a5;
+    }
+
+    .user-menu-divider {
+      height: 1px;
+      background: #2E3F54;
+      margin: 6px 4px;
+    }
+
+    .user-menu-item.logout .umt {
+      color: #C0392B;
+    }
+
     /* Shell */
     .app-shell {
       display: flex;
@@ -228,7 +300,7 @@
     }
 
     .sidebar-entity-sub {
-      color: #8b98a5;
+      color: #9aadc1;
       font-size: 10px;
       margin-top: 3px;
     }
@@ -252,6 +324,40 @@
       border-radius: 50%;
       background: #C2611C;
       display: inline-block;
+    }
+
+    .scope-filter {
+      margin-top: 10px;
+    }
+
+    .scope-filter-label {
+      display: block;
+      color: #6E7F94;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+
+    .scope-select {
+      width: 100%;
+      background: #222F40;
+      color: #BCC8D8;
+      border: 1px solid #2E3F54;
+      border-radius: 4px;
+      padding: 5px 7px;
+      font-size: 11px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .scope-select:focus {
+      outline: none;
+      border-color: #2E6EBF;
+    }
+
+    .sidebar.collapsed .scope-filter {
+      display: none;
     }
 
     .sidebar-collapsed-avatar {
@@ -299,7 +405,7 @@
       padding: 9px 15px;
       cursor: pointer;
       font-size: 12px;
-      color: #adb9c6;
+      color: #d0d7de;
       transition: background 0.12s, color 0.12s;
       user-select: none;
       position: relative;
@@ -326,6 +432,61 @@
     .sidebar.collapsed .nav-item.active {
       border-left: 3px solid #C2611C;
       padding-left: 0;
+    }
+
+    .nav-arrow {
+      font-size: 9px;
+      color: #9aadc1;
+      flex-shrink: 0;
+      margin-left: auto;
+      transition: transform 0.18s;
+    }
+
+    .nav-arrow.open {
+      transform: rotate(180deg);
+    }
+
+    .sidebar.collapsed .nav-arrow {
+      display: none;
+    }
+
+    .nav-sub-group {
+      overflow: hidden;
+    }
+
+    .nav-sub {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 15px 6px 42px;
+      font-size: 11px;
+      color: #d0d7de;
+      cursor: pointer;
+    }
+
+    .nav-sub:hover {
+      color: #BCC8D8;
+      background: #1F2E40;
+    }
+
+    .nav-sub.active {
+      color: #FFFFFF;
+    }
+
+    .nav-sub-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #3A4E66;
+      flex-shrink: 0;
+    }
+
+    .nav-sub.active .nav-sub-dot {
+      background: #C2611C;
+    }
+
+    .sidebar.collapsed .nav-sub-group {
+      display: none;
     }
 
     .nav-icon {
@@ -429,7 +590,7 @@
 
     .kpi-tile-label {
       font-size: 10px;
-      color: #8B98A8;
+      color: #73808F;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
@@ -443,7 +604,7 @@
 
     .kpi-tile-sub {
       font-size: 9px;
-      color: #8B98A8;
+      color: #73808F;
       margin-top: 3px;
     }
 
@@ -582,10 +743,20 @@
       color: #1E7B4B;
     }
 
+    .qtype-qry {
+      background: #E7F0FA;
+      color: #1E4A8A;
+    }
+
+    .qtype-des {
+      background: #FDE0DC;
+      color: #A32D2D;
+    }
+
     .q-age {
       margin-left: auto;
       font-size: 10px;
-      color: #8B98A8;
+      color: #73808F;
     }
 
     .q-age.overdue {
@@ -601,7 +772,7 @@
 
     .queue-row-need {
       font-size: 11px;
-      color: #adb9c6;
+      color: #73808F;
       margin-top: 2px;
     }
 
@@ -617,7 +788,7 @@
       align-items: center;
       justify-content: center;
       flex: 1;
-      color: #8B98A8;
+      color: #73808F;
       font-size: 12px;
     }
 
@@ -636,7 +807,7 @@
 
     .detail-meta {
       font-size: 11px;
-      color: #adb9c6;
+      color: #73808F;
       margin-top: 3px;
     }
 
@@ -647,7 +818,7 @@
     .detail-section-title {
       font-size: 10px;
       font-weight: 700;
-      color: #8B98A8;
+      color: #73808F;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       margin-bottom: 7px;
@@ -660,7 +831,7 @@
     }
 
     .detail-row .k {
-      color: #8B98A8;
+      color: #73808F;
       width: 150px;
       flex-shrink: 0;
     }
@@ -731,6 +902,38 @@
       border-color: #D0D5DC;
     }
 
+    /* Regional light action (SRS-sanctioned: query zone, adhoc inspection) */
+    .btn-light {
+      background: #F4F7FB;
+      color: #2E6EBF;
+      border-color: #C7D8ED;
+    }
+
+    /* Read-only status panel (replaces approval controls for view-only oversight roles) */
+    .ro-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      font-size: 12px;
+      color: #5A6474;
+      background: #F6F8FA;
+      border: 1px solid #E6EAEF;
+      border-radius: 5px;
+      padding: 8px 12px;
+    }
+
+    .ro-status .ro-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #1E7B4B;
+      flex-shrink: 0;
+    }
+
+    .ro-status.pending .ro-dot { background: #C2611C; }
+    .ro-status strong { color: #1A2332; font-weight: 600; }
+
     /* Inline review blocks */
     .review-pill {
       display: inline-flex;
@@ -786,7 +989,7 @@
     .atab {
       padding: 10px 16px;
       font-size: 12px;
-      color: #adb9c6;
+      color: #73808F;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       user-select: none;
@@ -841,7 +1044,7 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #8B98A8;
+      color: #73808F;
       font-weight: 700;
       background: #FAFBFC;
       border-bottom: 1px solid #E0E4E8;
@@ -880,51 +1083,46 @@
     <div class="header-right">
       <div class="header-icon-btn">
         <span style="position:relative;display:flex;align-items:center;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#8B98A8;flex-shrink:0;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#73808F;flex-shrink:0;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="notif-badge">5</span>
         </span>
         Notifications
       </div>
       <div class="header-icon-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#8B98A8;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#73808F;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         Help
       </div>
-      <div style="position:relative;">
-        <div class="header-user" onclick="toggleDropdown('userSwitchMenu')">
-          <div class="user-avatar">AD</div>
+      <div class="user-menu-wrap" style="position:relative;">
+        <div class="header-user" onclick="toggleUserMenu(event, 'userMenuDropdown')">
+          <div class="user-avatar">RA</div>
           <div>
-            <div class="user-name">Zonal Admin </div>
-            <div class="user-role-label"> Mumbai Zone</div>
+            <div class="user-name">Regional Admin </div>
+            <div class="user-role-label"> South Western Region</div>
           </div>
           <span style="color:#8b98a5; margin-left:4px; font-size:10px;">&#9660;</span>
         </div>
-        <div id="userSwitchMenu"
-          style="display:none; position:absolute; right:0; top:calc(100% + 8px); background:#fff; border:1px solid #D0D5DC; border-radius:6px; min-width:240px; z-index:300; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,0.18);">
-          <div
-            style="padding:8px 14px; font-size:10px; color:#8B98A8; text-transform:uppercase; letter-spacing:0.06em; border-bottom:1px solid #F0F2F5; background:#FAFBFC;">
-            Switch Workspace</div>
-          <div style="padding:10px 14px; font-size:12px; color:#1A2332; display:flex; align-items:center; gap:9px; background:#F5F7FA;">
-            <span style="width:26px;height:26px;border-radius:50%;background:#263040;color:#7A9AB8;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">AD</span>
-            <div style="flex:1;">
-              <div style="font-weight:600;">Zonal Admin</div>
-              <div style="font-size:10.5px;color:#8B98A8;">Mumbai Zone</div>
-            </div>
-            <span style="color:#1E7B4B;font-size:14px;">&#10003;</span>
+        <div class="user-menu-dropdown" id="userMenuDropdown">
+          <div class="user-menu-label">Switch Role</div>
+          <a class="user-menu-item" href="PREP_CompanyAdmin_v4.html">
+            <span class="uma">RK</span>
+            <span><span class="umt">Company Admin</span><span class="ums">ABC Pharmaceuticals Ltd.</span></span>
+          </a>
+          <a class="user-menu-item" href="PREP_ZonalAdmin_v4.html">
+            <span class="uma">AD</span>
+            <span><span class="umt">Zonal Admin</span><span class="ums">Mumbai Zone</span></span>
+          </a>
+          <div class="user-menu-item active">
+            <span class="uma">RA</span>
+            <span><span class="umt">Regional Admin</span><span class="ums">South Western Region</span></span>
           </div>
-          <div style="padding:10px 14px; font-size:12px; color:#1A2332; cursor:pointer; display:flex; align-items:center; gap:9px;"
-            onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
-            onclick="window.location.href='PREP_CompanyAdmin_v4.html'">
-            <span style="width:26px;height:26px;border-radius:50%;background:#263040;color:#7A9AB8;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">RK</span>
-            <div style="flex:1;">
-              <div style="font-weight:600;">Registered Entity Admin</div>
-              <div style="font-size:10.5px;color:#8B98A8;">ABC Pharmaceuticals Ltd.</div>
-            </div>
-          </div>
-          <div style="border-top:1px solid #F0F2F5;"></div>
-          <div style="padding:9px 14px; font-size:12px; color:#A32D2D; cursor:pointer;"
-            onmouseover="this.style.background='#F5F7FA'" onmouseout="this.style.background=''"
-            onclick="window.location.href='index.html'">
-            Sign out
+          <a class="user-menu-item" href="PREP_NCBHQAdmin_v4.html">
+            <span class="uma">HQ</span>
+            <span><span class="umt">NCB HQ Admin</span><span class="ums">National &middot; PAN-India</span></span>
+          </a>
+          <div class="user-menu-divider"></div>
+          <div class="user-menu-item logout" onclick="alert('Sign out is cosmetic in this mockup.')">
+            <span class="uma">&#9211;</span>
+            <span class="umt">Sign Out</span>
           </div>
         </div>
       </div>
@@ -935,10 +1133,18 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-entity">
-        <div class="sidebar-collapsed-avatar">MZ</div>
-        <div class="sidebar-entity-name">Mumbai Zonal Office</div>
-        <div class="sidebar-entity-sub">Western Region</div>
-        <div class="sidebar-zone-chip"><span class="zone-dot"></span> 48 Active URNs</div>
+        <div class="sidebar-collapsed-avatar">SW</div>
+        <div class="sidebar-entity-name">South Western Regional Office</div>
+        <div class="scope-filter">
+          <label class="scope-filter-label">Viewing scope</label>
+          <select id="scopeSelect" class="scope-select" onchange="setScope(this.value)">
+            <option value="all">All zones</option>
+            <option value="Mumbai">Mumbai Zone</option>
+            <option value="Goa">Goa Zone</option>
+            <option value="Bangalore">Bangalore Zone</option>
+          </select>
+        </div>
+        <div class="sidebar-zone-chip"><span class="zone-dot"></span> <span id="scopeChip">3 Zones · 142 URNs</span></div>
       </div>
 
       <div style="flex:1; overflow-y:auto; overflow-x:hidden; padding-bottom:12px;">
@@ -948,12 +1154,12 @@
             class="nav-tooltip">Dashboard</span>
         </div>
         <div class="nav-item" id="znav-applications" onclick="showZScreen('applications',this)">
-          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="nav-label">Applications</span><span class="nav-badge">6</span><span
-            class="nav-tooltip">Applications</span>
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="nav-label">URN Applications</span><span class="nav-badge">6</span><span
+            class="nav-tooltip">URN Applications</span>
         </div>
-        <div class="nav-item" id="znav-companies" onclick="showZScreen('companies',this)">
-          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg></div><span class="nav-label">Registered Entity Registrations</span><span
-            class="nav-tooltip">Registered Entity Registrations</span>
+        <div class="nav-item" id="znav-queries" onclick="showZScreen('queries',this)">
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="nav-label">Queries</span><span class="nav-badge">1</span><span
+            class="nav-tooltip">Queries</span>
         </div>
         <div class="nav-item" id="znav-returns" onclick="showZScreen('returns',this)">
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><span class="nav-label">Returns</span><span class="nav-tooltip">Returns</span>
@@ -962,9 +1168,14 @@
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg></div><span class="nav-label">URN Management</span><span class="nav-tooltip">URN
             Management</span>
         </div>
-        <div class="nav-item" id="znav-substance" onclick="showZScreen('substance',this)">
-          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6L4.6 17.6A2 2 0 0 0 6.4 20.5h11.2a2 2 0 0 0 1.8-2.9L15 8V2"/><line x1="8" y1="2" x2="16" y2="2"/><line x1="7" y1="14" x2="17" y2="14"/></svg></div><span class="nav-label">Substance Oversight</span><span
+        <div class="nav-item" id="znav-substance" onclick="showZScreen('substance',this); expandZSub('substanceSub','substanceArrow')">
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6L4.6 17.6A2 2 0 0 0 6.4 20.5h11.2a2 2 0 0 0 1.8-2.9L15 8V2"/><line x1="8" y1="2" x2="16" y2="2"/><line x1="7" y1="14" x2="17" y2="14"/></svg></div><span class="nav-label">Substance Oversight</span><span class="nav-arrow" id="substanceArrow">&#9660;</span><span
             class="nav-tooltip">Substance Oversight</span>
+        </div>
+        <div class="nav-sub-group" id="substanceSub" style="display:none;">
+          <div class="nav-sub active" id="zsub-overview" onclick="showZSub('substance',this)"><span class="nav-sub-dot"></span>Overview</div>
+          <div class="nav-sub" id="zsub-consignments" onclick="showZSub('consignments',this)"><span class="nav-sub-dot"></span>Consignment Notes</div>
+          <div class="nav-sub" id="zsub-destruction" onclick="showZSub('destruction',this)"><span class="nav-sub-dot"></span>Destruction</div>
         </div>
         <div class="nav-item" id="znav-investigations" onclick="showZScreen('investigations',this)">
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span class="nav-label">Investigations</span><span
@@ -980,11 +1191,12 @@
 
     <main class="main">
 
+      <!-- ══════════ SCREEN: Dashboard ══════════ -->
       <div id="zscreen-dashboard" class="zscreen">
         <!-- KPI strip -->
         <div class="kpi-strip">
           <div class="kpi-tile primary">
-            <div class="kpi-tile-label">Waiting for my approval</div>
+            <div class="kpi-tile-label">Waiting for zone approval</div>
             <div class="kpi-tile-value" style="color:#C2611C;">5</div>
           </div>
           <div class="kpi-tile">
@@ -997,11 +1209,11 @@
           </div>
           <div class="kpi-tile" style="border-top-color:#C2611C;">
             <div class="kpi-tile-label">Non-filers</div>
-            <div class="kpi-tile-value" style="color:#C2611C;">5</div>
+            <div class="kpi-tile-value" style="color:#C2611C;">13</div>
           </div>
           <div class="kpi-tile">
             <div class="kpi-tile-label">Active URNs</div>
-            <div class="kpi-tile-value" style="color:#1A2332;">48</div>
+            <div class="kpi-tile-value" style="color:#1A2332;">142</div>
           </div>
         </div>
 
@@ -1011,12 +1223,14 @@
           <!-- Queue pane -->
           <div class="queue-pane">
             <div class="pane-hd">
-              <div class="pane-title">My Work Queue</div>
-              <div style="font-size:10px;color:#8B98A8;">7 items to act on</div>
+              <div class="pane-title">Work in Progress</div>
+              <div style="font-size:10px;color:#73808F;">8 items in progress across zones</div>
             </div>
             <div class="queue-filters">
               <div class="qfilter active" onclick="filterQueue('all',this)">All</div>
               <div class="qfilter" onclick="filterQueue('app',this)">New URNs</div>
+              <div class="qfilter" onclick="filterQueue('qry',this)">Query responses</div>
+              <div class="qfilter" onclick="filterQueue('des',this)">Destruction</div>
               <div class="qfilter" onclick="filterQueue('ret',this)">Return issues</div>
               <div class="qfilter" onclick="filterQueue('inv',this)">Investigations</div>
               <div class="qfilter" onclick="filterQueue('sur',this)">Surrenders</div>
@@ -1066,11 +1280,18 @@
                 <div class="queue-row-need">Change of signatory · checked by reviewer</div>
               </div>
 
-              <div class="queue-row" data-type="app" onclick="selectQueue(this,'app3')">
-                <div class="queue-row-top"><span class="qtype qtype-app">New URN</span><span class="q-age">6 days</span>
+              <div class="queue-row" data-type="qry" onclick="selectQueue(this,'app3')">
+                <div class="queue-row-top"><span class="qtype qtype-qry">Query response</span><span class="q-age">6 days</span>
                 </div>
                 <div class="queue-row-company">Pinnacle Pharma Ltd.</div>
-                <div class="queue-row-need">Still with reviewer · registered entity has replied to query</div>
+                <div class="queue-row-need">Applicant replied to your query · re-verify and sign off</div>
+              </div>
+
+              <div class="queue-row" data-type="des" onclick="selectQueue(this,'des1')">
+                <div class="queue-row-top"><span class="qtype qtype-des">Destruction</span><span class="q-age">3 days</span>
+                </div>
+                <div class="queue-row-company">ABC Pharmaceuticals Ltd.</div>
+                <div class="queue-row-need">Form I · Ephedrine 5 kg · reviewer forwarded for approval</div>
               </div>
 
             </div>
@@ -1146,10 +1367,9 @@
             </div>
 
             <div class="action-bar">
-              <button class="btn btn-secondary">Send back to reviewer</button>
-              <button class="btn btn-query">Raise query</button>
-              <button class="btn btn-reject">Reject</button>
-              <button class="btn btn-approve">Approve and sign</button>
+              <div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Pending zone approval</strong> · with Mumbai Zonal Admin</div>
+              <button class="btn btn-light" onclick="openRaiseQuery('the zone')">Query zone</button>
+              <button class="btn btn-light">Initiate adhoc inspection</button>
             </div>
           </div>
 
@@ -1157,18 +1377,19 @@
       </div><!-- /zscreen-dashboard -->
 
       <!-- APPLICATIONS SCREEN -->
+      <!-- ══════════ SCREEN: Applications (URN review) ══════════ -->
       <div id="zscreen-applications" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;">
           <div>
-            <div style="font-size:20px;font-weight:700;color:#1A2332;">Applications</div>
-            <div style="font-size:12px;color:#5A6474;margin-top:2px;">All URN applications in Mumbai Zone</div>
+            <div style="font-size:20px;font-weight:700;color:#1A2332;">URN Applications</div>
+            <div style="font-size:12px;color:#5A6474;margin-top:2px;">All URN applications in <span class="scope-name">South Western Region</span></div>
           </div>
         </div>
 
         <!-- Status filter tabs -->
         <div
           style="display:flex;gap:0;border-bottom:1px solid #E0E4E8;margin-bottom:12px;flex-shrink:0;background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;">
-          <div class="atab atab-active" onclick="filterApps('mine',this)">Waiting for my approval <span
+          <div class="atab atab-active" onclick="filterApps('mine',this)">Waiting for zone approval <span
               style="background:#F6E3D5;color:#C2611C;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">3</span>
           </div>
           <div class="atab" onclick="filterApps('reviewer',this)">With reviewer <span
@@ -1185,7 +1406,7 @@
 
         <!-- Search -->
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
-          <input type="text" placeholder="Search by registered entity or application number..."
+          <input type="text" placeholder="Search by company or application number..."
             style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
           <select
             style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
@@ -1202,19 +1423,19 @@
             <thead>
               <tr>
                 <th
-                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
+                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
                   Application</th>
                 <th
-                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
-                  Registered Entity</th>
+                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
+                  Company</th>
                 <th
-                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
+                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
                   Substances</th>
                 <th
-                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
+                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
                   Submitted</th>
                 <th
-                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
+                  style="padding:9px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
                   Status</th>
                 <th style="padding:9px 14px;background:#FAFBFC;border-bottom:1px solid #E0E4E8;position:sticky;top:0;">
                 </th>
@@ -1231,8 +1452,7 @@
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;font-size:12px;color:#5A6474;">09 Jun 2026
                 </td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span
-                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Waiting
-                    for me</span></td>
+                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Awaiting zone approval</span></td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span class="rlink"
                     style="color:#2E6EBF;cursor:pointer;">Review</span></td>
               </tr>
@@ -1245,8 +1465,7 @@
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;font-size:12px;color:#5A6474;">08 Jun 2026
                 </td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span
-                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Waiting
-                    for me</span></td>
+                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Awaiting zone approval</span></td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span class="rlink"
                     style="color:#2E6EBF;cursor:pointer;">Review</span></td>
               </tr>
@@ -1258,8 +1477,7 @@
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;font-size:12px;color:#5A6474;">07 Jun 2026
                 </td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span
-                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Waiting
-                    for me</span></td>
+                    style="background:#F6E3D5;color:#C2611C;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Awaiting zone approval</span></td>
                 <td style="padding:11px 14px;border-bottom:1px solid #F2F4F6;"><span class="rlink"
                     style="color:#2E6EBF;cursor:pointer;">Review</span></td>
               </tr>
@@ -1321,10 +1539,11 @@
       </div>
 
       <!-- PLACEHOLDER SCREENS -->
+      <!-- ══════════ SCREEN: Returns ══════════ -->
       <div id="zscreen-returns" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
         <div style="margin-bottom:12px;flex-shrink:0;">
           <div style="font-size:20px;font-weight:700;color:#1A2332;">Returns</div>
-          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Quarterly returns filed in Mumbai Zone — review any,
+          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Quarterly returns filed across <span class="scope-name">South Western Region</span> — oversight view,
             act on flagged ones</div>
         </div>
 
@@ -1348,7 +1567,7 @@
 
         <!-- Search -->
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
-          <input type="text" placeholder="Search by registered entity or URN..."
+          <input type="text" placeholder="Search by company or URN..."
             style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
           <select
             style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
@@ -1379,7 +1598,7 @@
           <table style="width:100%;border-collapse:collapse;">
             <thead>
               <tr>
-                <th class="zth">Registered Entity</th>
+                <th class="zth">Company</th>
                 <th class="zth">URN</th>
                 <th class="zth">Form</th>
                 <th class="zth">Substance</th>
@@ -1478,11 +1697,12 @@
           </table>
         </div>
       </div>
+      <!-- ══════════ SCREEN: URN Management ══════════ -->
       <div id="zscreen-urn" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;">
           <div>
             <div style="font-size:20px;font-weight:700;color:#1A2332;">URN Management</div>
-            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Active URNs, transfers, surrenders and cancellations in Mumbai Zone</div>
+            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Active URNs, transfers, surrenders and cancellations in <span class="scope-name">South Western Region</span></div>
           </div>
         </div>
 
@@ -1492,7 +1712,7 @@
           <div class="atab atab-active" onclick="filterUrn('active',this)">Active <span
               style="background:#EAECF0;color:#5A6474;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">38</span>
           </div>
-          <div class="atab" onclick="filterUrn('transfer',this)">Transfer in progress <span
+          <div class="atab" onclick="filterUrn('transfer',this)">Transfers <span
               style="background:#F6E3D5;color:#C2611C;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">2</span>
           </div>
           <div class="atab" onclick="filterUrn('surrender',this)">Surrender requested <span
@@ -1506,7 +1726,7 @@
 
         <!-- Search -->
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
-          <input type="text" placeholder="Search by registered entity or URN number..."
+          <input type="text" placeholder="Search by company or URN number..."
             style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
           <select
             style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
@@ -1524,7 +1744,7 @@
             <thead>
               <tr>
                 <th class="zth">URN</th>
-                <th class="zth">Registered Entity</th>
+                <th class="zth">Company</th>
                 <th class="zth">Premises</th>
                 <th class="zth">Substances</th>
                 <th class="zth">Issued</th>
@@ -1559,7 +1779,7 @@
                 <td class="ztd" style="color:#5A6474;">Taloja, Navi Mumbai</td>
                 <td class="ztd">Ephedrine</td>
                 <td class="ztd" style="color:#5A6474;">19 May 2024</td>
-                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Transfer in progress</span></td>
+                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Transfers</span></td>
                 <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;"
                     onclick="openUrnDetail('transfer')">View</span></td>
               </tr>
@@ -1587,16 +1807,17 @@
           </table>
         </div>
       </div>
+      <!-- ══════════ SCREEN: Substance ══════════ -->
       <div id="zscreen-substance" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;">
           <div>
             <div style="font-size:20px;font-weight:700;color:#1A2332;">Substance Oversight</div>
-            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Zone-wide view of each controlled substance in Mumbai Zone · read only</div>
+            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Region-wide view of each controlled substance in <span class="scope-name">South Western Region</span> · read only</div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <select id="zCompanyFilter" onchange="onZCompanyChange(this)"
               style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
-              <option>All registered entities</option>
+              <option>All companies</option>
             </select>
             <select
               style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
@@ -1620,26 +1841,26 @@
             <div onclick="selectZSubstance(this,'aa')" class="zsubpill zsubpill-active"
               style="cursor:pointer;background:#fff;border:1.5px solid #1E4A8A;border-radius:7px;padding:9px 14px;min-width:190px;">
               <div style="font-size:13px;font-weight:600;color:#1A2332;">Acetic Anhydride</div>
-              <div style="font-size:10px;color:#5A6474;margin-top:4px;">12 registered entities · 11,770 kg held</div>
+              <div style="font-size:10px;color:#5A6474;margin-top:4px;">12 companies · 11,770 kg held</div>
             </div>
             <div onclick="selectZSubstance(this,'eph')" class="zsubpill"
               style="cursor:pointer;background:#fff;border:1px solid #E0E4E8;border-radius:7px;padding:9px 14px;min-width:190px;">
               <div style="font-size:13px;font-weight:600;color:#1A2332;">Ephedrine</div>
-              <div style="font-size:10px;color:#5A6474;margin-top:4px;">7 registered entities · 2,340 kg held</div>
+              <div style="font-size:10px;color:#5A6474;margin-top:4px;">7 companies · 2,340 kg held</div>
             </div>
             <div onclick="selectZSubstance(this,'kmno4')" class="zsubpill"
               style="cursor:pointer;background:#fff;border:1px solid #E0E4E8;border-radius:7px;padding:9px 14px;min-width:190px;">
               <div style="font-size:13px;font-weight:600;color:#1A2332;">Potassium Permanganate</div>
-              <div style="font-size:10px;color:#5A6474;margin-top:4px;">5 registered entities · 710 kg held</div>
+              <div style="font-size:10px;color:#5A6474;margin-top:4px;">5 companies · 710 kg held</div>
             </div>
-            <div style="align-self:center;font-size:10px;color:#8B98A8;">3 of 8 Schedule A substances active in this zone</div>
+            <div style="align-self:center;font-size:10px;color:#73808F;">3 of 8 Schedule A substances active in <span class="scope-name">South Western Region</span></div>
           </div>
 
           <!-- Lifecycle summary -->
           <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:14px 16px;margin-bottom:14px;">
             <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
               <div id="zSubName" style="font-size:15px;font-weight:600;color:#1A2332;">Acetic Anhydride</div>
-              <div id="zSubScope" style="font-size:11px;color:#8B98A8;">All registered entities · Mumbai Zone · FY 2025–26 · kg</div>
+              <div id="zSubScope" style="font-size:11px;color:#73808F;">All companies · South Western Region · FY 2025–26 · kg</div>
             </div>
             <div style="font-size:11px;color:#5A6474;margin-bottom:12px;">What came in versus what is accounted for. A gap between computed and declared closing is the signal to review.</div>
             <div id="zSubLedger"></div>
@@ -1649,7 +1870,7 @@
           <div style="background:#FBF1E8;border:1px solid #E6D5C4;border-radius:6px;padding:12px 16px;margin-bottom:14px;">
             <div style="font-size:12px;font-weight:700;color:#7A6A3A;margin-bottom:6px;">Concerns to review</div>
             <div id="zSignals" style="font-size:11px;color:#7A6A3A;line-height:1.7;"></div>
-            <div style="font-size:10px;color:#8B98A8;margin-top:8px;">Pointers, not findings. To be confirmed with department: the threshold values that trigger consumption / capacity alerts.</div>
+            <div style="font-size:10px;color:#73808F;margin-top:8px;">Pointers, not findings. To be confirmed with department: the threshold values that trigger consumption / capacity alerts.</div>
           </div>
 
           <!-- Quarterly journey -->
@@ -1668,16 +1889,16 @@
               </thead>
               <tbody id="zJourneyBody"></tbody>
             </table>
-            <div style="padding:8px 16px;font-size:10px;color:#8B98A8;border-top:1px solid #F2F4F6;">Open a quarter to see the stage breakdown, inter-zone transfers (Form H) and the Form G reconciliation check. Sourced from filed returns.</div>
+            <div style="padding:8px 16px;font-size:10px;color:#73808F;border-top:1px solid #F2F4F6;">Open a quarter to see the stage breakdown, inter-zone transfers (Form H) and the Form G reconciliation check. Sourced from filed returns.</div>
           </div>
 
           <!-- Companies handling this substance -->
           <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;margin-bottom:4px;">
-            <div style="padding:12px 16px;border-bottom:1px solid #F2F4F6;font-size:13px;font-weight:600;color:#1A2332;">Registered entities handling this substance</div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F2F4F6;font-size:13px;font-weight:600;color:#1A2332;">Companies handling this substance</div>
             <table style="width:100%;border-collapse:collapse;">
               <thead>
                 <tr>
-                  <th class="zth">Registered Entity</th>
+                  <th class="zth">Company</th>
                   <th class="zth">URN</th>
                   <th class="zth">Activities</th>
                   <th class="zth" style="text-align:right;">Held (kg)</th>
@@ -1691,11 +1912,89 @@
           </div>
         </div>
       </div>
+
+      <!-- ══════════ SCREEN: Consignment Notes (Form G) ══════════ -->
+      <div id="zscreen-consignments" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
+        <div style="margin-bottom:12px;flex-shrink:0;">
+          <div style="font-size:20px;font-weight:700;color:#1A2332;">Consignment Notes (Form G)</div>
+          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Every outward movement of controlled substance in <span class="scope-name">South Western Region</span>. The consignee acknowledges receipt in the system.</div>
+        </div>
+
+        <!-- Status tabs -->
+        <div style="display:flex;gap:0;margin-bottom:12px;flex-shrink:0;background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;">
+          <div class="atab atab-active" onclick="filterCons('all',this)">All</div>
+          <div class="atab" onclick="filterCons('pending',this)">Pending acknowledgement <span style="background:#F6E3D5;color:#C2611C;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">2</span></div>
+          <div class="atab" onclick="filterCons('ack',this)">Acknowledged <span style="background:#EAECF0;color:#5A6474;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">6</span></div>
+        </div>
+
+        <!-- Search -->
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
+          <input type="text" placeholder="Search by note number, company or consignee..."
+            style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
+          <select style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
+            <option>All substances</option>
+            <option>Acetic Anhydride</option>
+            <option>Ephedrine</option>
+            <option>Potassium Permanganate</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:auto;flex:1;min-height:0;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th class="zth">Note No.</th><th class="zth">Dispatch date</th><th class="zth">From</th>
+                <th class="zth">Consignee</th><th class="zth">Substance</th>
+                <th class="zth" style="text-align:right;">Net wt.</th><th class="zth">Status</th><th class="zth"></th>
+              </tr>
+            </thead>
+            <tbody id="consBody">
+              <tr class="consrow" data-st="pending">
+                <td class="ztd" style="font-weight:500;">GN-2026-088</td><td class="ztd" style="color:#5A6474;">11 Mar 2026</td>
+                <td class="ztd">ABC Pharmaceuticals Ltd.</td><td class="ztd">LMN Pharma Ltd. <span style="color:#73808F;font-size:10px;">· PREP/00444</span></td>
+                <td class="ztd">Acetic Anhydride</td><td class="ztd" style="text-align:right;">220 kg</td>
+                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Pending Ack.</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;">View</span></td>
+              </tr>
+              <tr class="consrow" data-st="ack">
+                <td class="ztd" style="font-weight:500;">GN-2026-071</td><td class="ztd" style="color:#5A6474;">02 Feb 2026</td>
+                <td class="ztd">ABC Pharmaceuticals Ltd.</td><td class="ztd">XYZ Chemicals Pvt. Ltd. <span style="color:#73808F;font-size:10px;">· PREP/00231</span></td>
+                <td class="ztd">Acetic Anhydride</td><td class="ztd" style="text-align:right;">280 kg</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Acknowledged</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;">View</span></td>
+              </tr>
+              <tr class="consrow" data-st="ack">
+                <td class="ztd" style="font-weight:500;">GN-2026-090</td><td class="ztd" style="color:#5A6474;">08 Mar 2026</td>
+                <td class="ztd">Harbour Pharma Ltd.</td><td class="ztd">LMN Pharma Ltd. <span style="color:#73808F;font-size:10px;">· PREP/00444</span></td>
+                <td class="ztd">Acetic Anhydride</td><td class="ztd" style="text-align:right;">400 kg</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Acknowledged</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;">View</span></td>
+              </tr>
+              <tr class="consrow" data-st="pending">
+                <td class="ztd" style="font-weight:500;">GN-2026-101</td><td class="ztd" style="color:#5A6474;">06 Mar 2026</td>
+                <td class="ztd">Coastal Traders LLP</td><td class="ztd">Sterling Agro Ltd. <span style="color:#73808F;font-size:10px;">· PREP/00510</span></td>
+                <td class="ztd">Potassium Permanganate</td><td class="ztd" style="text-align:right;">60 kg</td>
+                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Pending Ack.</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;">View</span></td>
+              </tr>
+              <tr class="consrow" data-st="ack">
+                <td class="ztd" style="font-weight:500;">GN-2025-067</td><td class="ztd" style="color:#5A6474;">12 Dec 2025</td>
+                <td class="ztd">ABC Pharmaceuticals Ltd.</td><td class="ztd">XYZ Chemicals Pvt. Ltd. <span style="color:#73808F;font-size:10px;">· PREP/00231</span></td>
+                <td class="ztd">Acetic Anhydride</td><td class="ztd" style="text-align:right;">480 kg</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Acknowledged</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;">View</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- ══════════ SCREEN: Investigations (Loss & Damage) ══════════ -->
       <div id="zscreen-investigations" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;">
           <div>
             <div style="font-size:20px;font-weight:700;color:#1A2332;">Investigations</div>
-            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Loss, damage, theft and inspection cases in Mumbai Zone</div>
+            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Loss, damage, theft and inspection cases in <span class="scope-name">South Western Region</span></div>
           </div>
         </div>
 
@@ -1723,7 +2022,7 @@
 
         <!-- Search -->
         <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
-          <input type="text" placeholder="Search by registered entity or case number..."
+          <input type="text" placeholder="Search by company or case number..."
             style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
           <select
             style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
@@ -1742,7 +2041,7 @@
               <tr>
                 <th class="zth">Case</th>
                 <th class="zth">Type</th>
-                <th class="zth">Registered Entity</th>
+                <th class="zth">Company</th>
                 <th class="zth">Category</th>
                 <th class="zth">Substance</th>
                 <th class="zth">Qty affected</th>
@@ -1792,9 +2091,9 @@
                 <td class="ztd" style="font-weight:500;">INS-2026-004</td>
                 <td class="ztd"><span class="zpill" style="background:#EAF0F8;color:#2E5AA8;">Adhoc inspection</span></td>
                 <td class="ztd">Meridian Labs Pvt. Ltd.</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd">Ephedrine</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd" style="color:#5A6474;">14 Jun 2026</td>
                 <td class="ztd"><span class="zpill" style="background:#F6E3D5;color:#C2611C;">Open</span></td>
                 <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;"
@@ -1804,9 +2103,9 @@
                 <td class="ztd" style="font-weight:500;">INS-2026-003</td>
                 <td class="ztd"><span class="zpill" style="background:#EAF0F8;color:#2E5AA8;">Adhoc inspection</span></td>
                 <td class="ztd">ABC Pharmaceuticals Ltd.</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd">Acetic Anhydride</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd" style="color:#5A6474;">09 Jun 2026</td>
                 <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Under investigation</span></td>
                 <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;"
@@ -1816,9 +2115,9 @@
                 <td class="ztd" style="font-weight:500;">INS-2026-001</td>
                 <td class="ztd"><span class="zpill" style="background:#EAF0F8;color:#2E5AA8;">Adhoc inspection</span></td>
                 <td class="ztd">Coastal Traders LLP</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd">Potassium Permanganate</td>
-                <td class="ztd" style="color:#8B98A8;">&mdash;</td>
+                <td class="ztd" style="color:#73808F;">&mdash;</td>
                 <td class="ztd" style="color:#5A6474;">28 Mar 2026</td>
                 <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Closed</span></td>
                 <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;"
@@ -1840,189 +2139,297 @@
           </table>
         </div>
       </div>
-      <div id="zscreen-companies" class="zscreen" style="display:none;">
-        <div style="margin-bottom:16px;">
-          <div style="font-size:18px;font-weight:700;color:#1A2332;">Registered Entity Registrations</div>
-          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Onboard a new registered entity onto the PREP
-            portal for Mumbai Zonal Office</div>
-        </div>
+      <!-- ══════════ SCREEN: Analytics ══════════ -->
+      <div id="zscreen-analytics" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:auto;">
+        <div style="padding:2px 2px 16px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:17px;font-weight:600;color:#1A2332;">Analytics</div>
+              <div style="font-size:12px;color:#5A6474;margin-top:3px;"><span class="scope-name">South Western Region</span> · FY 2025–26 · all zones
+                in region</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button
+                style="background:#fff;border:1px solid #D0D5DC;border-radius:4px;padding:7px 12px;font-size:11px;color:#5A6474;cursor:pointer;font-family:inherit;">Export
+                PDF</button>
+              <button
+                style="background:#fff;border:1px solid #D0D5DC;border-radius:4px;padding:7px 12px;font-size:11px;color:#5A6474;cursor:pointer;font-family:inherit;">Export
+                Excel</button>
+              <button
+                style="background:#fff;border:1px solid #D0D5DC;border-radius:4px;padding:7px 12px;font-size:11px;color:#5A6474;cursor:pointer;font-family:inherit;">Export
+                CSV</button>
+            </div>
+          </div>
 
-        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
-            Entity Details</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Registered
-                Entity Name <span style="color:#C0392B;">*</span></label>
-              <input type="text" placeholder="e.g. Sunrise Chemicals Pvt. Ltd."
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+          <!-- KPI strip -->
+          <div class="kpi-strip" style="margin-bottom:16px;">
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">Registered companies</div>
+              <div class="kpi-tile-value" id="kpiCompanies" style="color:#1A2332;">106</div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Business
-                Constitution <span style="color:#C0392B;">*</span></label>
-              <select
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
-                <option value="">Select...</option>
-                <option>Proprietorship</option>
-                <option>Partnership</option>
-                <option>Registered Company</option>
-                <option>Unregistered Company</option>
-                <option>Trust</option>
-                <option>Society</option>
-                <option>Others</option>
-              </select>
+            <div class="kpi-tile">
+              <div class="kpi-tile-label">Active URNs</div>
+              <div class="kpi-tile-value" id="kpiURNs" style="color:#1A2332;">142</div>
+            </div>
+            <div class="kpi-tile primary">
+              <div class="kpi-tile-label">On-time compliance</div>
+              <div class="kpi-tile-value" id="kpiOnTime" style="color:#5B7FA6;">87%</div>
+            </div>
+            <div class="kpi-tile" style="border-top-color:#CC7A6E;">
+              <div class="kpi-tile-label">Non-filers (Q1 2026)</div>
+              <div class="kpi-tile-value" id="kpiNonFilers" style="color:#CC7A6E;">13</div>
+            </div>
+            <div class="kpi-tile" style="border-top-color:#CC7A6E;">
+              <div class="kpi-tile-label">Open L&amp;D incidents</div>
+              <div class="kpi-tile-value" id="kpiLD" style="color:#CC7A6E;">19</div>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">CIN /
-                Registration Number</label>
-              <input type="text"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
-            </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">PAN
-                (Permanent Account Number) <span style="color:#C0392B;">*</span></label>
-              <input type="text" placeholder="ABCDE1234F"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
-            </div>
-          </div>
-        </div>
 
-        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
-            Registered Address</div>
-          <div style="margin-bottom:14px;">
-            <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Address
-              <span style="color:#C0392B;">*</span></label>
-            <input type="text" placeholder="Plot / premises number / street / locality"
-              style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;">
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">State
-                <span style="color:#C0392B;">*</span></label>
-              <select
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
-                <option value="">Select...</option>
-                <option>Maharashtra</option>
-                <option>Delhi</option>
-                <option>Gujarat</option>
-                <option>Karnataka</option>
-              </select>
+          <!-- Report grid -->
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;">
+
+            <!-- Hero: reconciliation flags (full width) -->
+            <div
+              style="grid-column:1/-1;background:#fff;border:1px solid #E0E4E8;border-radius:8px;padding:16px 18px;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:#1A2332;">Zone Compliance Comparison</div>
+                  <div style="font-size:11px;color:#73808F;margin-bottom:12px;">On-time filing rate by zone, per quarter
+                    (%). The oversight view — which zone is slipping.</div>
+                </div>
+                <span id="zaHeroBadge"
+                  style="font-size:11px;color:#4A719F;font-weight:600;background:#EAF0F7;border:1px solid #CFDDEC;border-radius:4px;padding:4px 9px;white-space:nowrap;">3
+                  zones</span>
+              </div>
+              <div style="height:240px;"><canvas id="zaReconcile"></canvas></div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">City
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:8px;padding:16px 18px;">
+              <div style="font-size:12px;font-weight:700;color:#1A2332;">Active URNs by Zone</div>
+              <div style="font-size:11px;color:#73808F;margin-bottom:12px;">Share of active URNs across the region's
+                zones</div>
+              <div style="height:230px;"><canvas id="zaCompliance"></canvas></div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">PIN code
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text" maxlength="6" placeholder="6 digits"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:8px;padding:16px 18px;">
+              <div style="font-size:12px;font-weight:700;color:#1A2332;">On-time Filing Trend</div>
+              <div style="font-size:11px;color:#73808F;margin-bottom:12px;">On-time filing rate by zone, across quarters
+                (%)</div>
+              <div style="height:230px;"><canvas id="zaFilingTrend"></canvas></div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Zonal
-                Office <span style="color:#C0392B;">*</span></label>
-              <select
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;background:#fff;">
-                <option>Mumbai</option>
-                <option>Delhi</option>
-                <option>Chennai</option>
-                <option>Kolkata</option>
-              </select>
+
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:8px;padding:16px 18px;">
+              <div style="font-size:12px;font-weight:700;color:#1A2332;">Loss, Damage, Theft &amp; Wastage by Zone</div>
+              <div style="font-size:11px;color:#73808F;margin-bottom:12px;">Reported incidents by zone, split by category (FY 2025–26)</div>
+              <div style="height:230px;"><canvas id="zaLossDamage"></canvas></div>
             </div>
+
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:8px;padding:16px 18px;">
+              <div style="font-size:12px;font-weight:700;color:#1A2332;">Non-filers &amp; Returns Due by Zone</div>
+              <div style="font-size:11px;color:#73808F;margin-bottom:12px;">Missed filings against returns due, by zone
+                (Q1 2026) — what a Regional Admin chases</div>
+              <div style="height:230px;"><canvas id="zaStock"></canvas></div>
+            </div>
+
           </div>
         </div>
+      </div>
 
-        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:20px 24px;margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
-            Primary Contact / Portal Admin</div>
-          <div style="font-size:11px;color:#8B98A8;margin-bottom:12px;">This person will receive the login invite as
-            the Registered Entity Admin for this entity.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Name
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+      <!-- ══════════ SCREEN: Queries ══════════ -->
+      <div id="zscreen-queries" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:auto;">
+
+        <!-- VIEW: list -->
+        <div id="zq-list">
+          <div style="margin-bottom:12px;">
+            <div style="font-size:20px;font-weight:700;color:#1A2332;">Queries</div>
+            <div style="font-size:12px;color:#5A6474;margin-top:2px;">Queries the region has raised to its zones on applications, returns and requests — and the zones' responses. Regional queries reach the zone, not the company directly.</div>
+          </div>
+
+          <!-- Summary strip -->
+          <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:10px 16px;min-width:150px;">
+              <div style="font-size:20px;font-weight:700;color:#1E7B4B;">1</div>
+              <div style="font-size:11px;color:#5A6474;">Responded — needs your review</div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Designation
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text">
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:10px 16px;min-width:150px;">
+              <div style="font-size:20px;font-weight:700;color:#C2611C;">2</div>
+              <div style="font-size:11px;color:#5A6474;">Awaiting response</div>
+            </div>
+            <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:10px 16px;min-width:150px;">
+              <div style="font-size:20px;font-weight:700;color:#5A6474;">5</div>
+              <div style="font-size:11px;color:#5A6474;">Resolved</div>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Email
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+
+          <!-- Responded — needs review -->
+          <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;margin-bottom:14px;">
+            <div style="padding:11px 16px;border-bottom:1px solid #F2F4F6;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:13px;font-weight:600;color:#1A2332;">Responded — needs your review</div>
+              <div style="font-size:10px;color:#1E7B4B;font-weight:700;">Applicant replied · re-verify and act</div>
             </div>
-            <div>
-              <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Mobile
-                <span style="color:#C0392B;">*</span></label>
-              <input type="text" maxlength="10" placeholder="10 digits"
-                style="width:100%;padding:8px 10px;border:1px solid #D0D5DC;border-radius:4px;font-size:12px;font-family:inherit;">
+            <div style="padding:12px 16px;display:flex;gap:14px;align-items:flex-start;">
+              <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#1E7B4B;margin-top:5px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;">
+                  <span style="background:#EEF2F8;color:#3A5080;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;">URN Application</span>
+                  <span style="font-size:11px;color:#5A6474;">PREP/ZO-MH/2026/APP-018 · Pinnacle Pharma Ltd. · Safrole</span>
+                </div>
+                <div style="font-size:12px;color:#1A2332;">Premises boundary description did not match the survey document. Applicant re-uploaded a corrected boundary plan.</div>
+                <div style="font-size:10px;color:#73808F;margin-top:3px;">Zone raised 10 Jun 2026 · <span style="color:#1E7B4B;font-weight:600;">Responded 12 Jun 2026</span></div>
+              </div>
+              <button class="btn btn-approve" style="flex-shrink:0;" onclick="showZQView('thread','pinnacle')">View thread &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Awaiting response -->
+          <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;margin-bottom:14px;">
+            <div style="padding:11px 16px;border-bottom:1px solid #F2F4F6;font-size:13px;font-weight:600;color:#1A2332;">Awaiting response</div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F2F4F6;display:flex;gap:14px;align-items:flex-start;">
+              <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#C2611C;margin-top:5px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;">
+                  <span style="background:#FDECEA;color:#A32D2D;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;">Quarterly Return</span>
+                  <span style="font-size:11px;color:#5A6474;">Form E · Q1 2026 · ABC Pharmaceuticals Ltd. · Acetic Anhydride</span>
+                </div>
+                <div style="font-size:12px;color:#1A2332;">Declared sales (150 kg) do not match consignment notes filed (122 kg). Clarify the 28 kg variance or submit a revised return.</div>
+                <div style="font-size:10px;color:#73808F;margin-top:3px;">Zone raised 16 Jun 2026 · <span style="color:#C2611C;font-weight:600;">Relayed to the zone · awaiting response</span></div>
+              </div>
+              <button class="btn btn-secondary" style="flex-shrink:0;" onclick="showZQView('thread','abc')">View thread &rarr;</button>
+            </div>
+            <div style="padding:12px 16px;display:flex;gap:14px;align-items:flex-start;">
+              <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#C2611C;margin-top:5px;"></div>
+              <div style="flex:1;">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;">
+                  <span style="background:#F0EEF8;color:#5A3A9A;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;">URN Change</span>
+                  <span style="font-size:11px;color:#5A6474;">PREP/ZO-MH/2026/APP-021 · Meridian Labs Pvt. Ltd. · Authorised signatory</span>
+                </div>
+                <div style="font-size:12px;color:#1A2332;">Specimen signature of the new authorised person is not legible. Re-upload a clear copy.</div>
+                <div style="font-size:10px;color:#73808F;margin-top:3px;">Zone raised 15 Jun 2026 · <span style="color:#C2611C;font-weight:600;">Awaiting response</span></div>
+              </div>
+              <button class="btn btn-secondary" style="flex-shrink:0;" onclick="showZQView('thread','meridian')">View thread &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Resolved (collapsible) -->
+          <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;">
+            <div style="padding:11px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;" onclick="toggleZResolved()">
+              <div style="font-size:13px;font-weight:600;color:#1A2332;">Resolved queries <span id="zResolvedChev" style="display:inline-block;color:#73808F;font-size:9px;margin-left:4px;">&#9654;</span></div>
+              <div style="font-size:10px;color:#73808F;">5 resolved</div>
+            </div>
+            <div id="zResolvedList" style="display:none;border-top:1px solid #F2F4F6;">
+              <div style="padding:11px 16px;border-bottom:1px solid #F2F4F6;display:flex;gap:14px;align-items:flex-start;">
+                <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#1E7B4B;margin-top:5px;"></div>
+                <div style="flex:1;">
+                  <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;">
+                    <span style="background:#FDECEA;color:#A32D2D;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;">Quarterly Return</span>
+                    <span style="font-size:11px;color:#5A6474;">Form F · Q4 2025 · Greenfield Industries · Pseudoephedrine</span>
+                  </div>
+                  <div style="font-size:12px;color:#5A6474;">Closing balance queried; company submitted a revised return. Reconciled.</div>
+                  <div style="font-size:10px;color:#73808F;margin-top:3px;">Resolved 12 Jan 2026 · <span style="color:#1E7B4B;font-weight:600;">Closed</span></div>
+                </div>
+                <span class="rlink" style="color:#2E6EBF;cursor:pointer;flex-shrink:0;" onclick="showZQView('thread','pinnacle')">View</span>
+              </div>
+              <div style="padding:11px 16px;display:flex;gap:14px;align-items:flex-start;">
+                <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#1E7B4B;margin-top:5px;"></div>
+                <div style="flex:1;">
+                  <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;">
+                    <span style="background:#EEF2F8;color:#3A5080;border-radius:3px;padding:1px 6px;font-size:10px;font-weight:600;">URN Application</span>
+                    <span style="font-size:11px;color:#5A6474;">PREP/ZO-MH/2025/00089 · Meridian Labs · Ephedrine</span>
+                  </div>
+                  <div style="font-size:12px;color:#5A6474;">PAN copy was not clearly readable; corrected copy accepted.</div>
+                  <div style="font-size:10px;color:#73808F;margin-top:3px;">Resolved 30 Oct 2025 · <span style="color:#1E7B4B;font-weight:600;">Closed</span></div>
+                </div>
+                <span class="rlink" style="color:#2E6EBF;cursor:pointer;flex-shrink:0;" onclick="showZQView('thread','pinnacle')">View</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div style="display:flex;gap:10px;margin-bottom:24px;">
-          <button
-            style="background:#2E6EBF;color:#fff;border:none;border-radius:5px;padding:9px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">Register
-            Entity &amp; Send Invite</button>
-          <button
-            style="background:#fff;border:1px solid #D0D5DC;color:#5A6474;border-radius:5px;padding:9px 18px;font-size:12px;cursor:pointer;font-family:inherit;">Cancel</button>
+        <!-- VIEW: thread -->
+        <div id="zq-thread" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+            <div>
+              <div style="font-size:20px;font-weight:700;color:#1A2332;" id="zqThreadTitle">Query</div>
+              <div style="font-size:12px;color:#5A6474;margin-top:2px;" id="zqThreadSub"></div>
+            </div>
+            <button class="btn btn-secondary" onclick="showZQView('list')">&larr; Back to queries</button>
+          </div>
+          <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;max-width:760px;" id="zqThreadCard"></div>
+        </div>
+      </div>
+
+      <!-- ══════════ SCREEN: Destruction (Form I) ══════════ -->
+      <div id="zscreen-destruction" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;">
+        <div style="margin-bottom:12px;flex-shrink:0;">
+          <div style="font-size:20px;font-weight:700;color:#1A2332;">Destruction (Form I)</div>
+          <div style="font-size:12px;color:#5A6474;margin-top:2px;">Applications to destroy controlled-substance stock. The Zonal Reviewer forwards; the Zonal Admin approves, then uploads the signed MOM &amp; Destruction Certificate.</div>
         </div>
 
-        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;">
-          <div style="font-size:13px;font-weight:600;color:#1A2332;padding:12px 16px;border-bottom:1px solid #E0E4E8;">
-            Recently Registered Entities</div>
+        <!-- Status tabs -->
+        <div style="display:flex;gap:0;margin-bottom:12px;flex-shrink:0;background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:hidden;">
+          <div class="atab atab-active" onclick="filterDes('mine',this)">Awaiting zone approval <span style="background:#F6E3D5;color:#C2611C;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">1</span></div>
+          <div class="atab" onclick="filterDes('reviewer',this)">With reviewer <span style="background:#EAECF0;color:#5A6474;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">1</span></div>
+          <div class="atab" onclick="filterDes('issued',this)">Certificate issued <span style="background:#EAECF0;color:#5A6474;border-radius:9px;padding:0 6px;font-size:10px;font-weight:700;margin-left:4px;">7</span></div>
+          <div class="atab" onclick="filterDes('all',this)">All</div>
+        </div>
+
+        <!-- Search -->
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-shrink:0;">
+          <input type="text" placeholder="Search by company or reference..."
+            style="flex:1;padding:8px 12px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#1A2332;background:#fff;outline:none;">
+          <select style="padding:8px 10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;color:#5A6474;background:#fff;">
+            <option>All substances</option>
+            <option>Acetic Anhydride</option>
+            <option>Ephedrine</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;overflow:auto;flex:1;min-height:0;">
           <table style="width:100%;border-collapse:collapse;">
             <thead>
               <tr>
-                <th class="zth">Registered Entity</th>
-                <th class="zth">CIN</th>
-                <th class="zth">Zone</th>
-                <th class="zth">Admin Contact</th>
-                <th class="zth">Status</th>
+                <th class="zth">Ref</th><th class="zth">Company</th><th class="zth">URN</th>
+                <th class="zth">Substance</th><th class="zth" style="text-align:right;">Qty</th>
+                <th class="zth">Reason</th><th class="zth">Submitted</th><th class="zth">Status</th><th class="zth"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody id="desBody">
+              <tr class="desrow" data-st="mine">
+                <td class="ztd" style="font-weight:500;">DI-2026-004</td>
                 <td class="ztd">ABC Pharmaceuticals Ltd.</td>
-                <td class="ztd">U24231MH2010PLC204896</td>
-                <td class="ztd">Mumbai Zone</td>
-                <td class="ztd">Rajesh Kumar</td>
-                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Active</span></td>
+                <td class="ztd" style="color:#5A6474;">PREP/00142</td>
+                <td class="ztd">Ephedrine</td>
+                <td class="ztd" style="text-align:right;">5 kg</td>
+                <td class="ztd">Expired stock</td>
+                <td class="ztd" style="color:#5A6474;">02 Jun 2026</td>
+                <td class="ztd"><span class="zpill" style="background:#F6E3D5;color:#C2611C;">Awaiting approval</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;" onclick="openDestructionDetail('mine')">Review</span></td>
               </tr>
-              <tr>
-                <td class="ztd">Sunrise Chemicals Pvt. Ltd.</td>
-                <td class="ztd">U24299MH2018PTC312044</td>
-                <td class="ztd">Mumbai Zone</td>
-                <td class="ztd">A. Sharma</td>
-                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Active</span></td>
+              <tr class="desrow" data-st="reviewer">
+                <td class="ztd" style="font-weight:500;">DI-2026-006</td>
+                <td class="ztd">Harbour Pharma Ltd.</td>
+                <td class="ztd" style="color:#5A6474;">PREP/00188</td>
+                <td class="ztd">Acetic Anhydride</td>
+                <td class="ztd" style="text-align:right;">18 kg</td>
+                <td class="ztd">Contaminated batch</td>
+                <td class="ztd" style="color:#5A6474;">08 Jun 2026</td>
+                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">With reviewer</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;" onclick="openDestructionDetail('reviewer')">View</span></td>
               </tr>
-              <tr>
+              <tr class="desrow" data-st="issued">
+                <td class="ztd" style="font-weight:500;">DI-2025-011</td>
                 <td class="ztd">Meridian Labs Pvt. Ltd.</td>
-                <td class="ztd">&mdash;</td>
-                <td class="ztd">Mumbai Zone</td>
-                <td class="ztd">P. Nair</td>
-                <td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Invite Sent</span></td>
+                <td class="ztd" style="color:#5A6474;">PREP/00221</td>
+                <td class="ztd">Acetic Anhydride</td>
+                <td class="ztd" style="text-align:right;">12 kg</td>
+                <td class="ztd">Contaminated batch</td>
+                <td class="ztd" style="color:#5A6474;">14 Oct 2025</td>
+                <td class="ztd"><span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Certificate issued</span></td>
+                <td class="ztd"><span class="rlink" style="color:#2E6EBF;cursor:pointer;" onclick="openDestructionDetail('issued')">View certificate</span></td>
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-      <div id="zscreen-analytics" class="zscreen" style="display:none;">
-        <div
-          style="background:#fff;border:1px solid #E0E4E8;border-radius:6px;padding:40px;text-align:center;color:#8B98A8;">
-          <div style="font-size:15px;font-weight:600;color:#3A4A5A;margin-bottom:8px;">Analytics</div>
-          <div style="font-size:12px;">Zone reports and charts — coming next.</div>
         </div>
       </div>
 
@@ -2091,13 +2498,13 @@
       <div
         style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;">
         <div>
-          <div style="font-size:14px;font-weight:600;">Form B — Full Application</div>
-          <div style="font-size:11px;color:#8B98A8;margin-top:2px;">Sunrise Chemicals Pvt. Ltd. ·
+          <div style="font-size:14px;font-weight:600;" id="fullAppHd">Form B — Full Application</div>
+          <div style="font-size:11px;color:#73808F;margin-top:2px;" id="fullAppSub">Sunrise Chemicals Pvt. Ltd. ·
             PREP/ZO-MH/2026/APP-022</div>
         </div>
         <div style="display:flex;gap:10px;align-items:center;">
           <span style="font-size:11px;color:#9AB0C4;cursor:pointer;">Download PDF</span>
-          <span style="cursor:pointer;font-size:18px;color:#8B98A8;" onclick="closeFullApplication()">&times;</span>
+          <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeFullApplication()">&times;</span>
         </div>
       </div>
 
@@ -2119,6 +2526,55 @@
             class="v">Not applicable</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">Previously surrendered under clause 5</span><span
             class="v">Not applicable</span></div>
+        <div class="detail-row"><span class="k" style="width:230px;">Activities per substance</span><span
+            class="v">Acetic Anhydride — Manufacture, Sale, Storage &nbsp;·&nbsp; Potassium Permanganate — Sale, Storage</span></div>
+
+        <div
+          style="font-size:11px;font-weight:700;color:#3A4A5A;text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 10px;">
+          Part I-B — Manufacture &amp; Consumption</div>
+        <div style="font-size:11px;color:#73808F;margin-bottom:8px;">Declared capacities and history as filed by the applicant. Leave blank where the activity does not apply.</div>
+        <div style="overflow-x:auto;margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:600;color:#3A4A5A;margin-bottom:6px;">(A) Manufacture</div>
+          <table style="width:100%;border-collapse:collapse;min-width:640px;">
+            <thead><tr>
+              <th class="zth" style="text-align:left;">Substance</th>
+              <th class="zth" style="text-align:right;">Installed Production Capacity (annual, kg)</th>
+              <th class="zth" style="text-align:left;">Qty manufactured — last 3 yrs (kg)</th>
+              <th class="zth" style="text-align:left;">Principal raw materials</th>
+              <th class="zth" style="text-align:left;">Manufactured for</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td class="ztd">Acetic Anhydride</td>
+                <td class="ztd" style="text-align:right;">5,000</td>
+                <td class="ztd">2023: 3,200 · 2024: 3,500 · 2025: 4,100</td>
+                <td class="ztd">Acetic acid, Ketene</td>
+                <td class="ztd">Sale</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="overflow-x:auto;margin-bottom:6px;">
+          <div style="font-size:11px;font-weight:600;color:#3A4A5A;margin-bottom:6px;">(B) Consumption</div>
+          <table style="width:100%;border-collapse:collapse;min-width:640px;">
+            <thead><tr>
+              <th class="zth" style="text-align:left;">Substance</th>
+              <th class="zth" style="text-align:left;">End product(s) after consumption</th>
+              <th class="zth" style="text-align:left;">Other raw materials</th>
+              <th class="zth" style="text-align:right;">Installed Consumption Capacity (annual, kg)</th>
+              <th class="zth" style="text-align:left;">Qty consumed — last 3 yrs (kg)</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td class="ztd">Potassium Permanganate</td>
+                <td class="ztd">Purified intermediates (water treatment grade)</td>
+                <td class="ztd">Manganese dioxide</td>
+                <td class="ztd" style="text-align:right;">800</td>
+                <td class="ztd">2023: 610 · 2024: 640 · 2025: 690</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div
           style="font-size:11px;font-weight:700;color:#3A4A5A;text-transform:uppercase;letter-spacing:0.06em;margin:20px 0 10px;">
@@ -2128,7 +2584,7 @@
         <div class="detail-row"><span class="k" style="width:230px;">Postal address</span><span class="v">Plot 14, MIDC
             Taloja, Navi Mumbai 410208</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">Telephone / Email</span><span
-            class="v">022-27412300 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c130c0f3c0f09120e150f191f141911521f13521512">[email&#160;protected]</a></span></div>
+            class="v">022-27412300 · info@sunrisechem.in</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">PAN</span><span class="v">AABCS1234F</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">Entity type</span><span class="v">Registered
             Company</span></div>
@@ -2147,7 +2603,7 @@
         <div class="detail-row"><span class="k" style="width:230px;">Name &amp; designation</span><span class="v">A.
             Sharma · Director</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">Contact / Email</span><span class="v">98xxxxxx21 ·
-            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f190df829990839c90b182849f839882949299949cdf929edf989f">[email&#160;protected]</a></span></div>
+            a.sharma@sunrisechem.in</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">PAN</span><span class="v">AABCS5678K</span></div>
         <div class="detail-row"><span class="k" style="width:230px;">Conviction/pending cases (NDPS Act, 1985)</span><span
             class="v">No</span></div>
@@ -2204,9 +2660,9 @@
         style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;">
         <div>
           <div style="font-size:14px;font-weight:600;" id="rdTitle">Return</div>
-          <div style="font-size:11px;color:#8B98A8;margin-top:2px;" id="rdSub"></div>
+          <div style="font-size:11px;color:#73808F;margin-top:2px;" id="rdSub"></div>
         </div>
-        <span style="cursor:pointer;font-size:18px;color:#8B98A8;" onclick="closeReturnDetail()">&times;</span>
+        <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeReturnDetail()">&times;</span>
       </div>
       <div style="padding:20px 24px;" id="rdBody"></div>
       <div class="action-bar" id="rdActions"></div>
@@ -2220,9 +2676,9 @@
         style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;">
         <div>
           <div style="font-size:14px;font-weight:600;" id="udTitle">URN</div>
-          <div style="font-size:11px;color:#8B98A8;margin-top:2px;" id="udSub"></div>
+          <div style="font-size:11px;color:#73808F;margin-top:2px;" id="udSub"></div>
         </div>
-        <span style="cursor:pointer;font-size:18px;color:#8B98A8;" onclick="closeUrnDetail()">&times;</span>
+        <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeUrnDetail()">&times;</span>
       </div>
       <div style="padding:20px 24px;" id="udBody"></div>
       <div class="action-bar" id="udActions"></div>
@@ -2236,16 +2692,74 @@
         style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;">
         <div>
           <div style="font-size:14px;font-weight:600;" id="ivTitle">Case</div>
-          <div style="font-size:11px;color:#8B98A8;margin-top:2px;" id="ivSub"></div>
+          <div style="font-size:11px;color:#73808F;margin-top:2px;" id="ivSub"></div>
         </div>
-        <span style="cursor:pointer;font-size:18px;color:#8B98A8;" onclick="closeInvDetail()">&times;</span>
+        <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeInvDetail()">&times;</span>
       </div>
       <div style="padding:20px 24px;" id="ivBody"></div>
       <div class="action-bar" id="ivActions"></div>
     </div>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <!-- Destruction (Form I) detail / approval overlay -->
+  <div id="destructionDetailOverlay"
+    style="display:none;position:fixed;inset:0;background:rgba(20,28,40,0.55);z-index:500;padding:30px;overflow-y:auto;">
+    <div style="max-width:720px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;">
+      <div style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;">
+        <div>
+          <div style="font-size:14px;font-weight:600;" id="dsTitle">Destruction</div>
+          <div style="font-size:11px;color:#73808F;margin-top:2px;" id="dsSub"></div>
+        </div>
+        <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeDestructionDetail()">&times;</span>
+      </div>
+      <div style="padding:20px 24px;" id="dsBody"></div>
+      <div class="action-bar" id="dsActions"></div>
+    </div>
+  </div>
+
+  <!-- Raise Query compose modal -->
+  <div id="raiseQueryModal"
+    style="display:none;position:fixed;inset:0;background:rgba(20,28,40,0.55);z-index:600;padding:30px;overflow-y:auto;">
+    <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:8px;overflow:hidden;">
+      <div style="background:#1E2A3A;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:14px;font-weight:600;">Query the zone</div>
+          <div style="font-size:11px;color:#9AB0C4;margin-top:2px;" id="rqContext">&mdash;</div>
+        </div>
+        <span style="cursor:pointer;font-size:18px;color:#73808F;" onclick="closeRaiseQuery()">&times;</span>
+      </div>
+      <div style="padding:20px 24px;">
+        <div style="background:#FBF1E8;border:1px solid #E6D5C4;border-radius:5px;padding:10px 12px;font-size:11px;color:#7A6A3A;line-height:1.6;margin-bottom:14px;">
+          As Regional Admin you query <strong>the zone</strong>, not the company. The zone reviews and responds; regional and HQ levels cannot query a registered entity directly (SRS REQ-RF-013).
+        </div>
+        <label style="font-size:11px;font-weight:600;color:#3A4A5A;display:block;margin-bottom:6px;">Query to the zone</label>
+        <textarea rows="4" placeholder="Describe what needs to be clarified or corrected..."
+          style="width:100%;padding:10px;border:1px solid #D0D5DC;border-radius:5px;font-size:12px;font-family:inherit;resize:vertical;margin-bottom:12px;"></textarea>
+        <div style="border:1px dashed #D0D5DC;border-radius:5px;padding:12px;text-align:center;color:#73808F;font-size:11px;cursor:pointer;margin-bottom:14px;">
+          Attach a reference document (optional) · PDF, JPEG
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;">
+          <button class="btn btn-secondary" onclick="closeRaiseQuery()">Cancel</button>
+          <button class="btn btn-query" onclick="closeRaiseQuery()">Send to zone</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+    // ── User menu (role switcher) ──
+    function toggleUserMenu(e, id) {
+      e.stopPropagation();
+      var dd = document.getElementById(id);
+      if (dd) dd.classList.toggle('open');
+    }
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.user-menu-dropdown.open').forEach(function (dd) {
+        dd.classList.remove('open');
+      });
+    });
+
     var detailData = {
       app1: {
         company: 'Sunrise Chemicals Pvt. Ltd.',
@@ -2285,9 +2799,15 @@
       },
       app3: {
         company: 'Pinnacle Pharma Ltd.',
-        meta: 'URN Application · PREP/ZO-MH/2026/APP-018 · with Reviewer',
-        pill: ['#FBF0E7', '#C2611C', 'With Reviewer'],
-        actions: 'monitor'
+        meta: 'URN Application · PREP/ZO-MH/2026/APP-018 · query response',
+        pill: ['#EAF5EE', '#1E7B4B', '&#10003; Applicant responded'],
+        actions: 'qryresp'
+      },
+      des1: {
+        company: 'ABC Pharmaceuticals Ltd.',
+        meta: 'Destruction · Form I · DI-2026-004 · reviewer forwarded',
+        pill: ['#FBF0E7', '#C2611C', 'Awaiting your approval'],
+        actions: 'destruction'
       }
     };
 
@@ -2301,7 +2821,7 @@
         '<div class="detail-section"><div class="detail-section-title">Why it was flagged</div>' +
         '<div style="font-size:12px;color:#5A6474;line-height:1.6;margin-bottom:6px;">Declared sales (150 kg) do not match the consignment notes filed (122 kg) — a <strong>28 kg difference</strong>.</div>' +
         '<div class="detail-row"><span class="k">Could be explained by</span><span class="v">Destruction (Form I) or loss/damage — none recorded this quarter</span></div>' +
-        '<div class="detail-row"><span class="k">If unexplained</span><span class="v">Raise a query with the registered entity</span></div></div>' +
+        '<div class="detail-row"><span class="k">If unexplained</span><span class="v">Raise a query with the company</span></div></div>' +
         '<div class="detail-section"><div class="detail-section-title">Documents</div><div>' +
         '<span class="doc-chip">Form E return (PDF)</span><span class="doc-chip">Form G #GN-2026-071</span><span class="doc-chip">Form G #GN-2026-088</span></div></div>',
 
@@ -2368,19 +2888,197 @@
         '<div class="detail-row"><span class="k">Purpose</span><span class="v">Manufacture, Sale</span></div>' +
         '<div class="detail-row"><span class="k">Location</span><span class="v">Plot 3, Ambernath, Mumbai Zone</span></div>' +
         '<div class="detail-row"><span class="k">Submitted</span><span class="v">06 Jun 2026</span></div></div>' +
+        '<div class="detail-section"><div class="detail-section-title">Your query &amp; the applicant\'s response</div>' +
+        '<div class="detail-row"><span class="k">Query raised</span><span class="v">Premises boundary clarification · 10 Jun 2026</span></div>' +
+        '<div class="detail-row"><span class="k">Applicant responded</span><span class="v">12 Jun 2026 — corrected boundary plan uploaded</span></div>' +
+        '<div class="detail-row"><span class="k">Reviewer re-verified</span><span class="v">13 Jun 2026 — matches records, forwarded to you</span></div>' +
+        '<div class="detail-row"><span class="k">Response document</span><span class="v"><span class="doc-chip">Boundary_plan_revised.pdf</span></span></div></div>' +
+        '<div style="font-size:11px;color:#73808F;padding:4px 0;">Open the full thread in Queries to read the conversation, then accept and sign or raise a follow-up query.</div>',
+
+      des1:
+        '<div class="detail-section"><div class="detail-section-title">Destruction request (Form I)</div>' +
+        '<div class="detail-row"><span class="k">Reference</span><span class="v">DI-2026-004</span></div>' +
+        '<div class="detail-row"><span class="k">URN</span><span class="v">PREP/00142</span></div>' +
+        '<div class="detail-row"><span class="k">Substance</span><span class="v">Ephedrine · 5 kg</span></div>' +
+        '<div class="detail-row"><span class="k">Reason</span><span class="v">Expired stock</span></div>' +
+        '<div class="detail-row"><span class="k">Method</span><span class="v">Incineration at approved facility</span></div></div>' +
         '<div class="detail-section"><div class="detail-section-title">Where it stands</div>' +
-        '<div class="detail-row"><span class="k">Status</span><span class="v">With reviewer — applicant responded to query</span></div>' +
-        '<div class="detail-row"><span class="k">Query raised</span><span class="v">Premises boundary clarification (10 Jun)</span></div>' +
-        '<div class="detail-row"><span class="k">Applicant responded</span><span class="v">12 Jun — corrected boundary document uploaded</span></div>' +
-        '<div class="detail-row"><span class="k">Next step</span><span class="v">Reviewer to re-verify before forwarding to you</span></div></div>' +
-        '<div style="font-size:11px;color:#8B98A8;padding:4px 0;">No action required from you yet — this application is still with the reviewer. It will move to your approval queue once the reviewer forwards it.</div>'
+        '<div class="detail-row"><span class="k">Reviewer</span><span class="v">R. Iyer · forwarded 04 Jun 2026</span></div>' +
+        '<div class="detail-row"><span class="k">Reviewer remarks</span><span class="v">Form I in order; stock position confirmed. Recommended.</span></div></div>' +
+        '<div style="font-size:11px;color:#73808F;padding:4px 0;">On approval you upload the offline-signed MOM &amp; Destruction Certificate and inspection photos to issue the certificate. Open the full request to proceed.</div>'
     };
 
-    function openFullApplication() {
+    function openFullApplication(title, sub) {
+      var hd = document.getElementById('fullAppHd');
+      var hs = document.getElementById('fullAppSub');
+      if (hd) hd.innerHTML = title || 'Form B &mdash; Full Application';
+      if (hs) hs.innerHTML = sub || 'Sunrise Chemicals Pvt. Ltd. · PREP/ZO-MH/2026/APP-022';
       document.getElementById('fullAppOverlay').style.display = 'block';
     }
     function closeFullApplication() {
       document.getElementById('fullAppOverlay').style.display = 'none';
+    }
+    function openUrnRecord(urn, company) {
+      openFullApplication('URN ' + urn + ' &mdash; Full Record (Form B as filed)', company + ' · ' + urn);
+    }
+
+    /* ----- Query management ----- */
+    var zQueryThreads = {
+      pinnacle: {
+        title: 'Query — URN Application',
+        sub: 'PREP/ZO-MH/2026/APP-018 · Pinnacle Pharma Ltd. · Safrole',
+        badge: ['#EAF5EE', '#1E7B4B', 'Applicant responded — needs your review'],
+        zoneMsg: 'Premises boundary description does not match the survey document submitted with Form B. The North and East boundaries differ. Please clarify or upload a corrected boundary plan.',
+        zoneDate: '10 Jun 2026, 10:15 AM',
+        responded: true,
+        respMsg: 'Corrected boundary plan uploaded. The North and East boundaries now match the survey document; the earlier plan was an outdated draft.',
+        respDate: '12 Jun 2026, 04:40 PM',
+        attach: 'Boundary_plan_revised.pdf',
+        reviewerNote: 'Zonal Reviewer re-verified the corrected plan against records · 13 Jun 2026',
+        actions: 'review'
+      },
+      abc: {
+        title: 'Query — Quarterly Return',
+        sub: 'Form E · Q1 2026 · ABC Pharmaceuticals Ltd. · Acetic Anhydride',
+        badge: ['#FBF0E7', '#C2611C', 'Awaiting response'],
+        zoneMsg: 'Declared sales (150 kg) do not match the consignment notes filed this quarter (122 kg) — a 28 kg difference. Please clarify the variance or submit a revised return.',
+        zoneDate: '16 Jun 2026, 11:20 AM',
+        responded: false,
+        actions: 'awaiting'
+      },
+      meridian: {
+        title: 'Query — URN Change Request',
+        sub: 'PREP/ZO-MH/2026/APP-021 · Meridian Labs Pvt. Ltd. · Authorised signatory',
+        badge: ['#FBF0E7', '#C2611C', 'Awaiting response'],
+        zoneMsg: 'The specimen signature of the new authorised person is not legible. Please re-upload a clear copy.',
+        zoneDate: '15 Jun 2026, 09:05 AM',
+        responded: false,
+        actions: 'awaiting'
+      }
+    };
+
+    function showZQView(view, key) {
+      var list = document.getElementById('zq-list');
+      var thread = document.getElementById('zq-thread');
+      if (view === 'thread' && key) {
+        var d = zQueryThreads[key];
+        document.getElementById('zqThreadTitle').textContent = d.title;
+        document.getElementById('zqThreadSub').textContent = d.sub;
+        var bubbleZone =
+          '<div style="display:flex;gap:10px;margin-bottom:14px;">' +
+          '<div style="flex-shrink:0;width:32px;height:32px;border-radius:50%;background:#1E2A3A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">ZO</div>' +
+          '<div style="flex:1;"><div style="font-size:11px;color:#5A6474;margin-bottom:4px;"><strong style="color:#1A2332;">Zonal Office, Mumbai</strong> · ' + d.zoneDate + '</div>' +
+          '<div style="background:#EEF2F8;border-radius:0 8px 8px 8px;padding:10px 12px;font-size:12px;color:#1A2332;line-height:1.5;">' + d.zoneMsg + '</div></div></div>';
+        var relay = '<div style="text-align:center;margin-bottom:14px;"><span style="background:#FBF1E8;border:1px solid #E6D5C4;color:#7A6A3A;border-radius:12px;padding:3px 12px;font-size:10px;">Relayed to the zone · awaiting response</span></div>';
+        var body;
+        if (d.responded) {
+          body = bubbleZone + relay +
+            '<div style="display:flex;gap:10px;margin-bottom:14px;flex-direction:row-reverse;">' +
+            '<div style="flex-shrink:0;width:32px;height:32px;border-radius:50%;background:#EAF5EE;color:#1E7B4B;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">AP</div>' +
+            '<div style="flex:1;"><div style="font-size:11px;color:#5A6474;margin-bottom:4px;text-align:right;"><strong style="color:#1A2332;">Applicant</strong> · ' + d.respDate + '</div>' +
+            '<div style="background:#EAF5EE;border-radius:8px 0 8px 8px;padding:10px 12px;font-size:12px;color:#1A2332;line-height:1.5;">' + d.respMsg +
+            '<div style="margin-top:8px;"><span class="doc-chip">' + d.attach + '</span></div></div></div></div>' +
+            (d.reviewerNote ? '<div style="text-align:center;margin-bottom:6px;"><span style="color:#73808F;font-size:11px;">&#10003; ' + d.reviewerNote + '</span></div>' : '');
+        } else {
+          body = bubbleZone + relay + '<div style="text-align:center;padding:10px;font-size:11px;color:#73808F;">Awaiting the applicant\'s response.</div>';
+        }
+        var actions;
+        if (d.actions === 'review') {
+          actions = '<div class="action-bar" style="border-top:1px solid #EAECF0;"><div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Awaiting zone decision</strong></div><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button></div>';
+        } else {
+          actions = '<div class="action-bar" style="border-top:1px solid #EAECF0;"><div class="ro-status"><span class="ro-dot"></span>Status: <strong>Awaiting response</strong> · relayed to the zone</div></div>';
+        }
+        document.getElementById('zqThreadCard').innerHTML =
+          '<div style="padding:12px 16px;border-bottom:1px solid #F2F4F6;display:flex;justify-content:space-between;align-items:center;">' +
+          '<div style="font-size:13px;font-weight:600;color:#1A2332;">Conversation</div>' +
+          '<span style="background:' + d.badge[0] + ';color:' + d.badge[1] + ';border-radius:10px;padding:2px 10px;font-size:10px;font-weight:600;">' + d.badge[2] + '</span></div>' +
+          '<div style="padding:16px;">' + body + '</div>' + actions;
+        list.style.display = 'none';
+        thread.style.display = 'block';
+      } else {
+        thread.style.display = 'none';
+        list.style.display = 'block';
+      }
+    }
+
+    function toggleZResolved() {
+      var l = document.getElementById('zResolvedList'), c = document.getElementById('zResolvedChev');
+      var open = (l.style.display === 'none');
+      l.style.display = open ? 'block' : 'none';
+      if (c) c.innerHTML = open ? '&#9660;' : '&#9654;';
+    }
+
+    function openRaiseQuery(ctx) {
+      document.getElementById('rqContext').textContent = ctx ? ('About: ' + ctx) : '';
+      document.getElementById('raiseQueryModal').style.display = 'block';
+    }
+    function closeRaiseQuery() {
+      document.getElementById('raiseQueryModal').style.display = 'none';
+    }
+
+    /* ----- Destruction (Form I) ----- */
+    function filterDes(status, el) {
+      document.querySelectorAll('#zscreen-destruction .atab').forEach(function (t) { t.classList.remove('atab-active'); });
+      if (el) el.classList.add('atab-active');
+      document.querySelectorAll('.desrow').forEach(function (r) {
+        r.style.display = (status === 'all' || r.dataset.st === status) ? '' : 'none';
+      });
+    }
+
+    function openDestructionDetail(kind) {
+      var title = document.getElementById('dsTitle');
+      var sub = document.getElementById('dsSub');
+      var body = document.getElementById('dsBody');
+      var actions = document.getElementById('dsActions');
+      var upload = 'border:1px dashed #D0D5DC;border-radius:5px;padding:12px;text-align:center;color:#73808F;font-size:11px;cursor:pointer;margin-top:8px;';
+
+      if (kind === 'issued') {
+        title.textContent = 'Destruction DI-2025-011';
+        sub.textContent = 'Meridian Labs Pvt. Ltd. · PREP/00221 · Certificate issued';
+        body.innerHTML =
+          '<div class="detail-section"><div class="detail-section-title">Request</div>' +
+          '<div class="detail-row"><span class="k">Substance</span><span class="v">Acetic Anhydride · 12 kg</span></div>' +
+          '<div class="detail-row"><span class="k">Reason</span><span class="v">Contaminated batch</span></div>' +
+          '<div class="detail-row"><span class="k">Method</span><span class="v">Incineration at approved facility</span></div>' +
+          '<div class="detail-row"><span class="k">Approved</span><span class="v">22 Oct 2025 · Zonal Admin</span></div></div>' +
+          '<div class="detail-section"><div class="detail-section-title">Certified documents</div><div>' +
+          '<span class="doc-chip">Form I (PDF)</span><span class="doc-chip">MOM — signed (PDF)</span><span class="doc-chip">Destruction Certificate (PDF)</span><span class="doc-chip">Inspection photos</span></div></div>';
+        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeDestructionDetail()">Close</button>';
+      } else if (kind === 'reviewer') {
+        title.textContent = 'Destruction DI-2026-006';
+        sub.textContent = 'Harbour Pharma Ltd. · PREP/00188 · With reviewer';
+        body.innerHTML =
+          '<div class="detail-section"><div class="detail-section-title">Request</div>' +
+          '<div class="detail-row"><span class="k">Substance</span><span class="v">Acetic Anhydride · 18 kg</span></div>' +
+          '<div class="detail-row"><span class="k">Reason</span><span class="v">Contaminated batch</span></div>' +
+          '<div class="detail-row"><span class="k">Submitted</span><span class="v">08 Jun 2026</span></div></div>' +
+          '<div class="detail-section"><div class="detail-section-title">Where it stands</div>' +
+          '<div style="font-size:12px;color:#5A6474;line-height:1.6;">The Zonal Reviewer is verifying the Form I details and stock position. It will move to your approval queue once forwarded.</div></div>' +
+          '<div class="detail-section"><div class="detail-section-title">Documents</div><div><span class="doc-chip">Form I (PDF)</span></div></div>';
+        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeDestructionDetail()">Close</button>';
+      } else {
+        title.textContent = 'Destruction DI-2026-004';
+        sub.textContent = 'ABC Pharmaceuticals Ltd. · PREP/00142 · Awaiting your approval';
+        body.innerHTML =
+          '<div class="detail-section"><div class="detail-section-title">Request</div>' +
+          '<div class="detail-row"><span class="k">Substance</span><span class="v">Ephedrine · 5 kg</span></div>' +
+          '<div class="detail-row"><span class="k">Reason</span><span class="v">Expired stock</span></div>' +
+          '<div class="detail-row"><span class="k">Method</span><span class="v">Incineration at approved facility</span></div>' +
+          '<div class="detail-row"><span class="k">Stock at hand</span><span class="v">85 kg (5 kg to be destroyed)</span></div></div>' +
+          '<div class="detail-section"><div class="detail-section-title">Where it stands</div>' +
+          '<div class="detail-row"><span class="k">Reviewer</span><span class="v">R. Iyer · forwarded 04 Jun 2026</span></div>' +
+          '<div class="detail-row"><span class="k">Reviewer remarks</span><span class="v">Form I in order; stock position confirmed. Recommended.</span></div></div>' +
+          '<div class="detail-section"><div class="detail-section-title">Documents</div><div><span class="doc-chip">Form I (PDF)</span><span class="doc-chip">Stock statement</span></div></div>' +
+          '<div class="detail-section" id="dsUpload" style="display:none;"><div class="detail-section-title">On approval — upload signed documents</div>' +
+          '<div style="font-size:11px;color:#5A6474;line-height:1.6;">The MOM and Destruction Certificate are signed offline by all parties, then uploaded here (REQ-SM-006 / REQ-AA-007).</div>' +
+          '<div style="' + upload + '">Upload MOM &amp; Destruction Certificate · PDF</div>' +
+          '<div style="' + upload + '">Upload inspection photos · JPEG</div></div>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Pending zone approval</strong> of destruction</div><button class="btn btn-secondary" onclick="closeDestructionDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
+      }
+      document.getElementById('destructionDetailOverlay').style.display = 'block';
+    }
+    function closeDestructionDetail() {
+      document.getElementById('destructionDetailOverlay').style.display = 'none';
     }
 
     function showZScreen(id, el) {
@@ -2392,6 +3090,167 @@
       if (id === 'substance') {
         renderZSubstance();
       }
+      if (id === 'analytics') {
+        renderZAnalytics();
+      }
+      if (id === 'queries') {
+        showZQView('list');
+      }
+      // keep Substance Oversight submenu highlight in sync
+      var subMap = { substance: 'zsub-overview', consignments: 'zsub-consignments', destruction: 'zsub-destruction' };
+      document.querySelectorAll('#substanceSub .nav-sub').forEach(function (s) { s.classList.remove('active'); });
+      if (subMap[id]) {
+        var se = document.getElementById(subMap[id]);
+        if (se) se.classList.add('active');
+      }
+    }
+
+    function expandZSub(subId, arrowId) {
+      var g = document.getElementById(subId), a = document.getElementById(arrowId);
+      var open = (g.style.display === 'none' || !g.style.display);
+      g.style.display = open ? 'block' : 'none';
+      if (a) a.classList.toggle('open', open);
+    }
+
+    function showZSub(screen, subEl) {
+      document.getElementById('substanceSub').style.display = 'block';
+      document.getElementById('substanceArrow').classList.add('open');
+      showZScreen(screen, document.getElementById('znav-substance'));
+    }
+
+    // ══════════ Regional scope model — South Western Region, 3 zones ══════════
+    var Q_LABELS = ['Q2 25', 'Q3 25', 'Q4 25', 'Q1 26'];
+    var RZONES = {
+      Mumbai:    { companies: 37, urns: 48, nonfilers: 5, due: 37, ontime: [79, 82, 84, 86], ld: [3, 2, 2, 1] },
+      Goa:       { companies: 28, urns: 39, nonfilers: 2, due: 28, ontime: [88, 90, 89, 92], ld: [1, 1, 1, 1] },
+      Bangalore: { companies: 41, urns: 55, nonfilers: 6, due: 41, ontime: [72, 75, 80, 83], ld: [2, 3, 1, 1] }
+    };
+    // Loss & Damage split into four categories: [Loss, Damage, Theft, Wastage]
+    var LD_CATS = ['Loss', 'Damage', 'Theft', 'Wastage'];
+    var LD_COLORS = ['#334F79', '#7A98C1', '#C2611C', '#A6B2C0'];
+    function zLdTotal(z) { return RZONES[z].ld.reduce(function (a, b) { return a + b; }, 0); }
+    var ZONE_ORDER = ['Mumbai', 'Goa', 'Bangalore'];
+    var Z_COLOR = { Mumbai: '#4A719F', Goa: '#7A98C1', Bangalore: '#A6B2C0' };
+    var currentScope = 'all';   // 'all' or a zone key
+    var zCharts = {};
+
+    function scopeZones() { return currentScope === 'all' ? ZONE_ORDER : [currentScope]; }
+    function scopeDisplayName() { return currentScope === 'all' ? 'South Western Region' : currentScope + ' Zone'; }
+    function sum(arr) { return arr.reduce(function (a, b) { return a + b; }, 0); }
+
+    function setScope(val) {
+      currentScope = val;
+      var name = scopeDisplayName();
+      // 1. update every scope-name span across screens
+      document.querySelectorAll('.scope-name').forEach(function (s) { s.textContent = name; });
+      // 2. sidebar chip
+      var zs = scopeZones();
+      var totURNs = 0, totCos = 0, totNF = 0, totLD = 0, totDue = 0;
+      zs.forEach(function (z) { var d = RZONES[z]; totURNs += d.urns; totCos += d.companies; totNF += d.nonfilers; totLD += zLdTotal(z); totDue += d.due; });
+      var chip = document.getElementById('scopeChip');
+      if (chip) chip.textContent = (currentScope === 'all' ? '3 Zones · ' : name + ' · ') + totURNs + ' URNs';
+      // 3. KPI strip
+      var onTimeAvg = Math.round(zs.reduce(function (a, z) { return a + RZONES[z].ontime[3]; }, 0) / zs.length);
+      var set = function (id, v) { var e = document.getElementById(id); if (e) e.textContent = v; };
+      set('kpiCompanies', totCos); set('kpiURNs', totURNs); set('kpiOnTime', onTimeAvg + '%');
+      set('kpiNonFilers', totNF); set('kpiLD', totLD);
+      var hb = document.getElementById('zaHeroBadge'); if (hb) hb.textContent = currentScope === 'all' ? '3 zones' : '1 zone';
+      // 4. substance overview label + re-render if visible
+      SCOPE_SUBLABEL = (currentScope === 'all' ? 'All zones · South Western Region' : name);
+      if (document.getElementById('zscreen-substance').style.display !== 'none') renderZSubstance();
+      // 5. analytics re-render
+      renderZAnalytics(true);
+    }
+
+    var SCOPE_SUBLABEL = 'All zones · South Western Region';
+
+    function renderZAnalytics(force) {
+      if (typeof Chart === 'undefined') return;
+      if (!force && zCharts.hero) return;   // already drawn, no scope change
+      Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif";
+      Chart.defaults.font.size = 11;
+      Chart.defaults.color = '#5A6474';
+      var grid = '#EEF1F4';
+      Object.keys(zCharts).forEach(function (k) { if (zCharts[k]) { zCharts[k].destroy(); } });
+      zCharts = {};
+      var zs = scopeZones();
+
+      // 1. Hero — zone compliance comparison (grouped bar, on-time % per zone per quarter)
+      zCharts.hero = new Chart(document.getElementById('zaReconcile'), {
+        type: 'bar',
+        data: {
+          labels: Q_LABELS,
+          datasets: zs.map(function (z) {
+            return { label: z + ' Zone', data: RZONES[z].ontime, backgroundColor: Z_COLOR[z], borderRadius: 3 };
+          })
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: { x: { grid: { display: false } }, y: { min: 60, max: 100, grid: { color: grid }, ticks: { callback: function (v) { return v + '%'; } }, title: { display: true, text: 'On-time %' } } }
+        }
+      });
+
+      // 2. Active URNs by zone (doughnut share)
+      zCharts.urns = new Chart(document.getElementById('zaCompliance'), {
+        type: 'doughnut',
+        data: {
+          labels: zs.map(function (z) { return z + ' Zone'; }),
+          datasets: [{ data: zs.map(function (z) { return RZONES[z].urns; }), backgroundColor: zs.map(function (z) { return Z_COLOR[z]; }), borderWidth: 0 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '62%', plugins: { legend: { position: 'right' } } }
+      });
+
+      // 3. On-time filing trend (line per zone)
+      zCharts.trend = new Chart(document.getElementById('zaFilingTrend'), {
+        type: 'line',
+        data: {
+          labels: Q_LABELS,
+          datasets: zs.map(function (z) {
+            return { label: z + ' Zone', data: RZONES[z].ontime, borderColor: Z_COLOR[z], backgroundColor: 'transparent', tension: 0.35, pointRadius: 3 };
+          })
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: { y: { min: 60, max: 100, grid: { color: grid }, ticks: { callback: function (v) { return v + '%'; } } }, x: { grid: { display: false } } }
+        }
+      });
+
+      // 4. Loss & Damage by zone (stacked bar)
+      zCharts.ld = new Chart(document.getElementById('zaLossDamage'), {
+        type: 'bar',
+        data: {
+          labels: zs.map(function (z) { return z + ' Zone'; }),
+          datasets: [
+            LD_CATS.map(function (cat, i) {
+              return { label: cat, data: zs.map(function (z) { return RZONES[z].ld[i]; }), backgroundColor: LD_COLORS[i], borderRadius: 3 };
+            })
+          ].flat()
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: grid } } }
+        }
+      });
+
+      // 5. Non-filers & returns due by zone (grouped bar)
+      zCharts.nf = new Chart(document.getElementById('zaStock'), {
+        type: 'bar',
+        data: {
+          labels: zs.map(function (z) { return z + ' Zone'; }),
+          datasets: [
+            { label: 'Returns due', data: zs.map(function (z) { return RZONES[z].due; }), backgroundColor: '#A6B2C0', borderRadius: 3 },
+            { label: 'Non-filers', data: zs.map(function (z) { return RZONES[z].nonfilers; }), backgroundColor: '#C56D5F', borderRadius: 3 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { color: grid }, title: { display: true, text: 'Count (Q1 2026)' } } }
+        }
+      });
     }
 
     function filterApps(status, el) {
@@ -2411,7 +3270,7 @@
         title.textContent = 'Return — Form E · Q1 2026';
         sub.textContent = 'ABC Pharmaceuticals Ltd. · PREP/00142';
         body.innerHTML =
-          '<div style="background:#F4F6F8;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:10px;color:#8B98A8;text-transform:uppercase;letter-spacing:0.05em;">Substance</div><div style="font-size:15px;font-weight:700;color:#1A2332;margin-top:2px;">Acetic Anhydride</div></div>' +
+          '<div style="background:#F4F6F8;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:10px;color:#73808F;text-transform:uppercase;letter-spacing:0.05em;">Substance</div><div style="font-size:15px;font-weight:700;color:#1A2332;margin-top:2px;">Acetic Anhydride</div></div>' +
           '<div class="detail-section"><div class="detail-section-title">What the return declares</div>' +
           '<div class="detail-row"><span class="k">Opening balance</span><span class="v">500 kg</span></div>' +
           '<div class="detail-row"><span class="k">Manufactured</span><span class="v">200 kg</span></div>' +
@@ -2426,13 +3285,13 @@
           '<div class="detail-row"><span class="k">Loss / damage reported</span><span class="v">None this quarter</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Documents</div><div>' +
           '<span class="doc-chip">Form E return (PDF)</span><span class="doc-chip">Form G #GN-2026-071</span><span class="doc-chip">Form G #GN-2026-088</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeReturnDetail()">Close</button><button class="btn btn-query">Raise query</button>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Flagged by zone</strong> · under review</div><button class="btn btn-secondary" onclick="closeReturnDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
       } else {
         var revised = (kind === 'revised');
         title.textContent = revised ? 'Return — Form F · Q4 2025 (Revised)' : 'Return — Form F · Q1 2026';
         sub.textContent = revised ? 'Greenfield Industries · PREP/00310' : 'Coastal Traders LLP · PREP/00067';
         body.innerHTML =
-          '<div style="background:#F4F6F8;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:10px;color:#8B98A8;text-transform:uppercase;letter-spacing:0.05em;">Substance</div><div style="font-size:15px;font-weight:700;color:#1A2332;margin-top:2px;">' + (revised ? 'Pseudoephedrine' : 'Potassium Permanganate') + '</div></div>' +
+          '<div style="background:#F4F6F8;border-radius:6px;padding:10px 14px;margin-bottom:14px;"><div style="font-size:10px;color:#73808F;text-transform:uppercase;letter-spacing:0.05em;">Substance</div><div style="font-size:15px;font-weight:700;color:#1A2332;margin-top:2px;">' + (revised ? 'Pseudoephedrine' : 'Potassium Permanganate') + '</div></div>' +
           '<div class="detail-section"><div class="detail-section-title">What the return declares</div>' +
           '<div class="detail-row"><span class="k">Filed</span><span class="v">' + (revised ? '10 Jan 2026' : '12 Apr 2026') + '</span></div>' +
           '<div class="detail-row"><span class="k">Opening balance</span><span class="v">' + (revised ? '60 kg' : '40 kg') + '</span></div>' +
@@ -2444,7 +3303,7 @@
           '<div class="detail-row"><span class="k">Sales vs consignment notes</span><span class="v" style="color:#1E7B4B;font-weight:600;">Match &#10003;</span></div>' +
           '<div class="detail-row"><span class="k">Result</span><span class="v">Records tie out. No discrepancy found.</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Documents</div><div><span class="doc-chip">Return (PDF)</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeReturnDetail()">Close</button><button class="btn btn-query">Flag a problem</button>';
+        actions.innerHTML = '<div class="ro-status"><span class="ro-dot"></span>Status: <strong>Accepted by zone</strong></div><button class="btn btn-secondary" onclick="closeReturnDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
       }
       document.getElementById('returnDetailOverlay').style.display = 'block';
     }
@@ -2483,7 +3342,8 @@
           '<div class="detail-row"><span class="k">Status</span><span class="v" style="color:#1E7B4B;font-weight:600;">Active</span></div>' +
           '<div class="detail-row"><span class="k">Issued</span><span class="v">12 Feb 2024</span></div>' +
           '<div class="detail-row"><span class="k">Substances</span><span class="v">Acetic Anhydride, Ephedrine</span></div>' +
-          '<div class="detail-row"><span class="k">Authorised signatory</span><span class="v">Ramesh Iyer</span></div></div>' +
+          '<div class="detail-row"><span class="k">Authorised signatory</span><span class="v">Ramesh Iyer</span></div>' +
+          '<div style="margin-top:8px;"><span class="rlink" style="color:#2E6EBF;cursor:pointer;" onclick="openUrnRecord(\'PREP/00142\',\'ABC Pharmaceuticals Ltd.\')">View full URN record (Form B as filed) &rarr;</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Current stock at hand</div>' +
           '<div class="detail-row"><span class="k">Acetic Anhydride</span><span class="v">520 kg</span></div>' +
           '<div class="detail-row"><span class="k">Ephedrine</span><span class="v">85 kg</span></div></div>' +
@@ -2491,9 +3351,9 @@
           '<div style="' + amber + '">To be confirmed with department: the approving authority for an inter-zone transfer (Zonal approving authority or NCB HQ). Cancellation grounds, renewal periodicity, and suo-motu handling are also pending NCB confirmation.</div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Documents</div><div>' +
           '<span class="doc-chip">Form A — URN certificate (PDF)</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-reject">Cancel URN</button><button class="btn btn-approve">Initiate transfer</button>';
+        actions.innerHTML = '<div class="ro-status"><span class="ro-dot"></span>Status: <strong>Active</strong> · managed by Mumbai Zone</div><button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
       } else if (kind === 'transfer') {
-        title.textContent = 'URN PREP/00221 — Transfer in progress';
+        title.textContent = 'URN PREP/00221 — Transfers';
         sub.textContent = 'Meridian Labs Pvt. Ltd. · Taloja, Navi Mumbai';
         body.innerHTML =
           '<div class="detail-section"><div class="detail-section-title">Transfer request</div>' +
@@ -2506,7 +3366,7 @@
           '<div style="' + amber + '">To be confirmed with department: whether inter-zone transfer is approved by the Zonal approving authority (REQ-SM-014) or NCB HQ (REQ-AA-009). The Zonal Reviewer reviews only and holds no ownership.</div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Documents</div><div>' +
           '<span class="doc-chip">Transfer request (PDF)</span><span class="doc-chip">Form A — URN certificate</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-query">Raise query</button>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Transfer in progress</strong> · zone-managed</div><button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
       } else if (kind === 'surrender') {
         title.textContent = 'URN PREP/00067 — Surrender requested';
         sub.textContent = 'Coastal Traders LLP · JNPT, Navi Mumbai';
@@ -2520,7 +3380,7 @@
           '<div style="font-size:12px;color:#5A6474;line-height:1.6;margin-top:6px;">A URN can only be surrendered when the stock at hand of the controlled substance is nil. This condition is met.</div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Documents</div><div>' +
           '<span class="doc-chip">Surrender request (PDF)</span><span class="doc-chip">Final return — Q1 2026</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-query">Raise query</button><button class="btn btn-reject">Reject</button><button class="btn btn-approve">Approve surrender</button>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Pending zone decision</strong> on surrender</div><button class="btn btn-secondary" onclick="closeUrnDetail()">Close</button><button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
       } else {
         title.textContent = 'URN PREP/00255 — Cancelled';
         sub.textContent = 'Delta Organics LLP · Dombivli, Thane';
@@ -2588,7 +3448,7 @@
           '<div class="detail-row"><span class="k">Case opened</span><span class="v">12 Jun 2026 (auto on submission)</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Evidence</div><div>' +
           '<span class="doc-chip">Incident photos</span><span class="doc-chip">Supervisor statement (PDF)</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-query">Raise query</button><button class="btn btn-approve">Assign investigator</button>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Open</strong> · assigned by Mumbai Zone</div><button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-light">Initiate adhoc inspection</button>';
       } else if (kind === 'progress') {
         title.textContent = 'Case LD-2026-014 — Theft';
         sub.textContent = 'ABC Pharmaceuticals Ltd. · Andheri East, Mumbai';
@@ -2609,7 +3469,7 @@
           '<div class="detail-row"><span class="k">14 Jun 2026</span><span class="v">Investigator report uploaded</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Evidence</div><div>' +
           '<span class="doc-chip">FIR copy (PDF)</span><span class="doc-chip">Warehouse photos</span><span class="doc-chip">Investigator report</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-secondary">Reassign investigator</button><button class="btn btn-approve">Record outcome</button>';
+        actions.innerHTML = '<div class="ro-status"><span class="ro-dot"></span>Status: <strong>In progress</strong> · Mumbai Zone investigator assigned</div><button class="btn btn-secondary" onclick="closeInvDetail()">Close</button>';
       } else if (kind === 'insp-open') {
         title.textContent = 'Inspection INS-2026-004';
         sub.textContent = 'Meridian Labs Pvt. Ltd. · Taloja, Navi Mumbai';
@@ -2617,7 +3477,7 @@
           '<div style="' + amber + 'margin-bottom:14px;">The fields shown for an adhoc inspection are not yet defined in the SRS. To be confirmed with the department.</div>' +
           '<div class="detail-section"><div class="detail-section-title">Inspection</div>' +
           '<div class="detail-row"><span class="k">Initiated by</span><span class="v">Zonal Office (Mumbai)</span></div>' +
-          '<div class="detail-row"><span class="k">Registered Entity</span><span class="v">Meridian Labs Pvt. Ltd.</span></div>' +
+          '<div class="detail-row"><span class="k">Company</span><span class="v">Meridian Labs Pvt. Ltd.</span></div>' +
           '<div class="detail-row"><span class="k">URN</span><span class="v">MH-ZN-2024-00318</span></div>' +
           '<div class="detail-row"><span class="k">Substance in scope</span><span class="v">Ephedrine</span></div>' +
           '<div class="detail-row"><span class="k">Reason</span><span class="v">Routine adhoc check</span></div></div>' +
@@ -2626,7 +3486,7 @@
           '<div class="detail-row"><span class="k">Case opened</span><span class="v">14 Jun 2026</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Evidence</div><div>' +
           '<span class="doc-chip">No documents yet</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-approve">Assign for inspection</button>';
+        actions.innerHTML = '<div class="ro-status pending"><span class="ro-dot"></span>Status: <strong>Inspection pending</strong> · Mumbai Zone</div><button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-light">Initiate adhoc inspection</button>';
       } else if (kind === 'insp-progress') {
         title.textContent = 'Inspection INS-2026-003';
         sub.textContent = 'ABC Pharmaceuticals Ltd. · Andheri East, Mumbai';
@@ -2634,7 +3494,7 @@
           '<div style="' + amber + 'margin-bottom:14px;">The fields shown for an adhoc inspection are not yet defined in the SRS. To be confirmed with the department.</div>' +
           '<div class="detail-section"><div class="detail-section-title">Inspection</div>' +
           '<div class="detail-row"><span class="k">Initiated by</span><span class="v">Regional Office (West)</span></div>' +
-          '<div class="detail-row"><span class="k">Registered Entity</span><span class="v">ABC Pharmaceuticals Ltd.</span></div>' +
+          '<div class="detail-row"><span class="k">Company</span><span class="v">ABC Pharmaceuticals Ltd.</span></div>' +
           '<div class="detail-row"><span class="k">URN</span><span class="v">MH-ZN-2023-00142</span></div>' +
           '<div class="detail-row"><span class="k">Substance in scope</span><span class="v">Acetic Anhydride</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Where the case stands</div>' +
@@ -2646,7 +3506,7 @@
           '<div class="detail-row"><span class="k">16 Jun 2026</span><span class="v">Inspection report and photos uploaded</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Evidence</div><div>' +
           '<span class="doc-chip">Inspection report (PDF)</span><span class="doc-chip">Geotagged site photos</span></div></div>';
-        actions.innerHTML = '<button class="btn btn-secondary" onclick="closeInvDetail()">Close</button><button class="btn btn-secondary">Reassign</button><button class="btn btn-approve">Record outcome</button>';
+        actions.innerHTML = '<div class="ro-status"><span class="ro-dot"></span>Status: <strong>Closed</strong> · outcome recorded by Mumbai Zone</div><button class="btn btn-secondary" onclick="closeInvDetail()">Close</button>';
       } else if (kind === 'insp-closed') {
         title.textContent = 'Inspection INS-2026-001';
         sub.textContent = 'Coastal Traders LLP · JNPT, Navi Mumbai';
@@ -2654,7 +3514,7 @@
           '<div style="' + amber + 'margin-bottom:14px;">The fields shown for an adhoc inspection are not yet defined in the SRS. To be confirmed with the department.</div>' +
           '<div class="detail-section"><div class="detail-section-title">Inspection</div>' +
           '<div class="detail-row"><span class="k">Initiated by</span><span class="v">NCB HQ</span></div>' +
-          '<div class="detail-row"><span class="k">Registered Entity</span><span class="v">Coastal Traders LLP</span></div>' +
+          '<div class="detail-row"><span class="k">Company</span><span class="v">Coastal Traders LLP</span></div>' +
           '<div class="detail-row"><span class="k">Substance in scope</span><span class="v">Potassium Permanganate</span></div></div>' +
           '<div class="detail-section"><div class="detail-section-title">Outcome</div>' +
           '<div class="detail-row"><span class="k">Conducted by</span><span class="v">Insp. R. Kulkarni</span></div>' +
@@ -2720,7 +3580,7 @@
             name: 'Harbour Pharma Ltd.', urn: 'PREP/00188', act: 'Manufacture · Sale',
             link: "openUrnDetail('active')", linkText: 'View URN',
             cd: {
-              signals: ['No reconciliation gaps for this registered entity this period.'],
+              signals: ['No reconciliation gaps for this company this period.'],
               quarters: [
                 { q: 'Q1 2026', opening: 3500, manufactured: 600, purchased: 0, consumed: 200, sold: 400, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [['GN-2026-090', '08 Mar 2026', 'Harbour Pharma Ltd.', 'LMN Pharma Ltd.', 'PREP/00444', '400 kg', 'ack']] },
                 { q: 'Q4 2025', opening: 3500, manufactured: 600, purchased: 0, consumed: 200, sold: 400, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [['GN-2025-072', '14 Dec 2025', 'Harbour Pharma Ltd.', 'LMN Pharma Ltd.', 'PREP/00444', '400 kg', 'ack']] },
@@ -2766,7 +3626,7 @@
             name: 'Delta Organics LLP', urn: 'PREP/00255', act: 'Purchase · Consumption',
             link: '', linkText: 'View',
             cd: {
-              signals: ['No reconciliation gaps for this registered entity this period.'],
+              signals: ['No reconciliation gaps for this company this period.'],
               quarters: [
                 { q: 'Q1 2026', opening: 1000, manufactured: 0, purchased: 120, consumed: 120, sold: 0, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [] },
                 { q: 'Q4 2025', opening: 1000, manufactured: 0, purchased: 120, consumed: 120, sold: 0, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [] },
@@ -2784,7 +3644,7 @@
             name: 'Coastal Traders LLP', urn: 'PREP/00067', act: 'Purchase · Sale',
             link: "openUrnDetail('surrender')", linkText: 'View URN',
             cd: {
-              signals: ['No reconciliation gaps for this registered entity this period.'],
+              signals: ['No reconciliation gaps for this company this period.'],
               quarters: [
                 { q: 'Q1 2026', opening: 410, manufactured: 0, purchased: 60, consumed: 0, sold: 60, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [['GN-2026-101', '06 Mar 2026', 'Coastal Traders LLP', 'Sterling Agro Ltd.', 'PREP/00510', '60 kg', 'ack']] },
                 { q: 'Q4 2025', opening: 410, manufactured: 0, purchased: 60, consumed: 0, sold: 60, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [['GN-2025-080', '11 Dec 2025', 'Coastal Traders LLP', 'Sterling Agro Ltd.', 'PREP/00510', '60 kg', 'ack']] },
@@ -2797,7 +3657,7 @@
             name: 'Vista Traders', urn: 'PREP/00412', act: 'Purchase · Sale',
             link: '', linkText: 'View',
             cd: {
-              signals: ['No reconciliation gaps for this registered entity this period.'],
+              signals: ['No reconciliation gaps for this company this period.'],
               quarters: [
                 { q: 'Q1 2026', opening: 300, manufactured: 0, purchased: 50, consumed: 0, sold: 50, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [] },
                 { q: 'Q4 2025', opening: 300, manufactured: 0, purchased: 50, consumed: 0, sold: 50, transferred: 0, destroyed: 0, loss: 0, flag: false, cons: [] },
@@ -2861,7 +3721,7 @@
     function populateZCompany(d) {
       var sel = document.getElementById('zCompanyFilter');
       if (!sel) return;
-      var html = '<option value="__all__">All registered entities</option>';
+      var html = '<option value="__all__">All companies</option>';
       d.companies.forEach(function (c, i) { html += '<option value="' + i + '">' + c.name + '</option>'; });
       sel.innerHTML = html;
       sel.value = (zActiveCompany >= 0) ? String(zActiveCompany) : '__all__';
@@ -2880,13 +3740,13 @@
         quarters = company.cd.quarters;
         s = deriveSummary(quarters);
         signals = company.cd.signals || [];
-        scopeLabel = company.name + ' · Mumbai Zone · FY 2025–26 · kg';
+        scopeLabel = company.name + ' · ' + SCOPE_SUBLABEL + ' · FY 2025–26 · kg';
         companiesList = [company];
       } else {
         quarters = aggregateQuarters(d.companies);
         s = deriveSummary(quarters);
         signals = zoneSignals(d.companies);
-        scopeLabel = 'All registered entities · Mumbai Zone · FY 2025–26 · kg';
+        scopeLabel = 'All companies · ' + SCOPE_SUBLABEL + ' · FY 2025–26 · kg';
         companiesList = d.companies;
       }
       document.getElementById('zSubName').textContent = d.name;
@@ -2897,15 +3757,15 @@
       var inT = s.manufactured + s.purchased, outT = s.consumed + s.sold + s.transferred + s.destroyed + s.loss;
       function cell(label, val, color, sub, heavy) {
         return '<div style="flex:1;min-width:96px;padding:0 14px;border-left:' + (heavy ? '2px solid #E0E4E8' : '1px solid #F2F4F6') + ';">' +
-          '<div style="font-size:10px;color:#8B98A8;text-transform:uppercase;letter-spacing:0.05em;">' + label + '</div>' +
+          '<div style="font-size:10px;color:#73808F;text-transform:uppercase;letter-spacing:0.05em;">' + label + '</div>' +
           '<div style="font-size:18px;font-weight:700;color:' + color + ';margin-top:3px;">' + val + '</div>' +
-          (sub ? '<div style="font-size:9px;color:#8B98A8;margin-top:2px;">' + sub + '</div>' : '') + '</div>';
+          (sub ? '<div style="font-size:9px;color:#73808F;margin-top:2px;">' + sub + '</div>' : '') + '</div>';
       }
       var gapVal = (diff === 0) ? 'Matches' : (diff < 0 ? '−' : '+') + zfmt(Math.abs(diff));
       var gapColor = (diff === 0) ? '#1E7B4B' : '#A32D2D';
       var gapSub = (diff === 0) ? 'declared = computed' : 'declared vs computed';
       var strip = '<div style="display:flex;gap:0;flex-wrap:wrap;border-top:1px solid #F2F4F6;padding-top:12px;">' +
-        '<div style="flex:1;min-width:96px;padding-right:14px;"><div style="font-size:10px;color:#8B98A8;text-transform:uppercase;letter-spacing:0.05em;">In</div><div style="font-size:18px;font-weight:700;color:#1E7B4B;margin-top:3px;">' + zfmt(inT) + '</div><div style="font-size:9px;color:#8B98A8;margin-top:2px;">Manufactured + purchased</div></div>' +
+        '<div style="flex:1;min-width:96px;padding-right:14px;"><div style="font-size:10px;color:#73808F;text-transform:uppercase;letter-spacing:0.05em;">In</div><div style="font-size:18px;font-weight:700;color:#1E7B4B;margin-top:3px;">' + zfmt(inT) + '</div><div style="font-size:9px;color:#73808F;margin-top:2px;">Manufactured + purchased</div></div>' +
         cell('Out', zfmt(outT), '#2E6EBF', 'Consumed + sold + moved out') +
         cell('Closing — declared', zfmt(s.declared), '#1A2332', 'From filed returns') +
         cell('Gap', gapVal, gapColor, gapSub, true) +
@@ -2914,9 +3774,9 @@
         return '<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px;"><span style="color:#5A6474;">' + label + '</span><span style="color:#1A2332;font-weight:500;">' + zfmt(val) + '</span></div>';
       }
       var breakdown = '<div style="display:flex;gap:40px;flex-wrap:wrap;margin-top:14px;border-top:1px solid #F2F4F6;padding-top:12px;">' +
-        '<div style="min-width:200px;flex:1;"><div style="font-size:10px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">In</div>' +
+        '<div style="min-width:200px;flex:1;"><div style="font-size:10px;font-weight:700;color:#73808F;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">In</div>' +
         bl('Opening held', s.opening) + bl('Manufactured', s.manufactured) + bl('Purchased / received', s.purchased) + '</div>' +
-        '<div style="min-width:200px;flex:1;"><div style="font-size:10px;font-weight:700;color:#8B98A8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Out</div>' +
+        '<div style="min-width:200px;flex:1;"><div style="font-size:10px;font-weight:700;color:#73808F;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Out</div>' +
         bl('Consumed', s.consumed) + bl('Sold', s.sold) + bl('Transferred out', s.transferred) + bl('Destroyed (Form I)', s.destroyed) + bl('Loss / damage', s.loss) + '</div>' +
         '</div>' +
         '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;border-top:1px solid #E0E4E8;padding-top:10px;font-size:12px;">' +
@@ -2935,11 +3795,11 @@
         var rid = 'zq' + i;
         if (q.notFiled) {
           jb += '<tr class="zqrow" style="cursor:pointer;background:#FCFAF6;" onclick="toggleZQ(\'' + rid + '\')">' +
-            '<td class="ztd" style="font-weight:500;"><span id="chev_' + rid + '" style="display:inline-block;color:#8B98A8;font-size:9px;margin-right:6px;">&#9654;</span>' + q.q + '</td>' +
-            '<td class="ztd" style="text-align:right;color:#8B98A8;">—</td><td class="ztd" style="text-align:right;color:#8B98A8;">—</td>' +
-            '<td class="ztd" style="text-align:right;color:#8B98A8;">—</td><td class="ztd" style="text-align:right;color:#8B98A8;">—</td>' +
+            '<td class="ztd" style="font-weight:500;"><span id="chev_' + rid + '" style="display:inline-block;color:#73808F;font-size:9px;margin-right:6px;">&#9654;</span>' + q.q + '</td>' +
+            '<td class="ztd" style="text-align:right;color:#73808F;">—</td><td class="ztd" style="text-align:right;color:#73808F;">—</td>' +
+            '<td class="ztd" style="text-align:right;color:#73808F;">—</td><td class="ztd" style="text-align:right;color:#73808F;">—</td>' +
             '<td class="ztd"><span class="zpill" style="background:#FBF0E7;color:#C2611C;">Not filed</span></td></tr>';
-          jb += '<tr id="detrow_' + rid + '" style="display:none;"><td colspan="6" style="padding:0;background:#FBFCFD;border-bottom:1px solid #E0E4E8;"><div style="padding:14px 16px;font-size:11px;color:#A32D2D;">Return not filed for this quarter. Last known stock carried forward: ' + zfmt(q.carry || 0) + ' kg. The registered entity is a non-filer for this period — a non-filer alert applies.</div></td></tr>';
+          jb += '<tr id="detrow_' + rid + '" style="display:none;"><td colspan="6" style="padding:0;background:#FBFCFD;border-bottom:1px solid #E0E4E8;"><div style="padding:14px 16px;font-size:11px;color:#A32D2D;">Return not filed for this quarter. Last known stock carried forward: ' + zfmt(q.carry || 0) + ' kg. The company is a non-filer for this period — a non-filer alert applies.</div></td></tr>';
           return;
         }
         var comp = zComputed(q), decl = qDecl(q);
@@ -2948,10 +3808,10 @@
           ? '<span class="zpill" style="background:#FDE0DC;color:#A32D2D;">Gap to review</span>'
           : '<span class="zpill" style="background:#EAF5EE;color:#1E7B4B;">Reconciled</span>';
         var rowTint = q.flag ? 'background:#FFFBF5;' : '';
-        var calcNote = (comp !== decl) ? ' <span style="font-size:9px;color:#8B98A8;">(calc ' + zfmt(comp) + ')</span>' : '';
+        var calcNote = (comp !== decl) ? ' <span style="font-size:9px;color:#73808F;">(calc ' + zfmt(comp) + ')</span>' : '';
         var closeColor = q.flag ? '#A32D2D' : '#1A2332';
         jb += '<tr class="zqrow" style="cursor:pointer;' + rowTint + '" onclick="toggleZQ(\'' + rid + '\')">' +
-          '<td class="ztd" style="font-weight:500;"><span id="chev_' + rid + '" style="display:inline-block;color:#8B98A8;font-size:9px;margin-right:6px;">&#9654;</span>' + q.q + '</td>' +
+          '<td class="ztd" style="font-weight:500;"><span id="chev_' + rid + '" style="display:inline-block;color:#73808F;font-size:9px;margin-right:6px;">&#9654;</span>' + q.q + '</td>' +
           '<td class="ztd" style="text-align:right;">' + zfmt(q.opening) + '</td>' +
           '<td class="ztd" style="text-align:right;color:#1E7B4B;">' + zfmt(inT) + '</td>' +
           '<td class="ztd" style="text-align:right;color:#C0392B;">' + zfmt(outT) + '</td>' +
@@ -2969,6 +3829,14 @@
           '<td class="ztd" style="text-align:right;">' + companyHeld(c) + '</td><td class="ztd" style="color:' + (st[3] === 'Not filed' ? '#A32D2D' : '#5A6474') + ';">' + st[3] + '</td>' +
           '<td class="ztd"><span class="zpill" style="background:' + st[1] + ';color:' + st[2] + ';">' + st[0] + '</span></td><td class="ztd">' + link + '</td></tr>';
       }).join('');
+    }
+
+    function filterCons(status, el) {
+      document.querySelectorAll('#zscreen-consignments .atab').forEach(function (t) { t.classList.remove('atab-active'); });
+      if (el) el.classList.add('atab-active');
+      document.querySelectorAll('.consrow').forEach(function (r) {
+        r.style.display = (status === 'all' || r.dataset.st === status) ? '' : 'none';
+      });
     }
 
     function toggleZQ(rid) {
@@ -2998,21 +3866,21 @@
       });
       chips += '<span style="font-weight:700;color:#5A6474;">=</span>';
       chips += '<span style="background:#EEF2F8;color:#1A2332;border-radius:4px;padding:4px 7px;">Calculated<br><strong>' + zfmt(comp) + '</strong></span>';
-      chips += '<span style="color:#8B98A8;">vs</span>';
+      chips += '<span style="color:#73808F;">vs</span>';
       var match = (comp === decl);
       chips += '<span style="background:' + (match ? '#EAF5EE' : '#FDECEA') + ';color:' + (match ? '#1E7B4B' : '#A32D2D') + ';border-radius:4px;padding:4px 7px;">Declared<br><strong>' + zfmt(decl) + '</strong></span>';
       chips += match
         ? '<span style="background:#1E7B4B;color:#fff;border-radius:4px;padding:4px 7px;font-weight:600;">&#10003; Match</span>'
         : '<span style="background:#A32D2D;color:#fff;border-radius:4px;padding:4px 7px;font-weight:600;">&#9888; ' + zfmt(Math.abs(comp - decl)) + ' kg gap</span>';
       var reconcile = '<div style="padding:12px;background:#fff;border:1px solid #E8EBEF;border-radius:5px;margin-bottom:12px;">' +
-        '<div style="font-size:10px;color:#8B98A8;margin-bottom:10px;letter-spacing:0.04em;">RECONCILIATION &nbsp;&middot;&nbsp; Closing = Opening + Manufactured + Purchased &minus; Consumed &minus; Sold &minus; Transferred Out &minus; Destroyed &minus; Loss/Damage</div>' +
+        '<div style="font-size:10px;color:#73808F;margin-bottom:10px;letter-spacing:0.04em;">RECONCILIATION &nbsp;&middot;&nbsp; Closing = Opening + Manufactured + Purchased &minus; Consumed &minus; Sold &minus; Transferred Out &minus; Destroyed &minus; Loss/Damage</div>' +
         '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:11px;">' + chips + '</div></div>';
 
       // Form G consignments
       var consHead = '<div style="font-size:11px;font-weight:600;color:#3A4A5A;margin-bottom:6px;">Consignments that make up this quarter&rsquo;s outflow (Form G)</div>';
       var consTable;
       if (q.cons && q.cons.length) {
-        var th = function (t, r) { return '<th style="padding:8px 12px;text-align:' + (r ? 'right' : 'left') + ';font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#8B98A8;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;">' + t + '</th>'; };
+        var th = function (t, r) { return '<th style="padding:8px 12px;text-align:' + (r ? 'right' : 'left') + ';font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#73808F;font-weight:700;background:#FAFBFC;border-bottom:1px solid #E0E4E8;">' + t + '</th>'; };
         var rows = q.cons.map(function (c) {
           var pill = c[6] === 'ack'
             ? '<span style="background:#EAF5EE;color:#1E7B4B;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:600;">Acknowledged</span>'
@@ -3021,7 +3889,7 @@
           return '<tr><td style="' + td + 'font-weight:500;">' + c[0] + '</td>' +
             '<td style="' + td + 'color:#5A6474;">' + c[1] + '</td>' +
             '<td style="' + td + '">' + c[2] + '</td>' +
-            '<td style="' + td + '">' + c[3] + ' <span style="color:#8B98A8;font-size:10px;">&middot; ' + c[4] + '</span></td>' +
+            '<td style="' + td + '">' + c[3] + ' <span style="color:#73808F;font-size:10px;">&middot; ' + c[4] + '</span></td>' +
             '<td style="' + td + 'text-align:right;">' + c[5] + '</td>' +
             '<td style="' + td + '">' + pill + '</td></tr>';
         }).join('');
@@ -3029,12 +3897,12 @@
           th('Note No.') + th('Date') + th('From') + th('Consignee') + th('Net Wt.', true) + th('Status') +
           '</tr></thead><tbody>' + rows + '</tbody></table>';
       } else {
-        consTable = '<div style="padding:10px 12px;background:#fff;border:1px solid #EAECF0;border-radius:5px;margin-bottom:12px;font-size:11px;color:#8B98A8;">No consignment notes recorded for this quarter.</div>';
+        consTable = '<div style="padding:10px 12px;background:#fff;border:1px solid #EAECF0;border-radius:5px;margin-bottom:12px;font-size:11px;color:#73808F;">No consignment notes recorded for this quarter.</div>';
       }
 
       var alert = match
         ? '<div style="padding:9px 12px;background:#EAF5EE;border-left:3px solid #1E7B4B;border-radius:0 4px 4px 0;font-size:11px;color:#1E7B4B;">Calculated closing matches the declared return. This quarter reconciles.</div>'
-        : '<div style="padding:9px 12px;background:#FDECEA;border-left:3px solid #C0392B;border-radius:0 4px 4px 0;font-size:11px;color:#A32D2D;">Calculated closing (' + zfmt(comp) + ' kg) does not match the declared return (' + zfmt(decl) + ' kg). Flagged for review — open the registered entity&rsquo;s return below. ' + (q.note || '') + '</div>';
+        : '<div style="padding:9px 12px;background:#FDECEA;border-left:3px solid #C0392B;border-radius:0 4px 4px 0;font-size:11px;color:#A32D2D;">Calculated closing (' + zfmt(comp) + ' kg) does not match the declared return (' + zfmt(decl) + ' kg). Flagged for review — open the company&rsquo;s return below. ' + (q.note || '') + '</div>';
 
       return reconcile + consHead + consTable + alert;
     }
@@ -3092,17 +3960,27 @@
       renderActions('approve');
     }
 
+    // Read-only oversight: Regional Admin cannot approve/reject/e-sign. It sees the zone's status and
+    // may (SRS) query the zone or initiate an adhoc inspection. Both relay to the zone, never the company.
+    function roStatus(text, pending) { return '<div class="ro-status' + (pending ? ' pending' : '') + '"><span class="ro-dot"></span>' + text + '</div>'; }
+    var LIGHT_QUERY = '<button class="btn btn-light" onclick="openRaiseQuery(\'the zone\')">Query zone</button>';
+    var LIGHT_INSPECT = '<button class="btn btn-light">Initiate adhoc inspection</button>';
+
     function renderActions(kind) {
       var bar = document.querySelector('.action-bar');
       if (!bar) return;
       if (kind === 'approve') {
-        bar.innerHTML = '<button class="btn btn-secondary">Send back to reviewer</button><button class="btn btn-query">Raise query</button><button class="btn btn-reject">Reject</button><button class="btn btn-approve">Approve and sign</button>';
+        bar.innerHTML = roStatus('Status: <strong>Pending zone approval</strong> · with Mumbai Zonal Admin', true) + LIGHT_QUERY + LIGHT_INSPECT;
       } else if (kind === 'return') {
-        bar.innerHTML = '<button class="btn btn-secondary">See full return</button><button class="btn btn-query">Raise query</button>';
+        bar.innerHTML = roStatus('Status: <strong>Accepted by zone</strong> · filed on time') + '<button class="btn btn-secondary">See full return</button>' + LIGHT_QUERY;
       } else if (kind === 'investigation') {
-        bar.innerHTML = '<button class="btn btn-secondary">Assign investigator</button><button class="btn btn-approve">Record decision</button>';
+        bar.innerHTML = roStatus('Status: <strong>Under investigation</strong> · Mumbai Zone', true) + LIGHT_INSPECT;
       } else if (kind === 'surrender') {
-        bar.innerHTML = '<button class="btn btn-query">Raise query</button><button class="btn btn-reject">Reject</button><button class="btn btn-approve">Approve surrender</button>';
+        bar.innerHTML = roStatus('Status: <strong>Pending zone decision</strong>', true) + LIGHT_QUERY;
+      } else if (kind === 'qryresp') {
+        bar.innerHTML = roStatus('Status: <strong>Awaiting zone review</strong> of response', true) + '<button class="btn btn-secondary" onclick="showZScreen(\'queries\',document.getElementById(\'znav-queries\'))">Open in Queries</button>' + LIGHT_QUERY;
+      } else if (kind === 'destruction') {
+        bar.innerHTML = roStatus('Status: <strong>Pending zone approval</strong> of destruction', true) + '<button class="btn btn-secondary" onclick="openDestructionDetail(\'mine\')">See full request</button>' + LIGHT_QUERY + LIGHT_INSPECT;
       } else if (kind === 'monitor') {
         bar.innerHTML = '<button class="btn btn-secondary">See progress</button>';
       } else {
@@ -3116,22 +3994,6 @@
       document.querySelectorAll('.queue-row').forEach(function (r) {
         r.style.display = (type === 'all' || r.dataset.type === type) ? 'block' : 'none';
       });
-    }
-
-    function toggleDropdown(id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      if (el.style.display === 'block') {
-        el.style.display = 'none';
-        return;
-      }
-      el.style.display = 'block';
-      setTimeout(function () {
-        document.addEventListener('click', function closeDD(e) {
-          el.style.display = 'none';
-          document.removeEventListener('click', closeDD);
-        });
-      }, 0);
     }
   </script>
 </body>
