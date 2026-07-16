@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCB Zonal Offices Across India — PREP Portal</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: 210 20% 98%;
+      --foreground: 214 85% 14%;
+      --card: 0 0% 100%;
+      --primary: 213 75% 34%;
+      --primary-foreground: 0 0% 98%;
+      --muted: 213 20% 94%;
+      --muted-foreground: 213 16% 47%;
+      --accent: 38 57% 56%;
+      --accent-foreground: 214 85% 14%;
+      --destructive: 0 72% 51%;
+      --border: 213 20% 88%;
+      --success: 152 60% 40%;
+      --nav-bg: 214 85% 14%;
+      --nav-foreground: 213 20% 90%;
+      --gradient-brand: linear-gradient(145deg, #164f97 0%, #052041 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      background: hsl(var(--background));
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    * { scrollbar-width: thin; scrollbar-color: hsl(var(--border)) transparent; }
+    *::-webkit-scrollbar { width: 7px; height: 7px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 8px; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+
+    /* ── GoI top strip ── */
+    .gov-strip {
+      background: hsl(var(--nav-bg));
+      color: hsl(var(--nav-foreground));
+      font-size: 11px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .gov-strip .left, .gov-strip .right { display: flex; align-items: center; gap: 12px; }
+    .gov-strip .sep { opacity: 0.5; }
+    .gov-strip a:hover { color: hsl(var(--accent)); }
+    @media (max-width: 768px) { .gov-strip .right { display: none; } }
+
+    /* ── Header ── */
+    .site-header {
+      background: hsl(var(--card));
+      border-bottom: 1px solid hsl(var(--border));
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+    }
+    .brand-btn { display: flex; align-items: center; gap: 12px; background: none; border: none; text-align: left; }
+    .brand-btn img { width: 48px; height: 48px; object-fit: contain; }
+    .brand-title { font-size: 22px; font-weight: 700; line-height: 1.15; }
+    .brand-sub { font-size: 12px; color: hsl(var(--muted-foreground)); }
+    .back-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: hsl(var(--muted-foreground)); }
+    .back-link:hover { color: hsl(var(--accent)); }
+    .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ── Hero band ── */
+    .zones-hero {
+      position: relative;
+      color: hsl(var(--nav-foreground));
+      background-image: var(--gradient-brand);
+      overflow: hidden;
+      padding: 48px 16px;
+    }
+    .zones-hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      opacity: 0.06;
+      background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .zones-hero-blob { position: absolute; top: -96px; right: -96px; width: 320px; height: 320px; border-radius: 50%; background: hsl(var(--accent) / 0.2); filter: blur(70px); pointer-events: none; }
+    .zones-hero .inner { position: relative; }
+    .zones-hero .badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.1); font-size: 11px; margin-bottom: 16px;
+    }
+    .zones-hero .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: hsl(var(--accent)); }
+    .zones-hero h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .zones-hero .bar { width: 56px; height: 2px; background: hsl(var(--accent)); border-radius: 999px; margin-bottom: 16px; }
+    .zones-hero p { font-size: 14px; color: rgba(255,255,255,0.75); max-width: 560px; }
+
+    /* ── Body / directory + map ── */
+    .zones-body { background: #f8fafc; padding: 40px 16px; }
+    .zones-panel {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      background: #fff; border-radius: 16px; padding: 24px;
+      box-shadow: 0 4px 20px rgba(26,58,107,.08); border: 1px solid #e2e8f0;
+    }
+    @media (max-width: 900px) { .zones-panel { grid-template-columns: 1fr; } }
+
+    /* Directory */
+    .zones-directory { display: flex; flex-direction: column; height: 620px; border-right: 1px solid #e2e8f0; padding-right: 24px; }
+    @media (max-width: 900px) { .zones-directory { border-right: none; padding-right: 0; height: auto; max-height: 620px; } }
+    .zones-search { position: relative; margin-bottom: 16px; }
+    .zones-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #a0aec0; }
+    .zones-search input {
+      width: 100%; padding: 12px 14px 12px 42px; border: 1.5px solid #e2e8f0; border-radius: 8px;
+      font-family: inherit; font-size: 14px; background: #f8fafc; outline: none;
+    }
+    .zones-search input:focus { border-color: #1a3a6b; background: #fff; }
+    .zones-filters { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+    .zones-filter-btn {
+      background: #f8fafc; color: #718096; border: 1px solid #e2e8f0; padding: 6px 16px; border-radius: 20px;
+      font-size: 12.5px; font-weight: 600; white-space: nowrap; transition: all .2s;
+    }
+    .zones-filter-btn.active { background: #1a3a6b; color: #fff; border-color: #1a3a6b; }
+    .zones-cardlist { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 8px; }
+    .zones-cardlist::-webkit-scrollbar { width: 3px; }
+    .zones-cardlist::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 10px; }
+    .zones-empty { text-align: center; color: #a0aec0; padding: 24px; font-size: 14px; }
+    .zone-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; cursor: pointer;
+      position: relative; display: flex; flex-direction: column; gap: 6px; text-align: left; transition: all .25s;
+    }
+    .zone-card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px;
+      background: transparent; transition: background .2s;
+    }
+    .zone-card.active { background: rgba(26,58,107,.03); border-color: #1a3a6b; box-shadow: 0 4px 14px rgba(26,58,107,.08); }
+    .zone-card.active::before { background: #1a3a6b; }
+    .zone-card .row { display: flex; justify-content: space-between; align-items: flex-start; }
+    .zone-card h4 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: #1a3a6b; margin: 0; }
+    .zone-card .tag {
+      font-size: 9.5px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;
+      letter-spacing: .05em; margin-left: 8px; flex-shrink: 0; background: #e8f4fd; color: #1a3a6b;
+    }
+    .zone-card .addr { font-size: 13px; color: #718096; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Map */
+    .zones-map-wrap {
+      position: relative; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; padding: 16px;
+      display: flex; align-items: center; justify-content: center; height: 620px;
+    }
+    .zones-map-inner { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .zones-map-inner svg.india { width: 100%; height: auto; fill: rgba(26,58,107,0.1); stroke: #fff; stroke-width: 1.5; }
+    .pins-overlay { position: absolute; inset: 0; pointer-events: none; }
+    .pin { position: absolute; pointer-events: auto; cursor: pointer; transition: transform .25s; }
+    .pin-zonal { width: 24px; height: 32px; display: flex; align-items: center; justify-content: center; }
+    .pin-zonal .drop {
+      width: 16px; height: 16px; background: #8b6e20; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+      border: 1.5px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.15); position: relative; transition: background .25s;
+    }
+    .pin-zonal.active .drop { background: #1a3a6b; }
+    .pin-zonal .drop::after { content: ""; position: absolute; width: 5px; height: 5px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); }
+
+    .popup {
+      position: absolute; width: 290px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      border: 1px solid #e2e8f0; padding: 16px; z-index: 20; pointer-events: auto; text-align: left;
+      transform: translate(-50%, calc(-100% - 24px));
+    }
+    .popup .tri {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 8px solid transparent;
+      border-top-color: #fff; filter: drop-shadow(0 2px 2px rgba(0,0,0,.05));
+    }
+    .popup .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .popup .kicker {
+      font-size: 8.5px; font-weight: 700; color: #1a3a6b; background: rgba(26,58,107,.08); padding: 2px 6px;
+      border-radius: 4px; letter-spacing: .08em; display: inline-block; margin-bottom: 2px; text-transform: uppercase;
+    }
+    .popup h4 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: #1a3a6b; margin: 0; }
+    .popup .close { background: none; border: none; font-size: 20px; color: #718096; cursor: pointer; padding: 0 4px; line-height: 1; }
+    .popup .rows { display: flex; flex-direction: column; gap: 8px; }
+    .popup .r { display: flex; align-items: flex-start; gap: 8px; }
+    .popup .r .ic-wrap { flex-shrink: 0; margin-top: 2px; display: flex; }
+    .popup .r .ic { width: 14px; height: 14px; color: #c8a432; stroke-width: 2; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+    .popup .r p { font-size: 12.5px; color: #2d3748; line-height: 1.4; margin: 0; }
+    .popup .r a { color: #1a3a6b; font-weight: 500; }
+
+    .zones-note {
+      max-width: 1200px; margin: 24px auto 0; background: rgba(26,58,107,0.07); border-left: 4px solid #1a3a6b;
+      border-radius: 0 8px 8px 0; padding: 14px 18px; font-size: 14px; color: #1a3a6b; text-align: left;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .zones-note svg { width: 17px; height: 17px; flex-shrink: 0; margin-top: 1px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Footer ── */
+    footer { color: hsl(var(--nav-foreground)); background-image: var(--gradient-brand); padding-top: 56px; border-top: 3px solid hsl(var(--accent)); margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 48px; padding-bottom: 48px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+    .f-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .f-brand img { width: 44px; height: 44px; object-fit: contain; }
+    .f-brand span { color: #fff; font-weight: 700; font-size: 19px; }
+    footer p.desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+    .f-social { display: flex; gap: 10px; margin-top: 16px; }
+    .f-social div { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 700; }
+    footer h5 { color: hsl(var(--accent)); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; margin-bottom: 16px; }
+    .f-links { display: flex; flex-direction: column; gap: 8px; }
+    .f-links button, .f-links a { background: none; border: none; text-align: left; font-size: 13px; color: rgba(255,255,255,0.6); }
+    .f-links button:hover, .f-links a:hover { color: hsl(var(--accent)); }
+    footer .legal-text { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 12px; }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .visitor-badge { font-size: 11.5px; font-weight: 600; color: hsl(var(--accent)); background: hsl(var(--accent) / 0.15); border: 1px solid hsl(var(--accent) / 0.3); padding: 4px 12px; border-radius: 999px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- GoI Top Strip -->
+  <div class="gov-strip">
+    <div class="left">
+      <span>भारत सरकार | Government of India</span>
+      <span class="sep">|</span>
+      <span>Ministry of Home Affairs</span>
+      <span class="sep">|</span>
+      <span>Narcotics Control Bureau</span>
+    </div>
+    <div class="right">
+      <a href="index.html">Skip to Main Content</a>
+      <span class="sep">|</span>
+      <a href="index.html">Screen Reader</a>
+      <span class="sep">|</span>
+      <a href="index.html">A- A A+</a>
+    </div>
+  </div>
+
+  <!-- NCB Header -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand-btn" href="index.html">
+        <img src="favicon.png" alt="NCB">
+        <div>
+          <div class="brand-title">Narcotics Control Bureau</div>
+          <div class="brand-sub">PREP Portal</div>
+        </div>
+      </a>
+      <a class="back-link" href="index.html">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero band -->
+  <section class="zones-hero">
+    <div class="zones-hero-blob"></div>
+    <div class="wrap inner">
+      <div class="badge"><span class="dot"></span>Under NDPS Act, 1985 &amp; RCS Order, 2013</div>
+      <h1>NCB Zonal Offices Across India</h1>
+      <div class="bar"></div>
+      <p>Contact your jurisdictional Zonal Office for region-specific compliance assistance.</p>
+    </div>
+  </section>
+
+  <!-- Directory + Map -->
+  <section class="zones-body">
+    <div class="zones-panel">
+
+      <!-- LEFT — Directory -->
+      <div class="zones-directory">
+        <div class="zones-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="zonesSearch" type="text" placeholder="Search offices...">
+        </div>
+        <div class="zones-cardlist" id="zonesCardList"></div>
+      </div>
+
+      <!-- RIGHT — Map -->
+      <div class="zones-map-wrap">
+        <div class="zones-map-inner">
+          <svg class="india" id="indiaMap" viewBox="100 0 800 980"></svg>
+          <div class="pins-overlay" id="pinsOverlay"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="zones-note">
+      <svg viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+      <span>For jurisdiction-specific queries, contact the NCB Zonal Office covering your state. Each Zonal Office reviews URN applications, handles compliance monitoring, and addresses violations within its jurisdiction.</span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <div class="f-brand">
+          <img src="favicon.png" alt="NCB">
+          <span>Narcotics Control Bureau</span>
+        </div>
+        <p class="desc">Government of India, Ministry of Home Affairs. Precursor Register and Evaluation Portal (PREP) — Official platform for controlled substance compliance.</p>
+        <div class="f-social">
+          <div>𝕏</div><div>f</div><div>▶</div>
+        </div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <div class="f-links">
+          <a href="index.html">Home</a>
+          <a href="zones.html">NCB Locations</a>
+          <a href="index.html#notifications">Notifications</a>
+        </div>
+      </div>
+      <div>
+        <h5>Important Links</h5>
+        <div class="f-links">
+          <a href="index.html">NDPS Act, 1985</a>
+          <a href="index.html">RCS Order, 2013</a>
+          <a href="index.html">MHA Website</a>
+        </div>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <p class="legal-text">The information provided on this portal is for official use. Unauthorized access or misuse is a punishable offence under the IT Act, 2000 and NDPS Act, 1985.</p>
+        <div class="f-links">
+          <a href="index.html">Website Policy</a>
+          <a href="index.html">Accessibility Statement</a>
+          <a href="index.html">© 2026 NCB, Government of India</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Last Updated: June 2026 | Best viewed in Chrome, Firefox, Edge | Official website of NCB, Government of India</p>
+      <span class="visitor-badge">👁 1,42,867 Visitors</span>
+    </div>
+  </footer>
+
+  <script src="files/zonesData.js"></script>
+  <script>
+    var state = { activeId: 'delhi', query: '' };
+
+    function getFiltered() {
+      var q = state.query.toLowerCase();
+      if (!q) return LOC_DATA;
+      return LOC_DATA.filter(function (item) {
+        return item.name.toLowerCase().indexOf(q) !== -1 ||
+          item.address.toLowerCase().indexOf(q) !== -1 ||
+          item.area.toLowerCase().indexOf(q) !== -1;
+      });
+    }
+
+    function findById(id) {
+      for (var i = 0; i < LOC_DATA.length; i++) { if (LOC_DATA[i].id === id) return LOC_DATA[i]; }
+      return null;
+    }
+
+    function setActive(id) { state.activeId = id; render(); }
+
+    function renderMap() {
+      var svg = document.getElementById('indiaMap');
+      svg.innerHTML = Object.keys(statePaths).map(function (code) {
+        return '<path d="' + statePaths[code] + '"></path>';
+      }).join('');
+    }
+
+    function renderList() {
+      var listEl = document.getElementById('zonesCardList');
+      var filtered = getFiltered();
+      if (filtered.length === 0) {
+        listEl.innerHTML = '<p class="zones-empty">No offices found.</p>';
+        return;
+      }
+      listEl.innerHTML = filtered.map(function (item) {
+        var active = state.activeId === item.id;
+        return (
+          '<div class="zone-card' + (active ? ' active' : '') + '" data-id="' + item.id + '">' +
+            '<div class="row">' +
+              '<h4>' + item.name + '</h4>' +
+              '<span class="tag">Zone ' + item.sl + '</span>' +
+            '</div>' +
+            '<p class="addr">' + item.area + '</p>' +
+          '</div>'
+        );
+      }).join('');
+      Array.prototype.forEach.call(listEl.querySelectorAll('.zone-card'), function (card) {
+        card.addEventListener('click', function () { setActive(card.getAttribute('data-id')); });
+      });
+    }
+
+    function pinPos(item) {
+      return {
+        left: ((item.pin.cx - 100) / 800) * 100 + '%',
+        top: (item.pin.cy / 980) * 100 + '%'
+      };
+    }
+
+    var ICON_PIN = '<svg class="ic" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>';
+    var ICON_MAP = '<svg class="ic" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>';
+    var ICON_FAX = '<svg class="ic" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>';
+
+    function renderPopup(item, visibleIds) {
+      if (!item || !item.pin || !visibleIds.has(item.id)) return '';
+      var pos = pinPos(item);
+      var faxRow = item.fax ? (
+        '<div class="r"><span class="ic-wrap">' + ICON_FAX + '</span><p>Fax: ' + item.fax + '</p></div>'
+      ) : '';
+      return (
+        '<div class="popup" style="left:' + pos.left + ';top:' + pos.top + ';">' +
+          '<div class="tri"></div>' +
+          '<div class="head">' +
+            '<div><span class="kicker">ZONAL UNIT &middot; ZONE ' + item.sl + '</span><h4>' + item.name + '</h4></div>' +
+            '<button class="close" id="popupClose">&times;</button>' +
+          '</div>' +
+          '<div class="rows">' +
+            '<div class="r"><span class="ic-wrap">' + ICON_PIN + '</span><p>' + item.address + '</p></div>' +
+            '<div class="r"><span class="ic-wrap">' + ICON_MAP + '</span><p><b>Area of jurisdiction:</b> ' + item.area + '</p></div>' +
+            faxRow +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    function renderPins() {
+      var overlay = document.getElementById('pinsOverlay');
+      var filtered = getFiltered();
+      var visibleIds = new Set(filtered.map(function (f) { return f.id; }));
+      var activeItem = findById(state.activeId);
+
+      var html = LOC_DATA.map(function (item) {
+        if (!item.pin || !visibleIds.has(item.id)) return '';
+        var pos = pinPos(item);
+        var isActive = state.activeId === item.id;
+        return (
+          '<div class="pin pin-zonal' + (isActive ? ' active' : '') + '" data-id="' + item.id + '" title="' + item.name + '" ' +
+            'style="left:' + pos.left + ';top:' + pos.top + ';transform:translate(-50%,-100%) scale(' + (isActive ? 1.25 : 1) + ');z-index:' + (isActive ? 10 : 5) + ';">' +
+            '<div class="drop"></div>' +
+          '</div>'
+        );
+      }).join('');
+
+      html += renderPopup(activeItem, visibleIds);
+
+      overlay.innerHTML = html;
+
+      Array.prototype.forEach.call(overlay.querySelectorAll('.pin'), function (pin) {
+        pin.addEventListener('click', function () { setActive(pin.getAttribute('data-id')); });
+      });
+      var closeBtn = document.getElementById('popupClose');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) { e.stopPropagation(); setActive(''); });
+      }
+    }
+
+    function render() {
+      renderList();
+      renderPins();
+    }
+
+    document.getElementById('zonesSearch').addEventListener('input', function (e) {
+      state.query = e.target.value;
+      render();
+    });
+
+    renderMap();
+    render();
+  </script>
+
+</body>
+
+</html>
