@@ -1092,6 +1092,283 @@
       font-size: 10px;
       font-weight: 600;
     }
+    /* ══════════ Executive dashboard (Overview tab) ══════════ */
+    .d-tabs { display:flex; gap:2px; border-bottom:1px solid #E0E4E8; margin-bottom:14px; flex-shrink:0; }
+    .d-tab { padding:9px 16px; font-size:12px; font-weight:600; color:#73808F; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; user-select:none; min-height:36px; }
+    .d-tab:hover { color:#1A2332; }
+    .d-tab.active { color:#1E4A8A; border-bottom-color:#2E6EBF; }
+    .d-tab .d-count { background:#FCF4EE; color:#C2611C; border-radius:9px; font-size:10px; padding:1px 7px; margin-left:5px; }
+    /* The shell is fixed to the viewport and every pane scrolls inside it, so the page itself never scrolls.
+       The header's 54px margin used to push the page 54px past the viewport and give a second scrollbar. */
+    /* Dashboard Overview scrolls with the browser page (one scrollbar). Header and sidebar stay in place. */
+    html.dash-flow, html.dash-flow body { height:auto; overflow:visible; }
+    .dash-flow .app-shell { margin-top:0; padding-top:54px; height:auto; min-height:100vh; align-items:flex-start; }
+    .dash-flow .sidebar { position:sticky; top:54px; height:calc(100vh - 54px); align-self:flex-start; }
+    .dash-flow .main { overflow:visible; }
+    .dash-flow #zscreen-analytics { min-height:auto; }
+    .dash-flow .d-overview { overflow:visible; padding-right:0; }
+    .d-overview { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; padding-right:4px; padding-bottom:18px; }
+    .d-queue { display:none; flex-direction:column; flex:1; min-height:0; }
+
+    .d-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+    .d-title { font-size:18px; font-weight:700; color:#1A2332; }
+    .d-sub { font-size:12px; color:#5A6474; margin-top:3px; }
+    .d-sub b { color:#1A2332; }
+    .d-filters { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .d-select { background:#fff; border:1px solid #D0D5DC; border-radius:5px; padding:7px 10px; font-size:12px; color:#1A2332; font-family:inherit; cursor:pointer; min-height:34px; }
+    .d-btn { background:#fff; border:1px solid #D0D5DC; border-radius:5px; padding:7px 12px; font-size:12px; color:#394656; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:6px; min-height:34px; white-space:nowrap; }
+    .d-btn:hover { background:#FAFBFC; border-color:#B8C1CC; }
+    .d-btn.primary { background:#2E6EBF; border-color:#2E6EBF; color:#fff; }
+    .d-btn.primary:hover { background:#1E4A8A; border-color:#1E4A8A; }
+    .d-btn svg { width:14px; height:14px; flex-shrink:0; }
+
+    .d-quick { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+    .d-viewonly { font-size:10px; color:#73808F; align-self:center; margin-left:auto; }
+
+    .d-grid { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:12px; }
+    .d-s3{grid-column:span 3} .d-s4{grid-column:span 4} .d-s5{grid-column:span 5} .d-s6{grid-column:span 6}
+    .d-s7{grid-column:span 7} .d-s8{grid-column:span 8} .d-s12{grid-column:span 12}
+
+    .d-card { background:#fff; border:1px solid #E0E4E8; border-radius:8px; padding:14px 16px; min-width:0; display:flex; flex-direction:column; }
+    .d-card-hd { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px; }
+    .d-card-title { font-size:12px; font-weight:700; color:#1A2332; }
+    .d-card-note { font-size:11px; color:#73808F; margin-top:2px; line-height:1.4; }
+    .d-card-tag { font-size:10px; color:#4A719F; background:#EAF0F7; border:1px solid #CFDDEC; border-radius:4px; padding:3px 8px; white-space:nowrap; font-weight:600; }
+    .d-chart { position:relative; height:230px; }
+    .d-chart.tall { height:270px; }
+
+    .d-kpis { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+    .d-kpi { background:#fff; border:1px solid #E0E4E8; border-top:3px solid #C8D0D8; border-radius:8px; padding:12px 14px; min-width:0; cursor:pointer; transition:box-shadow .15s, border-color .15s; }
+    .d-kpi:hover { box-shadow:0 2px 10px rgba(26,35,50,.08); border-color:#C8D0D8; }
+    .d-kpi.blue{border-top-color:#2E6EBF} .d-kpi.green{border-top-color:#1E7B4B} .d-kpi.orange{border-top-color:#C2611C} .d-kpi.red{border-top-color:#C0392B} .d-kpi.navy{border-top-color:#1A2332}
+    .d-kpi-label { font-size:10px; color:#73808F; text-transform:uppercase; letter-spacing:.04em; }
+    .d-kpi-row { display:flex; align-items:flex-end; justify-content:space-between; gap:8px; margin-top:7px; }
+    .d-kpi-val { font-size:24px; font-weight:700; line-height:1; color:#1A2332; white-space:nowrap; }
+    .d-kpi-val small { font-size:11px; font-weight:600; color:#73808F; margin-left:3px; }
+    .d-kpi svg.spark { width:64px; height:26px; flex-shrink:0; }
+    .d-delta { font-size:11px; margin-top:7px; font-weight:600; display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .d-delta.good { color:#1E7B4B; } .d-delta.bad { color:#C0392B; } .d-delta.flat { color:#73808F; }
+    .d-delta span.d-vs { color:#8B98A8; font-weight:400; }
+
+    .d-insights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .d-insight { border:1px solid #E0E4E8; border-left:4px solid #2E6EBF; border-radius:6px; padding:11px 13px; background:#FAFBFC; display:flex; flex-direction:column; gap:6px; min-width:0; }
+    .d-insight.high { border-left-color:#C0392B; background:#FDF6F5; }
+    .d-insight.med { border-left-color:#C2611C; background:#FCF8F4; }
+    .d-insight.ok { border-left-color:#1E7B4B; background:#F5FAF7; }
+    .d-insight-tag { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#73808F; }
+    .d-insight.high .d-insight-tag { color:#C0392B; } .d-insight.med .d-insight-tag { color:#C2611C; } .d-insight.ok .d-insight-tag { color:#1E7B4B; }
+    .d-insight-text { font-size:12px; color:#1A2332; line-height:1.5; }
+    .d-link { font-size:11px; color:#2E6EBF; font-weight:600; cursor:pointer; background:none; border:0; padding:6px 0; text-align:left; font-family:inherit; min-height:30px; }
+    .d-link:hover { text-decoration:underline; }
+
+    .d-heat { width:100%; border-collapse:separate; border-spacing:3px; table-layout:fixed; }
+    .d-heat th { font-size:9px; color:#73808F; font-weight:700; text-transform:uppercase; letter-spacing:.02em; padding:2px 1px 4px; white-space:normal; overflow-wrap:normal; word-break:normal; line-height:1.15; vertical-align:bottom; }
+    .d-heat td.rl { font-size:11px; color:#1A2332; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding-right:6px; width:34%; }
+    .d-heat td.c { text-align:center; color:#fff; font-weight:700; font-size:11px; border-radius:4px; height:30px; }
+    .d-legend { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:10px; color:#73808F; }
+    .d-legend i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+
+    .d-util { display:flex; flex-direction:column; gap:11px; }
+    .d-util-row { display:grid; grid-template-columns:minmax(90px,1.1fr) 2.4fr minmax(78px,.9fr); gap:10px; align-items:center; }
+    .d-util-name { font-size:12px; color:#1A2332; font-weight:600; }
+    .d-util-name small { display:block; font-size:10px; color:#73808F; font-weight:400; margin-top:1px; }
+    .d-bar { height:10px; background:#F2F4F6; border-radius:5px; position:relative; overflow:hidden; }
+    .d-bar > i { position:absolute; left:0; top:0; bottom:0; border-radius:5px; }
+    .d-util-val { font-size:12px; font-weight:700; text-align:right; white-space:nowrap; }
+    .d-util-val small { display:block; font-size:10px; font-weight:600; }
+    .d-flag-low { color:#C0392B; } .d-flag-ok { color:#1E7B4B; } .d-flag-mid { color:#C2611C; }
+
+    .d-table { width:100%; border-collapse:collapse; }
+    .d-table th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:#73808F; font-weight:700; padding:7px 8px; background:#FAFBFC; border-bottom:1px solid #E0E4E8; white-space:nowrap; }
+    .d-table td { padding:9px 8px; font-size:12px; border-bottom:1px solid #F2F4F6; vertical-align:middle; }
+    .d-table td.num, .d-table th.num { text-align:right; }
+    .d-table tr:hover td { background:#FAFBFC; }
+    .d-table .co { font-weight:600; color:#1A2332; }
+    .d-table .co small { display:block; font-weight:400; font-size:10px; color:#73808F; margin-top:1px; }
+    .d-scroll-x { overflow-x:auto; }
+    .d-score { display:inline-block; min-width:34px; text-align:center; border-radius:10px; padding:2px 8px; font-size:11px; font-weight:700; color:#fff; }
+    .d-rowbtn { background:#fff; border:1px solid #D0D5DC; border-radius:4px; font-size:11px; padding:5px 9px; color:#394656; cursor:pointer; font-family:inherit; white-space:nowrap; min-height:28px; }
+    .d-rowbtn:hover { background:#F2F4F6; }
+
+    .d-list { display:flex; flex-direction:column; }
+    .d-item { display:flex; gap:10px; padding:9px 0; border-bottom:1px solid #F2F4F6; align-items:flex-start; }
+    .d-item:last-child { border-bottom:0; }
+    .d-dot { width:9px; height:9px; border-radius:50%; margin-top:4px; flex-shrink:0; background:#2E6EBF; }
+    .d-dot.red{background:#C0392B} .d-dot.orange{background:#C2611C} .d-dot.green{background:#1E7B4B} .d-dot.purple{background:#5A3A9A}
+    .d-item-main { flex:1; min-width:0; }
+    .d-item-text { font-size:12px; color:#1A2332; line-height:1.45; }
+    .d-item-meta { font-size:10px; color:#8B98A8; margin-top:2px; }
+    .d-due { flex-shrink:0; text-align:center; width:44px; border:1px solid #E0E4E8; border-radius:6px; background:#FAFBFC; padding:3px 0; }
+    .d-due b { display:block; font-size:15px; line-height:1.1; color:#1A2332; }
+    .d-due span { font-size:9px; text-transform:uppercase; color:#73808F; letter-spacing:.05em; }
+    .d-due.soon { background:#FCF4EE; border-color:#EBCDB5; } .d-due.soon b { color:#C2611C; }
+    .d-badge { font-size:10px; font-weight:700; border-radius:9px; padding:2px 8px; white-space:nowrap; }
+    .d-empty { font-size:12px; color:#73808F; padding:14px 0; text-align:center; }
+    .d-foot { font-size:10px; color:#8B98A8; margin-top:12px; text-align:center; }
+
+    @media (max-width:1280px) {
+      .d-kpis { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .d-s3, .d-s4, .d-s5, .d-s6, .d-s7, .d-s8 { grid-column:span 6; }
+      .d-insights { grid-template-columns:1fr; }
+    }
+    @media (max-width:768px) {
+      .d-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .d-s3, .d-s4, .d-s5, .d-s6, .d-s7, .d-s8 { grid-column:span 12; }
+      .d-select, .d-btn { font-size:16px; min-height:44px; }
+      .d-tab, .d-link, .d-rowbtn { min-height:44px; display:inline-flex; align-items:center; }
+      .d-viewonly { margin-left:0; width:100%; }
+    }
+
+    /* Analytics board */
+    .dash-flow #zscreen-analytics { overflow:visible !important; }
+    .pa-filters { background:#fff; border:1px solid #E0E4E8; border-radius:8px; padding:10px 14px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; }
+    .pa-frow { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .pa-flabel { font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:#73808F; font-weight:700; margin-right:4px; }
+    .pa-chip { border:1px solid #D0D5DC; background:#fff; border-radius:16px; padding:5px 11px; font-size:12px; cursor:pointer; font-family:inherit; color:#394656; display:inline-flex; align-items:center; gap:6px; margin:2px 4px 2px 0; min-height:30px; }
+    .pa-chip i { width:8px; height:8px; border-radius:50%; display:inline-block; }
+    .pa-chip.on { background:#1E4A8A; border-color:#1E4A8A; color:#fff; }
+    .pa-opt { display:flex; flex-direction:column; gap:2px; font-size:10px; color:#73808F; text-transform:uppercase; letter-spacing:.04em; }
+    .pa-opt select { font-size:12px; padding:5px 8px; border:1px solid #D0D5DC; border-radius:5px; background:#fff; color:#1A2332; text-transform:none; letter-spacing:0; min-height:32px; max-width:230px; font-family:inherit; }
+    .pa-opt input { font-size:12px; padding:5px 8px; border:1px solid #D0D5DC; border-radius:5px; background:#fff; color:#1A2332; min-height:32px; width:120px; font-family:inherit; }
+    .pa-hint { font-size:11px; color:#8B98A8; align-self:flex-end; padding-bottom:8px; max-width:260px; }
+    .pa-na { opacity:.38; pointer-events:none; }
+    #paTabs::-webkit-scrollbar { display:none; }
+    #paHead { display:contents; }
+    .pa-sticky { position:sticky; top:54px; z-index:60; background:#EAECF0; padding:8px 4px 10px; margin:0 -4px 4px; }
+    .pa-sticky .pa-bar { margin-bottom:8px; } .pa-sticky .pa-mapnote { margin-bottom:8px !important; }
+    /* the original screen's own title and export buttons repeat the board header, so the Map tab hides them */
+    #paMapPane > div > div:first-child { display:none !important; }
+    #paTabs { background:#1E4A8A; border:0; border-radius:8px; padding:6px 8px 0; gap:2px; box-shadow:0 2px 8px rgba(26,35,50,.18); }
+    #paTabs .d-tab { padding:10px 16px; margin-bottom:0; border-bottom:3px solid transparent; color:rgba(255,255,255,.78); font-weight:600; border-radius:6px 6px 0 0; }
+    #paTabs .d-tab:hover { color:#fff; background:rgba(255,255,255,.12); }
+    #paTabs .d-tab.active { color:#1E4A8A; font-weight:700; background:#fff; border-bottom-color:#2E6EBF; box-shadow:none; }
+    .pa-set { border-color:#2E6EBF !important; background:#F3F7FC !important; font-weight:600; }
+    .pa-bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:#fff; border:1px solid #E0E4E8; border-radius:8px; padding:8px 10px; margin-bottom:8px; }
+    .pa-dd { position:relative; }
+    .pa-reset { margin-left:auto; border:1px solid #D0D5DC; background:#fff; border-radius:6px; padding:6px 12px; font-size:12px; font-weight:600; color:#C0392B; cursor:pointer; min-height:36px; font-family:inherit; }
+    .pa-reset:hover { background:#FDF6F5; border-color:#C0392B; }
+    .pa-trig { border:1px solid #D0D5DC; background:#fff; border-radius:6px; padding:6px 10px; font-size:12px; cursor:pointer; min-height:36px; display:inline-flex; gap:7px; align-items:center; font-family:inherit; color:#1A2332; max-width:300px; white-space:nowrap; }
+    .pa-trig:hover { border-color:#B8C1CC; background:#FAFBFC; }
+    .pa-trig.on { border-color:#2E6EBF; background:#EAF0F7; color:#1E4A8A; font-weight:600; }
+    .pa-tl { font-size:10px; text-transform:uppercase; letter-spacing:.04em; color:#73808F; font-weight:600; }
+    .pa-trig.on .pa-tl { color:#4A719F; }
+    .pa-caret { font-size:10px; color:#8B98A8; margin-left:2px; }
+    .pa-panel { display:none; position:absolute; top:calc(100% + 6px); left:0; z-index:120; background:#fff; border:1px solid #D0D5DC; border-radius:8px; box-shadow:0 10px 30px rgba(26,35,50,.18); padding:12px 14px; min-width:250px; max-width:min(560px, 92vw); }
+    .pa-dd.open .pa-panel { display:block; }
+    .pa-ptitle { font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:#73808F; font-weight:700; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .pa-clr { border:0; background:none; color:#2E6EBF; font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; text-transform:none; letter-spacing:0; padding:2px 0; }
+    .pa-clr:hover { text-decoration:underline; }
+    .pa-prow { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-top:10px; }
+    .pa-panel { width:max-content; min-width:270px; }
+    .pa-panel .pa-opt { width:100%; } .pa-panel .pa-opt select, .pa-panel .pa-opt input { width:100%; max-width:none; min-width:0; box-sizing:border-box; }
+    .pa-panel #paChips { display:flex; flex-wrap:wrap; }
+    .pa-hide { display:none !important; }
+    .pa-mapnote { flex-basis:100%; font-size:11px; color:#73808F; background:#F6F8FA; border:1px solid #E6EAEF; border-radius:5px; padding:7px 10px; }
+    .pa-i { display:inline-flex; align-items:center; justify-content:center; width:14px; height:14px; border-radius:50%; border:1px solid #B8C1CC; color:#73808F; font-size:9px; font-weight:700; font-style:italic; cursor:help; margin-left:5px; vertical-align:1px; }
+    .d-card { position:relative; }
+    .pa-i { cursor:pointer; outline:none; }
+    .pa-i:hover, .pa-i:focus, .pa-i.open { background:#1E4A8A; border-color:#1E4A8A; color:#fff; }
+    .pa-kpis .d-kpi { cursor:pointer; } .pa-kpis .d-kpi:hover { box-shadow:0 3px 12px rgba(26,35,50,.12); transform:translateY(-1px); } .pa-kpis .d-kpi:focus { outline:2px solid #2E6EBF; }
+    .pa-kgo { font-size:10px; color:#2E6EBF; font-weight:600; margin-top:6px; opacity:.85; }
+    .d-heat td.rl.dr { cursor:pointer; color:#1E4A8A; text-decoration:underline dotted; } .d-heat td.rl.dr:hover { font-weight:700; }
+    .pa-flash { animation:paflash 2.2s ease; }
+    @keyframes paflash { 0%, 65% { box-shadow:0 0 0 3px #2E6EBF, 0 4px 18px rgba(46,110,191,.35); } 100% { box-shadow:0 0 0 0 rgba(46,110,191,0); } }
+    #paToast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:#1A2332; color:#fff; padding:10px 16px; border-radius:6px; font-size:12px; z-index:9999; opacity:0; pointer-events:none; transition:all .25s; box-shadow:0 6px 20px rgba(26,35,50,.3); max-width:90vw; }
+    #paToast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+    #paTip { position:fixed; z-index:10000; width:310px; max-width:calc(100vw - 24px); background:#fff; border:1px solid #D0D5DC; border-radius:8px; padding:11px 14px 12px; box-shadow:0 10px 30px rgba(26,35,50,.18); display:none; }
+    #paTip b { display:block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:#2E6EBF; margin-bottom:5px; }
+    #paTip p { margin:0; font-size:12.5px; line-height:1.55; color:#1A2332; }
+    #paTip p + p { margin-top:7px; color:#5A6474; }
+    #paTip::before { content:''; position:absolute; top:-6px; left:var(--ax,20px); width:10px; height:10px; background:#fff; border-left:1px solid #D0D5DC; border-top:1px solid #D0D5DC; transform:rotate(45deg); }
+    #paTip.up::before { top:auto; bottom:-6px; transform:rotate(225deg); }
+    .pa-minis { display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:12px; }
+    .pa-scroll.pa-fillh { flex:1 1 auto; display:flex; flex-direction:column; }
+    .pa-fillh .pa-car { flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
+    .pa-fillh .pa-minis.pa-row { flex:1 1 auto; }
+    .pa-mini { display:flex; flex-direction:column; }
+    .pa-mini .pa-mrow { flex:1 1 auto; }
+    .pa-car { position:relative; }
+    .pa-minis.pa-row { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; padding:2px 2px 10px; scrollbar-width:thin; scrollbar-color:#C8D0D8 transparent; }
+    .pa-row .pa-mini { flex:0 0 300px; scroll-snap-align:start; }
+    .pa-row.ctr .pa-mini { scroll-snap-align:center; }
+    .pa-car-btn { position:absolute; top:46%; transform:translateY(-50%); z-index:3; width:36px; height:36px; border-radius:50%; border:1px solid #D0D5DC; background:#fff; box-shadow:0 2px 10px rgba(26,35,50,.2); cursor:pointer; font-size:22px; line-height:1; color:#1E4A8A; padding:0 0 3px; }
+    .pa-car-btn:hover { background:#1E4A8A; color:#fff; border-color:#1E4A8A; }
+    .pa-car-btn.l { left:6px; } .pa-car-btn.r { right:6px; } .pa-car-btn:disabled { opacity:0; pointer-events:none; }
+    .pa-mini { border:1px solid #E0E4E8; border-radius:8px; padding:12px 14px; background:#FAFBFC; min-width:0; }
+    .pa-mini-hd { display:flex; align-items:center; gap:8px; font-size:13px; }
+    .pa-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .pa-flag { margin-left:auto; font-size:10px; font-weight:700; color:#C2611C; background:#FCF4EE; border:1px solid #EBCDB5; border-radius:9px; padding:1px 8px; }
+    .pa-mini-sub { font-size:11px; color:#73808F; margin:3px 0 8px; }
+    .pa-mrow { display:grid; grid-template-columns:minmax(0, 1.8fr) minmax(36px, .8fr) auto; gap:8px; align-items:center; padding:6px 0; border-top:1px solid #F2F4F6; }
+    .pa-mname { display:block; min-width:0; font-size:12px; line-height:1.25; }
+    .pa-mname .pa-mn { display:inline-block; max-width:calc(100% - 18px); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; vertical-align:bottom; }
+    .pa-mname small { display:block; margin-left:18px; color:#8B98A8; font-size:10px; white-space:nowrap; }
+    .pa-rk { color:#8B98A8; font-size:10px; display:inline-block; width:16px; }
+    .pa-mbar { height:8px; background:#F2F4F6; border-radius:4px; overflow:hidden; } .pa-mbar i { display:block; height:100%; border-radius:4px; }
+    .pa-mval { font-size:12px; font-weight:600; text-align:right; white-space:nowrap; } .pa-mval small { color:#73808F; font-weight:400; font-size:10px; margin-left:3px; }
+    .pa-body { display:flex; flex-direction:column; flex:1 1 auto; min-height:0; }
+    .pa-scroll.fill { flex:1 1 0; overflow:hidden; }
+    .pa-abs { position:absolute; inset:0; }
+    .pa-scroll { overflow:auto; position:relative; scrollbar-width:thin; scrollbar-color:#C8D0D8 transparent; }
+    .pa-scroll::-webkit-scrollbar { width:8px; height:8px; } .pa-scroll::-webkit-scrollbar-thumb { background:#C8D0D8; border-radius:4px; }
+    .pa-scroll .d-table th { position:sticky; top:0; z-index:2; }
+    .pa-scroll .d-heat thead th { position:sticky; top:0; z-index:2; background:#fff; }
+    .pa-co { color:#1E4A8A; font-weight:600; text-decoration:none; border-bottom:1px dotted #8FB0DC; cursor:pointer; } .pa-co:hover { color:#2E6EBF; border-bottom-style:solid; }
+    #paCoOv { position:fixed; inset:0; background:rgba(26,35,50,.35); z-index:8990; opacity:0; pointer-events:none; transition:opacity .2s; } #paCoOv.open { opacity:1; pointer-events:auto; }
+    #paCo { position:fixed; top:0; right:0; bottom:0; width:440px; max-width:100vw; background:#fff; z-index:9000; box-shadow:-10px 0 34px rgba(26,35,50,.25); transform:translateX(105%); transition:transform .25s ease; display:flex; flex-direction:column; }
+    #paCo.open { transform:translateX(0); }
+    .pa-co-hd { display:flex; justify-content:space-between; gap:12px; padding:18px 20px 14px; border-bottom:1px solid #E0E4E8; background:#1E4A8A; color:#fff; }
+    .pa-co-name { font-size:16px; font-weight:700; } .pa-cosub { font-size:12px; color:#73808F; margin-top:3px; } .pa-co-hd .pa-cosub { color:#C9D8EE; }
+    .pa-co-x { background:none; border:0; color:#fff; font-size:26px; line-height:1; cursor:pointer; padding:0 4px; height:32px; }
+    .pa-co-body { flex:1; overflow:auto; padding:16px 20px; }
+    .pa-co-pills { display:flex; gap:8px; margin-bottom:12px; } .pa-pill { font-size:11px; font-weight:700; border-radius:10px; padding:3px 10px; } .pa-pill.ok { background:#EAF5EE; color:#1E7B4B; } .pa-pill.mid { background:#FCF4EE; color:#C2611C; } .pa-pill.bad { background:#FDECEA; color:#C0392B; }
+    .pa-co-kv { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; } .pa-co-kv div { background:#FAFBFC; border:1px solid #E0E4E8; border-radius:6px; padding:8px 10px; } .pa-co-kv span { display:block; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:#73808F; } .pa-co-kv b { font-size:13px; }
+    .pa-co-h { font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:#73808F; font-weight:700; margin:14px 0 6px; }
+    .pa-co-tb { width:100%; border-collapse:collapse; font-size:12px; } .pa-co-tb th { text-align:left; font-size:10px; color:#73808F; padding:4px 6px; border-bottom:1px solid #E0E4E8; } .pa-co-tb td { padding:6px; border-bottom:1px solid #F2F4F6; } .pa-co-tb .num { text-align:right; } .pa-co-tb i { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; }
+    .pa-qrow, .pa-co-leg { display:flex; flex-wrap:wrap; gap:6px; } .pa-co-leg { margin-top:8px; }
+    .pa-q { font-size:10px; font-weight:700; border-radius:4px; padding:4px 8px; color:#fff; white-space:nowrap; display:inline-block; line-height:1.2; } .pa-q.q0 { background:#1E7B4B; } .pa-q.q1 { background:#E0B44A; } .pa-q.q2 { background:#C0392B; }
+    .pa-co-fl { margin:0; padding-left:18px; font-size:12px; line-height:1.7; color:#394656; }
+    .pa-co-act { border-top:1px solid #E0E4E8; padding:12px 20px 16px; display:flex; flex-direction:column; gap:8px; background:#FAFBFC; }
+    .pa-co-note { font-size:11px; color:#73808F; } .pa-co-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .pa-btn { border:1px solid #D0D5DC; background:#fff; border-radius:6px; padding:9px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; color:#1A2332; min-height:40px; } .pa-btn:hover { background:#F2F4F6; }
+    .pa-btn.pri { background:#2E6EBF; border-color:#2E6EBF; color:#fff; } .pa-btn.pri:hover { background:#1E4A8A; } .pa-btn.ghost { border-style:dashed; color:#2E6EBF; }
+    .sg { cursor:pointer; } .d-heat td.c.sg:hover { outline:2px solid #1A2332; outline-offset:-2px; } .d-heat td.rl.sg { color:#1E4A8A; text-decoration:underline dotted; font-weight:600; } .d-heat td.rl.sg:hover { text-decoration:underline; }
+    #paLiOv { position:fixed; inset:0; background:rgba(26,35,50,.35); z-index:8970; opacity:0; pointer-events:none; transition:opacity .2s; } #paLiOv.open { opacity:1; pointer-events:auto; }
+    #paLi { position:fixed; top:0; right:0; bottom:0; width:680px; max-width:100vw; background:#fff; z-index:8980; box-shadow:-10px 0 34px rgba(26,35,50,.25); transform:translateX(105%); transition:transform .25s ease; display:flex; flex-direction:column; } #paLi.open { transform:translateX(0); }
+    .pa-li-tools { display:flex; gap:8px; padding:12px 20px 6px; } .pa-li-q { flex:1; min-width:0; border:1px solid #D0D5DC; border-radius:6px; padding:8px 10px; font-size:13px; font-family:inherit; } .pa-li-sort { border:1px solid #D0D5DC; border-radius:6px; padding:8px; font-size:12px; font-family:inherit; background:#fff; }
+    .pa-li-chips { display:flex; gap:6px; flex-wrap:wrap; padding:6px 20px 10px; border-bottom:1px solid #E0E4E8; }
+    .pa-lchip { border:1px solid #D0D5DC; background:#fff; border-radius:14px; padding:5px 12px; font-size:12px; cursor:pointer; font-family:inherit; color:#394656; } .pa-lchip b { margin-left:3px; } .pa-lchip.on { background:#1E4A8A; border-color:#1E4A8A; color:#fff; }
+    .pa-li-tb td:last-child, .pa-li-tb th:last-child { white-space:nowrap; } .pa-li-tb td:first-child { min-width:140px; } .pa-li-tb td:nth-child(2) { white-space:nowrap; }
+    .pa-li-body { flex:1; overflow:auto; padding:0 20px 10px; } .pa-li-tb { width:100%; border-collapse:collapse; font-size:12px; } .pa-li-tb th { position:sticky; top:0; background:#fff; text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.05em; color:#73808F; padding:10px 6px 6px; border-bottom:1px solid #E0E4E8; } .pa-li-tb td { padding:8px 6px; border-bottom:1px solid #F2F4F6; vertical-align:middle; } .pa-li-tb .num { text-align:right; white-space:nowrap; } .pa-li-tb td.sb { color:#5A6474; font-size:11px; max-width:170px; } .pa-li-tb tr:hover td { background:#FAFBFC; }
+    .pa-mf { display:flex; flex-wrap:wrap; gap:4px 5px; align-items:center; margin-top:6px; font-size:10px; color:#73808F; } .pa-mf span { text-transform:uppercase; letter-spacing:.05em; font-weight:700; margin-right:2px; } .pa-mf em { font-style:normal; background:#EAF0F7; color:#1E4A8A; border:1px solid #CFDDEC; border-radius:9px; padding:1px 8px; font-weight:600; }
+    .pa-tb-l { align-self:center; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:#2E6EBF; font-weight:700; border-right:1px solid #D0D5DC; padding-right:10px; margin-right:2px; }
+    .pa-tb-reset { align-self:flex-end; border:0; background:none; color:#C0392B; font-size:11px; font-weight:600; cursor:pointer; font-family:inherit; padding:8px 4px; } .pa-tb-reset:hover { text-decoration:underline; }
+    .pa-find { color:#394656; font-size:12px; line-height:1.45; margin-top:4px; }
+    .pa-tbar { display:flex; flex-wrap:wrap; gap:8px 10px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #F2F4F6; }
+    .d-card { container-type:inline-size; container-name:pacard; }
+    .pa-hd { display:grid; grid-template-columns:minmax(0, 1fr) auto; grid-template-areas:'ttl act' 'tb tb'; gap:10px 14px; align-items:start; margin-bottom:12px; }
+    .pa-ttl { grid-area:ttl; min-width:0; }
+    .pa-act { grid-area:act; display:flex; flex-wrap:nowrap; gap:8px; align-items:center; justify-self:end; }
+    .pa-tbar { grid-area:tb; display:flex; flex-wrap:wrap; gap:8px 12px; align-items:flex-end; margin:0; padding:0; border:0; }
+    @container pacard (min-width: 900px) { .pa-hd { grid-template-columns:minmax(0, 1fr) auto auto; grid-template-areas:'ttl tb act'; align-items:end; } .pa-tbar { justify-content:flex-end; } .pa-act { align-self:end; } }
+    .pa-tbar .pa-opt { flex:0 1 auto; min-width:0; } .pa-tbar .pa-opt select { min-height:34px; min-width:92px; max-width:168px; padding:4px 24px 4px 8px; text-overflow:ellipsis; }
+    .pa-seg { display:inline-flex; border:1px solid #D0D5DC; border-radius:5px; overflow:hidden; }
+    .pa-seg button { border:0; background:#fff; padding:5px 10px; font-size:11px; cursor:pointer; font-family:inherit; color:#5A6474; min-height:28px; }
+    .pa-seg button.on { background:#1E4A8A; color:#fff; }
+    .pa-body { min-width:0; }
+    .d-card { scroll-margin-top:118px; }
+    .d-table a { color:#2E6EBF; font-weight:600; text-decoration:none; } .d-table a:hover { text-decoration:underline; }
+    .pa-range { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+    .pa-range label { font-size:11px; color:#73808F; display:flex; flex-direction:column; gap:2px; }
+    .pa-range input { padding:5px 8px; border:1px solid #D0D5DC; border-radius:5px; font-family:inherit; font-size:12px; min-height:32px; }
+    .pa-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .pa-tiles div { background:#FAFBFC; border:1px solid #E0E4E8; border-radius:6px; padding:8px; text-align:center; }
+    .pa-tiles b { display:block; font-size:20px; } .pa-tiles span { font-size:10px; color:#73808F; text-transform:uppercase; }
+    .pa-line { display:flex; justify-content:space-between; font-size:12px; padding:4px 0; border-bottom:1px solid #F2F4F6; }
+    .pa-soon { display:flex; gap:10px; flex-wrap:wrap; } .pa-soon span { border:1px dashed #C8D0D8; border-radius:6px; padding:10px 16px; font-size:12px; color:#8B98A8; }
+    .pa-kpis { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    #paTabs { overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -ms-overflow-style:none; white-space:nowrap; position:static; margin-bottom:0; }
+    @media (max-width:768px) { .pa-trig { max-width:100%; min-height:44px; } .pa-panel { max-width:calc(100vw - 24px); } .pa-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .pa-opt select { font-size:16px; min-height:44px; } .pa-chip { min-height:44px; } .pa-seg button { min-height:40px; } }
   </style>
 </head>
 
@@ -2175,6 +2452,10 @@
       </div>
       <!-- ══════════ SCREEN: Analytics ══════════ -->
       <div id="zscreen-analytics" class="zscreen" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:auto;">
+        <div id="paHead"></div>
+        <div id="paBoard"></div>
+        <!-- Existing Analytics content, unchanged: the "Map and regions" tab -->
+        <div id="paMapPane" style="display:none;">
         <div style="padding:2px 2px 16px;">
           <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;">
             <div>
@@ -2210,7 +2491,7 @@
               <div class="kpi-tile-value" id="kpiOnTime" style="color:#5B7FA6;">81%</div>
             </div>
             <div class="kpi-tile" style="border-top-color:#CC7A6E;">
-              <div class="kpi-tile-label">Non-filers (Q1 2026)</div>
+              <div class="kpi-tile-label" id="kpiNFLabel">Non-filers (Q1 2026)</div>
               <div class="kpi-tile-value" id="kpiNonFilers" style="color:#CC7A6E;">86</div>
             </div>
             <div class="kpi-tile" style="border-top-color:#CC7A6E;">
@@ -2336,6 +2617,7 @@
 
           </div>
         </div>
+        </div><!-- /paMapPane -->
       </div>
       <div id="mapTooltip" class="map-tooltip"></div>
 
@@ -3303,6 +3585,7 @@
       document.querySelectorAll('.scope-name').forEach(function (s) { s.textContent = name; });
       var chipEl = document.getElementById('scopeChip'); if (chipEl) chipEl.textContent = chip;
       updateKpis();
+      if (window.paRefresh) paRefresh();
       if (document.getElementById('zscreen-substance').style.display !== 'none') renderZSubstance();
       renderZAnalytics(true);
     }
@@ -3315,22 +3598,23 @@
 
     function updateKpis() {
       var set = function (id, v) { var e = document.getElementById(id); if (e) e.textContent = v; };
+      set('kpiNFLabel', 'Non-filers (' + paQLabel() + ')');
       if (currentLevel.indexOf('zone:') === 0) {
         // zone-level: proportional share of its region
         var p = currentLevel.split(':'); var reg = HQ_REGIONS[p[1]];
         var zurns = 0, ztot = 0;
         HQ_ZONES[p[1]].forEach(function (z) { ztot += z[1]; if (z[0] === p[2]) zurns = z[1]; });
         var frac = zurns / ztot;
-        set('kpiCompanies', Math.round(reg.companies * frac));
+        set('kpiCompanies', Math.round(mapStat(reg).co * frac));
         set('kpiURNs', zurns);
-        set('kpiOnTime', reg.ontime[3] + '%');
-        set('kpiNonFilers', Math.round(reg.nonfilers * frac));
+        set('kpiOnTime', mapOT(reg) + '%');
+        set('kpiNonFilers', Math.round(mapStat(reg).nf * frac));
         set('kpiLD', Math.round(ldTotal(p[1]) * frac));
         return;
       }
       var regs = scopeRegions();
       var co = 0, urns = 0, nf = 0, ld = 0, ot = 0;
-      regs.forEach(function (r) { var d = HQ_REGIONS[r]; co += d.companies; urns += d.urns; nf += d.nonfilers; ld += ldTotal(r); ot += d.ontime[3]; });
+      regs.forEach(function (r) { var d = HQ_REGIONS[r]; co += mapStat(d).co; urns += mapStat(d).urns; nf += mapStat(d).nf; ld += ldTotal(r); ot += mapOT(d); });
       set('kpiCompanies', co); set('kpiURNs', urns); set('kpiNonFilers', nf); set('kpiLD', ld);
       set('kpiOnTime', Math.round(ot / regs.length) + '%');
     }
@@ -3344,7 +3628,7 @@
       svg.querySelectorAll('path').forEach(function (p) {
         var reg = p.getAttribute('data-region');
         var known = HQ_REGIONS[reg];
-        var pct = known ? known.ontime[3] : 60;
+        var pct = known ? mapOT(known) : 60;
         p.setAttribute('fill', known ? complianceColor(pct) : '#D8DEE6');
         // dim regions outside the current scope
         p.style.opacity = (currentLevel === 'national' || activeRegions.indexOf(reg) !== -1) ? '1' : '0.28';
@@ -3357,7 +3641,7 @@
         p.addEventListener('mousemove', function (e) {
           var reg = p.getAttribute('data-region'); var d = HQ_REGIONS[reg];
           tip.innerHTML = '<strong>' + p.getAttribute('data-name') + '</strong><br>' +
-            (d ? d.name + '<br>On-time ' + d.ontime[3] + '% · ' + d.nonfilers + ' non-filers' : 'Not in a demo region');
+            (d ? d.name + '<br>On-time ' + mapOT(d) + '% · ' + mapStat(d).nf + ' non-filers' : 'Not in a demo region');
           tip.style.display = 'block';
           tip.style.left = (e.clientX + 14) + 'px';
           tip.style.top = (e.clientY + 14) + 'px';
@@ -3403,12 +3687,12 @@
       var html = '';
       if (currentLevel === 'national') {
         var co = 0, urns = 0, nf = 0, ld = 0, ot = 0;
-        REGION_ORDER.forEach(function (r) { var d = HQ_REGIONS[r]; co += d.companies; urns += d.urns; nf += d.nonfilers; ld += ldTotal(r); ot += d.ontime[3]; });
+        REGION_ORDER.forEach(function (r) { var d = HQ_REGIONS[r]; co += mapStat(d).co; urns += mapStat(d).urns; nf += mapStat(d).nf; ld += ldTotal(r); ot += mapOT(d); });
         html = '<div style="font-size:13px;font-weight:700;color:#1A2332;margin-bottom:2px;">All India</div>' +
           '<div style="font-size:11px;color:#73808F;margin-bottom:10px;">National roll-up across 7 regions · 30 zones</div>' +
           row('On-time compliance', dot(Math.round(ot / REGION_ORDER.length)) + Math.round(ot / REGION_ORDER.length) + '%') +
           row('Registered companies', co) + row('Active URNs', urns) +
-          row('Non-filers (Q1 2026)', nf, true) + row('Open L&amp;D incidents', ld, true) +
+          row('Non-filers (' + paQLabel() + ')', nf, true) + row('Open L&amp;D incidents', ld, true) +
           ldBreakdownHtml(scopeLDArray()) +
           '<div style="margin-top:12px;font-size:11px;color:#73808F;line-height:1.6;background:#F6F8FA;border:1px solid #E6EAEF;border-radius:5px;padding:9px 11px;">Click a state on the map, or pick a region in the sidebar, to drill down. NCB HQ is view-only and may query a zone or region.</div>';
       } else {
@@ -3418,11 +3702,11 @@
         var zname = isZone ? currentLevel.split(':')[2] : null;
         html = '<div style="font-size:13px;font-weight:700;color:#1A2332;margin-bottom:2px;">' + (isZone ? zname + ' Zone' : d.name) + '</div>' +
           '<div style="font-size:11px;color:#73808F;margin-bottom:10px;">' + (isZone ? 'Zone under ' + d.name : d.name + ' · Dy. Director General') + '</div>' +
-          row('On-time compliance', dot(d.ontime[3]) + d.ontime[3] + '%') +
+          row('On-time compliance', dot(mapOT(d)) + mapOT(d) + '%') +
           row(isZone ? 'Parent region' : 'Zones', isZone ? d.name : HQ_ZONES[rk].length) +
           row('Registered companies', document.getElementById('kpiCompanies').textContent) +
           row('Active URNs', document.getElementById('kpiURNs').textContent) +
-          row('Non-filers (Q1 2026)', document.getElementById('kpiNonFilers').textContent, true) +
+          row('Non-filers (' + paQLabel() + ')', document.getElementById('kpiNonFilers').textContent, true) +
           row('Open L&amp;D incidents', document.getElementById('kpiLD').textContent, true) +
           ldBreakdownHtml(scopeLDArray());
         if (!isZone) {
@@ -3442,6 +3726,21 @@
       Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif";
       Chart.defaults.font.size = 11;
       Chart.defaults.color = '#5A6474';
+      // compact legends: small round markers, left-aligned, short names
+      var lgd = Chart.defaults.plugins.legend;
+      lgd.align = 'start'; lgd.labels.usePointStyle = true; lgd.labels.boxWidth = 8; lgd.labels.boxHeight = 8; lgd.labels.padding = 12; lgd.labels.font = { size: 11 };
+      if (!lgd._trimmed) {
+        var baseLabels = lgd.labels.generateLabels;
+        lgd.labels.generateLabels = function (c) {
+          var items = baseLabels(c).map(function (it) { if (typeof it.text === 'string') it.text = it.text.replace(/ Region$/, '').replace(/^North /, 'N. ').replace(/^South /, 'S. '); if (c.config.type === 'line' && it.strokeStyle) it.fillStyle = it.strokeStyle; return it; });
+          // never wrap onto a second line: switch to short codes when the names will not fit
+          var need = items.reduce(function (t, it) { return t + String(it.text).length * 5.4 + 26; }, 0), codes = { 'N. Western': 'NW', 'Northern': 'N', 'Western': 'W', 'S. Western': 'SW', 'Southern': 'S', 'Eastern': 'E', 'N. Eastern': 'NE' };
+          if (need > (c.width || 600) - 8) items.forEach(function (it) { if (codes[it.text]) it.text = codes[it.text]; });
+          return items;
+        };
+        Chart.defaults.scales.category.ticks.callback = function (v) { var l = this.getLabelForValue(v); return typeof l === 'string' ? l.replace(/ Region$/, '').replace(/^North /, 'N. ').replace(/^South /, 'S. ') : l; };
+        lgd._trimmed = true;
+      }
       var grid = '#EEF1F4';
       Object.keys(zCharts).forEach(function (k) { if (zCharts[k]) zCharts[k].destroy(); });
       zCharts = {};
@@ -3517,14 +3816,14 @@
       var rows = scopeRegions();
       tb.innerHTML = rows.map(function (r) {
         var d = HQ_REGIONS[r];
-        var col = complianceColor(d.ontime[3]);
+        var col = complianceColor(mapOT(d));
         return '<tr style="border-bottom:1px solid #F2F4F6;">' +
           '<td style="padding:8px 10px;font-weight:600;color:#1A2332;">' + d.name + '</td>' +
           '<td style="padding:8px 10px;">' + HQ_ZONES[r].length + '</td>' +
-          '<td style="padding:8px 10px;">' + d.companies + '</td>' +
-          '<td style="padding:8px 10px;">' + d.urns + '</td>' +
-          '<td style="padding:8px 10px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:' + col + ';margin-right:6px;"></span>' + d.ontime[3] + '%</td>' +
-          '<td style="padding:8px 10px;color:#C0392B;">' + d.nonfilers + '</td>' +
+          '<td style="padding:8px 10px;">' + mapStat(d).co + '</td>' +
+          '<td style="padding:8px 10px;">' + mapStat(d).urns + '</td>' +
+          '<td style="padding:8px 10px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:' + col + ';margin-right:6px;"></span>' + mapOT(d) + '%</td>' +
+          '<td style="padding:8px 10px;color:#C0392B;">' + mapStat(d).nf + '</td>' +
           '<td style="padding:8px 10px;color:#C0392B;">' + ldTotal(r) + '</td>' +
           '</tr>';
       }).join('');
@@ -4272,6 +4571,917 @@
         r.style.display = (type === 'all' || r.dataset.type === type) ? 'block' : 'none';
       });
     }
+  </script>
+  <script>
+    /* ══════════ Analytics board — precursor analysis (PDF query groups 1 to 6) ══════════
+       One board, six tabs, every card has its own controls. Data is a generated sample set:
+       767 active URNs spread over the zones in HQ_ZONES, plus cancelled ones. Region on-time and non-filer
+       figures match HQ_REGIONS exactly. Replace gen() with the real registers when they exist. */
+    (function () {
+      'use strict';
+      var SUBS = [
+        { k: 'Acetic Anhydride', u: 'kL', w: .30, b: 31, ut: .72, sens: 0, c: '#2E6EBF' },
+        { k: 'Pot. Permanganate', u: 'MT', w: .22, b: 15.5, ut: .70, sens: 0, c: '#1E7B4B' },
+        { k: 'Ephedrine', u: 'MT', w: .11, b: 3.2, ut: .29, sens: 1, c: '#C2611C' },
+        { k: 'Pseudoephedrine', u: 'MT', w: .09, b: 3, ut: .32, sens: 1, c: '#5A3A9A' },
+        { k: 'Toluene', u: 'kL', w: .30, b: 52, ut: .74, sens: 0, c: '#334F79' },
+        { k: 'Anthranilic Acid', u: 'MT', w: .05, b: 2.2, ut: .45, sens: 1, c: '#E0B44A' },
+        { k: 'NPP', u: 'MT', w: .03, b: 1.1, ut: .35, sens: 1, c: '#C0392B' },
+        { k: 'ANPP', u: 'MT', w: .02, b: .9, ut: .30, sens: 1, c: '#8B98A8' }
+      ];
+      var SK = SUBS.map(function (s) { return s.k; }), SB = {}; SUBS.forEach(function (s) { SB[s.k] = s; });
+      var FY = ['FY22', 'FY23', 'FY24', 'FY25', 'FY26'];
+      var RFY = ['FY19', 'FY20', 'FY21', 'FY22', 'FY23', 'FY24', 'FY25', 'FY26'];
+      var QL = ['Q2 24', 'Q3 24', 'Q4 24', 'Q1 25', 'Q2 25', 'Q3 25', 'Q4 25', 'Q1 26'];
+      var ZS = { Amritsar: 'Punjab', Chandigarh: 'Chandigarh', Jammu: 'Jammu & Kashmir', Srinagar: 'Jammu & Kashmir', Delhi: 'Delhi', Dehradun: 'Uttarakhand', Gorakhpur: 'Uttar Pradesh', Lucknow: 'Uttar Pradesh', Ahmedabad: 'Gujarat', Bhopal: 'Madhya Pradesh', Indore: 'Madhya Pradesh', Jaipur: 'Rajasthan', Jodhpur: 'Rajasthan', Bangalore: 'Karnataka', Goa: 'Goa', Mumbai: 'Maharashtra', Chennai: 'Tamil Nadu', Cochin: 'Kerala', Hyderabad: 'Telangana', Visakhapatnam: 'Andhra Pradesh', Bhubaneswar: 'Odisha', Kolkata: 'West Bengal', Patna: 'Bihar', Ranchi: 'Jharkhand', Raipur: 'Chhattisgarh', Agartala: 'Tripura', Guwahati: 'Assam', Imphal: 'Manipur', Itanagar: 'Arunachal Pradesh', Siliguri: 'West Bengal' };
+      var HUB = ['Mumbai', 'Chennai', 'Kolkata', 'Cochin', 'Ahmedabad', 'Visakhapatnam', 'Goa', 'Delhi'];
+      var P = ['#2E6EBF', '#C2611C', '#1E7B4B', '#5A3A9A', '#E0B44A', '#334F79', '#C0392B', '#8B98A8', '#4A719F', '#9C6B3F'];
+      var ALL = null;
+      function defF() { return { subs: [], match: 'any', from: 0, to: 4, q: 'auto', rg: '', st: '', zn: '', fs: '', cmin: '', cmax: '' }; }
+      var PA = { tab: 'ov', f: defF(), st: {}, ch: {}, built: false };
+
+      /* ---------- small helpers ---------- */
+      function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+      function hsh(s) { var h = 0; for (var i = 0; i < s.length; i++) h += s.charCodeAt(i); return h; }
+      var f0 = function (n) { return Math.round(n).toLocaleString('en-IN'); };
+      var f1 = function (n) { return (Math.round(n * 10) / 10).toLocaleString('en-IN'); };
+      var fm = function (n) { return Math.abs(n) >= 100 ? f0(n) : f1(n); };
+      var sum = function (a) { return a.reduce(function (x, y) { return x + y; }, 0); };
+      var pct = function (a, b) { return b ? a / b * 100 : 0; };
+      var top = function (a, n) { return n === 'all' ? a : a.slice(0, +n); };
+      var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+      function tally(list, keyFn, valFn) { var m = {}; list.forEach(function (c) { var k = keyFn(c); if (k == null) return; m[k] = (m[k] || 0) + valFn(c); }); return Object.keys(m).map(function (k) { return [k, m[k]]; }); }
+      function byDesc(a, b) { return b[1] - a[1]; }
+      function keyOf(by) { return function (c) { return by === 'zone' ? c.zone : by === 'state' ? c.state : c.region; }; }
+      function pctl(vals, v) { var n = 0; vals.forEach(function (x) { if (x <= v) n++; }); return vals.length ? n / vals.length : 0; }
+
+      /* ---------- sample data ---------- */
+      function gen() {
+        var R = rng(260617), out = [], id = 1;
+        var A = ['Vindhya', 'Kaveri', 'Sahyadri', 'Coromandel', 'Brahmaputra', 'Hooghly', 'Aravali', 'Malabar', 'Satluj', 'Doon Valley', 'Narmada', 'Godavari', 'Krishna', 'Tungabhadra', 'Konkan', 'Deccan', 'Malwa', 'Awadh', 'Mithila', 'Utkal', 'Kalinga', 'Ganga', 'Yamuna', 'Pennar', 'Nilgiri', 'Zanskar', 'Meghna', 'Teesta', 'Chambal', 'Sundar'];
+        var N = ['Organics', 'Chemicals', 'Pharma', 'Solvents', 'Labs', 'Intermediates', 'Fine Chem', 'Reagents', 'Industries', 'Specialty Chem'];
+        var X = ['Pvt. Ltd.', 'Ltd.', 'LLP'];
+        var W = [.04, .06, .09, .12, .17, .19, .16, .17], tw = sum(SUBS.map(function (s) { return s.w; }));
+        function gauss() { return Math.sqrt(-2 * Math.log(R() + 1e-9)) * Math.cos(6.2832 * R()); }
+        function pickSubs() {
+          var r = R(), n = r < .537 ? 1 : r < .86 ? 2 : 3, ch = [];
+          while (ch.length < n) { var x = R() * tw, a = 0; for (var i = 0; i < SUBS.length; i++) { a += SUBS[i].w; if (x < a) { if (ch.indexOf(SUBS[i].k) < 0) ch.push(SUBS[i].k); break; } } }
+          if (ch.indexOf('Ephedrine') >= 0 && ch.indexOf('Pseudoephedrine') < 0 && ch.length < 3 && R() < .5) ch.push('Pseudoephedrine');
+          return ch;
+        }
+        function mk(rk, zone, canc) {
+          var c = { id: id++, n: A[(R() * A.length) | 0] + ' ' + N[(R() * N.length) | 0] + ' ' + X[(R() * 3) | 0], rk: rk, region: HQ_REGIONS[rk].name.replace(' Region', ''), zone: zone, state: ZS[zone], subs: pickSubs(), canc: canc ? 1 : 0, cap: {}, u: {}, imp: {}, exp: {} };
+          var r = R(), a = 0, ri = 7; for (var i = 0; i < 8; i++) { a += W[i]; if (r < a) { ri = i; break; } }
+          if (canc && ri > 6) ri = (R() * 7) | 0;
+          c.rf = ri; c.rd = (2018 + ri) * 12 + 3 + ((R() * 12) | 0); c.cf = null; c.cd = null;
+          if (canc) { c.cf = ri + 1 + ((R() * (7 - ri)) | 0); c.cd = (2018 + c.cf) * 12 + 3 + ((R() * 12) | 0); }
+          var hub = HUB.indexOf(zone) >= 0, held = [];
+          for (var f = 0; f < 5; f++) held[f] = c.rf <= f + 3 && (c.cf == null || c.cf > f + 3);
+          c.subs.forEach(function (s) {
+            var sp = SB[s], cap26 = sp.b * Math.exp(.9 * gauss()), g = .02 + .08 * R(), uf = Math.min(.97, Math.max(.03, sp.ut * (.55 + .9 * R())));
+            c.cap[s] = []; c.u[s] = [];
+            for (var f = 0; f < 5; f++) { var cp = held[f] ? cap26 / Math.pow(1 + g, 4 - f) : 0; c.cap[s][f] = cp; c.u[s][f] = cp * Math.min(.98, uf * (1 + .012 * f)); }
+            var pI = (sp.sens ? .2 : .14) * (hub ? 2 : 1), pE = .07 * (hub ? 2 : 1);
+            if (R() < pI) { var q = c.u[s][4] * (.2 + .8 * R()); c.imp[s] = []; for (var f2 = 0; f2 < 5; f2++) c.imp[s][f2] = held[f2] ? q / Math.pow(1.06, 4 - f2) * (.85 + .3 * R()) : 0; }
+            if (R() < pE) { var q2 = c.u[s][4] * (.1 + .5 * R()); c.exp[s] = []; for (var f3 = 0; f3 < 5; f3++) c.exp[s][f3] = held[f3] ? q2 / Math.pow(1.05, 4 - f3) * (.85 + .3 * R()) : 0; }
+          });
+          return c;
+        }
+        REGION_ORDER.forEach(function (rk) {
+          var reg = HQ_REGIONS[rk], act = [], zs = HQ_ZONES[rk];
+          zs.forEach(function (z) { for (var i = 0; i < z[1]; i++) act.push(mk(rk, z[0], 0)); });
+          var extra = Math.round(act.length * .14);
+          for (var e = 0; e < extra; e++) out.push(mk(rk, zs[(R() * zs.length) | 0][0], 1));
+          var Nn = act.length, base = reg.urns * (100 - reg.ontime[3]) / 100, fr = reg.nonfilers / base;
+          act.forEach(function (c) { c.rel = R() + ((hsh(c.zone) % 9) - 4) / 4 * .08 - (R() < .07 ? .6 : 0); c.st = []; });
+          for (var q = 0; q < 8; q++) {
+            var ot = q >= 4 ? reg.ontime[q - 4] : reg.ontime[0] - [5, 4, 3, 2][q];
+            var nm = q === 7 ? reg.nonfilers : Math.round(reg.urns * (100 - ot) / 100 * fr), no = Math.round(ot * Nn / 100), nl = Nn - nm - no;
+            if (nl < 0) { no += nl; nl = 0; }
+            act.map(function (c) { return { c: c, v: c.rel + (R() - .5) * .5 }; }).sort(function (a, b) { return a.v - b.v; }).forEach(function (o, i) { o.c.st[q] = i < nm ? 2 : i < nm + nl ? 1 : 0; });
+          }
+          act.forEach(function (c) { var m3 = 0, m7 = 0; for (var q = 0; q < 4; q++) { if (c.st[q] === 2) m3++; if (c.st[q + 4] === 2) m7++; } c.fac = [0, 0, 0, 1 - m3 / 4, 1 - m7 / 4]; c.fac[0] = c.fac[1] = c.fac[2] = c.fac[3] * .97; out.push(c); });
+        });
+        out.forEach(function (c) { if (c.canc) { c.fac = [1, 1, 1, 1, 1]; c.st = null; } });
+        var tc = out.map(function (c) { return SK.reduce(function (t, k) { return t + (c.cap[k] ? Math.max.apply(null, c.cap[k]) : 0); }, 0); }), srt = tc.filter(function (v) { return v > 0; }).sort(function (a, b) { return a - b; }), p33 = srt[(srt.length / 3) | 0], p67 = srt[(srt.length * 2 / 3) | 0];
+        out.forEach(function (c, i) { c.sz = tc[i] >= p67 ? 'large' : tc[i] >= p33 ? 'mid' : 'small'; });
+        return out;
+      }
+
+      /* ---------- scope, filters, metrics ---------- */
+      function sideOK(c) { if (currentLevel === 'national') return true; if (currentLevel.indexOf('zone:') === 0) return c.zone === currentLevel.split(':')[2]; return c.rk === currentLevel; }
+      function capOK(c) { var f = PA.f; if (f.cmin === '' && f.cmax === '') return true; var v = 0; for (var y = 0; y < 5; y++) v = Math.max(v, capC(c, selSubs(), y)); return (f.cmin === '' || v >= +f.cmin) && (f.cmax === '' || v <= +f.cmax); }
+      function curQ() { return PA.f.q === 'auto' ? qset(PA.f.to)[3] : +PA.f.q; }
+      function geoOK(c) { var f = PA.f; return (!f.rg || c.rk === f.rg) && (!f.st || c.state === f.st) && (!f.zn || c.zone === f.zn); }
+      function fsOK(c) { var f = PA.f; if (!f.fs) return true; if (!c.st) return false; var v = c.st[curQ()]; return f.fs === 'miss' ? v === 2 : f.fs === 'late' ? v === 1 : v === 0; }
+      function scopeOK(c) { return sideOK(c) && geoOK(c); }
+      function selSubs() { return PA.f.subs.length ? PA.f.subs : SK; }
+      function subOK(c) { var s = PA.f.subs; if (!s.length) return true; return PA.f.match === 'all' ? s.every(function (x) { return c.subs.indexOf(x) >= 0; }) : s.some(function (x) { return c.subs.indexOf(x) >= 0; }); }
+      function pool(canc, nat) { return ALL.filter(function (c) { return (nat || (scopeOK(c) && fsOK(c) && capOK(c))) && subOK(c) && (canc || !c.canc); }); }
+      function holds(c, f) { var r = f + 3; return c.rf <= r && (c.cf == null || c.cf > r); }
+      function capC(c, subs, f) { var t = 0; subs.forEach(function (s) { if (c.cap[s]) t += c.cap[s][f]; }); return t; }
+      function useC(c, subs, f, rep) { var t = 0; subs.forEach(function (s) { if (c.u[s]) t += c.u[s][f]; }); return rep ? t * c.fac[f] : t; }
+      function trC(c, subs, f, fl) { var t = 0; subs.forEach(function (s) { if (c[fl][s]) t += c[fl][s][f]; }); return t; }
+      function fyr() { var a = []; for (var i = PA.f.from; i <= PA.f.to; i++) a.push(i); return a; }
+      function qset(f) { return f >= 4 ? [4, 5, 6, 7] : [0, 1, 2, 3]; }
+      function zonesInScope() { var m = {}; pool(true).forEach(function (c) { m[c.zone] = 1; }); return Object.keys(m).sort(); }
+      function missed(c, f) { var n = 0; qset(f).forEach(function (q) { if (c.st && c.st[q] === 2) n++; }); return n; }
+      function ontimeQ(list, q) { var n = 0, t = 0; list.forEach(function (c) { if (c.st) { t++; if (c.st[q] === 0) n++; } }); return pct(n, t); }
+      function nfQ(list, q) { var n = 0; list.forEach(function (c) { if (c.st && c.st[q] === 2) n++; }); return n; }
+      function subCh() { return [['all', 'All selected substances']].concat(SK.map(function (k) { return [k, k]; })); }
+      function subsOf(o) { return o && o.sub && o.sub !== 'all' ? [o.sub] : selSubs(); }
+      var TOPN = [[5, 'Top 5'], [10, 'Top 10'], [15, 'Top 15'], ['all', 'All']];
+      var BY = [['zone', 'Zone'], ['state', 'State'], ['region', 'Region']];
+      var FYCH = FY.map(function (l, i) { return [i, l]; });
+
+      /* risk score per company, shared by overview, risk tab */
+      var PRESET = { bal: [.30, .20, .35, .15], cap: [.50, .20, .20, .10], cmp: [.20, .10, .60, .10], trd: [.20, .50, .20, .10] };
+      function riskList(preset) {
+        var f = PA.f.to, L = pool(false), subs = selSubs(), w = PRESET[preset || 'bal'];
+        var caps = L.map(function (c) { return capC(c, subs, f); }), trs = L.map(function (c) { return trC(c, subs, f, 'imp') + trC(c, subs, f, 'exp'); });
+        return L.map(function (c, i) {
+          var m = missed(c, f), sens = c.subs.some(function (s) { return SB[s].sens; }) ? 1 : 0;
+          var sc = Math.round(100 * (w[0] * pctl(caps, caps[i]) + w[1] * (trs[i] > 0 ? pctl(trs, trs[i]) : 0) + w[2] * m / 4 + w[3] * sens));
+          return { c: c, cap: caps[i], tr: trs[i], m: m, sc: sc };
+        }).sort(function (a, b) { return b.sc - a.sc; });
+      }
+      function enfRows(by, subList) {
+        var f = PA.f.to, L = pool(false), q = curQ(), keyFn = keyOf(by), g = {};
+        L.forEach(function (c) { var k = keyFn(c), o = g[k] || (g[k] = { n: 0, nf: 0, cap: 0 }); o.n++; if (c.st && c.st[q] === 2) o.nf++; o.cap += capC(c, subList || selSubs(), f); });
+        var ks = Object.keys(g), mv = Math.max.apply(null, ks.map(function (k) { return g[k].cap; }).concat([1])), mr = Math.max.apply(null, ks.map(function (k) { return pct(g[k].nf, g[k].n); }).concat([.001]));
+        return ks.map(function (k) { var o = g[k]; return { n: k, comps: o.n, nf: o.nf, cap: o.cap, sc: Math.round(50 * o.cap / mv + 50 * pct(o.nf, o.n) / mr) }; }).sort(function (a, b) { return b.sc - a.sc; });
+      }
+
+      /* ---------- card framework ---------- */
+      var CARDS = [];
+      function C(d) { CARDS.push(d); }
+      function seg(id, v) { return '<span class="pa-seg"><button data-v="chart" class="' + (v === 'chart' ? 'on' : '') + '">Chart</button><button data-v="table" class="' + (v === 'table' ? 'on' : '') + '">Table</button></span>'; }
+      function tableHtml(t, cap) {
+        if (!t || !t.r.length) return '<div class="d-empty">No data for this selection.</div>';
+        var rows = t.r.slice(0, t.max || cap || 30), num = function (v) { return /^[\d.,%+\-–\s]+$/.test(String(v)); };
+        return '<div><table class="d-table"><thead><tr>' + t.h.map(function (h, i) { return '<th class="' + (i && num(t.r[0][i]) ? 'num' : '') + '">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+          rows.map(function (r) { return '<tr>' + r.map(function (v, i) { return '<td class="' + (i && num(v) ? 'num' : '') + '">' + (typeof v === 'string' && v.charAt(0) === '<' ? v : esc(v)) + '</td>'; }).join('') + '</tr>'; }).join('') +
+          '</tbody></table></div>' + (t.r.length > rows.length ? '<div class="d-card-note" style="margin-top:6px;">Showing ' + rows.length + ' of ' + t.r.length + ' rows. Download the CSV for all.</div>' : '');
+      }
+      function autoTable(m) {
+        if (m.table) return m.table;
+        if (m.heat) { var h = m.heat; return { h: [''].concat(h.cols), r: h.rows.map(function (r, i) { return [r].concat(h.v[i].map(function (v) { return v == null ? '' : h.f(v); })); }) }; }
+        if (!m.series) return null;
+        return { h: [m.lh || ''].concat(m.series.map(function (s) { return s.n; })), r: m.labels.map(function (l, i) { return [l].concat(m.series.map(function (s) { return s.d[i] == null ? '' : (s.d[i] && s.d[i].x != null ? '' : fm(s.d[i])); })); }) };
+      }
+      function heatHtml(h) {
+        return '<div><table class="d-heat" style="min-width:' + (130 + h.cols.length * 72) + 'px;"><thead><tr><th></th>' + h.cols.map(function (c) { var sh = { 'Acetic Anhydride': 'Acetic Anh.', 'Pot. Permanganate': 'Pot. Perm.', 'Pseudoephedrine': 'Pseudoeph.', 'Anthranilic Acid': 'Anthranilic' }[c]; return '<th title="' + esc(c) + '">' + esc(sh || c) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+          h.rows.map(function (r, i) { return '<tr><td class="rl' + (h.seg ? ' sg' : h.drill ? ' dr' : '') + '" title="' + esc(r) + '"' + (h.seg ? ' data-r="' + esc(r) + '"' : h.drill ? ' data-k="' + h.drill + '" data-dr="' + esc(r) + '"' : '') + '>' + esc(r) + '</td>' + h.v[i].map(function (v, j) { return v == null ? '<td class="c" style="background:#F2F4F6;color:#8B98A8;">–</td>' : '<td class="c' + (h.seg ? ' sg' : '') + '"' + (h.seg ? ' data-r="' + esc(r) + '" data-c="' + esc(h.cols[j]) + '"' : '') + ' style="background:' + h.color(v) + ';"' + (h.tips && h.tips[i][j] ? ' title="' + esc(h.tips[i][j]) + '"' : '') + '>' + h.f(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
+          '</tbody></table></div><div class="d-legend">' + h.legend.map(function (l) { return '<span><i style="background:' + l[0] + '"></i>' + l[1] + '</span>'; }).join('') + '</div>';
+      }
+      function opts(cd, st) {
+        return (cd.opts || []).map(function (o) {
+          var ch = typeof o.c === 'function' ? o.c() : o.c;
+          if (!ch.some(function (x) { return String(x[0]) === String(st[o.k]); })) st[o.k] = ch[0][0];
+          return '<label class="pa-opt"><span>' + o.l + '</span><select data-k="' + o.k + '">' + ch.map(function (x) { return '<option value="' + x[0] + '"' + (String(x[0]) === String(st[o.k]) ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join('') + '</select></label>';
+        }).join('');
+      }
+      function drawChart(id, m, cv) {
+        var kind = m.kind, isH = kind.charAt(0) === 'h', stacked = /stack/.test(kind), grid = '#EEF1F4', cfg;
+        if (kind === 'doughnut') {
+          cfg = { type: 'doughnut', data: { labels: m.labels, datasets: [{ data: m.series[0].d, backgroundColor: m.colors || P, borderColor: '#fff', borderWidth: 2 }] }, options: { onClick: m.seg ? function (e, els) { if (els.length) openList(m.seg({ label: m.labels[els[0].index], idx: els[0].index })); } : undefined, responsive: true, maintainAspectRatio: false, cutout: '58%', plugins: { legend: { position: 'right', labels: { boxWidth: 10, usePointStyle: true } } } } };
+        } else if (kind === 'bubble') {
+          cfg = { type: 'bubble', data: { datasets: m.series.map(function (s) { return { label: s.n, data: s.d, backgroundColor: s.c + 'AA', borderColor: s.c }; }) }, options: { onClick: function (e, els) { if (els.length) { var pt = m.series[els[0].datasetIndex].d[els[0].index]; if (pt && pt.id) openCompany(pt.id); else if (pt && pt.z) openList(placeSeg('zone', pt.z)); } }, onHover: function (e, els) { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; }, responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, usePointStyle: true } }, tooltip: { callbacks: { label: function (c) { return c.raw.l; } } } }, scales: { x: { title: { display: true, text: m.xt }, grid: { color: grid } }, y: m.yfix ? { title: { display: true, text: m.yt }, beginAtZero: true, grid: { color: grid } } : { title: { display: true, text: m.yt }, min: -.6, max: 4.6, ticks: { stepSize: 1, callback: function (v) { return v >= 0 && v <= 4 && v % 1 === 0 ? v : ''; } }, grid: { color: grid } } } } };
+        } else {
+          var hasY2 = m.series.some(function (s) { return s.y === 'y2'; });
+          var ds = m.series.map(function (s, i) {
+            var line = s.t === 'line' || kind === 'line';
+            return { type: s.t || (kind === 'line' ? 'line' : 'bar'), label: s.n, data: s.d, backgroundColor: s.pc || s.c || P[i % P.length], borderColor: s.c || P[i % P.length], borderWidth: line ? 2 : 0, borderRadius: 3, tension: .3, pointRadius: line ? 3 : 0, borderDash: s.dash || [], yAxisID: s.y || 'y', order: line ? 0 : 1, fill: false, maxBarThickness: 34, stack: s.stk, tip: s.tip };
+          });
+          var vs = { grid: { color: grid }, stacked: stacked, beginAtZero: !m.noZero, title: m.vt ? { display: true, text: m.vt } : undefined };
+          if (m.log) vs.type = 'logarithmic';
+          if (m.pctAxis) vs.ticks = { callback: function (v) { return v + '%'; } };
+          if (m.vmax) vs.max = m.vmax;
+          var cs = { grid: { display: false }, stacked: stacked };
+          var sc = isH ? { x: vs, y: cs } : { x: cs, y: vs };
+          if (hasY2) sc.y2 = { position: 'right', grid: { display: false }, title: m.y2t ? { display: true, text: m.y2t } : undefined };
+          cfg = { type: 'bar', data: { labels: m.labels, datasets: ds }, options: { onClick: (m.drill || m.seg) ? function (e, els) { if (!els.length) return; var i = els[0].index; if (m.drill === 'company') openCompany(m.cids[i]); else if (m.seg) openList(m.seg({ label: m.labels[i], idx: i })); else applyDrill(m.drill, m.labels[i]); } : undefined, onHover: (m.drill || m.seg) ? function (e, els) { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; } : undefined, responsive: true, maintainAspectRatio: false, indexAxis: isH ? 'y' : 'x', interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: m.series.length > 1, position: 'bottom', labels: { boxWidth: 10, usePointStyle: true } }, tooltip: { callbacks: { label: function (c) { if (c.dataset.tip) return c.dataset.tip[c.dataIndex] || ''; var v = c.parsed[isH ? 'x' : 'y']; return c.dataset.label + ': ' + fm(v) + (m.pctAxis ? '%' : ''); } } } }, scales: sc } };
+        }
+        if (PA.ch[id]) PA.ch[id].destroy();
+        PA.ch[id] = new Chart(cv, cfg);
+      }
+      function csv(t, name) {
+        var q = function (v) { v = String(v).replace(/<[^>]+>/g, ''); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+        var txt = [t.h].concat(t.r).map(function (r) { return r.map(q).join(','); }).join('\n');
+        var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv' })); a.download = name + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+      }
+      function renderCard(cd) {
+        var host = document.getElementById('pc-' + cd.id); if (!host) return;
+        var st = PA.st[cd.id] || (PA.st[cd.id] = { view: 'chart' });
+        (cd.opts || []).forEach(function (o) { if (st[o.k] == null) st[o.k] = o.d; });
+        if (PA.ch[cd.id]) { PA.ch[cd.id].destroy(); delete PA.ch[cd.id]; }
+        var m = cd.build(st) || { kind: 'html', html: '<div class="d-empty">No data.</div>' };
+        var dk = DRILL[cd.id]; m.drill = dk ? dk(st) : null; m.seg = SEGCARDS.indexOf(cd.id) >= 0 ? function (x) { return segFor(cd.id, st, x); } : null; if (m.seg) m.drill = m.drill === 'company' ? m.drill : null; if (m.heat && m.seg) m.heat.seg = true; else if (m.heat && m.drill) m.heat.drill = m.drill;
+        var tb = m.kind !== 'html' && m.kind !== 'table' && m.kind !== 'heat';
+        var view = (m.kind === 'table' || st.view === 'table') ? 'table' : 'chart';
+        var t = autoTable(m);
+        host.innerHTML = '<div class="pa-hd"><div class="pa-ttl"><div class="d-card-title">' + cd.t + (cd.n ? ' <span class="pa-i" tabindex="0" role="button" aria-label="How to read this chart" data-tip="' + (String(cd.n) + ((cd.opts || []).length ? ' The options on this card work inside the main filters at the top. Reset chart puts them back.' : '') + (m.drill === 'company' ? ' Click a bar or a company name to open that company and take action.' : m.seg ? ' Click a bar, a row name or a cell to open the list of companies behind it.' : m.drill ? ' Click a bar or a place name to filter the whole board to it.' : '')).replace(/"/g, '&quot;') + '">i</span>' : '') + '</div><div class="d-card-note pa-find">' + insightFor(cd, m, st) + '</div>' + (mainTags().length ? '<div class="pa-mf"><span>Main filters</span>' + mainTags().map(function (x) { return '<em>' + esc(x) + '</em>'; }).join('') + '</div>' : '') + '</div>' +
+          ((cd.opts || []).length ? '<div class="pa-tbar">' + opts(cd, st) + '<button type="button" class="pa-tb-reset"' + ((cd.opts || []).some(function (o) { return String(st[o.k]) !== String(o.d); }) || st.view === 'table' ? '' : ' style="display:none;"') + '>Reset chart</button></div>' : '') +
+          '<div class="pa-act">' + (tb || m.kind === 'heat' ? seg(cd.id, view) : '') + (t ? '<button class="d-rowbtn pa-csv" title="Download CSV">CSV</button>' : '') + '</div></div>' + '<div class="pa-body"></div>' + (m.foot ? '<div class="d-card-note" style="margin-top:8px;">' + m.foot + '</div>' : '');
+        var body = host.querySelector('.pa-body');
+        var hh = m.h || (m.labels && /^h/.test(m.kind) ? Math.max(260, m.labels.length * 26 + 70) : 290), H = Math.min(hh, 480);
+        if (m.kind === 'html') body.innerHTML = '<div class="pa-scroll pa-fillh" style="max-height:640px;overflow-x:hidden;">' + m.html + '</div>';
+        else if (view === 'table') body.innerHTML = tb ? '<div class="pa-scroll fill" style="min-height:' + H + 'px;"><div class="pa-abs" style="overflow:auto;">' + tableHtml(t, 400) + '</div></div>' : cd.s < 12 ? '<div class="pa-scroll fill" style="min-height:260px;"><div class="pa-abs" style="overflow:auto;">' + tableHtml(t, 400) + '</div></div>' : '<div class="pa-scroll" style="max-height:460px;">' + tableHtml(t, 400) + '</div>';
+        else if (m.kind === 'heat') body.innerHTML = '<div class="pa-scroll" style="max-height:460px;">' + heatHtml(m.heat) + '</div>';
+        else {
+          body.innerHTML = hh <= H ? '<div class="pa-scroll fill" style="min-height:' + H + 'px;"><div class="pa-abs"><canvas></canvas></div></div>' : '<div class="pa-scroll fill" style="min-height:' + H + 'px;overflow:auto;"><div class="d-chart" style="height:' + hh + 'px;"><canvas></canvas></div></div>';
+          drawChart(cd.id, m, body.querySelector('canvas'));
+        }
+        host.querySelectorAll('.pa-tbar select').forEach(function (s) { s.onchange = function () { st[s.dataset.k] = s.value; renderCard(cd); }; });
+        host.querySelectorAll('.pa-seg button').forEach(function (b) { b.onclick = function () { st.view = b.dataset.v; renderCard(cd); }; });
+        var rb = host.querySelector('.pa-tb-reset'); if (rb) rb.onclick = function () { (cd.opts || []).forEach(function (o) { st[o.k] = o.d; }); st.view = 'chart'; renderCard(cd); };
+        var cb = host.querySelector('.pa-csv'); if (cb) cb.onclick = function () { csv(t, cd.id); };
+        if (cd.after) cd.after(host.querySelector('.pa-body'), st, function () { renderCard(cd); });
+      }
+
+      /* ---------- cards ---------- */
+      /* heat helper */
+      function heatOf(rows, cols, v, fmt, scaleHi, goodHigh, label) {
+        var color = function (x) { var r = scaleHi ? x / scaleHi : x; r = Math.max(0, Math.min(1, r)); if (goodHigh === true) { return x >= 90 ? '#1E7B4B' : x >= 85 ? '#5FA777' : x >= 80 ? '#E0B44A' : x >= 75 ? '#D08A3E' : '#C0392B'; } var a = [46, 110, 191], b = [26, 35, 50]; return 'rgb(' + a.map(function (c, i) { return Math.round(c + (b[i] - c) * r * .85 + (255 - c) * (1 - r) * .75); }).join(',') + ')'; };
+        var legend = goodHigh === true ? [['#1E7B4B', '90+'], ['#5FA777', '85–89'], ['#E0B44A', '80–84'], ['#D08A3E', '75–79'], ['#C0392B', 'Below 75']] : [['rgb(214,224,240)', 'Low'], ['rgb(80,125,190)', 'Medium'], ['rgb(30,50,85)', 'High']];
+        return { kind: 'heat', heat: { rows: rows, cols: cols, v: v, f: fmt, color: color, legend: legend } };
+      }
+
+      /* ===== OVERVIEW ===== */
+      C({ id: 'ov_trend', tab: 'ov', s: 8, t: 'Temporal trends: registrants, capacity, usage and trade', n: 'Indexed to the first year in range = 100, so different units sit on one scale (query 6v).',
+        opts: [{ k: 'm', l: 'Series', c: [['all', 'All five'], ['reg', 'Registrants'], ['cap', 'Installed capacity'], ['use', 'Reported usage'], ['tr', 'Imports and exports']], d: 'all' }, { k: 'x', l: 'Values', c: [['idx', 'Indexed (first year = 100)'], ['gr', 'Year-on-year growth %'], ['abs', 'Actual values']], d: 'idx' }],
+        build: function (o) {
+          var L = pool(true), subs = selSubs(), fr = fyr();
+          var ser = { reg: fr.map(function (f) { return L.filter(function (c) { return holds(c, f); }).length; }), cap: fr.map(function (f) { return sum(L.map(function (c) { return capC(c, subs, f); })); }), use: fr.map(function (f) { return sum(L.map(function (c) { return useC(c, subs, f, 1); })); }), imp: fr.map(function (f) { return sum(L.map(function (c) { return trC(c, subs, f, 'imp'); })); }), exp: fr.map(function (f) { return sum(L.map(function (c) { return trC(c, subs, f, 'exp'); })); }) };
+          var nm = { reg: 'Registrants', cap: 'Installed capacity', use: 'Reported usage', imp: 'Imports', exp: 'Exports' };
+          var keys = o.m === 'all' ? ['reg', 'cap', 'use', 'imp', 'exp'] : o.m === 'tr' ? ['imp', 'exp'] : [o.m];
+          return { kind: 'line', labels: fr.map(function (i) { return FY[i]; }), noZero: o.x !== 'abs', pctAxis: o.x === 'gr', series: keys.map(function (k, i) { return { n: nm[k], d: o.x === 'gr' ? ser[k].map(function (v, i) { return i && ser[k][i - 1] ? Math.round((v / ser[k][i - 1] - 1) * 1000) / 10 : null; }) : o.x === 'idx' ? ser[k].map(function (v) { return ser[k][0] ? Math.round(v / ser[k][0] * 1000) / 10 : null; }) : ser[k], c: P[i] }; }), foot: 'Capacity and usage are in kL and MT added together. Unit mix is the sample-data simplification.' };
+        } });
+      C({ id: 'ov_quad', tab: 'ov', s: 12, t: 'Major risk areas: high capacity and low compliance', n: 'Each bubble is a zone. Red zones are above median capacity and below median on-time filing (6i).',
+        build: function () { var f = PA.f.to, q = curQ(), L = pool(false), g = {}, subs = selSubs(); L.forEach(function (c) { (g[c.zone] = g[c.zone] || []).push(c); });
+          var z = Object.keys(g).map(function (k) { return { n: k, ot: ontimeQ(g[k], q), cp: sum(g[k].map(function (c) { return capC(c, subs, f); })), k: g[k].length }; });
+          var med = function (a) { var t = a.slice().sort(function (x, y) { return x - y; }); return t.length ? t[(t.length / 2) | 0] : 0; }, mo = med(z.map(function (x) { return x.ot; })), mc = med(z.map(function (x) { return x.cp; }));
+          var hi = function (x) { return x.cp >= mc && x.ot < mo; }, pt = function (x) { return { z: x.n, x: Math.round(x.ot * 10) / 10, y: Math.round(x.cp), r: 5 + Math.min(12, x.k / 4), l: x.n + ': on-time ' + f0(x.ot) + '%, capacity ' + f0(x.cp) + ', ' + x.k + ' registrants' }; };
+          var series = [{ n: 'High capacity, low compliance', c: '#C0392B', d: z.filter(hi).map(pt) }, { n: 'Other zones', c: '#8B98A8', d: z.filter(function (x) { return !hi(x); }).map(pt) }];
+          return { kind: 'bubble', yfix: true, xt: 'On-time filing % (' + QL[q] + ')', yt: 'Installed capacity', series: series, table: { h: ['Zone', 'On-time %', 'Capacity', 'Registrants', 'Area'], r: z.sort(function (a, b) { return b.cp - a.cp; }).map(function (x) { return [x.n, f0(x.ot), f0(x.cp), x.k, hi(x) ? 'High capacity, low compliance' : '']; }) }, foot: 'Bubble size is the number of registrants.' }; } });
+
+      /* ===== REGISTRATIONS ===== */
+      C({ id: 'r_subs', tab: 'reg', s: 4, t: 'Registrants per substance', n: 'Active registrants holding each Schedule-A substance (1i).',
+        opts: [{ k: 's', l: 'Sort', c: [['v', 'Largest first'], ['n', 'Name']], d: 'v' }, { k: 'm', l: 'Show', c: [['n', 'Count'], ['p', '% of registrants']], d: 'n' }],
+        build: function (o) { var L = pool(false), tot = L.length, r = selSubs().map(function (s) { return [s, L.filter(function (c) { return c.subs.indexOf(s) >= 0; }).length]; }); r.sort(o.s === 'v' ? byDesc : function (a, b) { return a[0] < b[0] ? -1 : 1; });
+          return { kind: 'hbar', labels: r.map(function (x) { return x[0]; }), series: [{ n: o.m === 'n' ? 'Registrants' : '% of registrants', d: r.map(function (x) { return o.m === 'n' ? x[1] : Math.round(pct(x[1], tot) * 10) / 10; }), pc: r.map(function (x) { return SB[x[0]].c; }) }], table: { h: ['Substance', 'Registrants', '% of registrants'], r: r.map(function (x) { return [x[0], x[1], f1(pct(x[1], tot)) + '%']; }) }, foot: 'A registrant holding two substances counts under both. Total registrants: ' + f0(tot) + '.' }; } });
+      C({ id: 'r_zone', tab: 'reg', s: 8, t: 'Registrants by zone, state and region', n: 'Where registrants sit. Change Measure to see recent additions, Order to see the thinnest places first, and View for a heatmap by substance or the top three places for each substance.',
+        opts: [{ k: 'by', l: 'Group by', c: BY, d: 'zone' }, { k: 'v', l: 'View', c: [['bar', 'Bars'], ['heat', 'Heatmap by substance'], ['top3', 'Top 3 per substance']], d: 'bar' }, { k: 'm', l: 'Measure', c: [['reg', 'Active registrants'], ['a12', 'Additions, last year'], ['a24', 'Additions, last 2 years']], d: 'reg' }, { k: 'o', l: 'Order', c: [['high', 'Highest first'], ['low', 'Lowest first']], d: 'high' }, { k: 'n', l: 'Show', c: TOPN, d: 10 }],
+        build: function (o) {
+          var L = pool(false), kf = keyOf(o.by);
+          if (o.v === 'heat') { var ks = tally(L, kf, function () { return 1; }).sort(byDesc).slice(0, o.n === 'all' ? 99 : +o.n).map(function (x) { return x[0]; }), cs = selSubs(); var v = ks.map(function (k) { return cs.map(function (s) { return L.filter(function (c) { return kf(c) === k && c.subs.indexOf(s) >= 0; }).length; }); }); var mx = Math.max.apply(null, [].concat.apply([], v).concat([1])); return heatOf(ks, cs, v, function (x) { return x; }, mx); }
+          if (o.v === 'top3') { var rows = selSubs().map(function (s) { var r = tally(L.filter(function (c) { return c.subs.indexOf(s) >= 0; }), kf, function () { return 1; }).sort(byDesc).slice(0, 3), row = [s].concat(r.map(function (x, i) { return (i + 1) + '. ' + x[0] + ' (' + x[1] + ')'; })); while (row.length < 4) row.push(''); return row; }); return { kind: 'table', table: { h: ['Substance', '#1', '#2', '#3'], r: rows } }; }
+          var yrs = o.m === 'a12' ? 1 : 2, r = tally(o.m === 'reg' ? L : pool(true), kf, function (c) { return o.m === 'reg' ? 1 : (c.rf >= 8 - yrs ? 1 : 0); }), have = {};
+          r.forEach(function (x) { have[x[0]] = 1; }); pool(true).forEach(function (c) { var k = kf(c); if (!have[k]) { have[k] = 1; r.push([k, 0]); } });
+          r.sort(o.o === 'low' ? function (a, b) { return a[1] - b[1]; } : byDesc); var tot = sum(r.map(function (x) { return x[1]; })), low = o.o === 'low'; r = top(r, o.n);
+          return { kind: 'hbar', labels: r.map(function (x) { return x[0]; }), series: [{ n: o.m === 'reg' ? 'Registrants' : 'Additions', d: r.map(function (x) { return x[1]; }), pc: r.map(function (x, i) { return low ? '#C0392B' : i < 3 ? '#2E6EBF' : '#A6B2C0'; }) }], table: { h: [o.by, 'Value', 'Share'], r: r.map(function (x) { return [x[0], x[1], f1(pct(x[1], tot)) + '%']; }) }, foot: low ? 'Thinnest places in red.' : 'Top three in blue.' };
+        } });
+      C({ id: 'r_mix', tab: 'reg', s: 4, t: 'Single vs multi-substance', n: 'How many registrants hold one, two or three or more substances (1iv).',
+        opts: [{ k: 'by', l: 'Split by', c: [['all', 'Overall'], ['region', 'Region'], ['zone', 'Zone (top 10)'], ['state', 'State (top 10)']], d: 'all' }],
+        build: function (o) { var L = pool(false), b = function (c) { return c.subs.length >= 3 ? 2 : c.subs.length - 1; }, nm = ['One substance', 'Two substances', 'Three or more'];
+          if (o.by === 'all') { var d = [0, 1, 2].map(function (i) { return L.filter(function (c) { return b(c) === i; }).length; }); return { kind: 'doughnut', labels: nm, series: [{ n: 'Registrants', d: d }], colors: ['#A6B2C0', '#2E6EBF', '#C2611C'], table: { h: ['Type', 'Registrants', 'Share'], r: nm.map(function (n, i) { return [n, d[i], f1(pct(d[i], sum(d))) + '%']; }) } }; }
+          var kf = keyOf(o.by), ks = tally(L, kf, function () { return 1; }).sort(byDesc).slice(0, o.by === 'region' ? 9 : 10).map(function (x) { return x[0]; });
+          return { kind: 'hstack', labels: ks, series: nm.map(function (n, i) { return { n: n, d: ks.map(function (k) { return L.filter(function (c) { return kf(c) === k && b(c) === i; }).length; }), c: ['#A6B2C0', '#2E6EBF', '#C2611C'][i] }; }) }; } });
+      C({ id: 'r_time', tab: 'reg', s: 8, t: 'Registrations over time: additions, cancellations and active', n: 'Year-wise additions and cancellations, split by substance or region (1v, 1vii, 1viii).',
+        opts: [{ k: 'g', l: 'Split by', c: [['all', 'Combined'], ['sub', 'Substance'], ['zone', 'Zone (top 8)'], ['region', 'Region']], d: 'all' }, { k: 'm', l: 'Measure', c: [['both', 'Additions and cancellations'], ['add', 'Additions'], ['can', 'Cancellations'], ['net', 'Net change'], ['act', 'Active registrants']], d: 'both' }],
+        build: function (o) { var L = pool(true), n = PA.f.to + 4, labels = RFY.slice(0, n), idx = labels.map(function (_, i) { return i; });
+          var groups = o.g === 'all' ? [['All', function () { return true; }]] : o.g === 'sub' ? selSubs().map(function (s) { return [s, function (c) { return c.subs.indexOf(s) >= 0; }]; }) : o.g === 'zone' ? tally(L, function (c) { return c.zone; }, function () { return 1; }).sort(byDesc).slice(0, 8).map(function (x) { var z = x[0]; return [z, function (c) { return c.zone === z; }]; }) : REGION_ORDER.filter(function (r) { return pool(true).some(function (c) { return c.rk === r; }); }).map(function (r) { var nm = HQ_REGIONS[r].name.replace(' Region', ''); return [nm, function (c) { return c.region === nm; }]; });
+          var add = function (g) { return idx.map(function (i) { return L.filter(function (c) { return c.rf === i && g(c); }).length; }); }, can = function (g) { return idx.map(function (i) { return L.filter(function (c) { return c.cf === i && g(c); }).length; }); };
+          var act = function (g) { var a = add(g), cn = can(g), t = 0; return a.map(function (v, i) { t += v - cn[i]; return t; }); };
+          if (o.m === 'both' && o.g === 'all') { var g = groups[0][1]; return { kind: 'bar', labels: labels, series: [{ n: 'Active registrants', d: act(g), t: 'line', c: '#1A2332', y: 'y2' }, { n: 'Additions', d: add(g), c: '#2E6EBF' }, { n: 'Cancellations', d: can(g).map(function (v) { return -v; }), c: '#C0392B' }], y2t: 'Active', table: { h: ['Year', 'Additions', 'Cancellations', 'Net', 'Active'], r: labels.map(function (l, i) { return [l, add(g)[i], can(g)[i], add(g)[i] - can(g)[i], act(g)[i]]; }) } }; }
+          var mk = o.m === 'can' ? can : o.m === 'act' ? act : o.m === 'net' ? function (g) { var a = add(g), cn = can(g); return a.map(function (v, i) { return v - cn[i]; }); } : add;
+          return { kind: o.m === 'act' ? 'line' : 'stack', labels: labels, series: groups.map(function (gr, i) { return { n: gr[0], d: mk(gr[1]), c: o.g === 'sub' ? SB[gr[0]].c : P[i % P.length] }; }), foot: o.g === 'sub' ? 'A registrant holding several substances counts under each.' : '' }; } });
+      C({ id: 'r_range', tab: 'reg', s: 4, t: 'Registrations between two dates', n: 'Any period, for example Jan 2023 to Dec 2024 (1vi).',
+        build: function (o) { return { kind: 'html', html: '<div class="pa-range"><label>From <input type="month" id="paRf" value="' + (o.rf || '2023-01') + '"></label><label>To <input type="month" id="paRt" value="' + (o.rt || '2024-12') + '"></label></div><div id="paRangeOut"></div>' }; },
+        after: function (body, st) {
+          function go() { st.rf = document.getElementById('paRf').value; st.rt = document.getElementById('paRt').value; var a = st.rf.split('-'), b = st.rt.split('-'), lo = +a[0] * 12 + (+a[1] - 1), hi = +b[0] * 12 + (+b[1] - 1), L = pool(true);
+            var ad = L.filter(function (c) { return c.rd >= lo && c.rd <= hi; }), cn = L.filter(function (c) { return c.cd != null && c.cd >= lo && c.cd <= hi; });
+            var bs = selSubs().map(function (s) { return [s, ad.filter(function (c) { return c.subs.indexOf(s) >= 0; }).length]; }).sort(byDesc), bz = tally(ad, function (c) { return c.zone; }, function () { return 1; }).sort(byDesc).slice(0, 5);
+            document.getElementById('paRangeOut').innerHTML = '<div class="pa-tiles"><div><b>' + f0(ad.length) + '</b><span>Added</span></div><div><b>' + f0(cn.length) + '</b><span>Cancelled</span></div><div><b>' + f0(ad.length - cn.length) + '</b><span>Net</span></div></div><div class="d-card-note" style="margin:8px 0 4px;">By substance</div>' + bs.filter(function (x) { return x[1]; }).map(function (x) { return '<div class="pa-line"><span>' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join('') + '<div class="d-card-note" style="margin:8px 0 4px;">Top zones</div>' + bz.map(function (x) { return '<div class="pa-line"><span>' + x[0] + '</span><b>' + x[1] + '</b></div>'; }).join(''); }
+          body.querySelectorAll('input').forEach(function (i) { i.onchange = go; }); go(); } });
+      /* ===== CAPACITY ===== */
+      C({ id: 'k_sub', tab: 'cap', s: 8, t: 'Installed capacity per substance, with year-on-year growth', n: 'India-wide capacity for the chosen year (2i). Units are kL for liquids and MT for solids.',
+        opts: [{ k: 'y', l: 'Year', c: FYCH, d: 4 }, { k: 'sc', l: 'Scale', c: [['lin', 'Linear'], ['log', 'Log (small substances visible)']], d: 'lin' }],
+        build: function (o) { var L = pool(true), f = +o.y, ss = selSubs(), cur = ss.map(function (s) { return sum(L.map(function (c) { return capC(c, [s], f); })); }), prv = ss.map(function (s) { return f ? sum(L.map(function (c) { return capC(c, [s], f - 1); })) : 0; }), yoy = cur.map(function (v, i) { return prv[i] ? (v / prv[i] - 1) * 100 : null; });
+          return { kind: 'bar', labels: ss, log: o.sc === 'log', vt: 'Capacity', y2t: 'YoY %', series: [{ n: 'Installed capacity ' + FY[f], d: cur.map(function (v) { return Math.round(v * 10) / 10; }), pc: ss.map(function (s) { return SB[s].c; }) }, { n: 'Year-on-year %', d: yoy.map(function (v) { return v == null ? null : Math.round(v * 10) / 10; }), t: 'line', c: '#1A2332', y: 'y2' }], table: { h: ['Substance', 'Unit', 'Capacity ' + FY[f], f ? 'Capacity ' + FY[f - 1] : '', 'YoY %'], r: ss.map(function (s, i) { return [s, SB[s].u, f1(cur[i]), f ? f1(prv[i]) : '', yoy[i] == null ? '' : f1(yoy[i]) + '%']; }) } }; } });
+      C({ id: 'k_zone', tab: 'cap', s: 4, t: 'Capacity by zone, state and region', n: 'One substance in a place against the whole of India (2ii).',
+        opts: [{ k: 'by', l: 'Group by', c: BY, d: 'zone' }, { k: 'm', l: 'Measure', c: [['abs', 'Capacity'], ['p', '% of all-India']], d: 'p' }, { k: 'n', l: 'Show', c: TOPN, d: 10 }],
+        build: function (o) { var L = pool(true), f = PA.f.to, subs = subsOf(o), ALLN = pool(true, true), tot = sum(ALLN.map(function (c) { return capC(c, subs, f); })), r = tally(L, keyOf(o.by), function (c) { return capC(c, subs, f); }).sort(byDesc); r = top(r, o.n);
+          return { kind: 'hbar', labels: r.map(function (x) { return x[0]; }), series: [{ n: o.m === 'p' ? '% of all-India capacity' : 'Capacity', d: r.map(function (x) { return o.m === 'p' ? Math.round(pct(x[1], tot) * 10) / 10 : Math.round(x[1]); }), c: '#334F79' }], table: { h: [o.by, 'Capacity', '% of all-India'], r: r.map(function (x) { return [x[0], f0(x[1]), f1(pct(x[1], tot)) + '%']; }) }, foot: 'All-India capacity for this selection: ' + f0(tot) + '.' }; } });
+      C({ id: 'k_top', tab: 'cap', s: 8, t: 'Major companies by installed capacity', n: 'Ranked overall or per substance, with zone and share (2iii, 2iv).',
+        opts: [{ k: 'n', l: 'Companies', c: [[10, 'Top 10'], [20, 'Top 20'], [30, 'Top 30']], d: 10 }, { k: 'm', l: 'Measure', c: [['c', 'Capacity'], ['p', 'Share %']], d: 'c' }],
+        build: function (o) { var f = PA.f.to, subs = subsOf(o), L = pool(false), tot = sum(L.map(function (c) { return capC(c, subs, f); })), r = L.map(function (c) { return { c: c, v: capC(c, subs, f) }; }).filter(function (x) { return x.v > 0; }).sort(function (a, b) { return b.v - a.v; }).slice(0, +o.n), cum = 0;
+          var rows = r.map(function (x, i) { cum += x.v; return [i + 1, coLink(x.c), x.c.zone, x.c.subs.join(', '), f1(x.v), f1(pct(x.v, tot)) + '%', f1(pct(cum, tot)) + '%']; });
+          return { kind: 'hbar', cids: r.map(function (x) { return x.c.id; }), labels: r.map(function (x) { return x.c.n + ' (' + x.c.zone + ')'; }), series: [{ n: o.m === 'c' ? 'Capacity' : 'Share %', d: r.map(function (x) { return o.m === 'c' ? Math.round(x.v * 10) / 10 : Math.round(pct(x.v, tot) * 10) / 10; }), c: '#2E6EBF' }], table: { h: ['#', 'Company', 'Zone', 'Substances', 'Capacity', 'Share', 'Cumulative'], r: rows }, foot: 'These ' + r.length + ' hold ' + f1(pct(cum, tot)) + '% of the capacity in this selection.' }; } });
+      C({ id: 'k_persub', tab: 'cap', s: 12, t: 'Largest companies for each substance', n: 'The biggest companies for every substance. Company cards list them with bars. Concentration bars show how much of each substance the top companies hold against everyone else. The heatmap shades each rank by share and shows the company name on hover.',
+        opts: [{ k: 'v', l: 'View', c: [['cards', 'Company cards'], ['bars', 'Concentration bars'], ['heat', 'Heatmap by rank']], d: 'cards' }, { k: 'n', l: 'Companies each', c: [[3, '3'], [5, '5'], [10, '10']], d: 5 }],
+        build: function (o) {
+          var f = PA.f.to, L = pool(false), n = +o.n, rows = [], data = [];
+          selSubs().forEach(function (sb) {
+            var tot = sum(L.map(function (c) { return capC(c, [sb], f); })), list = L.map(function (c) { return { c: c, v: capC(c, [sb], f) }; }).filter(function (x) { return x.v > 0; }).sort(function (a, b) { return b.v - a.v; }).slice(0, n);
+            list.forEach(function (x, i) { rows.push([sb, i + 1, coLink(x.c), x.c.zone, f1(x.v) + ' ' + SB[sb].u, f1(pct(x.v, tot)) + '%']); });
+            data.push({ sb: sb, tot: tot, list: list, top: pct(sum(list.map(function (x) { return x.v; })), tot) });
+          });
+          var table = { h: ['Substance', '#', 'Company', 'Zone', 'Capacity', 'Share of substance'], r: rows };
+          if (o.v === 'bars') {
+            var ramp = function (i) { var t = n > 1 ? i / (n - 1) : 0, a = [30, 74, 138], b = [200, 218, 240]; return 'rgb(' + a.map(function (c, k) { return Math.round(c + (b[k] - c) * t); }).join(',') + ')'; }, S = [];
+            for (var r = 0; r < n; r++) (function (r) { S.push({ n: '#' + (r + 1) + ' company', c: ramp(r), d: data.map(function (d) { return d.list[r] ? Math.round(pct(d.list[r].v, d.tot) * 10) / 10 : 0; }), tip: data.map(function (d) { return d.list[r] ? '#' + (r + 1) + ' ' + d.list[r].c.n + ' (' + d.list[r].c.zone + '): ' + f1(pct(d.list[r].v, d.tot)) + '% · ' + f1(d.list[r].v) + ' ' + SB[d.sb].u : ''; }) }); })(r);
+            S.push({ n: 'All others', c: '#E3E8EE', d: data.map(function (d) { return Math.round((100 - d.top) * 10) / 10; }), tip: data.map(function (d) { return 'All other companies: ' + f1(100 - d.top) + '%'; }) });
+            return { kind: 'hstack', labels: data.map(function (d) { return d.sb; }), series: S, pctAxis: true, vmax: 100, table: table, foot: 'Each bar is 100% of the installed capacity for that substance. Dark blocks are the largest companies, the pale block is everyone else.' };
+          }
+          if (o.v === 'heat') {
+            var cols = []; for (var c = 1; c <= n; c++) cols.push('#' + c);
+            var v = data.map(function (d) { return cols.map(function (_, i) { return d.list[i] ? Math.round(pct(d.list[i].v, d.tot) * 10) / 10 : null; }); }), mx = Math.max.apply(null, [].concat.apply([], v).concat([1]));
+            var h = heatOf(data.map(function (d) { return d.sb; }), cols, v, function (x) { return x + '%'; }, mx);
+            h.heat.tips = data.map(function (d) { return cols.map(function (_, i) { return d.list[i] ? d.list[i].c.n + ' (' + d.list[i].c.zone + '), ' + f1(d.list[i].v) + ' ' + SB[d.sb].u : ''; }); });
+            h.table = table; h.heat.legend = [['rgb(214,224,240)', 'Small share'], ['rgb(80,125,190)', 'Medium'], ['rgb(30,50,85)', 'Large share']];
+            return h;
+          }
+          var cards = data.map(function (d) {
+            var sb = d.sb, list = d.list, mx = list.length ? list[0].v : 1, conc = d.top >= 50;
+            return '<div class="pa-mini"><div class="pa-mini-hd"><span class="pa-dot" style="background:' + SB[sb].c + '"></span><b>' + esc(sb) + '</b>' + (conc ? '<span class="pa-flag">Concentrated</span>' : '') + '</div><div class="pa-mini-sub">Top ' + list.length + ' hold ' + f1(d.top) + '% of ' + f0(d.tot) + ' ' + SB[sb].u + '</div>' +
+              (list.length ? list.map(function (x, i) { return '<div class="pa-mrow" title="' + esc(x.c.n) + ', ' + esc(x.c.zone) + '"><div class="pa-mname"><span class="pa-rk">' + (i + 1) + '</span><span class="pa-mn">' + coLink(x.c) + '</span><small>' + esc(x.c.zone) + '</small></div><div class="pa-mbar"><i style="width:' + Math.max(3, x.v / mx * 100) + '%;background:' + SB[sb].c + ';"></i></div><div class="pa-mval">' + f1(x.v) + ' <small>' + f1(pct(x.v, d.tot)) + '%</small></div></div>'; }).join('') : '<div class="d-empty">No registrants.</div>') + '</div>';
+          });
+          return { kind: 'html', html: '<div class="pa-car"><button type="button" class="pa-car-btn l" aria-label="Scroll left">&#8249;</button><div class="pa-minis pa-row">' + cards.join('') + '</div><button type="button" class="pa-car-btn r" aria-label="Scroll right">&#8250;</button></div>', table: table };
+        },
+        after: function (body) {
+          var row = body.querySelector('.pa-row'), bl = body.querySelector('.pa-car-btn.l'), br = body.querySelector('.pa-car-btn.r'); if (!row || !row.children.length) return;
+          var n = row.children.length, timer = null, narrow = false;
+          function idx() { var mid = row.scrollLeft + row.clientWidth / 2, best = 0, bd = 1e9; for (var i = 0; i < n; i++) { var c = row.children[i], d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } } return best; }
+          function layout() {
+            var cw = row.children[0].offsetWidth; narrow = row.clientWidth < cw * 3 + 40;
+            row.classList.toggle('ctr', narrow);
+            row.style.paddingLeft = ''; row.style.paddingRight = narrow ? Math.max(0, (row.clientWidth - cw) / 2) + 'px' : '';
+          }
+          function upd() { var atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4; bl.disabled = row.scrollLeft < 4; br.disabled = atEnd || idx() >= n - 1; var fits = row.scrollWidth <= row.clientWidth + 4; bl.style.display = br.style.display = fits ? 'none' : ''; }
+          function go(d) {
+            var i = Math.max(0, Math.min(n - 1, idx() + d)), c = row.children[i];
+            row.scrollTo({ left: Math.max(0, narrow ? c.offsetLeft + c.offsetWidth / 2 - row.clientWidth / 2 : c.offsetLeft - 2), behavior: 'smooth' });
+          }
+          bl.onclick = function () { go(-1); }; br.onclick = function () { go(1); };
+          row.addEventListener('scroll', function () { clearTimeout(timer); timer = setTimeout(upd, 60); });
+          layout(); upd(); setTimeout(function () { layout(); upd(); }, 120);
+        } });
+      C({ id: 'k_util', tab: 'cap', s: 8, t: 'Capacity utilisation', n: 'Reported usage as a share of installed capacity (2v). Trend by year, or a heatmap across places.',
+        opts: [],
+        build: function (o) { var L = pool(true), ss = selSubs(), u = function (list, s, f) { var c = sum(list.map(function (x) { return capC(x, [s], f); })); return c ? pct(sum(list.map(function (x) { return useC(x, [s], f, 1); })), c) : null; };
+          if (o.v === 'heat') { var kf = keyOf(o.by), f = PA.f.to, ks = tally(L, kf, function (c) { return capC(c, ss, f); }).sort(byDesc).slice(0, o.n === 'all' ? 99 : +o.n).map(function (x) { return x[0]; }); var v = ks.map(function (k) { var l2 = L.filter(function (c) { return kf(c) === k; }); return ss.map(function (s) { var x = u(l2, s, f); return x == null ? null : Math.round(x); }); }); var h = heatOf(ks, ss, v, function (x) { return x + '%'; }, 100); h.heat.color = function (x) { return x < 40 ? '#C0392B' : x < 60 ? '#D08A3E' : x < 75 ? '#E0B44A' : '#5FA777'; }; h.heat.legend = [['#C0392B', 'Under 40%'], ['#D08A3E', '40–59'], ['#E0B44A', '60–74'], ['#5FA777', '75+']]; return h; }
+          var fr = fyr(); return { kind: 'line', labels: fr.map(function (i) { return FY[i]; }), pctAxis: true, series: ss.map(function (s) { return { n: s, c: SB[s].c, d: fr.map(function (f) { var x = u(L, s, f); return x == null ? null : Math.round(x * 10) / 10; }) }; }) }; } });
+      C({ id: 'k_trade', tab: 'cap', s: 4, t: 'Capacity growth vs import and export growth', n: 'Year-on-year change for the same substance, with a one-year forecast (2vi).',
+        opts: [{ k: 'fc', l: 'Forecast', c: [['y', 'Show next year'], ['n', 'Hide']], d: 'y' }],
+        build: function (o) { var L = pool(true), subs = subsOf(o), fr = []; for (var i = Math.max(1, PA.f.from + 1); i <= PA.f.to; i++) fr.push(i); if (!fr.length) fr = [1, 2, 3, 4].filter(function (x) { return x <= 4; });
+          var g = function (fn) { return fr.map(function (f) { var a = fn(f), b = fn(f - 1); return b ? Math.round((a / b - 1) * 1000) / 10 : null; }); };
+          var cap = function (f) { return sum(L.map(function (c) { return capC(c, subs, f); })); }, im = function (f) { return sum(L.map(function (c) { return trC(c, subs, f, 'imp'); })); }, ex = function (f) { return sum(L.map(function (c) { return trC(c, subs, f, 'exp'); })); };
+          var labels = fr.map(function (i) { return FY[i]; }), sc = g(cap), si = g(im), se = g(ex);
+          if (o.fc === 'y') { var last = sc.filter(function (x) { return x != null; }), avg = last.length ? sum(last) / last.length : 0; labels = labels.concat(['FY27 (forecast)']); sc = sc.concat([Math.round(avg * 10) / 10]); si = si.concat([null]); se = se.concat([null]); }
+          return { kind: 'bar', labels: labels, pctAxis: true, noZero: true, series: [{ n: 'Capacity growth %', d: sc, c: '#334F79' }, { n: 'Import growth %', d: si, c: '#2E6EBF' }, { n: 'Export growth %', d: se, c: '#C2611C' }], foot: 'Forecast repeats the average capacity growth of the years shown.' }; } });
+
+      /* ===== USAGE ===== */
+      C({ id: 'u_sub', tab: 'use', s: 6, t: 'Reported usage per substance', n: 'Aggregated from quarterly returns for a year (3i).',
+        opts: [{ k: 'y', l: 'Year', c: FYCH.concat([['all', 'All years in range']]), d: 4 }, { k: 'sp', l: 'Split by', c: [['none', 'None'], ['region', 'Region']], d: 'none' }],
+        build: function (o) { var L = pool(true), ss = selSubs(), fs = o.y === 'all' ? fyr() : [+o.y], tot = function (list, s) { return sum(fs.map(function (f) { return sum(list.map(function (c) { return useC(c, [s], f, 1); })); })); };
+          if (o.sp === 'none') { var d = ss.map(function (s) { return Math.round(tot(L, s) * 10) / 10; }); return { kind: 'hbar', labels: ss, series: [{ n: 'Reported usage', d: d, pc: ss.map(function (s) { return SB[s].c; }) }], log: false }; }
+          var rg = REGION_ORDER.filter(function (r) { return L.some(function (c) { return c.rk === r; }); }); return { kind: 'hstack', labels: ss, series: rg.map(function (r, i) { return { n: HQ_REGIONS[r].name.replace(' Region', ''), c: R_COLOR[r], d: ss.map(function (s) { return Math.round(tot(L.filter(function (c) { return c.rk === r; }), s)); }) }; }) }; } });
+      C({ id: 'u_year', tab: 'use', s: 6, t: 'Year-wise usage and growth', n: 'Quantities by year, or the percentage change (3iii, 3iv).',
+        opts: [{ k: 'm', l: 'Measure', c: [['q', 'Quantity'], ['g', 'Year-on-year %']], d: 'q' }, { k: 'g', l: 'Lines', c: [['sub', 'Per substance'], ['tot', 'Combined'], ['region', 'Per region'], ['zone', 'Per zone (top 6)'], ['state', 'Per state (top 6)']], d: 'sub' }],
+        build: function (o) { var L = pool(true), fr = fyr(), ss = selSubs(); var ser = o.g === 'sub' ? ss.map(function (s) { return [s, SB[s].c, function (c, f) { return useC(c, [s], f, 1); }, L]; }) : o.g === 'tot' ? [['All selected', '#1E7B4B', function (c, f) { return useC(c, ss, f, 1); }, L]] : (o.g === 'zone' || o.g === 'state') ? (function () { var kf = keyOf(o.g); return tally(L, kf, function (c) { return capC(c, ss, PA.f.to); }).sort(byDesc).slice(0, 6).map(function (t, i) { return [t[0], P[i], function (c, f) { return useC(c, ss, f, 1); }, L.filter(function (c) { return kf(c) === t[0]; })]; }); })() : REGION_ORDER.filter(function (r) { return L.some(function (c) { return c.rk === r; }); }).map(function (r) { return [HQ_REGIONS[r].name.replace(' Region', ''), R_COLOR[r], function (c, f) { return useC(c, ss, f, 1); }, L.filter(function (c) { return c.rk === r; })]; });
+          var vals = ser.map(function (s) { return fr.map(function (f) { return sum(s[3].map(function (c) { return s[2](c, f); })); }); });
+          return { kind: o.m === 'q' ? 'line' : 'bar', labels: fr.map(function (i) { return FY[i]; }), pctAxis: o.m === 'g', noZero: o.m === 'g', series: ser.map(function (s, i) { return { n: s[0], c: s[1], d: vals[i].map(function (v, j) { return o.m === 'q' ? Math.round(v * 10) / 10 : (j && vals[i][j - 1] ? Math.round((v / vals[i][j - 1] - 1) * 1000) / 10 : null); }) }; }) }; } });
+      C({ id: 'u_cap', tab: 'use', s: 6, t: 'Top users: usage against installed capacity', n: 'Largest reporters, optionally within one zone, state or region, with their reported usage next to installed capacity. A big gap between the two bars is worth a query.',
+        opts: [{ k: 'by', l: 'Level', c: BY, d: 'zone' }, { k: 'pl', l: 'Place', c: function () { var by = (PA.st.u_cap || {}).by || 'zone', kf = keyOf(by), m = {}; pool(true).forEach(function (c) { m[kf(c)] = 1; }); return [['all', 'Everywhere in scope']].concat(Object.keys(m).sort().map(function (k) { return [k, k]; })); }, d: 'all' }, { k: 'n', l: 'Users', c: [[8, 'Top 8'], [12, 'Top 12'], [20, 'Top 20']], d: 8 }],
+        build: function (o) { var f = PA.f.to, subs = selSubs(), kf = keyOf(o.by), r = pool(false).filter(function (c) { return o.pl === 'all' || kf(c) === o.pl; }).map(function (c) { return { c: c, u: useC(c, subs, f, 1), k: capC(c, subs, f) }; }).filter(function (x) { return x.u > 0; }).sort(function (a, b) { return b.u - a.u; }).slice(0, +o.n);
+          return { kind: 'hbar', cids: r.map(function (x) { return x.c.id; }), labels: r.map(function (x) { return x.c.n; }), series: [{ n: 'Reported usage', d: r.map(function (x) { return Math.round(x.u * 10) / 10; }), c: '#1E7B4B' }, { n: 'Installed capacity', d: r.map(function (x) { return Math.round(x.k * 10) / 10; }), c: '#A6B2C0' }], table: { h: ['Company', 'Zone', 'Usage', 'Capacity', 'Utilisation'], r: r.map(function (x) { return [coLink(x.c), x.c.zone, f1(x.u), f1(x.k), f0(pct(x.u, x.k)) + '%']; }) } }; } });
+      C({ id: 'u_nf', tab: 'use', s: 12, t: 'Usage reported by filers and by companies with missed returns', n: 'Reported usage from regular filers, from companies that missed returns, and the estimate left unreported (3vii).',
+        opts: [{ k: 'y', l: 'Year', c: [[3, 'FY25'], [4, 'FY26']], d: 4 }],
+        build: function (o) { var f = +o.y, L = pool(false), ss = selSubs(), fil = function (s) { return sum(L.filter(function (c) { return missed(c, f) === 0; }).map(function (c) { return useC(c, [s], f, 1); })); }, mis = function (s) { return sum(L.filter(function (c) { return missed(c, f) > 0; }).map(function (c) { return useC(c, [s], f, 1); })); }, gap = function (s) { return sum(L.map(function (c) { return useC(c, [s], f, 0) - useC(c, [s], f, 1); })); };
+          return { kind: 'stack', labels: ss, series: [{ n: 'Reported by regular filers', d: ss.map(function (s) { return Math.round(fil(s) * 10) / 10; }), c: '#1E7B4B' }, { n: 'Reported by companies with missed returns', d: ss.map(function (s) { return Math.round(mis(s) * 10) / 10; }), c: '#E0B44A' }, { n: 'Estimated not reported (missed quarters)', d: ss.map(function (s) { return Math.round(gap(s) * 10) / 10; }), c: '#C0392B' }], foot: 'The unreported part is capacity-based estimate for quarters with no return.', log: false }; } });
+
+      /* ===== COMPLIANCE ===== */
+      C({ id: 'p_list', tab: 'comp', s: 6, t: 'Non-filers by zone and substance', n: 'Counts and percentages of registrants who missed the quarter (4i).',
+        opts: [{ k: 'by', l: 'Group by', c: BY.concat([['sub', 'Substance']]), d: 'zone' }, { k: 'm', l: 'Measure', c: [['n', 'Count'], ['p', '% of registrants']], d: 'n' }, { k: 'n', l: 'Show', c: TOPN, d: 10 }, { k: 'v', l: 'View', c: [['bar', 'Bars'], ['heat', 'Heatmap: place by substance']], d: 'bar' }],
+        build: function (o) { var q = curQ(), L = pool(false), g = {}; if (o.v === 'heat' && o.by !== 'sub') { var kf0 = keyOf(o.by), cols = selSubs(), ks = tally(L.filter(function (c) { return c.st[q] === 2; }), kf0, function () { return 1; }).sort(byDesc).slice(0, o.n === 'all' ? 99 : +o.n).map(function (x) { return x[0]; }), v = ks.map(function (k) { return cols.map(function (s) { return L.filter(function (c) { return kf0(c) === k && c.subs.indexOf(s) >= 0 && c.st[q] === 2; }).length; }); }); var mx = Math.max.apply(null, [].concat.apply([], v).concat([1])); return heatOf(ks, cols, v, function (x) { return x; }, mx); } var add = function (k, c) { var e = g[k] || (g[k] = [0, 0]); e[1]++; if (c.st[q] === 2) e[0]++; }; L.forEach(function (c) { if (o.by === 'sub') c.subs.forEach(function (s) { if (selSubs().indexOf(s) >= 0) add(s, c); }); else add(keyOf(o.by)(c), c); });
+          var r = Object.keys(g).map(function (k) { return [k, g[k][0], pct(g[k][0], g[k][1]), g[k][1]]; }).sort(function (a, b) { return o.m === 'n' ? b[1] - a[1] : b[2] - a[2]; }); r = top(r, o.n);
+          return { kind: 'hbar', labels: r.map(function (x) { return x[0]; }), series: [{ n: o.m === 'n' ? 'Non-filers' : '% not filing', d: r.map(function (x) { return o.m === 'n' ? x[1] : Math.round(x[2] * 10) / 10; }), c: '#C2611C' }], table: { h: [o.by, 'Non-filers', 'Registrants', '% not filing'], r: r.map(function (x) { return [x[0], x[1], x[3], f1(x[2]) + '%']; }) }, foot: 'Quarter ' + QL[q] + '.' }; } });
+      C({ id: 'p_trend', tab: 'comp', s: 6, t: 'Non-filer trend', n: 'Quarter by quarter, or the two years side by side (4ii).',
+        opts: [{ k: 'g', l: 'Lines', c: [['all', 'Combined'], ['region', 'By region'], ['zone', 'By zone (top 6)'], ['sub', 'By substance']], d: 'all' }, { k: 'v', l: 'View', c: [['q', 'Quarterly'], ['y', 'Year on year']], d: 'q' }],
+        build: function (o) { var L = pool(false), ss = selSubs(), grp = o.g === 'all' ? [['All', L, '#C2611C']] : o.g === 'zone' ? tally(L, function (c) { return c.zone; }, function () { return 1; }).sort(byDesc).slice(0, 6).map(function (t, i) { return [t[0], L.filter(function (c) { return c.zone === t[0]; }), P[i]]; }) : o.g === 'region' ? REGION_ORDER.filter(function (r) { return L.some(function (c) { return c.rk === r; }); }).map(function (r) { return [HQ_REGIONS[r].name.replace(' Region', ''), L.filter(function (c) { return c.rk === r; }), R_COLOR[r]]; }) : ss.map(function (s) { return [s, L.filter(function (c) { return c.subs.indexOf(s) >= 0; }), SB[s].c]; });
+          if (o.v === 'q') return { kind: 'line', labels: QL, series: grp.map(function (g) { return { n: g[0], c: g[2], d: QL.map(function (_, q) { return nfQ(g[1], q); }) }; }) };
+          var fy = function (list, a) { return Math.round(sum([0, 1, 2, 3].map(function (i) { return nfQ(list, a + i); })) / 4 * 10) / 10; };
+          return { kind: 'bar', labels: grp.map(function (g) { return g[0]; }), series: [{ n: 'FY25 average per quarter', d: grp.map(function (g) { return fy(g[1], 0); }), c: '#A6B2C0' }, { n: 'FY26 average per quarter', d: grp.map(function (g) { return fy(g[1], 4); }), c: '#C2611C' }] }; } });
+      C({ id: 'p_heat', tab: 'comp', s: 8, t: 'Compliance heatmap', n: 'Filing rate for every quarter, by place. Worst places first (4iv).',
+        opts: [{ k: 'by', l: 'Rows', c: [['region', 'Region'], ['zone', 'Zone'], ['state', 'State']], d: 'region' }, { k: 'm', l: 'Measure', c: [['o', 'Filed on time %'], ['f', 'Filed (on time or late) %']], d: 'o' }, { k: 'n', l: 'Rows', c: [[10, 'Worst 10'], [20, 'Worst 20'], ['all', 'All']], d: 'all' }],
+        build: function (o) { var L = pool(false), kf = keyOf(o.by), ks = {}; L.forEach(function (c) { ks[kf(c)] = 1; }); var key = Object.keys(ks);
+          var val = function (k, q) { var l2 = L.filter(function (c) { return kf(c) === k && c.st; }), n = l2.length; if (!n) return null; var on = l2.filter(function (c) { return c.st[q] === 0; }).length, mi = l2.filter(function (c) { return c.st[q] === 2; }).length; return Math.round(o.m === 'o' ? on / n * 100 : o.m === 'f' ? (n - mi) / n * 100 : mi / n * 100); };
+          var rows = key.map(function (k) { return [k, QL.map(function (_, q) { return val(k, q); })]; }).sort(function (a, b) { return o.m === 'n' ? b[1][7] - a[1][7] : a[1][7] - b[1][7]; }); rows = top(rows, o.n);
+          var h = heatOf(rows.map(function (r) { return r[0]; }), QL, rows.map(function (r) { return r[1]; }), function (x) { return x + '%'; }, 100, true); if (o.m === 'n') { h.heat.color = function (x) { return x >= 20 ? '#C0392B' : x >= 12 ? '#D08A3E' : x >= 7 ? '#E0B44A' : '#5FA777'; }; h.heat.legend = [['#5FA777', 'Under 7%'], ['#E0B44A', '7–11'], ['#D08A3E', '12–19'], ['#C0392B', '20%+']]; } return h; } });
+      C({ id: 'p_names', tab: 'comp', s: 4, t: 'Companies not filing', n: 'The actual list for the quarter you pick (4i). Download for follow-up.',
+        opts: [{ k: 'o', l: 'Sort', c: [['m', 'Most quarters missed'], ['c', 'Largest capacity']], d: 'm' }],
+        build: function (o) { var q = curQ(), f = q >= 4 ? 4 : 3, subs = selSubs(), r = pool(false).filter(function (c) { return c.st[q] === 2; }).map(function (c) { return { c: c, m: missed(c, f), cp: capC(c, subs, 4) }; }).sort(function (a, b) { return o.o === 'm' ? b.m - a.m || b.cp - a.cp : b.cp - a.cp; });
+          return { kind: 'table', table: { h: ['Company', 'Zone', 'Missed of 4', 'Capacity'], r: r.map(function (x) { return [coLink(x.c), x.c.zone, x.m, f1(x.cp)]; }) }, foot: f0(r.length) + ' companies did not file in ' + QL[q] + '.' }; } });
+
+      /* ===== TRADE ===== */
+      C({ id: 't_sub', tab: 'trade', s: 6, t: 'Imports and exports per substance', n: 'Quantity or number of companies for a year (5i, 5ii).',
+        opts: [{ k: 'y', l: 'Year', c: FYCH, d: 4 }, { k: 'm', l: 'Measure', c: [['q', 'Quantity'], ['n', 'Companies']], d: 'q' }, { k: 'fl', l: 'Flow', c: [['both', 'Both'], ['imp', 'Imports'], ['exp', 'Exports']], d: 'both' }, { k: 'sc', l: 'Scale', c: [['lin', 'Linear'], ['log', 'Log']], d: 'lin' }],
+        build: function (o) { var L = pool(true), f = +o.y, ss = selSubs(), val = function (fl, s) { return o.m === 'q' ? Math.round(sum(L.map(function (c) { return trC(c, [s], f, fl); })) * 10) / 10 : L.filter(function (c) { return trC(c, [s], f, fl) > 0; }).length; }, fl = o.fl === 'both' ? ['imp', 'exp'] : [o.fl];
+          return { kind: 'bar', labels: ss, log: o.sc === 'log', series: fl.map(function (k) { return { n: k === 'imp' ? 'Imports' : 'Exports', c: k === 'imp' ? '#2E6EBF' : '#C2611C', d: ss.map(function (s) { return val(k, s); }) }; }) }; } });
+      C({ id: 't_top', tab: 'trade', s: 6, t: 'Top importers and exporters', n: 'The largest traders per substance (5i, 5ii).',
+        opts: [{ k: 'fl', l: 'Flow', c: [['imp', 'Importers'], ['exp', 'Exporters']], d: 'imp' }, { k: 'y', l: 'Year', c: FYCH, d: 4 }, { k: 'n', l: 'Show', c: [[8, 'Top 8'], [12, 'Top 12'], [20, 'Top 20']], d: 8 }],
+        build: function (o) { var f = +o.y, subs = subsOf(o), r = pool(true).map(function (c) { return { c: c, v: trC(c, subs, f, o.fl) }; }).filter(function (x) { return x.v > 0; }).sort(function (a, b) { return b.v - a.v; }), tot = sum(r.map(function (x) { return x.v; })), nn = r.length; r = r.slice(0, +o.n);
+          return { kind: 'hbar', cids: r.map(function (x) { return x.c.id; }), labels: r.map(function (x) { return x.c.n + ' (' + x.c.zone + ')'; }), series: [{ n: o.fl === 'imp' ? 'Imports' : 'Exports', d: r.map(function (x) { return Math.round(x.v * 10) / 10; }), c: o.fl === 'imp' ? '#2E6EBF' : '#C2611C' }], table: { h: ['Company', 'Zone', 'Quantity', 'Share'], r: r.map(function (x) { return [coLink(x.c), x.c.zone, f1(x.v), f1(pct(x.v, tot)) + '%']; }) }, foot: nn + ' companies ' + (o.fl === 'imp' ? 'imported' : 'exported') + ' in ' + FY[f] + '.' }; } });
+      C({ id: 't_net', tab: 'trade', s: 6, t: 'Net trade balance', n: 'Imports minus exports each year. Positive means more comes in than goes out (5iii).',
+        opts: [{ k: 'g', l: 'Show', c: [['sub', 'Per substance'], ['tot', 'Combined']], d: 'sub' }],
+        build: function (o) { var L = pool(true), fr = fyr(), ss = selSubs(), net = function (list, s) { return fr.map(function (f) { return Math.round(sum(list.map(function (c) { return trC(c, s, f, 'imp') - trC(c, s, f, 'exp'); })) * 10) / 10; }); };
+          return { kind: 'bar', labels: fr.map(function (i) { return FY[i]; }), series: o.g === 'tot' ? [{ n: 'Net balance', d: net(L, ss), c: '#334F79' }] : ss.map(function (s) { return { n: s, c: SB[s].c, d: net(L, [s]) }; }), foot: (function () { var f = PA.f.to, v = ss.map(function (s) { return [s, sum(L.map(function (c) { return trC(c, [s], f, 'imp') - trC(c, [s], f, 'exp'); }))]; }).sort(byDesc); return 'In ' + FY[f] + ' the largest net inflow (domestic deficit) is ' + v[0][0] + ' (' + f0(v[0][1]) + ').' + (v[v.length - 1][1] < 0 ? ' The largest net outflow (domestic surplus) is ' + v[v.length - 1][0] + ' (' + f0(v[v.length - 1][1]) + ').' : ' No substance is a net outflow. The smallest net inflow is ' + v[v.length - 1][0] + ' (' + f0(v[v.length - 1][1]) + ').'); })() }; } });
+      C({ id: 't_hub', tab: 'trade', s: 6, t: 'Trade hubs', n: 'Places with the most import and export activity (5iv).',
+        opts: [{ k: 'by', l: 'Group by', c: BY, d: 'zone' }, { k: 'fl', l: 'Flow', c: [['both', 'Imports and exports'], ['tot', 'Total'], ['imp', 'Imports'], ['exp', 'Exports']], d: 'both' }, { k: 'n', l: 'Show', c: TOPN, d: 10 }],
+        build: function (o) { var L = pool(false), f = PA.f.to, ss = selSubs(), kf = keyOf(o.by), im = tally(L, kf, function (c) { return trC(c, ss, f, 'imp'); }), ex = tally(L, kf, function (c) { return trC(c, ss, f, 'exp'); }), mi = {}, me = {}; im.forEach(function (x) { mi[x[0]] = x[1]; }); ex.forEach(function (x) { me[x[0]] = x[1]; });
+          var ks = Object.keys(mi).sort(function (a, b) { var va = o.fl === 'imp' ? mi[a] : o.fl === 'exp' ? me[a] : mi[a] + me[a], vb = o.fl === 'imp' ? mi[b] : o.fl === 'exp' ? me[b] : mi[b] + me[b]; return vb - va; }); ks = top(ks, o.n);
+          var ser = o.fl === 'both' ? [{ n: 'Imports', d: ks.map(function (k) { return Math.round(mi[k]); }), c: '#2E6EBF' }, { n: 'Exports', d: ks.map(function (k) { return Math.round(me[k]); }), c: '#C2611C' }] : [{ n: o.fl === 'imp' ? 'Imports' : o.fl === 'exp' ? 'Exports' : 'Imports + exports', d: ks.map(function (k) { return Math.round(o.fl === 'imp' ? mi[k] : o.fl === 'exp' ? me[k] : mi[k] + me[k]); }), c: '#334F79' }]; return { kind: 'hbar', labels: ks, series: ser }; } });
+      C({ id: 't_yoy', tab: 'trade', s: 6, t: 'Year-on-year change in trade', n: 'Volumes, growth and the number of companies trading (5v).',
+        opts: [{ k: 'm', l: 'Measure', c: [['q', 'Volume'], ['n', 'Active companies']], d: 'q' }],
+        build: function (o) { var L = pool(true), fr = fyr(), ss = selSubs(), val = function (fl, f) { return o.m === 'n' ? L.filter(function (c) { return trC(c, ss, f, fl) > 0; }).length : sum(L.map(function (c) { return trC(c, ss, f, fl); })); }; var s = function (fl) { var v = fr.map(function (f) { return val(fl, f); }); return o.m === 'g' ? v.map(function (x, i) { return i && v[i - 1] ? Math.round((x / v[i - 1] - 1) * 1000) / 10 : null; }) : v.map(function (x) { return Math.round(x * 10) / 10; }); };
+          return { kind: o.m === 'g' ? 'bar' : 'line', labels: fr.map(function (i) { return FY[i]; }), pctAxis: o.m === 'g', noZero: o.m === 'g', series: [{ n: 'Imports', d: s('imp'), c: '#2E6EBF' }, { n: 'Exports', d: s('exp'), c: '#C2611C' }] }; } });
+
+      /* ===== RISK AND ENFORCEMENT ===== */
+      C({ id: 'x_risk', tab: 'risk', s: 8, t: 'Risk profile', n: 'Companies with high capacity, trade activity and poor filing (4iii, 6ii). Change the weighting to see who moves.',
+        opts: [{ k: 'w', l: 'Weighting', c: [['bal', 'Balanced'], ['cap', 'Capacity-led'], ['cmp', 'Compliance-led'], ['trd', 'Trade-led']], d: 'bal' }, { k: 'v', l: 'View', c: [['b', 'Bubble chart'], ['t', 'Ranked table']], d: 'b' }, { k: 'min', l: 'Minimum score', c: [[0, 'All'], [50, '50+'], [60, '60+'], [75, '75+']], d: 50 }, { k: 'n', l: 'Companies', c: [[15, 'Top 15'], [30, 'Top 30'], [60, 'Top 60']], d: 30 }],
+        build: function (o) { var r = riskList(o.w).filter(function (x) { return x.sc >= +o.min; }).slice(0, +o.n);
+          var tbl = { h: ['Company', 'Zone', 'Substances', 'Capacity', 'Trade volume', 'Missed of 4', 'Score'], r: r.map(function (x) { return [coLink(x.c), x.c.zone, x.c.subs.join(', '), f1(x.cap), f1(x.tr), x.m, '<span class="d-score" style="background:' + (x.sc >= 75 ? '#C0392B' : x.sc >= 60 ? '#C2611C' : '#8B98A8') + '">' + x.sc + '</span>']; }) };
+          if (o.v === 't') return { kind: 'table', table: tbl, foot: f0(r.length) + ' companies at or above the minimum score.' };
+          var band = function (lo, hi) { return r.filter(function (x) { return x.sc >= lo && x.sc < hi; }).map(function (x) { return { id: x.c.id, x: Math.round(x.cap * 10) / 10, y: x.m + ((x.c.id % 7) - 3) * .06, r: 4 + Math.min(14, Math.sqrt(x.tr) * 1.1), l: x.c.n + ' (' + x.c.zone + '): capacity ' + f1(x.cap) + ', trade ' + f1(x.tr) + ', missed ' + x.m + ', score ' + x.sc }; }); };
+          return { kind: 'bubble', xt: 'Installed capacity', yt: 'Quarters missed (of 4)', table: tbl, series: [{ n: 'High risk (75+)', c: '#C0392B', d: band(75, 101) }, { n: 'Medium (60–74)', c: '#C2611C', d: band(60, 75) }, { n: 'Lower', c: '#8B98A8', d: band(0, 60) }], foot: 'Bubble size is import and export volume.' }; } });
+      C({ id: 'x_zone', tab: 'risk', s: 4, t: 'Zone against national average', n: 'For example Madhya Pradesh or Indore against the average zone (6iii).',
+        opts: [{ k: 'lv', l: 'Level', c: [['zone', 'Zone'], ['state', 'State']], d: 'zone' }, { k: 'z', l: 'Place', c: function () { var lv = (PA.st.x_zone || {}).lv || 'zone', m = {}; ALL.forEach(function (c) { m[keyOf(lv)(c)] = 1; }); return Object.keys(m).sort().map(function (k) { return [k, k]; }); }, d: 'Indore' }, { k: 'vs', l: 'Compare with', c: [['nat', 'Average zone, India'], ['reg', 'Average zone, same region']], d: 'nat' }],
+        build: function (o) { var f = PA.f.to, subs = selSubs(), all = pool(true, true), z = all.filter(function (c) { return keyOf(o.lv)(c) === o.z; }), rk = z.length ? z[0].rk : null, zonesN = {}; var base = o.vs === 'reg' ? all.filter(function (c) { return c.rk === rk; }) : all; base.forEach(function (c) { zonesN[keyOf(o.lv)(c)] = 1; }); var nz = Math.max(1, Object.keys(zonesN).length);
+          var met = function (list, avg) { var act = list.filter(function (c) { return holds(c, f); }), cp = sum(list.map(function (c) { return capC(c, subs, f); })), us = sum(list.map(function (c) { return useC(c, subs, f, 1); })), a = list.filter(function (c) { return c.st; }), q = curQ(); return [act.length / (avg ? nz : 1), cp / (avg ? nz : 1), us / (avg ? nz : 1), pct(us, cp), pct(a.filter(function (c) { return c.st[q] === 0; }).length, a.length)]; };
+          var zv = met(z, 0), bv = met(base, 1), nm = ['Registrants', 'Installed capacity', 'Reported usage', 'Utilisation %', 'On-time filing %'];
+          return { kind: 'hbar', labels: nm, noZero: false, series: [{ n: o.z, d: zv.map(function (v, i) { return Math.round(v / (bv[i] || 1) * 100); }), c: '#C2611C' }, { n: o.vs === 'reg' ? 'Region average zone = 100' : 'National average zone = 100', d: nm.map(function () { return 100; }), c: '#A6B2C0' }], table: { h: ['Measure', o.z, 'Average', 'Index'], r: nm.map(function (n, i) { return [n, f1(zv[i]), f1(bv[i]), Math.round(zv[i] / (bv[i] || 1) * 100)]; }) }, foot: 'Index of 100 means the same as the average zone.' }; } });
+      C({ id: 'x_div', tab: 'risk', s: 12, t: 'Multi-substance watch list', n: 'Companies handling combinations such as Ephedrine and Pseudoephedrine, with usage and import patterns (6iv).',
+        opts: [{ k: 'n', l: 'Companies', c: [[15, 'Top 15'], [30, 'Top 30']], d: 15 }],
+        build: function (o) { var f = PA.f.to, r = pool(false).filter(function (c) { return c.subs.length >= 2; }).map(function (c) { var us = useC(c, c.subs, f, 1), im = trC(c, c.subs, f, 'imp'), ca = capC(c, c.subs, f), ratio = us ? im / us : (im ? 9 : 0), flag = []; if (im > 0 && ratio > .8) flag.push('Imports high vs usage'); if (ca && us / ca < .35) flag.push('Low usage vs capacity'); if (missed(c, f) >= 2) flag.push('Missed returns'); return { c: c, us: us, im: im, ca: ca, ratio: ratio, flag: flag }; }).sort(function (a, b) { return b.flag.length - a.flag.length || b.ratio - a.ratio; }).slice(0, +o.n);
+          return { kind: 'table', table: { h: ['Company', 'Zone', 'Substances', 'Usage', 'Imports', 'Imports / usage', 'Flags'], r: r.map(function (x) { return [coLink(x.c), x.c.zone, x.c.subs.join(' + '), f1(x.us), f1(x.im), x.us ? f1(x.ratio) + '×' : '–', x.flag.join('; ') || 'None']; }) }, foot: 'Flags are rules of thumb for review, not findings.' }; } });
+      C({ id: 'x_gap', tab: 'risk', s: 6, t: 'Gap identification: high capacity, low reported usage', n: 'Where usage is thin against capacity, a sign of possible under-reporting (6vii).',
+        opts: [{ k: 'by', l: 'Compare', c: [['zone', 'Zones'], ['state', 'States'], ['region', 'Regions']], d: 'zone' }, { k: 'th', l: 'Flag below', c: [[30, '30%'], [40, '40%'], [50, '50%']], d: 40 }],
+        build: function (o) { var L = pool(true), f = PA.f.to, ut = function (list, subs) { var c = sum(list.map(function (x) { return capC(x, subs, f); })); return c ? pct(sum(list.map(function (x) { return useC(x, subs, f, 1); })), c) : null; }, rows;
+          if (o.by === 'sub') rows = selSubs().map(function (s) { return [s, ut(L, [s])]; }); else { var kf = keyOf(o.by), subs = subsOf(o), m = {}; L.forEach(function (c) { (m[kf(c)] = m[kf(c)] || []).push(c); }); rows = Object.keys(m).map(function (k) { return [k, ut(m[k], subs)]; }); }
+          rows = rows.filter(function (x) { return x[1] != null; }).sort(function (a, b) { return a[1] - b[1]; }).slice(0, 12);
+          return { kind: 'hbar', labels: rows.map(function (x) { return x[0]; }), pctAxis: true, series: [{ n: 'Utilisation %', d: rows.map(function (x) { return Math.round(x[1] * 10) / 10; }), pc: rows.map(function (x) { return x[1] < +o.th ? '#C0392B' : '#5FA777'; }) }], foot: 'Red bars are below ' + o.th + '%. Lowest 12 shown.' }; } });
+      C({ id: 'x_enf', tab: 'risk', s: 6, t: 'Enforcement focus heatmap', n: 'Where volume and non-filing meet, by place and substance (6viii).',
+        opts: [{ k: 'by', l: 'Rows', c: BY, d: 'zone' }, { k: 'n', l: 'Rows', c: [[8, 'Top 8'], [12, 'Top 12'], [20, 'Top 20']], d: 8 }],
+        build: function (o) { var ss = selSubs(), rows = enfRows(o.by).slice(0, +o.n), cols = ss, v = rows.map(function (r) { return cols.map(function (s) { var x = enfRows(o.by, [s]).filter(function (y) { return y.n === r.n; })[0]; return x ? x.sc : null; }); }), h = heatOf(rows.map(function (r) { return r.n; }), cols, v, function (x) { return x; }, 100); h.heat.color = function (x) { return x >= 70 ? '#C0392B' : x >= 50 ? '#D08A3E' : x >= 30 ? '#E0B44A' : '#A6C8AE'; }; h.heat.legend = [['#A6C8AE', 'Under 30'], ['#E0B44A', '30–49'], ['#D08A3E', '50–69'], ['#C0392B', '70+']]; return h; } });
+      C({ id: 'x_anom', tab: 'risk', s: 12, t: 'Usage, capacity and trade side by side', n: 'Compares the three to spot anomalies (6ix).',
+        opts: [{ k: 'y', l: 'Year', c: FYCH, d: 4 }],
+        build: function (o) { var f = +o.y, L = pool(true), ss = selSubs(), rw = ss.map(function (s) { var cp = sum(L.map(function (c) { return capC(c, [s], f); })), us = sum(L.map(function (c) { return useC(c, [s], f, 1); })), im = sum(L.map(function (c) { return trC(c, [s], f, 'imp'); })), ex = sum(L.map(function (c) { return trC(c, [s], f, 'exp'); })), fl = []; if (cp && us / cp < .4) fl.push('Usage low vs capacity'); if (us && im / us > .5) fl.push('Imports high vs usage'); if (us && ex / us > .4) fl.push('Exports high vs usage'); return { s: s, cp: cp, us: us, im: im, ex: ex, fl: fl }; });
+          return { kind: 'bar', labels: ss, pctAxis: true, series: [{ n: 'Usage % of capacity', d: rw.map(function (r) { return r.cp ? Math.round(r.us / r.cp * 1000) / 10 : 0; }), c: '#1E7B4B' }, { n: 'Imports % of capacity', d: rw.map(function (r) { return r.cp ? Math.round(r.im / r.cp * 1000) / 10 : 0; }), c: '#2E6EBF' }, { n: 'Exports % of capacity', d: rw.map(function (r) { return r.cp ? Math.round(r.ex / r.cp * 1000) / 10 : 0; }), c: '#C2611C' }], table: { h: ['Substance', 'Capacity', 'Usage', 'Imports', 'Exports', 'Flags'], r: rw.map(function (r) { return [r.s, f1(r.cp), f1(r.us), f1(r.im), f1(r.ex), r.fl.join('; ') || 'None']; }) }, foot: rw.filter(function (r) { return r.fl.length; }).map(function (r) { return '<b>' + r.s + ':</b> ' + r.fl.join(', '); }).join(' · ') }; } });
+      /* ---------- overview KPIs and insights ---------- */
+      function delta(now, prev, good, unit, vs) { if (prev == null || (!prev && !now)) return '<div class="d-delta flat">No prior period</div>'; var d = now - prev, p = prev ? d / prev * 100 : 0, cls = Math.abs(unit === 'pp' ? d : p) < .5 ? 'flat' : ((d > 0) === good ? 'good' : 'bad'); return '<div class="d-delta ' + cls + '">' + (d > 0 ? '▲' : d < 0 ? '▼' : '■') + ' ' + (unit === 'pp' ? Math.abs(d).toFixed(1) + ' pp' : Math.abs(p).toFixed(1) + '%') + ' <span class="d-vs">' + vs + '</span></div>'; }
+      function spark(v, col) { if (!v || v.length < 2) return ''; var w = 64, h = 26, mn = Math.min.apply(null, v), mx = Math.max.apply(null, v), rg = (mx - mn) || 1, pts = v.map(function (x, i) { return (i * (w - 4) / (v.length - 1) + 2).toFixed(1) + ',' + (h - 3 - (x - mn) / rg * (h - 6)).toFixed(1); }); var l = pts[pts.length - 1].split(','); return '<svg class="spark" viewBox="0 0 64 26" aria-hidden="true"><polyline points="' + pts.join(' ') + '" fill="none" stroke="' + col + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="' + l[0] + '" cy="' + l[1] + '" r="2.4" fill="' + col + '"/></svg>'; }
+      function kpis() {
+        var f = PA.f.to, L = pool(true), subs = selSubs(), fr = fyr(), q = curQ(), live = pool(false);
+        var A = function (fn) { return fr.map(fn); }, cap = function (ff) { return sum(L.map(function (c) { return capC(c, subs, ff); })); }, us = function (ff) { return sum(L.map(function (c) { return useC(c, subs, ff, 1); })); }, hold = function (ff) { return L.filter(function (c) { return holds(c, ff); }).length; }, net = function (ff) { return sum(L.map(function (c) { return trC(c, subs, ff, 'imp') - trC(c, subs, ff, 'exp'); })); };
+        var rk = riskList('bal'), hi = rk.filter(function (x) { return x.sc >= 75; }).length, pf = f ? f - 1 : null;
+        var qs = [0, 1, 2, 3, 4, 5, 6, 7];
+        return [
+          { go: ['reg', 'r_time'], l: 'Active registrants', v: f0(hold(f)), s: A(hold), c: 'blue', col: '#2E6EBF', d: delta(hold(f), pf != null ? hold(pf) : null, true, '%', 'vs last FY') },
+          { go: ['cap', 'k_sub'], l: 'Installed capacity', v: f0(cap(f)), u: 'kL/MT', s: A(cap), c: 'navy', col: '#1A2332', d: delta(cap(f), pf != null ? cap(pf) : null, true, '%', 'year on year') },
+          { go: ['use', 'u_sub'], l: 'Reported usage', v: f0(us(f)), u: 'kL/MT', s: A(us), c: 'green', col: '#1E7B4B', d: delta(us(f), pf != null ? us(pf) : null, true, '%', 'year on year') },
+          { go: ['cap', 'k_util'], l: 'Utilisation', v: f0(pct(us(f), cap(f))) + '%', s: A(function (x) { return pct(us(x), cap(x)); }), c: 'green', col: '#1E7B4B', d: delta(pct(us(f), cap(f)), pf != null ? pct(us(pf), cap(pf)) : null, true, 'pp', 'vs last FY') },
+          { go: ['comp', 'p_heat'], l: 'On-time filing', v: f0(ontimeQ(live, q)) + '%', s: qs.map(function (x) { return ontimeQ(live, x); }), c: 'green', col: '#1E7B4B', d: delta(ontimeQ(live, q), ontimeQ(live, q - 1), true, 'pp', 'vs prior quarter') },
+          { go: ['comp', 'p_names'], l: 'Non-filers', v: f0(nfQ(live, q)), s: qs.map(function (x) { return nfQ(live, x); }), c: 'orange', col: '#C2611C', d: delta(nfQ(live, q), nfQ(live, q - 1), false, '%', 'vs prior quarter') },
+          { go: ['trade', 't_net'], l: 'Net imports', v: f0(net(f)), u: 'kL/MT', s: A(net), c: 'blue', col: '#2E6EBF', d: delta(net(f), pf != null ? net(pf) : null, false, '%', 'vs last FY') },
+          { go: ['risk', 'x_risk'], l: 'High-risk registrants', v: f0(hi), s: null, c: 'red', col: '#C0392B', d: '<div class="d-delta flat">' + f1(pct(hi, rk.length)) + '% of registrants</div>' }
+        ];
+      }
+      function insights() {
+        var f = PA.f.to, subs = selSubs(), L = pool(true), live = pool(false), q = curQ(), out = [], by = currentLevel === 'national' ? 'region' : 'zone', kf = keyOf(by);
+        var g = {}; live.forEach(function (c) { (g[kf(c)] = g[kf(c)] || []).push(c); });
+        var worst = Object.keys(g).map(function (k) { return [k, ontimeQ(g[k], q)]; }).sort(function (a, b) { return a[1] - b[1]; })[0];
+        if (worst) out.push({ cls: 'high', tag: 'Lowest compliance', t: '<b>' + worst[0] + '</b> filed on time for ' + f0(worst[1]) + '% of registrants in ' + QL[q] + '.', tab: 'comp', card: 'p_heat', a: 'See compliance' });
+        var low = subs.map(function (s) { var cp = sum(L.map(function (c) { return capC(c, [s], f); })); return [s, cp ? pct(sum(L.map(function (c) { return useC(c, [s], f, 1); })), cp) : 100]; }).filter(function (x) { return x[1] < 40; });
+        out.push(low.length ? { cls: 'med', tag: 'Possible under-reporting', t: '<b>' + low.map(function (x) { return x[0]; }).join(', ') + '</b> report usage at ' + low.map(function (x) { return f0(x[1]) + '%'; }).join(', ') + ' of installed capacity.', tab: 'risk', card: 'x_gap', a: 'See gap analysis' } : { cls: 'ok', tag: 'Usage in range', t: 'Reported usage is in a normal range against capacity for the substances in view.', tab: 'cap', card: 'k_util', a: 'See utilisation' });
+        var r1 = riskList('bal')[0]; if (r1) out.push({ cls: 'high', tag: 'Top audit candidate', t: '<b>' + r1.c.n + '</b> (' + r1.c.zone + ') scores ' + r1.sc + ': ' + r1.m + ' of 4 returns missed, capacity ' + f1(r1.cap) + '.', tab: 'risk', card: 'x_risk', a: 'See risk profile' });
+        var gr = subs.map(function (s) { var a = sum(L.map(function (c) { return capC(c, [s], f); })), b = f ? sum(L.map(function (c) { return capC(c, [s], f - 1); })) : 0; return [s, b ? (a / b - 1) * 100 : 0]; }).sort(function (a, b) { return b[1] - a[1]; })[0];
+        if (gr) out.push({ cls: 'med', tag: 'Fastest capacity growth', t: '<b>' + gr[0] + '</b> capacity grew ' + f1(gr[1]) + '% in ' + FY[f] + '.', tab: 'cap', card: 'k_sub', a: 'See capacity' });
+        var zs = tally(L.filter(function (c) { return c.rf === f + 3; }), function (c) { return c.zone; }, function () { return 1; }).sort(byDesc)[0]; if (zs) out.push({ cls: 'ok', tag: 'Most new registrations', t: '<b>' + zs[0] + '</b> added ' + zs[1] + ' registrants in ' + FY[f] + '.', tab: 'reg', card: 'r_time', a: 'See registrations' });
+        var nt = subs.map(function (s) { return [s, sum(L.map(function (c) { return trC(c, [s], f, 'imp') - trC(c, [s], f, 'exp'); }))]; }).sort(function (a, b) { return b[1] - a[1]; })[0]; if (nt && nt[1] > 0) out.push({ cls: 'med', tag: 'Largest net import', t: '<b>' + nt[0] + '</b> shows the largest net inflow: ' + f0(nt[1]) + ' in ' + FY[f] + '.', tab: 'trade', card: 't_net', a: 'See trade' });
+        return out;
+      }
+
+      /* ---------- subtitles: live findings, with "how to read" in the info tooltip ---------- */
+      var NOTES = {
+        ov_trend: 'Compares growth of registrants, capacity, usage and trade on one scale. Each line starts at 100 in the first year. Switch Values for actual numbers or yearly growth.',
+        ov_focus: 'Areas ranked for audit. The score combines installed capacity (volume) with the share of registrants who missed the quarter. Change Rank to compare zones, states or regions.',
+        ov_quad: 'Each bubble is a zone. Further right means better on-time filing, higher means more installed capacity. Red zones are the audit priority: capacity is high and filing is weak.',
+        r_subs: 'Active registrants holding each substance. One registrant can hold several, so the bars add up to more than the total.',
+        r_combo: 'Registrants grouped by the exact set of substances they hold. Grey bars hold one substance, blue bars hold combinations. Pick a substance chip above to see it alone versus with others.',
+        r_zone: 'Where registrants are concentrated. The top three places are blue. Switch View to a heatmap to see every place against every substance.',
+        r_top3: 'The leading places for each substance, with registrant counts. Use Group by to rank zones, states or regions.',
+        r_mix: 'Share of registrants holding one, two, or three or more substances. Split by region, zone or state to see where multi-substance holders cluster.',
+        r_time: 'New registrations and cancellations each year, with the running total of active registrants. Split by substance, zone or region, or change Measure to net change or active only.',
+        r_range: 'Pick any start and end month to count registrations and cancellations in that window, with the substances and zones behind them.',
+        r_low: 'Zones with the fewest registrants or the fewest recent additions. Low activity can point to a coverage gap. Switch to Highest first to see the busiest.',
+        k_sub: 'Installed capacity for each substance in the chosen year, with growth on the year before. Liquids are in kL and solids in MT, so use Log scale to see the small ones.',
+        k_zone: 'Capacity held in each place, as a quantity or as a share of all-India capacity. Narrow to one substance with the chips above.',
+        k_top: 'Largest companies by installed capacity, with zone, share and running total. Shows how concentrated capacity is.',
+        k_conc: 'Compares what the largest companies hold against everyone else. Change the number of companies to test concentration.',
+        k_persub: 'The biggest companies for every substance side by side, with capacity and share of that substance.',
+        k_util: 'Reported usage as a share of installed capacity, year by year. Low values can mean under-reporting or idle plant.',
+        k_trade: 'Growth in capacity next to growth in imports and exports each year, plus a one-year capacity forecast. Capacity growing faster than trade suggests more domestic production.',
+        u_sub: 'Total usage reported in quarterly returns for each substance. Choose one year or all years, and split by region.',
+        u_zone: 'Largest reporters in a chosen zone, state or region, with their quantities and share of that place.',
+        u_year: 'How usage changes year on year. Show quantity or percentage change, by substance, region, zone or state.',
+        u_cap: "Compares each large user's reported usage with its installed capacity. A big gap between the two bars is worth a query.",
+        u_combo: 'Usage over time for companies holding the same combination of substances, in total or per company.',
+        u_nf: 'Splits reported usage between regular filers and companies that missed returns, and estimates what the missed quarters would have added.',
+        p_list: 'Counts and shares of registrants who did not file in the selected quarter. Group by zone, state, region or substance, or switch to a place by substance heatmap.',
+        p_trend: 'Number of non-filers each quarter, or the two financial years side by side. A rising line means compliance is getting worse.',
+        p_heat: 'Filing rate for every quarter by place, worst first. Red cells mark places where on-time filing is below 75%.',
+        p_names: 'Companies that did not file in the selected quarter, with how many of the last four quarters they missed. Download for follow-up.',
+        t_sub: 'Import and export quantity, or number of companies trading, for each substance in the chosen year.',
+        t_top: 'Largest importers or exporters, with quantity and share of the total.',
+        t_net: 'Imports minus exports each year. Above zero is a net inflow, below zero a net outflow.',
+        t_yoy: 'Trade volume, growth or number of active trading companies, year on year.',
+        t_hub: 'Places handling the most imports and exports, shown together or separately.',
+        x_risk: 'Ranks companies on capacity, trade volume, missed returns and sensitive substances. Change the weighting to see who moves. Top right of the chart is the highest priority.',
+        x_zone: 'Compares one zone or state with the average zone, scaled so 100 is average. Use it to spot places well above or below the norm.',
+        x_div: 'Companies holding two or more substances, with usage, imports and the ratio of imports to usage. To look at one combination, pick those substances above and set Match to holds all selected. Flags are reasons to review, not findings.',
+        x_gap: 'Places where reported usage is low against capacity, a possible sign of under-reporting. Red bars fall below the cut-off you choose.',
+        x_enf: 'Enforcement score by place and substance, combining capacity volume with the share of non-filers. Darker red means higher audit priority.',
+        x_anom: 'Usage, imports and exports each as a share of installed capacity, per substance. Unusual combinations are flagged underneath.',
+        x_next: 'Planned links to seizure records, NDPS cases and company profiles. These need data that is not yet available.'
+      };
+      var UNITS = { r_subs: ' registrants', r_combo: ' registrants', r_zone: ' registrants', r_low: ' registrants', r_mix: '', k_sub: '', k_zone: '', k_top: '', u_sub: '', u_zone: '', u_cap: '', p_list: ' non-filers', ov_focus: ' pts', t_hub: '', t_top: '', t_sub: '' };
+      CARDS.forEach(function (c) { if (NOTES[c.id]) c.n = NOTES[c.id]; });
+      function unitOf(cd, s, m) { return /%/.test(s.n || '') || (m && m.pctAxis) ? '%' : (UNITS[cd.id] || ''); }
+      function autoIns(cd, m) {
+        if (m.kind === 'table' || m.kind === 'html' || m.kind === 'bubble') return '';
+        if (m.heat) {
+          var h = m.heat, best = null, worst = null;
+          h.v.forEach(function (r, i) { r.forEach(function (v, j) { if (v == null) return; if (!best || v > best[0]) best = [v, i, j]; if (!worst || v < worst[0]) worst = [v, i, j]; }); });
+          return best ? 'Highest: ' + h.rows[best[1]] + ', ' + h.cols[best[2]] + ' (' + h.f(best[0]) + '). Lowest: ' + h.rows[worst[1]] + ', ' + h.cols[worst[2]] + ' (' + h.f(worst[0]) + ').' : '';
+        }
+        if (m.kind === 'doughnut') { var d = m.series[0].d, t = sum(d); return t ? m.labels.map(function (l, i) { return l + ' ' + f1(pct(d[i], t)) + '%'; }).join(', ') + ' (total ' + fm(t) + ').' : ''; }
+        var S = m.series, L = m.labels; if (!S || !L || !L.length) return '';
+        var val = function (x) { return x == null ? null : +x; };
+        if (m.kind === 'line') {
+          var last = L.length - 1;
+          if (S.length >= 3 || m.pctAxis) {
+            var r = S.map(function (x) { return [x.n, val(x.d[last])]; }).filter(function (x) { return x[1] != null; }).sort(function (a, b) { return b[1] - a[1]; });
+            if (r.length < 2) return '';
+            return 'In ' + L[last] + ': highest ' + r[0][0] + ' (' + fm(r[0][1]) + unitOf(cd, S[0], m) + '), lowest ' + r[r.length - 1][0] + ' (' + fm(r[r.length - 1][1]) + unitOf(cd, S[0], m) + ').';
+          }
+          return S.map(function (x) { var a = val(x.d[0]), b = val(x.d[last]); if (a == null || b == null || L.length < 2) return ''; var ch = a ? (b / a - 1) * 100 : 0; return x.n + ' ' + fm(a) + ' to ' + fm(b) + ' (' + (ch >= 0 ? '+' : '') + f1(ch) + '%) from ' + L[0] + ' to ' + L[last] + '.'; }).filter(Boolean).join(' ');
+        }
+        if (S.length === 1) {
+          var rows = L.map(function (l, i) { return [l, val(S[0].d[i])]; }).filter(function (x) { return x[1] != null; }).sort(function (a, b) { return b[1] - a[1]; });
+          if (rows.length < 2) return '';
+          var u = unitOf(cd, S[0], m);
+          return 'Highest: ' + rows[0][0] + ' (' + fm(rows[0][1]) + u + '). Lowest shown: ' + rows[rows.length - 1][0] + ' (' + fm(rows[rows.length - 1][1]) + u + ').';
+        }
+        var tot = L.map(function (l, i) { return [l, sum(S.map(function (x) { return Math.abs(val(x.d[i]) || 0); }))]; }).sort(function (a, b) { return b[1] - a[1]; });
+        return tot.length > 1 ? 'Largest: ' + tot[0][0] + ' (' + fm(tot[0][1]) + '). Smallest: ' + tot[tot.length - 1][0] + ' (' + fm(tot[tot.length - 1][1]) + ').' : '';
+      }
+      var INS = {
+        ov_focus: function (m) { var l = m.labels.slice(0, 3); return l.length ? l.join(', ') + ' are the top audit areas. ' + l[0] + ' scores highest.' : ''; },
+        ov_quad: function (m) { var d = m.series[0].d, n = d.length; if (!n) return 'No zone combines above-median capacity with below-median on-time filing.'; return n + ' zone' + (n > 1 ? 's' : '') + ' combine high capacity with weak filing: ' + d.slice(0, 4).map(function (x) { return x.l.split(':')[0]; }).join(', ') + (n > 4 ? ' and ' + (n - 4) + ' more' : '') + '.'; },
+        x_risk: function (m) { var hi = m.series[0].d, md = m.series[1].d; return hi.length + ' companies score 75 or more and ' + md.length + ' score 60 to 74' + (hi[0] ? '. Highest: ' + hi[0].l.split(':')[0] + '.' : '.'); },
+        p_heat: function (m) { var h = m.heat, n = h.rows.length, c = h.cols.length - 1; return n > 1 ? h.rows[0] + ' is weakest in ' + h.cols[c] + ' (' + h.f(h.v[0][c]) + '). ' + h.rows[n - 1] + ' is strongest (' + h.f(h.v[n - 1][c]) + ').' : ''; },
+        x_gap: function (m, o) { var d = m.series[0].d, pc = m.series[0].pc, low = m.labels.filter(function (l, i) { return pc[i] === '#C0392B'; }); return low.length ? low.length + ' of ' + d.length + ' are below ' + o.th + '%: ' + low.slice(0, 4).join(', ') + (low.length > 4 ? ' and more.' : '.') : 'None of the ' + d.length + ' shown are below ' + o.th + '%.'; },
+        r_range: function () { return ''; },
+        r_time: function (m) {
+          var L = m.labels, n = L.length - 1, S = m.series; if (!S.length) return '';
+          var act = S.filter(function (x) { return x.n === 'Active registrants'; })[0], ad = S.filter(function (x) { return x.n === 'Additions'; })[0], cn = S.filter(function (x) { return x.n === 'Cancellations'; })[0];
+          if (act && ad && cn) return L[n] + ': ' + f0(ad.d[n]) + ' added, ' + f0(Math.abs(cn.d[n])) + ' cancelled, ' + f0(act.d[n]) + ' active at year end. Peak additions: ' + L[ad.d.indexOf(Math.max.apply(null, ad.d))] + '.';
+          var tot = S.map(function (x) { return [x.n, sum(x.d.map(function (v) { return v || 0; }))]; }).sort(function (a, b) { return b[1] - a[1]; });
+          return tot.length ? tot[0][0] + ' accounts for the most over the years shown (' + f0(tot[0][1]) + ').' : '';
+        },
+        k_sub: function (m) {
+          var L = m.labels, cap = m.series[0].d, g = m.series[1].d, i = cap.indexOf(Math.max.apply(null, cap)), best = -1e9, bi = -1; g.forEach(function (v, j) { if (v != null && v > best) { best = v; bi = j; } });
+          return L[i] + ' has the most capacity (' + fm(cap[i]) + ').' + (bi >= 0 ? ' Fastest growth on last year: ' + L[bi] + ' (' + (best >= 0 ? '+' : '') + f1(best) + '%).' : '');
+        },
+        k_trade: function (m) {
+          var L = m.labels, S = m.series, k = L.length - 1; if (/forecast/.test(L[k]) && k > 0) k--;
+          var v = function (i) { return S[i].d[k] == null ? 'no data' : (S[i].d[k] >= 0 ? '+' : '') + f1(S[i].d[k]) + '%'; };
+          return 'In ' + L[k] + ' capacity grew ' + v(0) + ', imports ' + v(1) + ', exports ' + v(2) + '.' + (/forecast/.test(L[L.length - 1]) ? ' Forecast for next year: capacity ' + (S[0].d[L.length - 1] >= 0 ? '+' : '') + f1(S[0].d[L.length - 1]) + '%.' : '');
+        },
+        k_top: function (m) { return m.labels.length ? m.labels[0] + ' leads with ' + fm(m.series[0].d[0]) + '. ' + (m.foot || '') : ''; },
+        k_persub: function (m) { var g = {}; m.table.r.forEach(function (x) { g[x[0]] = (g[x[0]] || 0) + parseFloat(x[5]); }); var k = Object.keys(g).sort(function (a, b) { return g[b] - g[a]; }); return k.length > 1 ? k[0] + ' is the most concentrated: the companies shown hold ' + f1(g[k[0]]) + '% of it. ' + k[k.length - 1] + ' is the least (' + f1(g[k[k.length - 1]]) + '%).' : ''; },
+        r_top3: function (m) { var c = {}; m.table.r.forEach(function (x) { var t = (x[1] || '').replace(/^\d+\.\s*/, '').replace(/\s*\(\d+\)$/, ''); if (t) c[t] = (c[t] || 0) + 1; }); var k = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; })[0]; return k ? k + ' ranks first for ' + c[k] + ' of ' + m.table.r.length + ' substances.' : ''; },
+        u_cap: function (m) { var u = m.series[0].d, c = m.series[1].d; return m.labels.length ? m.labels[0] + ' is the largest user: ' + fm(u[0]) + ' used against ' + fm(c[0]) + ' of capacity (' + f0(pct(u[0], c[0])) + '%).' : ''; },
+        u_nf: function (m) { var a = sum(m.series[0].d), b = sum(m.series[1].d), c = sum(m.series[2].d), t = a + b + c; return t ? 'Regular filers report ' + f1(pct(a, t)) + '% of usage, companies with missed returns ' + f1(pct(b, t)) + '%. About ' + f1(pct(c, t)) + '% is estimated as unreported.' : ''; },
+        t_net: function (m) { return m.foot || ''; },
+        t_hub: function (m) { var S = m.series, tot = m.labels.map(function (l, i) { return [l, sum(S.map(function (x) { return x.d[i] || 0; }))]; }).sort(function (a, b) { return b[1] - a[1]; }); return tot.length > 1 ? tot[0][0] + ' handles the most trade (' + f0(tot[0][1]) + '). ' + tot[tot.length - 1][0] + ' the least shown (' + f0(tot[tot.length - 1][1]) + ').' : ''; },
+        p_names: function (m) { return m.foot || ''; },
+        x_div: function (m) { var r = m.table.r, f = r.filter(function (x) { return x[6] !== 'None'; }).length; return f + ' of ' + r.length + ' companies shown carry at least one flag. Imports above usage is the strongest signal.'; },
+        x_zone: function (m, o) { var d = m.series[0].d, L = m.labels, hi = d.indexOf(Math.max.apply(null, d)), lo = d.indexOf(Math.min.apply(null, d)); return o.z + ' is highest against average on ' + L[hi] + ' (' + d[hi] + ') and lowest on ' + L[lo] + ' (' + d[lo] + '). 100 is the average.'; },
+        x_anom: function (m) { var r = m.table.r, f = r.filter(function (x) { return x[5] !== 'None'; }); return f.length ? f.length + ' of ' + r.length + ' substances are flagged: ' + f.slice(0, 3).map(function (x) { return x[0]; }).join(', ') + (f.length > 3 ? ' and more.' : '.') : 'No substance is flagged.'; },
+        ov_trend: function (m, o) {
+          if (o.x !== 'idx') return '';
+          var L = m.labels, k = L.length - 1, r = m.series.map(function (x) { return [x.n, x.d[k]]; }).filter(function (x) { return x[1] != null; }).sort(function (a, b) { return b[1] - a[1]; });
+          return r.length > 1 ? r[0][0] + ' grew most since ' + L[0] + ' (index ' + fm(r[0][1]) + '). ' + r[r.length - 1][0] + ' grew least (' + fm(r[r.length - 1][1]) + ').' : '';
+        }
+      };
+      function insightFor(cd, m, o) { try { var t = INS[cd.id] ? INS[cd.id](m, o) : autoIns(cd, m); return t || cd.n || ''; } catch (e) { return cd.n || ''; } }
+      var ORDER = ['ov_trend', 'ov_quad', 'r_subs', 'r_mix', 'r_zone', 'r_range', 'r_time', 'k_sub', 'k_zone', 'k_top', 'k_persub', 'k_trade', 'k_util', 'u_sub', 'u_year', 'u_cap', 'u_nf', 'p_list', 'p_trend', 'p_heat', 'p_names', 't_sub', 't_top', 't_net', 't_yoy', 't_hub', 'x_risk', 'x_zone', 'x_div', 'x_enf', 'x_gap', 'x_anom'];
+      var SPAN = { ov_trend: 6, ov_quad: 6, r_subs: 6, r_mix: 6, r_zone: 8, r_range: 4, r_time: 12, k_sub: 6, k_zone: 6, k_top: 6, k_persub: 6, k_trade: 6, k_util: 6, u_cap: 6, u_nf: 6, t_yoy: 6, t_hub: 12, x_risk: 6, x_zone: 6, x_enf: 12, x_gap: 6, x_anom: 6 };
+      CARDS.forEach(function (c) { if (SPAN[c.id]) c.s = SPAN[c.id]; });
+      CARDS.sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
+
+      var TABS = [['ov', 'Overview'], ['reg', 'Registrations'], ['cap', 'Installed capacity'], ['use', 'Usage'], ['comp', 'Compliance'], ['trade', 'Import and export'], ['risk', 'Risk and enforcement'], ['map', 'Map and regions']];
+      function shell() {
+        var el = document.getElementById('paHead'); if (!el) return;
+        el.innerHTML = '<div class="d-head"><div><div class="d-title">Analytics</div><div class="d-sub"><b class="scope-name">All India</b> · precursor registrations, installed capacity, usage, filing compliance and trade · sample data</div></div><div class="d-filters"><button class="d-btn" onclick="alert(\'Export is cosmetic in this mockup. Every card has its own CSV button.\')">Export all</button></div></div>' +
+          '<div class="pa-sticky"><div class="pa-bar" id="paBar">' +
+          '<div class="pa-dd" data-dd="sub"><button class="pa-trig" id="paTSub" type="button"></button><div class="pa-panel" style="min-width:380px;"><div class="pa-ptitle"><span>Substances</span><button type="button" class="pa-clr" data-clr="sub">Clear</button></div><span id="paChips"></span><div class="pa-prow"><label class="pa-opt"><span>With several picked, show companies that hold</span><select id="paMatch"><option value="any">Holds any selected</option><option value="all">Holds all selected (combination)</option></select></label></div></div></div>' +
+          '<div class="pa-dd" data-dd="per"><button class="pa-trig" id="paTPer" type="button"></button><div class="pa-panel"><div class="pa-ptitle"><span>Financial years</span><button type="button" class="pa-clr" data-clr="per">Clear</button></div><div class="pa-prow" style="margin-top:0;"><label class="pa-opt"><span>From</span><select id="paFrom"></select></label><label class="pa-opt"><span>To</span><select id="paTo"></select></label></div></div></div>' +
+          '<div class="pa-dd" data-dd="q"><button class="pa-trig" id="paTQ" type="button"></button><div class="pa-panel"><div class="pa-ptitle"><span>Quarter</span><button type="button" class="pa-clr" data-clr="q">Clear</button></div><label class="pa-opt"><span>Quarter shown in filing figures</span><select id="paQ"></select></label></div></div>' +
+          '<div class="pa-dd" data-dd="pl"><button class="pa-trig" id="paTPl" type="button"></button><div class="pa-panel"><div class="pa-ptitle"><span>Place</span><button type="button" class="pa-clr" data-clr="pl">Clear</button></div><div class="pa-prow" style="margin-top:0;"><label class="pa-opt"><span>Region</span><select id="paRg"></select></label><label class="pa-opt"><span>State</span><select id="paSt"></select></label><label class="pa-opt"><span>Zone</span><select id="paZn"></select></label></div></div></div>' +
+          '<div class="pa-dd" data-dd="more"><button class="pa-trig" id="paTMore" type="button"></button><div class="pa-panel"><div class="pa-ptitle"><span>Registrant filters</span><button type="button" class="pa-clr" data-clr="more">Clear</button></div><label class="pa-opt"><span>Filing status</span><select id="paFs"></select></label><div class="pa-prow"><label class="pa-opt"><span>Capacity from</span><input type="number" min="0" step="any" id="paCmin" placeholder="0"></label><label class="pa-opt"><span>Capacity to</span><input type="number" min="0" step="any" id="paCmax" placeholder="no limit"></label></div><div class="pa-hint" style="margin-top:6px;max-width:none;">Company capacity in kL/MT for the substances selected, at its peak year</div></div></div>' +
+          '<button class="pa-reset" id="paReset" type="button" style="display:none;">Reset filters</button><span class="pa-i" id="paMapInfo" tabindex="0" role="button" aria-label="About filters on the map" style="display:none;margin-left:2px;" data-tip="The map shows one quarter by region, so Years and State are hidden here. Quarter, substances, filing status, capacity range, Region and Zone all apply.">i</span></div>' +
+          '<div class="d-tabs" id="paTabs">' + TABS.map(function (t) { return '<div class="d-tab" data-t="' + t[0] + '">' + t[1] + '</div>'; }).join('') + '</div></div>';
+        var fy = FY.map(function (l, i) { return '<option value="' + i + '">' + l + '</option>'; }).join('');
+        document.getElementById('paFrom').innerHTML = fy; document.getElementById('paTo').innerHTML = fy;
+        el.querySelectorAll('#paTabs .d-tab').forEach(function (t) { t.onclick = function () { paTab(t.dataset.t); }; });
+        document.getElementById('paMatch').onchange = function () { PA.f.match = this.value; refreshFilters(); };
+        document.getElementById('paFrom').onchange = function () { PA.f.from = +this.value; if (PA.f.from > PA.f.to) PA.f.to = PA.f.from; refreshFilters(); };
+        [['paQ', 'q'], ['paRg', 'rg'], ['paSt', 'st'], ['paZn', 'zn'], ['paFs', 'fs']].forEach(function (p) {
+          document.getElementById(p[0]).onchange = function () { PA.f[p[1]] = this.value; if (p[1] === 'rg') { PA.f.st = ''; PA.f.zn = ''; } if (p[1] === 'st') PA.f.zn = ''; if (p[1] === 'rg' || p[1] === 'zn') { mapPush(p[1]); return; } refreshFilters(); };
+        });
+        [['paCmin', 'cmin'], ['paCmax', 'cmax']].forEach(function (p) { document.getElementById(p[0]).onchange = function () { PA.f[p[1]] = this.value; refreshFilters(); }; });
+        document.getElementById('paTo').onchange = function () { PA.f.to = +this.value; if (PA.f.to < PA.f.from) PA.f.from = PA.f.to; refreshFilters(); };
+        document.getElementById('paReset').onclick = function () { PA.f = defF(); var rsel = document.getElementById('regionSelect'); if (rsel && rsel.value !== 'all') { PA.syncing = true; rsel.value = 'all'; onRegionChange('all'); PA.syncing = false; } refreshFilters(); };
+        syncFilters();
+      }
+      window.paQLabel = function () { return QL[curQ()]; };
+      window.mapStat = function (d) {
+        var rk = REGION_ORDER.filter(function (r) { return HQ_REGIONS[r] === d; })[0], q = curQ(), n = 0, ot = 0, nf = 0;
+        if (!ALL || !rk) return { ot: d.ontime[3], nf: d.nonfilers, urns: d.urns, co: d.companies };
+        ALL.forEach(function (c) { if (c.canc || c.rk !== rk || !subOK(c) || !fsOK(c) || !capOK(c)) return; n++; if (c.st[q] === 0) ot++; else if (c.st[q] === 2) nf++; });
+        return { ot: n ? Math.round(ot / n * 100) : 0, nf: nf, urns: n, co: Math.round(d.companies * n / d.urns) };
+      };
+      window.mapOT = function (d) { return mapStat(d).ot; };
+      function mapPush(k) {
+        var rs = document.getElementById('regionSelect'), zs = document.getElementById('zoneSelect'), w;
+        PA.syncing = true;
+        if (k === 'rg') { w = PA.f.rg || 'all'; rs.value = w; onRegionChange(w); }
+        else if (PA.f.zn) { var one = ALL.filter(function (c) { return c.zone === PA.f.zn; })[0]; if (one && rs.value !== one.rk) { PA.f.rg = one.rk; rs.value = one.rk; onRegionChange(one.rk); } zs.value = PA.f.zn; onZoneChange(PA.f.zn); }
+        else { zs.value = ''; onZoneChange(''); }
+        PA.syncing = false; refreshFilters();
+      }
+      function mapSync() {
+        if (PA.syncing || !PA.f.rg) return;
+        var rs = document.getElementById('regionSelect'), zs = document.getElementById('zoneSelect');
+        PA.syncing = true;
+        if (rs.value !== PA.f.rg) { rs.value = PA.f.rg; onRegionChange(PA.f.rg); }
+        if (PA.f.zn && zs.value !== PA.f.zn) { zs.value = PA.f.zn; onZoneChange(PA.f.zn); }
+        PA.syncing = false;
+      }
+      function mainTags() {
+        var f = PA.f, t = [];
+        if (f.subs.length) t.push(f.subs.length > 2 ? f.subs[0] + ' +' + (f.subs.length - 1) : f.subs.join(' + ')); if (f.subs.length > 1 && f.match === 'all') t.push('holding all');
+        if (f.from !== 0 || f.to !== 4) t.push(FY[f.from] + ' to ' + FY[f.to]);
+        if (f.q !== 'auto') t.push(QL[+f.q]);
+        [f.rg ? HQ_REGIONS[f.rg].name.replace(' Region', '') : '', f.st, f.zn].filter(Boolean).forEach(function (x) { t.push(x); });
+        if (f.fs) t.push({ miss: 'missed the quarter', late: 'filed late', ok: 'filed on time' }[f.fs]);
+        if (f.cmin !== '' || f.cmax !== '') t.push('capacity ' + (f.cmin === '' ? '0' : f.cmin) + ' to ' + (f.cmax === '' ? 'no limit' : f.cmax));
+        return t;
+      }
+      function subSeg(sb, extra, note, status) { return { title: sb, sub: 'Companies holding ' + sb + (note ? ', ' + note : ''), filter: function (c) { return c.subs.indexOf(sb) >= 0 && (!extra || extra(c)); }, status: status || '', apply: function () { applyDrill('sub', sb); } }; }
+      function placeSeg(by, label, sb, q, status) {
+        var kf = keyOf(by), kind = by;
+        return { title: label + (sb ? ' · ' + sb : ''), sub: 'Registrants in this ' + (by === 'region' ? 'region' : by) + (sb ? ' holding ' + sb : ''), q: q, status: status || '', filter: function (c) { return kf(c) === label && (!sb || c.subs.indexOf(sb) >= 0); }, apply: function () { applyDrill(kind, label); } };
+      }
+      function segFor(id, o, x) {
+        var L = x.label, C = x.col, by = o.by, q = C ? QL.indexOf(C) : -1;
+        switch (id) {
+          case 'r_subs': case 'k_sub': case 'u_sub': return subSeg(L);
+          case 't_sub': return subSeg(L, function (c) { return trC(c, [L], PA.f.to, 'imp') + trC(c, [L], PA.f.to, 'exp') > 0; }, 'that traded in ' + FY[PA.f.to]);
+          case 'r_zone': case 'x_enf': return placeSeg(by, L, C || null);
+          case 'k_zone': case 't_hub': case 'x_gap': return placeSeg(by, L);
+          case 'p_heat': return placeSeg(by, L, null, q >= 0 ? q : null);
+          case 'p_list': return by === 'sub' ? subSeg(L, null, 'not filing in ' + QL[curQ()], '2') : placeSeg(by, L, C || null, null, '2');
+          case 'r_mix': { var k = x.idx; return { title: L, sub: 'Registrants by number of substances held', filter: function (c) { return (c.subs.length >= 3 ? 2 : c.subs.length - 1) === k; }, status: '', apply: null }; }
+        }
+        return null;
+      }
+      var SEGCARDS = ['r_subs', 'k_sub', 'u_sub', 't_sub', 'r_zone', 'k_zone', 't_hub', 'x_gap', 'x_enf', 'p_heat', 'p_list', 'r_mix'];
+
+      /* ---------- the company list panel ---------- */
+      var liEl = null, liOv = null, LS = null;
+      function closeList() { if (liEl) liEl.classList.remove('open'); if (liOv) liOv.classList.remove('open'); }
+      function listRows() {
+        var sp = LS.sp, f = PA.f.to, q = sp.q != null ? sp.q : curQ(), subs = selSubs();
+        var all = pool(false).filter(sp.filter).map(function (c) { return { c: c, cap: capC(c, subs, f), use: useC(c, subs, f, 1), miss: c.st ? missed(c, f) : 0, stt: c.st ? c.st[q] : null }; });
+        var cnt = { '': all.length, '0': 0, '1': 0, '2': 0 }; all.forEach(function (r) { if (r.stt != null) cnt[String(r.stt)]++; });
+        var needle = LS.find.toLowerCase(), rows = all.filter(function (r) { return (LS.st === '' || String(r.stt) === LS.st) && (!needle || (r.c.n + ' ' + r.c.zone + ' ' + r.c.subs.join(' ')).toLowerCase().indexOf(needle) >= 0); });
+        rows.sort(function (a, b) { return LS.sort === 'name' ? (a.c.n < b.c.n ? -1 : 1) : LS.sort === 'use' ? b.use - a.use : LS.sort === 'miss' ? b.miss - a.miss || b.cap - a.cap : b.cap - a.cap; });
+        return { rows: rows, cnt: cnt, q: q, total: all.length };
+      }
+      function drawList() {
+        var sp = LS.sp, d = listRows(), body = liEl.querySelector('.pa-li-body'), chips = liEl.querySelector('.pa-li-chips');
+        chips.innerHTML = [['', 'All'], ['0', 'On time'], ['1', 'Late'], ['2', 'Not filed']].map(function (x) { return '<button type="button" class="pa-lchip' + (LS.st === x[0] ? ' on' : '') + (x[0] ? ' s' + x[0] : '') + '" data-s="' + x[0] + '">' + x[1] + ' <b>' + d.cnt[x[0]] + '</b></button>'; }).join('');
+        chips.querySelectorAll('button').forEach(function (b) { b.onclick = function () { LS.st = b.dataset.s; drawList(); }; });
+        liEl.querySelector('.pa-li-sub').textContent = sp.sub + ' · ' + d.total + ' companies · returns shown for ' + QL[d.q];
+        LS.view = d.rows;
+        body.innerHTML = d.rows.length ? '<table class="pa-li-tb"><thead><tr><th>Company</th><th>Zone</th><th>Substances</th><th class="num">Capacity</th><th class="num">Usage</th><th class="num">Missed</th><th>' + QL[d.q] + '</th></tr></thead><tbody>' + d.rows.slice(0, 300).map(function (r) {
+          return '<tr><td>' + coLink(r.c) + '</td><td>' + esc(r.c.zone) + '</td><td class="sb">' + esc(r.c.subs.join(', ')) + '</td><td class="num">' + f1(r.cap) + '</td><td class="num">' + f1(r.use) + '</td><td class="num">' + (r.c.st ? r.miss + '/4' : '–') + '</td><td>' + (r.stt == null ? '<span class="pa-q" style="background:#8B98A8">Cancelled</span>' : '<span class="pa-q q' + r.stt + '">' + ['On time', 'Late', 'Not filed'][r.stt] + '</span>') + '</td></tr>';
+        }).join('') + '</tbody></table>' + (d.rows.length > 300 ? '<div class="pa-cosub" style="padding:10px 4px;">Showing 300 of ' + d.rows.length + '. Download the CSV for all.</div>' : '') : '<div class="d-empty">No companies match.</div>';
+      }
+      function openList(sp) {
+        if (!sp) return;
+        if (!liEl) {
+          liOv = document.createElement('div'); liOv.id = 'paLiOv'; liOv.onclick = closeList; document.body.appendChild(liOv);
+          liEl = document.createElement('aside'); liEl.id = 'paLi'; document.body.appendChild(liEl);
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !(coEl && coEl.classList.contains('open'))) closeList(); });
+        }
+        LS = { sp: sp, st: sp.status || '', find: '', sort: sp.status === '2' ? 'miss' : 'cap' };
+        liEl.innerHTML = '<div class="pa-co-hd"><div><div class="pa-co-name">' + esc(sp.title) + '</div><div class="pa-cosub pa-li-sub"></div></div><button type="button" class="pa-co-x" aria-label="Close">&times;</button></div>' +
+          '<div class="pa-li-tools"><input type="search" class="pa-li-q" placeholder="Search company, zone or substance"><select class="pa-li-sort" aria-label="Sort"><option value="cap">Largest capacity</option><option value="use">Highest usage</option><option value="miss">Most returns missed</option><option value="name">Name A to Z</option></select></div><div class="pa-li-chips"></div>' +
+          '<div class="pa-li-body"></div><div class="pa-co-act"><div class="pa-co-row">' + (sp.apply ? '<button type="button" class="pa-btn" data-a="apply">Filter the board to this</button>' : '') + '<button type="button" class="pa-btn" data-a="csv">Download CSV</button></div></div>';
+        liEl.querySelector('.pa-co-x').onclick = closeList;
+        var qi = liEl.querySelector('.pa-li-q'), so = liEl.querySelector('.pa-li-sort'); so.value = LS.sort;
+        qi.oninput = function () { LS.find = qi.value; drawList(); }; so.onchange = function () { LS.sort = so.value; drawList(); };
+        liEl.querySelectorAll('[data-a]').forEach(function (b) {
+          b.onclick = function () {
+            if (b.dataset.a === 'apply') { closeList(); sp.apply(); }
+            else csv({ h: ['Company', 'Zone', 'State', 'Substances', 'Capacity', 'Usage', 'Returns missed (of 4)', 'Latest return'], r: (LS.view || []).map(function (r) { return [r.c.n, r.c.zone, r.c.state, r.c.subs.join('; '), f1(r.cap), f1(r.use), r.c.st ? r.miss : '', r.stt == null ? 'Cancelled' : ['On time', 'Late', 'Not filed'][r.stt]]; }) }, 'companies');
+          };
+        });
+        drawList(); liOv.classList.add('open'); liEl.classList.add('open');
+      }
+      window.paOpenList = openList;
+      function coLink(c) { return '<a href="#" class="pa-co" data-cid="' + c.id + '">' + esc(c.n) + '</a>'; }
+      var coEl = null, coOv = null;
+      function closeCompany() { if (coEl) coEl.classList.remove('open'); if (coOv) coOv.classList.remove('open'); }
+      function openCompany(id) {
+        var c = ALL.filter(function (x) { return x.id === id; })[0]; if (!c) return;
+        if (!coEl) {
+          coOv = document.createElement('div'); coOv.id = 'paCoOv'; coOv.onclick = closeCompany; document.body.appendChild(coOv);
+          coEl = document.createElement('aside'); coEl.id = 'paCo'; document.body.appendChild(coEl);
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeCompany(); });
+        }
+        var f = PA.f.to, MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var urn = 'PREP/ZO-' + c.zone.slice(0, 3).toUpperCase() + '/' + (2018 + c.rf) + '/' + ('000' + c.id).slice(-4);
+        var capT = 0, useT = 0, imp = 0, exp = 0;
+        var rows = c.subs.map(function (sb) { var cap = c.cap[sb] ? c.cap[sb][f] : 0, u = c.u[sb] ? c.u[sb][f] * c.fac[f] : 0; capT += cap; useT += u; imp += c.imp[sb] ? c.imp[sb][f] : 0; exp += c.exp[sb] ? c.exp[sb][f] : 0; return '<tr><td><i style="background:' + SB[sb].c + '"></i>' + esc(sb) + '</td><td class="num">' + f1(cap) + ' ' + SB[sb].u + '</td><td class="num">' + f1(u) + '</td><td class="num">' + (cap ? f0(pct(u, cap)) + '%' : '–') + '</td></tr>'; }).join('');
+        var q = c.st ? c.st.map(function (v, i) { return '<span class="pa-q q' + v + '" title="' + QL[i] + ': ' + ['filed on time', 'filed late', 'not filed'][v] + '">' + QL[i] + '</span>'; }).join('') : '<div class="pa-cosub">No returns: registration cancelled.</div>';
+        var rl = riskList('bal').filter(function (x) { return x.c.id === id; })[0], miss = c.st ? missed(c, f) : 0;
+        var flags = []; if (c.st && miss >= 2) flags.push(miss + ' of 4 returns missed'); if (capT && useT / capT < .35) flags.push('Usage is low against capacity'); if (imp > 0 && useT && imp / useT > .8) flags.push('Imports are high against usage');
+        coEl.innerHTML = '<div class="pa-co-hd"><div><div class="pa-co-name">' + esc(c.n) + '</div><div class="pa-cosub">' + esc(c.zone) + ' zone · ' + esc(c.state) + ' · ' + esc(c.region) + ' region</div></div><button type="button" class="pa-co-x" aria-label="Close">&times;</button></div>' +
+          '<div class="pa-co-body"><div class="pa-co-pills"><span class="pa-pill ' + (c.canc ? 'bad' : 'ok') + '">' + (c.canc ? 'Cancelled ' + RFY[c.cf] : 'Active') + '</span>' + (rl ? '<span class="pa-pill ' + (rl.sc >= 75 ? 'bad' : rl.sc >= 60 ? 'mid' : 'ok') + '">Risk score ' + rl.sc + '</span>' : '') + '</div>' +
+          '<div class="pa-co-kv"><div><span>URN</span><b>' + urn + '</b></div><div><span>Registered</span><b>' + MON[c.rd % 12] + ' ' + Math.floor(c.rd / 12) + '</b></div><div><span>Capacity, ' + FY[f] + '</span><b>' + f1(capT) + '</b></div><div><span>Imports / exports</span><b>' + f1(imp) + ' / ' + f1(exp) + '</b></div></div>' +
+          '<div class="pa-co-h">Substances, ' + FY[f] + '</div><table class="pa-co-tb"><thead><tr><th>Substance</th><th class="num">Capacity</th><th class="num">Usage</th><th class="num">Use</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+          '<div class="pa-co-h">Quarterly returns</div><div class="pa-qrow">' + q + '</div><div class="pa-co-leg"><span class="pa-q q0">On time</span><span class="pa-q q1">Late</span><span class="pa-q q2">Not filed</span></div>' +
+          (flags.length ? '<div class="pa-co-h">Why it stands out</div><ul class="pa-co-fl">' + flags.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' : '') +
+          '</div><div class="pa-co-act"><div class="pa-co-note">NCB HQ is view-only. A query is relayed to the zone.</div>' +
+          '<button type="button" class="pa-btn pri" data-a="query">Query zone about this company</button><button type="button" class="pa-btn" data-a="inspect">Initiate adhoc inspection</button>' +
+          '<div class="pa-co-row"><button type="button" class="pa-btn" data-a="urn">Open in URN Management</button><button type="button" class="pa-btn" data-a="returns">Open Returns</button></div><button type="button" class="pa-btn ghost" data-a="zone">Show ' + esc(c.zone) + ' zone on this board</button></div>';
+        coEl.querySelector('.pa-co-x').onclick = closeCompany;
+        coEl.querySelectorAll('[data-a]').forEach(function (b) {
+          b.onclick = function () {
+            var a = b.dataset.a;
+            if (a === 'query') { closeCompany(); openRaiseQuery(c.n + ' (' + c.zone + ' zone)'); }
+            else if (a === 'inspect') { toast('Adhoc inspection noted for ' + c.n + ' (cosmetic in this mockup)'); }
+            else if (a === 'urn' || a === 'returns') { closeCompany(); showZScreen(a, document.getElementById('znav-' + a)); }
+            else { closeCompany(); applyDrill('zone', c.zone); }
+          };
+        });
+        coOv.classList.add('open'); coEl.classList.add('open');
+      }
+      window.paOpenCompany = openCompany;
+      document.addEventListener('click', function (e) { var co = e.target.closest && e.target.closest('.pa-co'); if (co && !co.closest('#paBoard')) { e.preventDefault(); openCompany(+co.dataset.cid); } });
+      function paFlash(card) {
+        setTimeout(function () { var x = document.getElementById('pc-' + card); if (!x) return; x.scrollIntoView({ behavior: 'smooth', block: 'start' }); x.classList.remove('pa-flash'); void x.offsetWidth; x.classList.add('pa-flash'); setTimeout(function () { x.classList.remove('pa-flash'); }, 2400); }, 90);
+      }
+      function toast(t) { var e = document.getElementById('paToast'); if (!e) { e = document.createElement('div'); e.id = 'paToast'; document.body.appendChild(e); } e.textContent = t; e.className = 'on'; clearTimeout(e._t); e._t = setTimeout(function () { e.className = ''; }, 3200); }
+      function applyDrill(kind, label, cid) {
+        var f = PA.f, ex;
+        if (kind === 'company') { openCompany(cid); return; }
+        if (kind === 'sub') f.subs = [label];
+        else if (kind === 'zone') { ex = ALL.filter(function (c) { return c.zone === label; })[0]; if (!ex) return; f.rg = ex.rk; f.st = ex.state; f.zn = label; }
+        else if (kind === 'state') { ex = ALL.filter(function (c) { return c.state === label; })[0]; if (!ex) return; f.rg = ex.rk; f.st = label; f.zn = ''; }
+        else if (kind === 'region') { ex = ALL.filter(function (c) { return c.region === label; })[0]; if (!ex) return; f.rg = ex.rk; f.st = ''; f.zn = ''; }
+        else return;
+        toast('Filtered the whole board to ' + label + '. Use Reset filters to clear.'); if (kind === 'zone') mapPush('zn'); else if (kind === 'region' || kind === 'state') mapPush('rg'); else refreshFilters();
+      }
+      window.paGo = function (tab, card) {
+        var a = document.getElementById('zscreen-analytics');
+        if (a && a.style.display === 'none') showZScreen('analytics', document.getElementById('znav-analytics'));
+        paTab(tab); if (card) paFlash(card);
+      };
+      var DRILL = { k_top: function () { return 'company'; }, u_cap: function () { return 'company'; }, t_top: function () { return 'company'; }, r_subs: function () { return 'sub'; }, k_sub: function () { return 'sub'; }, u_sub: function () { return 'sub'; }, t_sub: function () { return 'sub'; }, r_zone: function (o) { return o.by; }, k_zone: function (o) { return o.by; }, r_low: function (o) { return o.by; }, t_hub: function (o) { return o.by; }, ov_focus: function (o) { return o.by; }, p_heat: function (o) { return o.by; }, x_enf: function (o) { return o.by; }, p_list: function (o) { return o.by; }, x_gap: function (o) { return o.by === 'sub' ? 'sub' : o.by; }, k_util: function (o) { return o.v === 'heat' ? o.by : null; } };
+      function paSummary() {
+        var f = PA.f, set = function (id, label, val, on) { var e = document.getElementById(id); if (!e) return; e.innerHTML = '<span class="pa-tl">' + label + '</span>' + val + '<span class="pa-caret">&#9662;</span>'; e.classList.toggle('on', !!on); };
+        set('paTSub', 'Substances', f.subs.length ? esc(f.subs[0]) + (f.subs.length > 1 ? ' +' + (f.subs.length - 1) + (f.match === 'all' ? ' (all)' : '') : '') : 'All', f.subs.length);
+        set('paTPer', 'Years', FY[f.from] + ' to ' + FY[f.to], f.from !== 0 || f.to !== 4);
+        set('paTQ', 'Quarter', f.q === 'auto' ? 'Latest' : QL[+f.q], f.q !== 'auto');
+        var pl = [f.rg ? HQ_REGIONS[f.rg].name.replace(' Region', '') : '', f.st, f.zn].filter(Boolean);
+        set('paTPl', 'Place', pl.length ? esc(pl.join(' · ')) : 'All India', pl.length);
+        var n = (f.fs ? 1 : 0) + ((f.cmin !== '' || f.cmax !== '') ? 1 : 0);
+        set('paTMore', 'More', n ? n + ' active' : 'Filing, capacity', n);
+        [['paMatch', f.match !== 'any'], ['paFrom', f.from !== 0], ['paTo', f.to !== 4], ['paQ', f.q !== 'auto'], ['paRg', !!f.rg], ['paSt', !!f.st], ['paZn', !!f.zn], ['paFs', !!f.fs], ['paCmin', f.cmin !== ''], ['paCmax', f.cmax !== '']].forEach(function (p) { var e = document.getElementById(p[0]); if (e) e.classList.toggle('pa-set', p[1]); });
+        var mr = document.getElementById('paMatch'); if (mr) mr.closest('.pa-prow').style.display = f.subs.length > 1 ? '' : 'none';
+        var rs = document.getElementById('paReset'); if (rs) rs.style.display = (f.subs.length || f.from !== 0 || f.to !== 4 || f.q !== 'auto' || pl.length || n || f.match !== 'any') ? '' : 'none';
+      }
+      function syncFromSidebar() {
+        var f = PA.f;
+        if (currentLevel === 'national') { f.rg = ''; f.zn = ''; }
+        else if (currentLevel.indexOf('zone:') === 0) { var p = currentLevel.split(':'); f.rg = p[1]; f.zn = p[2]; }
+        else { f.rg = currentLevel; f.zn = ''; }
+      }
+      function geoFill() {
+        syncFromSidebar();
+        var f = PA.f, base = ALL, set = function (id, o, val) { var el = document.getElementById(id); if (!el) return; el.innerHTML = o.map(function (x) { return '<option value="' + x[0] + '"' + (String(x[0]) === String(val) ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join(''); };
+        var rs = {}; base.forEach(function (c) { rs[c.rk] = 1; });
+        var regs = REGION_ORDER.filter(function (r) { return rs[r]; }); if (f.rg && !rs[f.rg]) f.rg = '';
+        var b2 = base.filter(function (c) { return !f.rg || c.rk === f.rg; }), ss = {}; b2.forEach(function (c) { ss[c.state] = 1; }); if (f.st && !ss[f.st]) f.st = '';
+        var b3 = b2.filter(function (c) { return !f.st || c.state === f.st; }), zz = {}; b3.forEach(function (c) { zz[c.zone] = 1; }); if (f.zn && !zz[f.zn]) f.zn = '';
+        set('paRg', [['', 'All regions']].concat(regs.map(function (r) { return [r, HQ_REGIONS[r].name]; })), f.rg);
+        set('paSt', [['', 'All states']].concat(Object.keys(ss).sort().map(function (k) { return [k, k]; })), f.st);
+        set('paZn', [['', 'All zones']].concat(Object.keys(zz).sort().map(function (k) { return [k, k]; })), f.zn);
+        set('paQ', [['auto', 'Latest in selected year']].concat(QL.map(function (l, i) { return [i, l + (i >= 4 ? ' (FY26)' : ' (FY25)')]; }).reverse()), f.q);
+        set('paFs', [['', 'All registrants'], ['miss', 'Missed this quarter'], ['late', 'Filed late'], ['ok', 'Filed on time']], f.fs);
+        var ci = document.getElementById('paCmin'), cx = document.getElementById('paCmax'); if (ci && document.activeElement !== ci) ci.value = f.cmin; if (cx && document.activeElement !== cx) cx.value = f.cmax;
+      }
+      function syncFilters() {
+        geoFill();
+        paSummary();
+        document.getElementById('paChips').innerHTML = '<button class="pa-chip' + (PA.f.subs.length ? '' : ' on') + '" data-s="">All</button>' + SUBS.map(function (s) { return '<button class="pa-chip' + (PA.f.subs.indexOf(s.k) >= 0 ? ' on' : '') + '" data-s="' + s.k + '"><i style="background:' + s.c + '"></i>' + s.k + '</button>'; }).join('');
+        document.querySelectorAll('#paChips .pa-chip').forEach(function (b) { b.onclick = function () { var s = b.dataset.s; if (!s) PA.f.subs = []; else { var i = PA.f.subs.indexOf(s); if (i >= 0) PA.f.subs.splice(i, 1); else PA.f.subs.push(s); } refreshFilters(); }; });
+        document.getElementById('paMatch').value = PA.f.match; document.getElementById('paFrom').value = PA.f.from; document.getElementById('paTo').value = PA.f.to;
+        document.querySelectorAll('#paTabs .d-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.t === PA.tab); });
+        var mp = PA.tab === 'map'; ['paSt'].forEach(function (id) { var el = document.getElementById(id); if (!el) return; (el.closest('label') || el).classList.toggle('pa-hide', mp); }); var pd = document.querySelector('.pa-dd[data-dd=per]'); if (pd) pd.classList.toggle('pa-hide', mp); var mi = document.getElementById('paMapInfo'); if (mi) mi.style.display = mp ? '' : 'none';
+      }
+      function refreshFilters() { syncFilters(); renderTab(); }
+      function renderTab() {
+        var board = document.getElementById('paBoard'), mp = document.getElementById('paMapPane'); if (!board) return;
+        Object.keys(PA.ch).forEach(function (k) { PA.ch[k].destroy(); delete PA.ch[k]; });
+        if (PA.tab === 'map') { board.style.display = 'none'; mp.style.display = ''; mapSync(); if (window.updateKpis) updateKpis(); if (window.renderZAnalytics) renderZAnalytics(true); return; }
+        mp.style.display = 'none'; board.style.display = '';
+        var cs = CARDS.filter(function (c) { return c.tab === PA.tab; }), h = '';
+        if (PA.tab === 'ov') h += '<div class="d-kpis pa-kpis">' + kpis().map(function (k) { return '<div class="d-kpi ' + k.c + '" data-go="' + k.go[0] + '" data-card="' + k.go[1] + '" role="link" tabindex="0"><div class="d-kpi-label">' + k.l + '</div><div class="d-kpi-row"><div class="d-kpi-val">' + k.v + (k.u ? '<small>' + k.u + '</small>' : '') + '</div>' + spark(k.s, k.col) + '</div>' + k.d + '<div class="pa-kgo">View details &rarr;</div></div>'; }).join('') + '</div><div class="d-card d-s12" style="margin-bottom:12px;"><div class="d-card-hd"><div><div class="d-card-title">Priority insights</div><div class="d-card-note">Worked out from the figures for your filters and scope.</div></div></div><div class="d-insights">' + insights().map(function (i, n) { return '<div class="d-insight ' + i.cls + '"><div class="d-insight-tag">' + i.tag + '</div><div class="d-insight-text">' + i.t + '</div><button class="d-link" data-go="' + i.tab + '" data-card="' + i.card + '">' + i.a + ' &rarr;</button></div>'; }).join('') + '</div></div>';
+        h += '<div class="d-grid">' + cs.map(function (c) { return '<div class="d-card d-s' + c.s + '" id="pc-' + c.id + '"></div>'; }).join('') + '</div><div class="d-foot">All figures are generated sample data for design review. The same cards will read the live URN, returns and trade registers.</div>';
+        board.innerHTML = h;
+        board.onclick = function (e) { var sg = e.target.closest && e.target.closest('.sg'); if (sg) { var cid = sg.closest('[id^=pc-]').id.slice(3); openList(segFor(cid, PA.st[cid] || {}, { label: sg.dataset.r, col: sg.dataset.c })); return; } var co = e.target.closest && e.target.closest('.pa-co'); if (co) { e.preventDefault(); openCompany(+co.dataset.cid); return; } var dr = e.target.closest && e.target.closest('[data-dr]'); if (dr) { applyDrill(dr.dataset.k, dr.dataset.dr); return; } var a = e.target.closest && e.target.closest('[data-go]'); if (!a) return; e.preventDefault(); var card = a.dataset.card; paTab(a.dataset.go); if (card) paFlash(card); };
+        cs.forEach(function (c) { try { renderCard(c); } catch (e) { var el = document.getElementById('pc-' + c.id); if (el) el.innerHTML = '<div class="d-empty">This card could not be drawn: ' + esc(e.message) + '</div>'; if (window.console) console.error(c.id, e); } });
+      }
+      function paTab(t) { PA.tab = t; syncFilters(); renderTab(); window.scrollTo(0, 0); }
+      function wireMapTiles() {
+        var bd = document.getElementById('paBoard'); if (bd) bd.onkeydown = function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-go]')) { e.preventDefault(); e.target.click(); } };
+        [['kpiCompanies', ['reg', 'r_subs']], ['kpiURNs', ['reg', 'r_time']], ['kpiOnTime', ['comp', 'p_heat']], ['kpiNonFilers', ['comp', 'p_names']]].forEach(function (p) {
+          var e = document.getElementById(p[0]), t = e && e.closest('.kpi-tile'); if (!t || t._pa) return; t._pa = 1; t.style.cursor = 'pointer'; t.title = 'Open the chart for this number'; t.onclick = function () { paTab(p[1][0]); paFlash(p[1][1]); };
+        });
+        var ld = document.getElementById('kpiLD'), lt = ld && ld.closest('.kpi-tile'); if (lt && !lt._pa) { lt._pa = 1; lt.style.cursor = 'pointer'; lt.title = 'Open Investigations'; lt.onclick = function () { showZScreen('investigations', document.getElementById('znav-investigations')); }; }
+      }
+      var ddWired = false;
+      function wireDropdowns() {
+        if (ddWired) return; ddWired = true;
+        document.addEventListener('click', function (e) {
+          var cl = e.target.closest && e.target.closest('.pa-clr');
+          if (cl) { var f = PA.f, k = cl.dataset.clr; if (k === 'sub') { f.subs = []; f.match = 'any'; } else if (k === 'per') { f.from = 0; f.to = 4; } else if (k === 'q') f.q = 'auto'; else if (k === 'pl') { f.rg = ''; f.st = ''; f.zn = ''; mapPush('rg'); return; } else { f.fs = ''; f.cmin = ''; f.cmax = ''; } refreshFilters(); return; }
+          var dd = e.target.closest && e.target.closest('.pa-dd'), t = e.target.closest && e.target.closest('.pa-trig'), was = dd && dd.classList.contains('open');
+          document.querySelectorAll('.pa-dd.open').forEach(function (x) { if (x !== dd || t) x.classList.remove('open'); });
+          if (t && dd && !was) { dd.classList.add('open'); var pn = dd.querySelector('.pa-panel'); pn.style.left = ''; pn.style.right = ''; var r = pn.getBoundingClientRect(); if (r.right > window.innerWidth - 8) { pn.style.left = 'auto'; pn.style.right = '0'; } }
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.querySelectorAll('.pa-dd.open').forEach(function (x) { x.classList.remove('open'); }); });
+      }
+      function paOpen() {
+        wireDropdowns(); wireMapTiles(); if (!ALL) ALL = gen(); if (!PA.built) { shell(); PA.built = true; } syncFilters(); renderTab(); }
+      window.paRefresh = function () { var a = document.getElementById('zscreen-analytics'); if (ALL && a && a.style.display !== 'none' && !PA.syncing) { geoFill(); renderTab(); } };
+      window.paOpen = paOpen; window.paTab = paTab; window.PA_DEBUG = function () { return { PA: PA, CARDS: CARDS, n: ALL && ALL.length }; };
+
+
+      /* tooltip for the (i) icons: one floating popover, placed beside the icon so it never covers the chart title */
+      (function () {
+        var tip = null, cur = null;
+        function el() { if (!tip) { tip = document.createElement('div'); tip.id = 'paTip'; tip.setAttribute('role', 'tooltip'); document.body.appendChild(tip); } return tip; }
+        function show(i) {
+          var t = el(), txt = i.getAttribute('data-tip') || '', hint = '', k = txt.indexOf(' Click a bar');
+          if (k > 0) { hint = txt.slice(k + 1); txt = txt.slice(0, k); }
+          t.innerHTML = '<b>How to read this</b><p>' + esc(txt) + '</p>' + (hint ? '<p>' + esc(hint) + '</p>' : '');
+          t.style.display = 'block'; t.className = '';
+          var r = i.getBoundingClientRect(), w = t.offsetWidth, h = t.offsetHeight, left = Math.max(12, Math.min(r.left - 16, window.innerWidth - w - 12)), top = r.bottom + 10;
+          if (top + h > window.innerHeight - 8 && r.top - h - 10 > 8) { top = r.top - h - 10; t.className = 'up'; }
+          t.style.left = left + 'px'; t.style.top = top + 'px'; t.style.setProperty('--ax', Math.max(10, Math.min(w - 24, r.left + r.width / 2 - left - 5)) + 'px');
+          if (cur) cur.classList.remove('open'); cur = i; i.classList.add('open');
+        }
+        function hide() { if (tip) tip.style.display = 'none'; if (cur) cur.classList.remove('open'); cur = null; }
+        document.addEventListener('mouseover', function (e) { var i = e.target.closest && e.target.closest('.pa-i'); if (i) show(i); });
+        document.addEventListener('mouseout', function (e) { var i = e.target.closest && e.target.closest('.pa-i'); if (i && !(e.relatedTarget && i.contains(e.relatedTarget))) hide(); });
+        document.addEventListener('focusin', function (e) { var i = e.target.closest && e.target.closest('.pa-i'); if (i) show(i); });
+        document.addEventListener('focusout', function (e) { if (e.target.closest && e.target.closest('.pa-i')) hide(); });
+        document.addEventListener('click', function (e) { var i = e.target.closest && e.target.closest('.pa-i'); if (i) { if (cur === i && tip.style.display === 'block' && e.detail > 1) hide(); else show(i); } else hide(); });
+        window.addEventListener('scroll', hide, true);
+      })();
+      var orig = showZScreen;
+      showZScreen = function (id, el) { orig(id, el); document.documentElement.classList.toggle('dash-flow', id === 'analytics'); window.scrollTo(0, 0); if (id === 'analytics') paOpen(); };
+      if (window.Chart) { Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"; Chart.defaults.font.size = 11; Chart.defaults.color = '#5A6474'; }
+    })();
   </script>
 </body>
 
