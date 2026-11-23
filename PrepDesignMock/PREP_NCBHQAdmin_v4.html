@@ -4751,7 +4751,7 @@
           var hasY2 = m.series.some(function (s) { return s.y === 'y2'; });
           var ds = m.series.map(function (s, i) {
             var line = s.t === 'line' || kind === 'line';
-            return { type: s.t || (kind === 'line' ? 'line' : 'bar'), label: s.n, data: s.d, backgroundColor: s.pc || s.c || P[i % P.length], borderColor: s.c || P[i % P.length], borderWidth: line ? 2 : 0, borderRadius: 3, tension: .3, pointRadius: line ? 3 : 0, borderDash: s.dash || [], yAxisID: s.y || 'y', order: line ? 0 : 1, fill: false, maxBarThickness: 34, stack: s.stk, tip: s.tip };
+            return { type: s.t || (kind === 'line' ? 'line' : 'bar'), label: s.n, data: s.d, backgroundColor: s.pc || s.c || P[i % P.length], borderColor: s.c || P[i % P.length], borderWidth: line ? 2 : 0, borderRadius: 3, tension: .3, pointRadius: line ? 3 : 0, borderDash: s.dash || [], yAxisID: s.y || 'y', order: line ? 0 : 1, fill: false, maxBarThickness: 34, stack: s.stk, tip: s.tip, pointHitRadius: 8 };
           });
           var vs = { grid: { color: grid }, stacked: stacked, beginAtZero: !m.noZero, title: m.vt ? { display: true, text: m.vt } : undefined };
           if (m.log) vs.type = 'logarithmic';
@@ -4760,7 +4760,7 @@
           var cs = { grid: { display: false }, stacked: stacked };
           var sc = isH ? { x: vs, y: cs } : { x: cs, y: vs };
           if (hasY2) sc.y2 = { position: 'right', grid: { display: false }, title: m.y2t ? { display: true, text: m.y2t } : undefined };
-          cfg = { type: 'bar', data: { labels: m.labels, datasets: ds }, options: { onClick: (m.drill || m.seg) ? function (e, els) { if (!els.length) return; var i = els[0].index; if (m.drill === 'company') openCompany(m.cids[i]); else if (m.seg) openList(m.seg({ label: m.labels[i], idx: i })); else applyDrill(m.drill, m.labels[i]); } : undefined, onHover: (m.drill || m.seg) ? function (e, els) { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; } : undefined, responsive: true, maintainAspectRatio: false, indexAxis: isH ? 'y' : 'x', interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: m.series.length > 1, position: 'bottom', labels: { boxWidth: 10, usePointStyle: true } }, tooltip: { callbacks: { label: function (c) { if (c.dataset.tip) return c.dataset.tip[c.dataIndex] || ''; var v = c.parsed[isH ? 'x' : 'y']; return c.dataset.label + ': ' + fm(v) + (m.pctAxis ? '%' : ''); } } } }, scales: sc } };
+          cfg = { type: 'bar', data: { labels: m.labels, datasets: ds }, options: { onClick: (m.drill || m.seg) ? function (e, els, chart) { if (chart && chart.getElementsAtEventForMode && m.series && m.series.length > 1) els = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true); if (!els.length) return; var i = els[0].index, di = els[0].datasetIndex || 0; if (m.drill === 'company') openCompany(m.cids[i]); else if (m.seg) openList(m.seg({ label: m.labels[i], idx: i, ds: m.series && m.series[di] ? m.series[di].n : '' })); else applyDrill(m.drill, m.labels[i]); } : undefined, onHover: (m.drill || m.seg) ? function (e, els) { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; } : undefined, responsive: true, maintainAspectRatio: false, indexAxis: isH ? 'y' : 'x', interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: m.series.length > 1, position: 'bottom', labels: { boxWidth: 10, usePointStyle: true } }, tooltip: { callbacks: { label: function (c) { if (c.dataset.tip) return c.dataset.tip[c.dataIndex] || ''; var v = c.parsed[isH ? 'x' : 'y']; return c.dataset.label + ': ' + fm(v) + (m.pctAxis ? '%' : ''); } } } }, scales: sc } };
         }
         if (PA.ch[id]) PA.ch[id].destroy();
         PA.ch[id] = new Chart(cv, cfg);
@@ -4780,7 +4780,7 @@
         var tb = m.kind !== 'html' && m.kind !== 'table' && m.kind !== 'heat';
         var view = (m.kind === 'table' || st.view === 'table') ? 'table' : 'chart';
         var t = autoTable(m);
-        host.innerHTML = '<div class="pa-hd"><div class="pa-ttl"><div class="d-card-title">' + cd.t + (cd.n ? ' <span class="pa-i" tabindex="0" role="button" aria-label="How to read this chart" data-tip="' + (String(cd.n) + ((cd.opts || []).length ? ' The options on this card work inside the main filters at the top. Reset chart puts them back.' : '') + (m.drill === 'company' ? ' Click a bar or a company name to open that company and take action.' : m.seg ? ' Click a bar, a row name or a cell to open the list of companies behind it.' : m.drill ? ' Click a bar or a place name to filter the whole board to it.' : '')).replace(/"/g, '&quot;') + '">i</span>' : '') + '</div><div class="d-card-note pa-find">' + insightFor(cd, m, st) + '</div>' + (mainTags().length ? '<div class="pa-mf"><span>Main filters</span>' + mainTags().map(function (x) { return '<em>' + esc(x) + '</em>'; }).join('') + '</div>' : '') + '</div>' +
+        host.innerHTML = '<div class="pa-hd"><div class="pa-ttl"><div class="d-card-title">' + cd.t + (cd.n ? ' <span class="pa-i" tabindex="0" role="button" aria-label="How to read this chart" data-tip="' + (String(cd.n) + ((cd.opts || []).length ? ' The options on this card work inside the main filters at the top. Reset chart puts them back.' : '') + (m.drill === 'company' ? ' Click a bar or a company name to open that company and take action.' : m.seg ? ' Click a bar, a row name or a cell to open the list of companies behind it.' : m.drill ? ' Click a bar or a place name to filter the whole board to it.' : '')).replace(/"/g, '&quot;') + '">i</span>' : '') + '</div><div class="d-card-note pa-find">' + insightFor(cd, m, st) + '</div>' + (mainTags().length ? '<div class="pa-mf" title="Main filters applied to this chart">' + mainTags().map(function (x) { return '<em>' + esc(x) + '</em>'; }).join('') + '</div>' : '') + '</div>' +
           ((cd.opts || []).length ? '<div class="pa-tbar">' + opts(cd, st) + '<button type="button" class="pa-tb-reset"' + ((cd.opts || []).some(function (o) { return String(st[o.k]) !== String(o.d); }) || st.view === 'table' ? '' : ' style="display:none;"') + '>Reset chart</button></div>' : '') +
           '<div class="pa-act">' + (tb || m.kind === 'heat' ? seg(cd.id, view) : '') + (t ? '<button class="d-rowbtn pa-csv" title="Download CSV">CSV</button>' : '') + '</div></div>' + '<div class="pa-body"></div>' + (m.foot ? '<div class="d-card-note" style="margin-top:8px;">' + m.foot + '</div>' : '');
         var body = host.querySelector('.pa-body');
@@ -5265,18 +5265,27 @@
           case 'k_zone': case 't_hub': case 'x_gap': return placeSeg(by, L);
           case 'p_heat': return placeSeg(by, L, null, q >= 0 ? q : null);
           case 'p_list': return by === 'sub' ? subSeg(L, null, 'not filing in ' + QL[curQ()], '2') : placeSeg(by, L, C || null, null, '2');
+          case 'r_time': {
+            var yr = x.idx, nm = x.ds || '', g = o.g, mm = o.m, kind;
+            var gf = g === 'sub' ? function (c) { return c.subs.indexOf(nm) >= 0; } : g === 'zone' ? function (c) { return c.zone === nm; } : g === 'region' ? function (c) { return c.region === nm; } : function () { return true; };
+            if (g === 'all' && (mm === 'both' || mm === 'add')) kind = nm === 'Active registrants' ? 'act' : nm === 'Cancellations' ? 'can' : 'add';
+            else kind = mm === 'can' ? 'can' : mm === 'act' ? 'act' : mm === 'net' ? 'net' : 'add';
+            var KL = { add: 'registered', can: 'cancelled', act: 'active at year end', net: 'registered or cancelled' };
+            return { title: RFY[yr] + ' · ' + KL[kind] + (g !== 'all' ? ' · ' + nm : ''), sub: 'Companies ' + KL[kind] + ' in ' + RFY[yr], cancelled: true, status: '', apply: null,
+              filter: function (c) { if (!gf(c)) return false; return kind === 'add' ? c.rf === yr : kind === 'can' ? c.cf === yr : kind === 'act' ? (c.rf <= yr && (c.cf == null || c.cf > yr)) : (c.rf === yr || c.cf === yr); } };
+          }
           case 'r_mix': { var k = x.idx; return { title: L, sub: 'Registrants by number of substances held', filter: function (c) { return (c.subs.length >= 3 ? 2 : c.subs.length - 1) === k; }, status: '', apply: null }; }
         }
         return null;
       }
-      var SEGCARDS = ['r_subs', 'k_sub', 'u_sub', 't_sub', 'r_zone', 'k_zone', 't_hub', 'x_gap', 'x_enf', 'p_heat', 'p_list', 'r_mix'];
+      var SEGCARDS = ['r_time', 'r_subs', 'k_sub', 'u_sub', 't_sub', 'r_zone', 'k_zone', 't_hub', 'x_gap', 'x_enf', 'p_heat', 'p_list', 'r_mix'];
 
       /* ---------- the company list panel ---------- */
       var liEl = null, liOv = null, LS = null;
       function closeList() { if (liEl) liEl.classList.remove('open'); if (liOv) liOv.classList.remove('open'); }
       function listRows() {
         var sp = LS.sp, f = PA.f.to, q = sp.q != null ? sp.q : curQ(), subs = selSubs();
-        var all = pool(false).filter(sp.filter).map(function (c) { return { c: c, cap: capC(c, subs, f), use: useC(c, subs, f, 1), miss: c.st ? missed(c, f) : 0, stt: c.st ? c.st[q] : null }; });
+        var all = pool(!!sp.cancelled).filter(sp.filter).map(function (c) { return { c: c, cap: capC(c, subs, f), use: useC(c, subs, f, 1), miss: c.st ? missed(c, f) : 0, stt: c.st ? c.st[q] : null }; });
         var cnt = { '': all.length, '0': 0, '1': 0, '2': 0 }; all.forEach(function (r) { if (r.stt != null) cnt[String(r.stt)]++; });
         var needle = LS.find.toLowerCase(), rows = all.filter(function (r) { return (LS.st === '' || String(r.stt) === LS.st) && (!needle || (r.c.n + ' ' + r.c.zone + ' ' + r.c.subs.join(' ')).toLowerCase().indexOf(needle) >= 0); });
         rows.sort(function (a, b) { return LS.sort === 'name' ? (a.c.n < b.c.n ? -1 : 1) : LS.sort === 'use' ? b.use - a.use : LS.sort === 'miss' ? b.miss - a.miss || b.cap - a.cap : b.cap - a.cap; });
