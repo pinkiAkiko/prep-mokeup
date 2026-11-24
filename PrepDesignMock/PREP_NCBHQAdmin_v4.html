@@ -1497,6 +1497,10 @@
           <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><span class="nav-label">Analytics</span><span
             class="nav-tooltip">Analytics</span>
         </div>
+        <div class="nav-item" id="znav-analytics2" onclick="window.location.href='../PREP_NCBHQ_PrecursorInsights_v4.html'">
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div><span class="nav-label">Analytics 2</span><span
+            class="nav-tooltip">Analytics 2</span>
+        </div>
       </div>
     </aside>
 
@@ -5492,6 +5496,14 @@
       showZScreen = function (id, el) { orig(id, el); document.documentElement.classList.toggle('dash-flow', id === 'analytics'); window.scrollTo(0, 0); if (id === 'analytics') paOpen(); };
       if (window.Chart) { Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif"; Chart.defaults.font.size = 11; Chart.defaults.color = '#5A6474'; }
     })();
+  </script>
+  <script>
+    // Open the screen named in the URL hash, e.g. #analytics, so other pages can link straight to it.
+    window.addEventListener('load', function () {
+      var h = (location.hash || '').replace('#', '');
+      var el = h && document.getElementById('znav-' + h);
+      if (el && h !== 'analytics2') showZScreen(h, el);
+    });
   </script>
 </body>
 
