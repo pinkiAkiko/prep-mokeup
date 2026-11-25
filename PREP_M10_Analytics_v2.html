@@ -626,29 +626,44 @@ table.t{width:100%;border-collapse:collapse;font-size:12.5px}
 .t tr.click{cursor:pointer}
 .sm{font-size:11.5px;color:var(--muted)}
 .pa{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-/* import and export: paired bars from one baseline */
-.trd-lg{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center;font-size:12px;color:var(--sub);margin-bottom:6px}
-.trd-lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.trd-r{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr) 56px;gap:0 10px;align-items:center;padding:7px 0 7px 8px;border-top:1px solid var(--b2);font-size:12.5px}
-.trd-r:not(.trd-ax):hover,.trd-r:not(.trd-ax):focus-visible{background:var(--b3);outline:0}
-.trd-ax{border-top:0;padding:2px 0 4px 8px;color:var(--muted);font-size:11px}
-.trd-n{display:flex;align-items:center;gap:6px;min-width:0;line-height:1.3}
-.trd-b{display:block;padding-right:16%}
-.trd-plot{display:block;position:relative;background-image:linear-gradient(to right,var(--b2) 1px,transparent 1px);background-size:calc(100%/var(--n)) 100%;border-right:1px solid var(--b2)}
-.trd-ticks{height:14px;background:none;border-right:0}
-.trd-ticks span{position:absolute;top:0;transform:translateX(-50%);font-size:11px;color:var(--muted)}
-.trd-ticks span:first-child{transform:none}
-.trd-bar{display:flex;align-items:center;gap:6px;height:12px;white-space:nowrap}
-.trd-bar+.trd-bar{margin-top:2px}
-.trd-bar i{display:block;flex:none;height:10px;border-radius:0 4px 4px 0}
-.trd-bar b{font-weight:400;font-size:11.5px;color:var(--sub)}
-.trd-flag{box-shadow:inset 3px 0 0 var(--orange)}
-.trd-lg i.trd-fk{width:3px;height:12px;border-radius:0;background:var(--orange);margin-right:6px;vertical-align:-2px}
-.trd-net{text-align:right;font-variant-numeric:tabular-nums}
-.trd-foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--b2)}
+.tnote{padding:2px 16px 14px;margin:0}
+section.panel:has(>.tdo){display:flex;flex-direction:column}
+.tdo{flex:1 1 auto;display:flex;flex-direction:column}
+.tdo>div:first-child{flex:1 1 auto}
+.dlg-back{position:fixed;inset:0;z-index:500;background:rgba(26,35,50,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.dlg{background:#fff;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.3);width:min(440px,100%);padding:20px 22px}
+.dlg h2{margin:0 0 4px;font-size:16px;font-weight:600}
+.dlg .fl{display:block;margin:12px 0 4px}
+.dlg .fi{width:100%;min-height:38px;padding:0 10px;font-size:16px;border:1px solid var(--line);border-radius:3px}
+.dlg .fi:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.sd-err{min-height:18px;margin-top:4px;color:var(--red);font-size:12px}
+.dlg-acts{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.stabs{display:flex;overflow-x:auto;margin:0 0 12px;background:#fff;border:1px solid var(--b1);border-radius:4px}
+.stabs button{flex:0 0 auto;min-height:40px;padding:0 16px;border:0;border-bottom:2px solid transparent;background:none;font-size:13px;color:var(--sub);cursor:pointer;white-space:nowrap}
+.stabs button:hover{color:var(--navy);background:var(--b3)}
+.stabs button.on{color:var(--navy);font-weight:600;border-bottom-color:var(--blue);background:var(--sel)}
+.stabs button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.sintro{margin:0 2px 10px;font-size:13px}
+.scards{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:12px}
+@media(min-width:1280px){.scards{grid-template-columns:repeat(12,minmax(0,1fr))}.scards>div{grid-column:span 6}.scards>div.w4{grid-column:span 4}.scards>div.w5{grid-column:span 5}.scards>div.w7{grid-column:span 7}.scards>div.w8{grid-column:span 8}}
+.scards>div{display:flex;min-width:0}
+.scards{grid-auto-flow:dense}
+@media(min-width:1280px){.scards>div.wide{grid-column:1/-1}
+.scards>div.lst>.panel{contain:size;min-height:380px}
+.scards>div.lst .pl{flex:1 1 0;min-height:0;overflow-y:auto}}.scards>div>.panel{flex:1;min-width:0}
+.sc-cap{padding:8px 14px 0}
+.scards .panel{display:flex;flex-direction:column}
+.sc-t{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.sc-t .frame{flex:1 1 0;height:0;min-height:340px;overflow:auto}
+.sc-t .t{height:100%}
+.sc-t .t tr.sp{height:100%}
+.sc-t .t tr.sp td{padding:0;border:0}
+.sc-t .t tfoot td{position:sticky;bottom:0;z-index:3;background:var(--hd)}
+.sc-t .t thead th{position:sticky;top:0;z-index:3}
+@media(max-width:767px){.stabs button{min-height:44px}}
 /* long tables sit in a fixed-height box and scroll inside it, with the header row kept in view */
-#comboBox .frame,#tw-hqPrem .frame{max-height:420px;overflow:auto}
-#comboBox .t thead th,#tw-hqPrem .t thead th{position:sticky;top:0;z-index:1}
+#tw-hqPrem .frame{max-height:420px;overflow:auto}
+#tw-hqPrem .t thead th{position:sticky;top:0;z-index:3}
 .tw-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--b2)}
 .tw-bar input{min-height:32px;border:1px solid var(--line);border-radius:3px;padding:0 8px;width:220px;max-width:100%;font-size:16px}
 @media(min-width:768px){.tw-bar input{font-size:12.5px}}
@@ -784,7 +799,7 @@ textarea.fi{min-height:56px;padding:6px 8px}
 .ovw summary{padding:8px 14px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--sub)}
 .t.ov td,.t.ov th{padding:4px 10px}
 .t.ov td:first-child,.t.ov th:first-child{position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 var(--b1)}
-.t.ov th:first-child{background:var(--hd);z-index:2}
+.t.ov th:first-child{background:var(--hd);z-index:4}
 .ovc{min-width:30px;min-height:26px;border:1px solid var(--b1);border-radius:2px;background:#fff;cursor:pointer;font-weight:600;font-size:12px}
 .ovc.s3{background:#FBEAE7;border-color:#F0C7C1;color:var(--red)}.ovc.s2{background:#FDF8EE;border-color:#EFD9AE;color:#8A5A00}
 .ovc.on{outline:2px solid var(--blue-d)}
@@ -817,6 +832,31 @@ textarea.fi{min-height:56px;padding:6px 8px}
 #map path:hover{opacity:.85}
 #map path.dim{opacity:.6}
 .mapctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pl{padding:14px 16px}
+.pl-f.c2{background:linear-gradient(90deg,#F2B27A,#C2611C)}
+.pl-f.c3{background:linear-gradient(90deg,#8ED3C6,#2F8F7E)}
+.pl{display:grid;grid-template-columns:fit-content(230px) minmax(0,1fr);column-gap:12px;align-content:space-around}
+.pl-r{display:contents}
+.pl-n,.pl-bars{padding:5px 0;align-self:center}
+.pl-n{text-align:right;font-size:12.5px;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-bars{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pl-t{position:relative;display:block;height:22px;border-radius:11px;background:var(--b2)}
+.pl-t.thin{height:12px;border-radius:6px}
+.pl-f{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#5B8FD6,#1E4A8A)}
+.pl-f.cb{background:linear-gradient(90deg,#E39A5B,#B4540F)}
+.pl-f.c1{background:linear-gradient(90deg,#C5CCD6,#8B98A8)}
+.pl-v{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12px;color:var(--navy)}
+.pl-v.in{color:#fff}
+.pl-v.in .pl-s{color:rgba(255,255,255,.8)}
+.pl-t.thin .pl-v{font-size:11px}
+.pl-v b{font-weight:700}
+.pl-s{color:var(--muted);margin-left:2px}
+.pl-lg{grid-column:1/-1;display:flex;gap:14px;margin:0 0 8px 0;font-size:12px;color:var(--sub)}
+.pl-lg i{display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:6px;background:linear-gradient(90deg,#5B8FD6,#1E4A8A)}
+.pl-lg i.c1{background:linear-gradient(90deg,#C5CCD6,#8B98A8)}
+@media(max-width:600px){.pl{grid-template-columns:minmax(0,1fr)}.pl-n{text-align:left;padding-bottom:0}}
+.rng{min-height:32px;border:1px solid var(--line);border-radius:3px;background:#fff;font-size:12.5px;padding:0 4px;width:auto}
+@media(max-width:767px){.rng{min-height:44px;font-size:16px}}
 .msub{position:relative}
 .msub summary{list-style:none;cursor:pointer}
 .msub summary::-webkit-details-marker{display:none}
@@ -854,6 +894,10 @@ textarea.fi{min-height:56px;padding:6px 8px}
 .mm>div{padding:8px 10px;border-right:1px solid var(--b2);border-bottom:1px solid var(--b2)}
 .mm .l{font-size:11.5px;color:var(--sub)}.mm .v{font-size:17px;font-weight:600}.mm .d{font-size:11px;color:var(--muted)}
 .cv{position:relative;height:280px}
+.pbc{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
+.pbc .cv{flex:1 1 auto;height:auto}
+.pbc .cv canvas{position:absolute;left:0;top:0}
+.scards .panel>.pl{flex:1 1 auto}
 
 /* report builder */
 .rb{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
@@ -1287,7 +1331,7 @@ document.getElementById('side').addEventListener('click',e=>{const b=e.target.cl
 let charts=[];function killCharts(){charts.forEach(c=>c.destroy());charts=[]}
 function mkChart(el,cfg){const old=Chart.getChart(el);if(old)old.destroy();const c=new Chart(el,cfg);charts.push(c);return c}
 function go(){killCharts();nav();const m=document.getElementById('main');
-  if(ST.view==='dash')m.innerHTML=ST.role==='hq'?dashHQ():ST.role==='region'?dashRegion():dashZone();
+  if(ST.view==='dash')m.innerHTML=withTabs(ST.role==='hq'?dashHQ():ST.role==='region'?dashRegion():dashZone());
   else if(ST.view==='reports'||ST.view==='catalog')m.innerHTML=catalog();
   else if(ST.view==='report')m.innerHTML=reportView();
   else if(ST.view==='saved')m.innerHTML=savedView();
@@ -1313,7 +1357,7 @@ function periodBar(){const qs=[...Array(NQ)].map((_,i)=>i).reverse(),fys=uniq(qs
   if(PER.view==='custom'){const o=k=>[...qs].reverse().map(i=>`<option value="${i}" ${PER[k]===i?'selected':''}>${QLAB(i)}</option>`).join('');pick=`<select data-per="from" aria-label="From">${o('from')}</select><span class="sm">to</span><select data-per="to" aria-label="To">${o('to')}</select>`}
   return `<div class="pbar"><span class="pl">Period</span><span class="seg2">${Object.entries(V).map(([k,v])=>`<button class="${PER.view===k?'on':''}" data-pv="${k}">${v}</button>`).join('')}</span>${pick}
    <span class="pl">Compare with</span><span class="seg2">${Object.entries(C).map(([k,v])=>`<button class="${PER.cmp===k?'on':''}" data-pc="${k}">${v}</button>`).join('')}</span>
-   <span class="pnow"><b>${perLabel(CUR)}</b>${CMPOK?` against ${perLabel(CMP)}`:PER.cmp==='none'?'':' · no earlier data'}</span></div>`}
+   <span class="pnow"><b>${perLabel(CUR)}</b>${CMPOK?` against ${perLabel(CMP)}`:PER.cmp==='none'?'':' · no earlier data'}</span></div><!--pb-->`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pv],[data-pc]');if(!b)return;if(b.dataset.pv)PER.view=b.dataset.pv;else PER.cmp=b.dataset.pc;periodChanged()});
 document.addEventListener('change',e=>{const k=e.target.dataset.per;if(!k)return;PER[k]=+e.target.value;periodChanged()});
 function periodChanged(){applyPeriod();if(RP&&ST.view==='report'&&!RP.col)RP.cmp=PER.cmp;const y=window.scrollY;go();requestAnimationFrame(()=>window.scrollTo(0,y))}
@@ -1386,11 +1430,9 @@ function dashHQ(){const L=lists(),hi=L.att.filter(x=>x.m.sev===3).length,act=Obj
 <path id="st-wb" data-region="Eastern" data-name="West Bengal" d="m 425.187,373.7723 0.59,0.56319 0.104,0.73447 -1.028,-0.2821 0.334,-1.01556 z m 7.056,-0.16825 1.44,1.15862 -1.272,0.0433 -0.168,-1.20194 z m -2.328,-0.43625 0.59,0.55413 -0.333,0.68509 -0.6,-0.50878 0.343,-0.73044 z m -3.901,-0.27202 1.053,0.82715 -0.785,0.86343 -0.838,-0.87048 0.301,-1.15056 0.269,0.33046 z m 4.913,-0.32643 0.547,1.38531 -0.965,0.33852 0.313,-0.55614 -0.516,-0.59845 0.621,-0.56924 z m 4.058,0.26094 0.399,0.45438 -0.605,0.0856 -0.085,-1.1284 0.291,0.58838 z m -7.802,-0.82413 -0.012,1.35307 -0.813,-0.50577 0.825,-0.8473 z m 8.195,-0.62364 0.132,0.93798 0.453,0.37781 0.342,0.96014 -0.603,0.0705 -0.003,-0.59039 -0.564,-0.51987 -0.462,-1.12437 0.705,-0.11183 z m -3.761,0.19847 -0.165,0.94 -0.816,-0.48662 0.981,-0.45338 z m -10.337,-0.21258 0.733,0.39998 0.251,0.9269 -0.896,0.88962 -0.088,-2.2165 z m 2.993,-0.0685 0.348,0.82011 -0.482,1.06089 -0.298,-1.15862 0.432,-0.72238 z m -5.224,-0.26598 0.253,0.46547 -0.242,0.41307 0.328,0.36069 0.063,0.53498 -0.245,0.92085 -0.642,-1.93641 0.485,-0.75865 z m 17.893,-0.0151 0.749,1.75607 -0.909,0.59644 -1.101,-1.41151 0.226,-0.55815 1.035,-0.38285 z m -10.681,0.10579 0.558,-0.12392 0.314,0.7123 -0.966,0.96921 -0.539,-1.24728 0.633,-0.31031 z m 6.993,-0.63472 1.198,1.12839 -0.407,1.42158 -1.001,-1.40344 0.21,-1.14653 z m -9.854,0.31534 0.34,0.66092 -0.364,0.97727 0.436,0.70626 -0.698,0.71734 -0.396,-1.92332 0.499,-0.80902 -0.524,-0.34053 0.345,-0.52491 0.362,0.53599 z m -4.078,-0.42012 1.035,0.17329 0.702,1.57471 -0.296,1.54651 0.413,0.53196 -0.594,0.47655 -0.713,-0.2015 -0.547,-4.10152 z m 14.994,-0.18941 0.814,0.90674 -0.902,-0.18235 0.088,-0.72439 z m -11.772,0.0322 -0.129,0.78181 0.389,0.43222 -0.487,0.3768 -0.226,-1.41754 0.453,-0.17329 z m 13.441,-0.0464 0.786,0.61054 -0.516,0.27807 -0.27,-0.88861 z m -3.74,0.0302 0.638,-0.0232 -0.547,1.16568 0.431,1.58177 -0.325,0.22165 -0.739,-0.26598 0.128,-1.60696 -0.843,0.14911 0.445,-0.93999 0.812,-0.2821 z m -5.288,-0.4564 0.789,1.08608 -0.266,0.75562 -0.646,-1.32788 0.123,-0.51382 z m 8.302,-0.10982 0.765,1.28658 -0.232,0.21661 -1.126,-1.18885 0.593,-0.31434 z m -7.727,-0.17228 0.198,0.94604 -0.368,-0.31535 -0.211,-0.48359 0.381,-0.1471 z m -2.958,0.0302 -0.025,1.16769 -0.688,0.43624 0.09,-1.13142 0.623,-0.47251 z m 5.186,-0.41711 0.902,1.0881 -0.137,0.62364 0.288,0.13601 -0.078,0.74152 -0.706,0.14609 0.397,0.62968 -1.276,-0.4443 0.166,-1.48606 0.444,-1.43468 z m -3.592,-0.0655 0.579,0.50878 0.006,1.17978 -1.11,0.36975 -0.32,-1.16668 0.845,-0.89163 z m -2.57,-0.0181 0.438,0.25288 -0.435,1.33494 -0.511,-0.97728 0.508,-0.61054 z m 12.095,-0.0131 0.354,-0.007 0.135,1.05989 -0.685,-0.56521 0.196,-0.48763 z m -3.59,0.17228 0.046,0.84429 -0.826,0.37579 0.646,-1.64625 0.134,0.42617 z m 2.372,-0.97626 0.738,0.60349 -0.251,0.73044 -1.031,0.40904 -0.266,-0.91279 0.81,-0.83018 z m -7.309,-0.0625 0.309,0.44632 -0.081,0.70424 -0.566,-0.40602 0.338,-0.74454 z m -5.435,0.12089 0.469,1.14956 0.522,0.14709 -0.063,0.44632 -0.713,0.17833 -0.162,0.806 -0.772,-0.19243 -0.398,-1.5586 1.117,-0.97627 z m 10.959,-0.46445 0.441,0.30628 0.722,2.59833 -1.421,-1.18078 0.258,-1.72383 z m -15.055,-0.22064 0.744,1.42359 -0.038,1.5717 -0.571,1.41855 0.237,0.66596 -0.954,0.54505 -1.412,-0.52591 -0.104,-0.58233 0.756,-2.37367 1.342,-2.14294 z m 13.688,0.46546 0.719,-0.80297 0.375,0.40904 -1.055,1.51729 -0.164,-0.81003 0.125,-0.31333 z m 3.94,-0.88357 1.044,0.62565 -0.267,0.93395 -1.253,-0.44733 0.476,-1.11227 z m -7.481,-0.0957 0.666,0.67301 -0.305,1.87999 -0.804,-1.78428 0.443,-0.76872 z m -1.242,0.006 0.269,0.43322 -0.422,1.20799 -0.344,-0.51181 0.497,-1.1294 z m -2.425,-0.16725 0.745,0.38688 0.169,0.70928 -0.881,0.92891 -0.937,-0.0332 0.441,-1.747 0.463,-0.24483 z m 5.628,0.11687 0.69,0.0816 0.675,0.82816 -0.477,1.76917 -1.28,-1.28557 0.392,-1.39337 z m -1.577,-0.49568 0.575,0.22668 -0.42,0.54103 -0.155,-0.76771 z m 4.115,0.0846 1.645,-0.23273 1.082,0.61256 -0.279,0.48763 -1.031,0.81809 -1.417,-1.68555 z m -2.365,-0.31736 1.588,0.27606 0.181,0.79693 -0.384,0.44531 -0.399,-0.82111 -1.084,-0.18336 0.098,-0.51383 z m 0.456,-1.08104 0.111,0.56319 0.652,0.12997 0.206,0.29519 -1.034,-0.0745 -0.389,-0.77779 0.454,-0.13601 z m -1.787,-0.89264 1.167,0.42012 -0.787,1.30673 -1.036,-0.34356 0.656,-1.38329 z m -10.857,-0.16221 -1.128,2.11776 -0.844,0.47755 0.547,-1.89107 1.425,-0.70424 z m 14.055,0.15717 1.878,0.1753 -0.12,1.68252 -0.858,0.20453 -2.031,-0.9128 0.288,-0.98634 0.843,-0.16321 z m 4.782,-0.65689 0.77,1.39236 -0.308,1.18583 -0.641,0.18941 -1.111,-2.14094 0.116,-0.77678 1.174,0.15012 z m -3.572,-0.68913 0.345,1.03067 -1.89,-0.2831 1.545,-0.74757 z m -0.608,-0.55714 0.281,0.36169 -1.328,0.37781 -0.211,0.50879 -0.499,-0.1471 0.547,-1.17776 0.757,-0.28613 0.453,0.3627 z m 0.313,-1.98376 1.24,2.285 -0.91,0.0564 -0.87,-0.88861 0.884,-0.35061 -0.703,-1.21202 0.359,0.10982 z m 2.07,0.18739 0.613,0.77174 -0.419,1.29161 -0.839,0.61458 -0.015,0.91279 0.465,0.54808 -0.236,-1.24628 0.604,-0.0423 0.185,1.56464 1.023,1.49513 -0.184,0.4443 -1.598,-0.77174 -0.493,-1.3178 -0.236,-1.60394 0.613,-0.74253 -0.771,-1.62005 0.54,0.19344 0.748,-0.49166 z m 0.975,-0.36874 1.016,1.55255 -0.269,1.47699 -1.465,-0.15918 0.613,-1.48506 -0.508,-1.25534 0.613,-0.12996 z m -6.451,0.008 1.997,0.66494 -2.217,1.99384 1.104,1.13847 -0.194,0.4967 -1.367,-0.47957 -0.57,-1.71778 1.247,-2.0966 z m 3.309,1.10925 -1.554,0.8735 -0.806,1.22814 -0.341,-0.0312 -0.418,-0.46345 2.293,-2.15 0.438,-0.0947 0.388,0.63774 z m 2.002,-1.70771 0.295,0.63473 -0.631,0.4574 -0.148,-0.41509 0.043,-0.48561 0.441,-0.19143 z m -2.824,-1.3168 0.274,0.95007 -0.57,0.35061 0.496,0.88257 -0.672,0.14206 -0.865,-0.61155 0.088,-0.53599 1.249,-1.17777 z m 0.599,-1.41251 1.054,0.0594 0.409,0.84529 0.541,0.15112 0.159,1.36214 -0.859,0.35867 0.225,1.08608 -2.129,-1.09414 0.468,-0.25994 -0.313,-2.01398 0.445,-0.49469 z m 3.004,-0.8332 -0.023,1.29464 0.831,0.63069 -0.616,0.25893 1.529,1.9888 0.036,1.15459 0.577,-0.17329 -0.719,0.60349 -0.883,-1.74801 -0.988,-0.0947 -0.367,-1.09011 0.359,-3.2381 0.264,0.41307 z m -1.904,-3.47183 -0.03,1.59184 0.614,1.44979 -0.704,0.52289 -0.52,-2.88748 0.64,-0.67704 z m 0.847,-0.54405 0.539,0.24482 0.809,2.68498 -0.819,0.44632 -0.367,2.28501 -0.725,-0.58737 -0.002,-0.94201 0.547,-0.44129 -0.578,-1.60494 0.031,-1.87294 0.565,-0.21258 z m -19.201,-107.77598 1.213,0.42517 0.229,1.39941 1.063,0.58032 1.235,-0.4564 0.772,0.38789 1.506,-0.20855 0.405,0.55815 2.264,0.54808 2.051,-1.61502 -0.192,-0.66092 0.801,-0.24986 1.257,0.0212 0.783,0.60047 0.585,-0.42013 0.84,0.98332 0.568,-0.2287 0,0 2.476,0.93092 0.105,3.70155 0.922,-1.05082 0.726,0.6589 -0.289,0.60752 0.472,0.4302 1.309,-0.37982 0.451,0.86141 0.918,0.22769 0.245,1.35609 0.607,0.66394 2.607,-0.20653 2.545,-1.16265 0.29,0.59643 1.219,0.16725 0.21,0.64883 2.085,-0.21762 1.317,0.90775 0.48,-0.0947 0.204,0.40904 -0.859,0.83219 0.393,0.20855 0.554,0.0181 0.317,-0.51483 1.101,0.42415 0.633,-0.33247 0.372,0.86645 0.687,-0.3627 1.042,0.26396 0,0 0.406,1.27449 -0.404,0.61256 0.429,0.91883 -0.325,0.14911 -0.195,2.11272 0.376,0.65387 -0.907,1.48505 0.409,-0.1471 0.219,0.42819 -1.576,0.73044 -0.024,0.52389 -0.635,0.22065 0.17,0.7526 -0.854,-0.38285 0.411,0.81003 -0.257,0.2962 -0.427,-0.269 0.501,0.74051 -0.659,0.49065 0.728,0.11586 -0.778,0.54304 0.823,0.32945 -0.322,0.20956 0,0 -0.409,-0.0544 -0.478,-0.77074 -0.065,-0.40501 -0.747,-0.20956 0.482,1.21706 -0.86,-0.0564 -0.126,0.57628 -0.394,-0.0856 0.802,0.89062 -0.761,0.42013 0.342,0.29117 0.412,-0.43323 0.419,1.01355 -1.49,0.91883 -0.023,1.30773 -0.771,-0.0544 -0.025,-0.81406 -2.174,-0.0745 -0.188,-0.86444 -0.652,0.90373 -0.962,-0.0846 -1.452,-0.8997 0.043,-0.39493 -0.493,0.0474 0.223,-0.64782 -0.88,-0.72439 -1.419,-0.3758 -0.457,-0.96619 0.132,-1.29262 -0.805,-1.09817 0.754,-0.89969 -1.116,-0.0252 0.337,-0.39998 -0.427,-0.63573 0.141,-0.77577 -1.099,0.0302 -1.605,-1.52736 -0.271,0.79592 -0.37,-0.16724 -0.471,0.56823 0.181,0.98633 0.915,0.0967 0.1,0.27001 0.482,0.0484 0.34,0.5511 -0.33,0.55917 0.868,0.44934 0.666,-0.19646 0.096,0.90372 -2.079,0.32139 -0.745,-1.09313 -0.974,-0.0766 -0.421,0.33046 0.354,0.90272 -0.802,0.10679 -0.577,-0.59442 0.05,-0.96015 -0.475,-0.29217 -0.782,0.29419 -0.259,-1.23217 -0.938,0.44128 -0.473,-1.075 0.437,-0.19041 -1.635,-1.10019 -0.08,-0.83522 -0.534,-0.0171 0.038,0.5249 -0.835,-0.17429 0.082,-0.7516 -0.721,0.16826 -0.85,-1.3964 -1.06,-0.12896 -0.42,-2.04824 -0.792,0.95209 -0.89,2.71823 0.437,0.74554 0.245,-0.96619 2.421,0.60853 0.87,2.37165 -0.791,0.24885 -0.609,-0.57427 -0.414,0.85939 -0.652,0.15516 0.192,0.33852 -1.349,0.80499 0.017,1.44072 -2.15,0.71733 -1.452,1.01858 -0.407,1.58177 0.509,0.1743 -0.255,0.88156 0.293,0.20352 -0.902,0.28612 -1.198,2.31725 0.452,0.53397 0.184,2.16612 0.724,0.53297 0.724,-0.58234 0.467,0.31031 1.284,-0.52893 0.038,0.65688 2.236,1.56968 0.599,1.00649 1.038,0.20553 -0.216,1.478 1.122,0.36471 -0.072,0.54707 1.705,1.21505 0.657,-0.17833 0.846,0.84025 1.026,0.16322 0.256,-0.62969 1.214,0.10982 -0.13,-0.67402 0.995,0.0363 0.601,1.16568 -0.465,1.42661 0.588,0.3758 -0.027,0.68711 0.941,0.92589 0.373,-0.30225 0.4,0.74152 1.793,0.25893 -1.143,0.76872 0.046,0.91984 -0.503,0.0343 0.263,0.79088 -0.51,0.39192 -1.635,-1.0216 -0.861,0.90271 -0.645,-0.43423 -0.438,0.30628 -0.896,-0.73648 -1.929,0.0806 -1.073,0.6589 -1.384,-0.78786 -1.127,0.35665 0.352,1.25837 -0.416,0.36471 0.211,1.08911 -0.342,0.673 0.361,0.33752 -1.18,1.53844 0.085,0.54204 -1.252,0.15414 -0.322,0.65588 0.452,0.42718 -0.477,0.60853 -0.999,-0.69114 -0.285,0.46949 -0.005,-0.98835 -0.745,-0.95309 -1.849,0.53901 0.753,1.73793 -0.587,0.24885 -0.24,1.03772 -0.286,-0.3768 -0.346,0.97526 -0.74,0.23071 -0.122,1.11026 -1.134,1.2624 2.873,3.71464 1.093,1.03873 1.573,0.50375 1.21,1.27952 2.416,0.14205 1.681,0.75663 0.551,1.09717 0.274,-0.69417 0.38,0.0161 0.911,0.45741 1.522,-0.10478 0.674,0.81607 -0.057,1.79032 -0.68,0.72137 0.224,1.08205 -0.325,0.12695 0.11,0.42516 0.537,-0.0232 0.033,2.33034 0.66,-0.31535 0.257,0.537 -0.754,0.15213 -0.072,1.49412 -0.616,0.003 -0.909,1.02865 -1.73,0.19042 0.539,0.98433 -0.883,0.72136 0.402,0.45841 -0.358,2.82402 0.644,0.12594 -0.242,0.8201 1.342,-0.16725 0.299,1.26643 1.752,1.64524 1.164,-0.3224 -0.158,1.22411 -0.537,-0.0333 -0.165,0.54405 0.103,1.30773 -0.603,0.35363 0.263,0.8332 -1.02,0.30527 0.48,0.99944 1.599,0.84731 0.364,-0.0222 0.079,-0.78585 0.73,0.60249 1.271,-0.12292 0.119,0.49468 1.581,-0.0917 -0.267,0.70726 -0.427,-0.19545 -0.853,1.45483 -1.063,0.68509 0.07,2.08955 -0.558,0.0433 0.444,0.29319 -0.136,0.78383 0.71,0.10579 0.387,0.7264 -0.096,0.93899 0.769,-10e-4 0.45,0.79189 -0.19,1.1012 -0.821,0.7395 0.84,1.61502 -0.561,1.63416 0.526,0.18135 -0.421,0.9279 -1.438,0.54707 -0.546,0.86242 0.32,0.60551 -0.251,2.10667 0.631,0.74857 -1.201,-0.1884 -0.4,1.7198 -1.219,1.11731 -0.11,0.73044 -1.14,-0.0856 -1.31,2.28903 0.364,1.4377 -0.795,1.59688 0.167,1.39438 -0.6,0.52692 -0.116,-0.39595 -0.669,0.0756 -0.262,1.14754 -0.707,-0.58738 0.654,-1.15459 -2.214,0.53297 -0.466,0.48158 -0.143,1.94951 -0.559,0.0252 -0.219,-1.33997 -0.833,0.22265 -1.147,0.89768 0.289,1.17071 -1.162,-0.19545 -1.129,-2.59733 0.291,-1.05485 -0.493,-0.74756 1.133,-1.43266 0.338,-1.19388 -0.437,-2.07545 -0.785,-0.72338 -2.007,-0.2962 0.739,-2.10064 -1.169,1.91727 -1.346,-0.58032 -0.548,-0.88357 -0.258,-2.75349 -0.482,-0.65487 -0.829,-0.14811 1.225,1.70469 -0.047,2.4059 1.437,1.33292 2.657,0.37781 1.116,1.93742 -2.651,1.94749 -0.192,0.0635 -1.522,3.44766 -1.07,1.29261 -0.823,0.15818 -2.096,2.22455 -0.762,-0.10578 -1.332,0.95208 -4.348,1.1012 0,0 -0.489,-0.81809 0.255,-1.40445 -0.584,-0.49368 0.015,-0.71935 -1.539,0.0191 -0.377,-0.57931 -1.878,-0.63573 -0.577,-3.17462 -1.41,-0.4302 -0.191,0.96921 -1.356,0.51181 0.023,1.075 -1.349,-0.11183 -0.676,-0.9531 0.762,-1.84775 -0.35,-1.17877 -1.264,-0.95107 -2.622,-0.26598 -0.872,-1.33191 -1.567,0.23676 0.153,-1.62509 0,0 0.927,0.0886 0.188,-0.0554 0.505,0.003 0.204,-0.55111 0.042,-0.58737 0.094,0.33147 1.451,-0.0635 0.011,-0.95209 -1.193,-0.69114 0.309,-1.62005 -1.71,-0.66193 -0.353,-1.14452 0.918,0.0262 0.196,-0.55211 -0.81,-1.67043 -2.267,-0.0766 -0.708,-2.21649 -1.646,-1.074 -0.684,0.43524 -1.894,-1.70569 0.349,-1.91021 0.633,-0.82212 -0.633,-0.60954 0.787,-0.59341 0.296,0.34557 0.708,-0.2287 0.459,-0.97828 -0.587,0.47856 -0.312,-0.53901 -1.698,-0.11083 -0.485,0.46849 -1.984,-0.88861 -1.796,0.48662 -1.307,-1.11631 -0.282,-0.96216 -1.854,-0.58233 -0.231,-0.79693 -2.553,0.32038 -1.203,-1.47799 -0.543,-0.0181 -0.109,-1.55155 1.081,-1.3843 -0.245,-0.93999 0.616,-0.13098 -0.688,-0.89969 0.066,-1.37725 1.63,0.35666 2.163,-0.89265 -0.764,-1.32687 0.756,-0.73648 2.05,0.36774 0.016,2.16611 1.579,0.39091 0.372,-0.31434 -0.295,0.77779 0.388,0.36774 0.739,-0.49267 0.45,0.48259 0.299,-0.18941 -0.296,-0.35262 1.504,-0.89063 -0.382,-0.31534 0.089,-1.06694 0.48,-0.94504 1.229,-0.56722 0.005,-0.46949 1.859,0.0151 1.318,-0.96619 2.14,-0.53498 0.792,0.0171 0.135,0.37076 1.129,-0.22367 0.58,-1.68957 -0.563,-1.61099 0.584,0.46043 1.057,-0.75361 0.084,-0.41811 0.414,-0.40199 0.866,0.80499 0.639,-0.46949 3.292,1.61199 0.515,0.0151 0.37,-0.57729 -0.743,-1.08608 1.355,0.29116 -0.148,0.3083 0.628,0.23071 0.505,0.10579 0.115,-1.8548 0.465,0.78081 0.505,-0.58737 -0.057,-1.31075 -0.635,-0.23979 -0.493,-1.72383 1.977,0.23374 -0.355,0.61055 0.262,0.19344 0.602,-0.30326 2.121,0.63774 -0.505,-0.61759 1.023,-0.12191 0.582,-0.60147 -0.404,-0.28009 0.05,-1.4518 1.729,0.68913 -0.146,-0.49368 0.804,-0.5108 -0.8,-0.61256 2.516,0.134 0.063,-0.83521 -1.148,-0.58435 -0.041,-0.71129 0.955,-0.0907 0.606,-1.04981 0.962,-0.26598 1.125,-2.37165 -0.529,-0.18236 0.799,-1.84069 -0.34,-0.37378 -0.241,0.45136 0.234,-1.24729 -0.773,-0.84428 1.649,0.70827 0.819,-0.269 0.474,-0.71835 -0.779,-0.3899 0.604,-0.0423 -0.356,-0.32442 0.604,-0.73648 -0.561,-0.35766 0.297,-1.09615 -1.278,-0.38386 -0.453,-0.64178 0.407,-0.50475 -0.048,0.56722 0.403,-0.0242 0.463,-0.67905 -0.188,-0.67704 0.645,-0.0353 -0.198,-0.65689 1.767,-1.00548 -0.144,-0.76671 -1.874,-2.27795 -2.103,-1.46389 0.231,-2.99529 0,0 1.027,0.49266 -0.29,-0.81305 0.705,-1.00749 -1.518,-1.26844 0.102,-0.92388 -0.484,-0.13299 -0.139,-0.62867 0.466,-0.91985 0.572,0.24281 0.526,-0.70626 0.62,-0.0191 0.33,-1.17575 0.414,0.27203 0.566,-0.74152 1.256,0.26497 0.013,0.51584 0.368,0.19948 0.068,-0.37982 0.42,0.56319 0.896,0.13097 0.051,-0.54405 -0.776,-0.76267 -0.308,-1.16769 0.696,-1.06795 -0.392,-0.0927 0.272,-1.25131 -1.834,-0.79391 -0.599,-1.08708 -0.71,0.0363 0.252,-1.04981 -0.568,-0.32139 0.576,-0.54002 -1.843,-0.45942 -0.399,-0.94805 0.548,-0.54405 0.255,-2.54393 1.482,-1.08608 0.381,0.51483 0.142,-0.36169 0.633,0.0725 -0.085,-1.65028 1.026,0.25993 0.51,-0.8604 0.678,0.0463 1.563,-1.80242 1.461,-0.67502 1.625,-1.69058 -0.509,-0.63774 -0.627,0.13601 -0.15,-0.43524 0.784,-0.65084 -0.814,-0.59443 -0.058,-0.68207 -0.68,0.0997 -0.309,-0.43524 1.138,-0.97929 -0.045,-0.46042 -1.318,0.34255 -0.479,0.6186 -0.822,-0.5773 0,0 0.002,-0.009 0,0 -0.017,-0.0796 0,0 1.206,-2.27291 0.575,-3.17261 -0.302,-2.2044 -0.778,-0.7798 0.203,-0.51886 -0.536,-0.69921 0.303,-0.82715 -0.889,-0.44129 -0.325,-0.73144 -0.82,-0.0292 -0.347,-1.20295 -0.618,-0.42012 0.582,-1.54349 -0.11,-1.14351 z"/>
 <g id="mapLabels"></g></svg><div class="legend" id="mapLegend"></div><div class="note">Shading follows state boundaries, so a state split between zones takes one colour.</div></div><div id="zp"></div></div></div>`,`<div class="mapctl"><div class="seg2" role="group" aria-label="Show the map by">${[['reg','Region'],['zone','Zonal unit']].map(([k,l])=>`<button type="button" data-mv="${k}" aria-pressed="${ST.mv===k}" class="${ST.mv===k?'on':''}">${l}</button>`).join('')}</div><div class="seg2" role="group" aria-label="Colour the map by">${Object.entries(MM).map(([k,m])=>`<button type="button" data-mm="${k}" aria-pressed="${ST.mm===k}" class="${ST.mm===k?'on':''}">${m.lab}</button>`).join('')}</div></div>`)}</div>`+
    `<div class="g">${panel('Regions compared','Rates, not counts, so a small region is judged fairly. Select a row to see its zones on the map.',regionTable(),openRep('X3'))}</div>`+qqPanel()+
-   `${SHOW_VOLUME?'<div class="g">'+panel('Volume against filing','Up: more of India\'s use. Left: fewer returns filed. Top-left is the audit focus.',`<div class="pb"><div class="cv" style="height:420px"><canvas id="cBubble" aria-label="Zones by share of use and returns filed"></canvas></div></div>`,openRep('X6'))+'</div>':''}<div class="g g57">${panel('Premises to watch','Sorted by a score that only orders the list. Each row says why it is here.',premTable('hqPrem',P,10),openRep('X2'))}${panel('Import and export','Declared against an NOC. Not yet checked against Customs.',tradeBlock(P),openRep('T3'))}</div>`+
-   `<div class="g">${panel('Substances by risk tier','Quantities are never added across substances. Tier 1: every gram matters. Tier 3: watch the percentages.',substanceTable(P),openRep('C1'))}</div>`+
-   `<div class="g g2">${panel('Premises by substance','Each substance with the premises that hold it. Use the substance filter to pick two or more and see the premises that hold them together.',`<div id="comboBox">${comboBody()}</div>`,comboCtl())}
-     ${panel('Loss and damage, '+perLabel(CUR),'Form N cases by category. Standard report under REQ-AN-004.',lossBlock(P,'hqLoss'),openRep('L1'))}
-</div>`+
+   `${SHOW_VOLUME?'<div class="g">'+panel('Volume against filing','Up: more of India\'s use. Left: fewer returns filed. Top-left is the audit focus.',`<div class="pb"><div class="cv" style="height:420px"><canvas id="cBubble" aria-label="Zones by share of use and returns filed"></canvas></div></div>`,openRep('X6'))+'</div>':''}<div class="g g73">${panel('Highest-risk premises','Sorted by a score that only orders the list. Each row says why it is here.',premTable('hqPrem',P,10),openRep('X2'))}${panel('Loss and damage, '+perLabel(CUR),'Form N cases by category. Standard report under REQ-AN-004.',lossBlock(P,'hqLoss'),openRep('L1'))}</div>`+
+   `<div class="g">${panel('Premises by substance','Quantities are never added across substances. Tier 1: every gram matters. Tier 3: watch the percentages.',substanceTable(P),openRep('C1'))}</div>`+
+   `<div class="g">${panel('Import and export','Declared against an NOC. Not yet checked against Customs.',tradeBlock(P),openRep('T3'))}</div>`+
    gapsBlock()+footer()}
 
 function regionTable(){const rows=REGIONS.map(([r,zs])=>({r,zs,...RS[r]}));
@@ -1425,53 +1467,23 @@ function premTable(id,ps,n){const rows=[...ps].sort((a,b)=>b.score-a.score).slic
   return table(id,[{k:'score',h:'Score',n:1},
     {k:'name',h:'Premises',f:p=>`<b>${esc(p.name)}</b><div class="sm">${p.urn} · ${p.z}</div>`,t:p=>`${p.name} ${p.urn}`},
     {k:'subs',h:'Holds',v:p=>p.subs.join(' '),f:p=>p.subs.map(id=>`<span class="tag">${id}</span>`).join('')},
-    {k:'f',h:'Why',nosort:1,f:p=>p.f.filter(x=>x[0]).map(x=>`<span class="tag ${x[0]}">${x[1]}</span>`).join(''),t:p=>p.f.map(x=>x[1]).join('; ')}],rows,{sort:'score',export:1,title:'Premises to watch'})}
-
-/* premises by substance, with a multi-select to see substances held together */
-function holdRow(ids,ps,mode){const h=ps.filter(p=>ids.every(i=>p.subs.includes(i))&&(mode!=='only'||p.subs.length===ids.length));const zc={};h.forEach(p=>zc[p.z]=(zc[p.z]||0)+1);
-  return {ids,n:h.length,g:chg(h.length,h.filter(prevExists).length),top:Object.entries(zc).sort((a,b)=>b[1]-a[1]).slice(0,3),q:qrate(h,3).rate}}
-function holdLabel(x){if(x.ids.length===1){const S=SM[x.ids[0]];return `<b>${esc(S.sh)}</b>`}
-  return `<b>${x.ids.join(' + ')}</b>${ST.cmode==='only'?' <span class="sm">only these</span>':''}`}
-function subTable(ps){const sel=SUBS.map(s=>s.id).filter(id=>ST.csel.has(id)),multi=sel.length>1,rows=[];
-  if(multi)rows.push(holdRow(sel,ps,ST.cmode));
-  (sel.length?sel:SUBS.map(s=>s.id)).forEach(id=>rows.push(holdRow([id],ps,'all')));
-  return table('subhold'+(multi?'m':'s')+ps.length,[{k:'s',h:multi?'Substances':'Substance',v:x=>x.ids.join('+'),f:holdLabel},
-    {k:'n',h:'Premises',n:1,f:x=>`${x.n} <span class="sm">${dl(x.g,'b')}</span>`},{k:'t',h:'Top zones',nosort:1,f:x=>x.top.map(t=>`<span style="white-space:nowrap">${t[0]} ${t[1]}</span>`).join('<br>')||'–'},{k:'q',h:'Returns filed',n:1,f:x=>x.n?f1(x.q)+'%':'–'}],rows,multi?{}:{sort:'n'})}
-const comboBody=()=>subTable(P);
-function comboCtl(){return `<span class="mapctl"><details class="msub" id="msub"><summary class="btn" aria-label="Choose substances to see together"><span id="msubLbl">${msubLbl()}</span> ▾</summary>
-  <div class="mmenu"><div class="mmh">Pick two or more to see them held together</div>${SUBS.map(S=>`<label class="mchk"><input type="checkbox" data-csub="${S.id}" ${ST.csel.has(S.id)?'checked':''}> ${esc(S.sh)}</label>`).join('')}
-  <div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad"><label><input type="radio" name="cmode" data-cmode="all" ${ST.cmode==='all'?'checked':''}> All of these</label><label><input type="radio" name="cmode" data-cmode="only" ${ST.cmode==='only'?'checked':''}> Only these</label></div>
-  <button type="button" class="btn link" data-cclear="1">Clear</button></div></details>${openRep('R6')}</span>`}
-const msubLbl=()=>ST.csel.size?'Substances ('+ST.csel.size+')':'All substances';
-function comboRefresh(){const box=document.getElementById('comboBox');if(!box)return;box.innerHTML=comboBody();const l=document.getElementById('msubLbl');if(l)l.textContent=msubLbl()}
-document.addEventListener('change',e=>{const t=e.target;if(t.dataset.csub){t.checked?ST.csel.add(t.dataset.csub):ST.csel.delete(t.dataset.csub);comboRefresh()}else if(t.dataset.cmode){ST.cmode=t.dataset.cmode;comboRefresh()}});
-document.addEventListener('click',e=>{const m=document.getElementById('msub');if(!m)return;
-  if(e.target.closest('[data-cclear]')){ST.csel.clear();m.querySelectorAll('[data-csub]').forEach(c=>c.checked=false);comboRefresh()}
-  else if(!e.target.closest('#msub'))m.open=false});
-function comboTable(ps){const rows=ROUTES.map(r=>{const h=ps.filter(p=>r.ids.every(i=>p.subs.includes(i)));const zc={};h.forEach(p=>zc[p.z]=(zc[p.z]||0)+1);
-  return {r,n:h.length,g:chg(h.length,h.filter(prevExists).length),top:Object.entries(zc).sort((a,b)=>b[1]-a[1]).slice(0,3),q:qrate(h,3).rate}});
-  return table('combo'+ps.length,[{k:'c',h:'Combination',v:x=>x.r.ids.join('+'),f:x=>`<b>${x.r.ids.join(' + ')}</b> <span class="sm" title="${esc(x.r.why)}">${THREAT[x.r.th]}</span>`},
-    {k:'n',h:'Premises',n:1,f:x=>`${x.n} <span class="sm">${dl(x.g,'b')}</span>`},{k:'t',h:'Top zones',nosort:1,f:x=>x.top.map(t=>`<span style="white-space:nowrap">${t[0]} ${t[1]}</span>`).join('<br>')||'–'},{k:'q',h:'Returns filed',n:1,f:x=>x.n?f1(x.q)+'%':'–'}],rows,{})}
+    {k:'f',h:'Why',nosort:1,f:p=>p.f.filter(x=>x[0]).map(x=>`<span class="tag ${x[0]}">${x[1]}</span>`).join(''),t:p=>p.f.map(x=>x[1]).join('; ')}],rows,{sort:'score',export:1,title:'Highest-risk premises'})}
 
 function lossBlock(ps,id){const cs=CASES.filter(c=>ps.includes(c.p)&&CUR.includes(c.q)),cp=CASES.filter(c=>ps.includes(c.p)&&CMP.includes(c.q));
   const rows=LOSSCAT.map(cat=>({cat,n:cs.filter(c=>c.cat===cat).length,np:cp.filter(c=>c.cat===cat).length,open:cs.filter(c=>c.cat===cat&&c.status!=='Closed').length,t1:cs.filter(c=>c.cat===cat&&tierOf(c.S.id)===1).length})).filter(x=>x.n||x.np);
   const mx=Math.max(1,...rows.map(r=>r.n));
   return    table(id,[{k:'cat',h:'Category',f:x=>`<b>${x.cat}</b>`},{k:'n',h:'Cases',n:1,f:x=>`<div class="bw"><span>${x.n}</span>${bar(x.n,mx)}</div>`},{k:'np',h:'Compared',n:1},{k:'open',h:'Open',n:1},{k:'t1',h:'Tier 1',n:1,f:x=>x.t1?`<b class="dn">${x.t1}</b>`:'0'}],rows,{sort:'n'})}
 
+function tradeNote(ps){const rows=SUBS.map(S=>{const hp=ps.filter(p=>holds(p,S.id)),hs=hp.map(p=>H(p,S.id)),use=sum(hs,h=>h.use)||1;
+    return {S,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),ig:chg(sum(hs,h=>h.imp),sum(hs,h=>h.impP)),ug:chg(use,sum(hs,h=>h.useP))}}).filter(x=>x.imp||x.exp);
+  return rows.filter(x=>x.ig-x.ug>=thv('imp',x.S.id)).map(x=>`<b>${x.S.sh}</b>: imports ${dl(x.ig)}, use ${dl(x.ug)}.`).join(' ')||'No substance has imports outrunning its use beyond the limit.'}
 function tradeBlock(ps){const rows=SUBS.map(S=>{const hp=ps.filter(p=>holds(p,S.id)),hs=hp.map(p=>H(p,S.id)),use=sum(hs,h=>h.use)||1;
   return {S,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),ig:chg(sum(hs,h=>h.imp),sum(hs,h=>h.impP)),ug:chg(use,sum(hs,h=>h.useP)),ip:sum(hs,h=>h.imp)/use*100,ep:sum(hs,h=>h.exp)/use*100}}).filter(x=>x.imp||x.exp);
-  const mx=Math.max(1,...rows.map(r=>Math.max(r.ip,r.ep))),top=Math.max(10,Math.ceil(mx/10)*10),steps=top/10;
-  const w=v=>v?Math.max(1.5,v/top*100):0,dir=v=>(v>=0?'up ':'down ')+f1(Math.abs(v))+'%';
-  const ticks=[...Array(steps+1)].map((_,i)=>`<span style="left:${i/steps*100}%">${i*10}%</span>`).join('');
-  return `<div class="pb trd" style="--n:${steps}">
-   <div class="trd-lg" aria-hidden="true"><span><i style="background:var(--blue)"></i>Imported</span><span><i style="background:#B8C1CC"></i>Exported</span><span><i class="trd-fk"></i>Imports outrun use</span><span class="sm">as a share of declared use</span></div>
-   <div class="trd-r trd-ax"><span></span><span class="trd-b"><span class="trd-plot trd-ticks">${ticks}</span></span><span class="sm trd-net">Net, pts</span></div>
-   ${rows.map(x=>{const flag=x.ig-x.ug>=thv('imp',x.S.id),net=x.ip-x.ep;
-    return `<div class="trd-r${flag?' trd-flag':''}" tabindex="0" title="${esc(x.S.sh)}: imported ${f1(x.ip)}% of declared use, exported ${f1(x.ep)}%. Imports ${dir(x.ig)}, use ${dir(x.ug)} on the comparison period.">
-     <span class="trd-n">${tierTag(x.S.id)} <span>${esc(x.S.sh)}</span></span>
-     <span class="trd-b"><span class="trd-plot"><span class="trd-bar"><i style="width:${w(x.ip)}%;background:var(--blue)"></i><b>${f1(x.ip)}%</b></span><span class="trd-bar"><i style="width:${w(x.ep)}%;background:#B8C1CC"></i><b>${f1(x.ep)}%</b></span></span></span>
-     <span class="trd-net">${net>=0?'+':'−'}${f1(Math.abs(net))}</span></div>`}).join('')}
-   <div class="sm trd-foot">Declared against an NOC. Net is imported minus exported. An orange edge marks a substance whose imports rose faster than its use by more than the limit in Configuration.</div></div>`}
+  const mx=Math.max(1,...rows.map(r=>Math.max(r.ip,r.ep)));
+  return `<div class="pb tdo"><div style="display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr) minmax(0,1fr);gap:6px 0;align-items:center;align-content:space-around;font-size:12px">
+   <span class="sm">Share of declared use</span><span class="sm" style="text-align:right;padding-right:8px">Imported</span><span class="sm" style="padding-left:8px">Exported</span>
+   ${rows.map(x=>`<span>${tierTag(x.S.id)} ${x.S.sh}</span><span style="display:flex;justify-content:flex-end;align-items:center;gap:6px;border-right:1px solid var(--navy);padding-right:0"><span class="sm">${f1(x.ip)}%</span><i style="display:block;height:12px;width:${x.ip/mx*90}%;background:var(--blue)"></i></span><span style="display:flex;align-items:center;gap:6px"><i style="display:block;height:12px;width:${x.ep/mx*90}%;background:#B8C1CC"></i><span class="sm">${f1(x.ep)}%</span></span>`).join('')}
+   </div><div class="note" style="margin-top:8px">${rows.filter(x=>x.ig-x.ug>=thv('imp',x.S.id)).map(x=>`<b>${x.S.sh}</b>: imports ${dl(x.ig)}, use ${dl(x.ug)}.`).join(' ')||'No substance has imports outrunning its use beyond the limit.'}</div></div>`}
 
 const gapsBlock=()=>`<div class="foot"><b>Not yet linked:</b> seizures and NDPS cases · Customs bills of entry · firms trading without a URN.</div>`;
 const footer=()=>`<div class="foot">Generated ${fd(TODAY)}, 06:00 IST · ${roleName()} · ${perLabel(CUR)}${CMPOK?' vs '+perLabel(CMP):''} · thresholds are placeholders · synthetic data (REQ-AN-009)</div>`;
@@ -1520,7 +1532,8 @@ const allM=()=>ST.msim?MATTERS.concat(SIM):MATTERS;
 const subOf=m=>{const p=m.id.split(':');return m.k==='unm'?p[2]:m.k==='imp'?p[1]:null};
 const ratioW=it=>size(it.m.id,it.e?it.e.now:metric(it.m.id)).w;
 function registerView(att){const ready=att.filter(x=>x.e&&x.e.ok),rest=att.filter(x=>!(x.e&&x.e.ok));
-  const F={all:['All',()=>1],high:['High',x=>x.m.sev===3],ret:['Returned',x=>!!x.e],new:['New',x=>!x.e]};
+  const F={all:['All',()=>1],high:['High',x=>x.m.sev===3],ret:['Returned',x=>!!x.e]};
+  if(!F[ST.wf])ST.wf='all';
   const q=ST.mq.toLowerCase();
   const pass=it=>F[ST.wf][1](it)&&(!q||(it.m.title+' '+shortOf(it.m.id)+' '+office(it.m)).toLowerCase().includes(q))&&(!ST.mreg||(it.m.z&&RofZ(it.m.z)===ST.mreg))
     &&(!ST.mrule||KIND[it.m.k].lab===ST.mrule)&&(!ST.mtier||(subOf(it.m)&&String(tierOf(subOf(it.m)))===ST.mtier))
@@ -1692,7 +1705,7 @@ function dashRegion(){const r=ST.r,zs=ZONES.filter(Z=>Z.r===r).map(Z=>Z.z),ps=P.
    `<div class="g g57">${panel('Returns filed, quarter by quarter','Eight quarters. The dashed line is India.',`<div class="pb"><div class="cv"><canvas id="cRegTrend"></canvas></div></div>`)}
      ${panel('Service to industry','Applications pending in your zones, by age.',appsBlock(ap,'regApps',true))}</div>`+
    `<div class="g">${panel('Substances in your region','',substanceTable(ps),openRep('C4'))}</div>`+
-   `<div class="g g2">${panel('Premises to watch in your region','',premTable('regPrem',ps,10),openRep('X2'))}${panel('Loss and damage, '+perLabel(CUR),'',lossBlock(ps,'regLoss'),openRep('L1'))}</div>`+footer()}
+   `<div class="g g2">${panel('Highest-risk premises in your region','',premTable('regPrem',ps,10),openRep('X2'))}${panel('Loss and damage, '+perLabel(CUR),'',lossBlock(ps,'regLoss'),openRep('L1'))}</div>`+footer()}
 function appsBlock(ap,id,byZone){const b=[['0–15 days',a=>a.age<=15],['16–30 days',a=>a.age>15&&a.age<=30],['Over 30 days',a=>a.age>30]];
   if(byZone){const zs=uniq(ap.map(a=>a.z));return table(id,[{k:'z',h:'Zonal unit'},...b.map((x,i)=>({k:'b'+i,h:x[0],n:1,f:r=>i===2&&r['b'+i]?`<b class="dn">${r['b'+i]}</b>`:r['b'+i]})),{k:'old',h:'Oldest',n:1,f:r=>r.old+' days'}],
     zs.map(z=>{const a=ap.filter(x=>x.z===z),o={z,old:Math.max(...a.map(x=>x.age))};b.forEach((x,i)=>o['b'+i]=a.filter(x[1]).length);return o}),{sort:'b2'})}
@@ -1773,13 +1786,13 @@ const ZORD=ZONES.map(Z=>Z.z),RORD=REGIONS.map(r=>r[0]),SORD=SUBS.map(s=>s.id);
 const qOf=f=>f.qv??f.q;
 const DIMS={
   region:{h:'Region',k:f=>f.p.r,ord:RORD},zone:{h:'Zonal unit',k:f=>f.p.z,ord:ZORD},
-  substance:{h:'Substance',k:f=>f.S.id,l:k=>`${tierTag(k)} ${SM[k].sh}`,t:k=>SM[k].sh,ord:SORD},
+  substance:{h:'Substance',k:f=>f.S.id,l:k=>SM[k]?`${tierTag(k)} ${SM[k].sh}`:esc(k),t:k=>SM[k]?SM[k].sh:k,ord:SORD},
   tier:{h:'Risk tier',k:f=>tierOf(f.S.id),l:k=>TIERN[k],t:k=>TIERN[k],ord:[1,2,3]},
   quarter:{h:'Quarter',k:qOf,l:k=>QLAB(k),t:k=>QLAB(k),ord:[...Array(NQ)].map((_,i)=>i)},
   fy:{h:'Financial year',k:f=>fyStart(qOf(f)),l:k=>FYLAB(k),t:k=>FYLAB(k),ord:[2023,2024,2025,2026]},
   status:{h:'URN status',k:f=>f.p.cx?'Cancelled or surrendered':f.p.st},
-  regYear:{h:'Year registered',k:f=>f.p.cx?'Left in '+f.p.y:String(f.p.reg)},
-  nsubs:{h:'Substances held',k:f=>f.p.cx?'–':f.p.subs.length+(f.p.subs.length>1?' substances':' substance')},
+  regYear:{h:'Year registered',k:f=>f.p.cx?'Left in '+f.p.y:String(f.p.reg),asc:1},
+  nsubs:{h:'Substances held',k:f=>f.p.cx?'–':f.p.subs.length+(f.p.subs.length>1?' substances':' substance'),asc:1},
   combo:{h:'Combination',k:f=>f.p.cx?'–':[...f.p.subs].sort((a,b)=>SORD.indexOf(a)-SORD.indexOf(b)).join(' + ')},
   filing:{h:'Return for the quarter',k:f=>f.p.cx?'–':f.p.fq[f.q]==null?'Not yet due':f.p.fq[f.q]?'Filed':'Not filed'},
   premises:{h:'Each premises',k:f=>f.p.cx?null:f.p.i,l:k=>`<b>${esc(PALL[k].name)}</b> <span class="sm">${PALL[k].urn} · ${PALL[k].z}</span>`,t:k=>PALL[k].name+' '+PALL[k].urn,leaf:1}};
@@ -1836,12 +1849,12 @@ function factsFor(set){const zs=new Set(scopeZones()),S=new Set(set);return QF.f
   (!RP.f.region.length||RP.f.region.includes(f.p.r))&&(!RP.f.zone.length||RP.f.zone.includes(f.p.z))&&(!RP.f.substance.length||RP.f.substance.includes(f.S.id))&&
   (!RP.f.tier.length||RP.f.tier.includes(String(tierOf(f.S.id))))&&(!RP.f.status.length||RP.f.status.includes(f.p.cx?'Cancelled or surrendered':f.p.st))&&
   RP.flags.every(k=>!f.p.cx&&FLAGS[k][1](f.p)))}
-function group(fs,dim){const D=DIMS[dim],g=new Map();fs.forEach(f=>{const k=D.k(f);if(k==null)return;if(!g.has(k))g.set(k,[]);g.get(k).push(f)});
+function group(fs,dim){if(RP&&RP.custom&&dim===RP.rows[0])return RP.custom(fs);const D=DIMS[dim],g=new Map();fs.forEach(f=>{const k=D.k(f);if(k==null)return;if(!g.has(k))g.set(k,[]);g.get(k).push(f)});
   let ks=[...g.keys()];if(RP.sort&&!RP.col){const M=MEAS[RP.sort];const v=new Map(ks.map(k=>[k,M.f(g.get(k))]));ks.sort((a,b)=>v.get(b)-v.get(a))}
-  else if(D.ord)ks.sort((a,b)=>D.ord.indexOf(a)-D.ord.indexOf(b));else{const M=MEAS[RP.m[0]];const v=new Map(ks.map(k=>[k,M.f(g.get(k))]));ks.sort((a,b)=>v.get(b)-v.get(a))}
+  else if(D.ord)ks.sort((a,b)=>D.ord.indexOf(a)-D.ord.indexOf(b));else if(D.asc)ks.sort((a,b)=>String(a).localeCompare(String(b)));else{const M=MEAS[RP.m[0]];const v=new Map(ks.map(k=>[k,M.f(g.get(k))]));ks.sort((a,b)=>v.get(b)-v.get(a))}
   return ks.map(k=>({k,fs:g.get(k)}))}
 const dmode=M=>M.good?'g':M.bad?'b':'n';
-function cell(mk,fs,cms,tot){const M=MEAS[mk];if(M.unit&&!single(fs))return `<td class="n sm" title="Pick one substance, or add Substance to rows: units and risks differ">–</td>`;
+function cell(mk,fs,cms,tot){const M=MEAS[mk];if(M.unit&&!single(fs)&&!fs.combo)return `<td class="n sm" title="Pick one substance, or add Substance to rows: units and risks differ">–</td>`;
   const v=M.f(fs);let s=M.fmt(v);if(RP.pctTot&&M.add&&tot&&tot[mk])s+=` <span class="sm">${f1(pct(v,tot[mk]))}%</span>`;
   const ds=(cms||[]).map(c=>{if(!c.fs||!c.fs.length)return `<span class="sm">${c.lab} –</span>`;const p=M.f(c.fs);return `<span class="sm">${c.lab} ${M.pp?dlx(v-p,dmode(M),'pts'):dlx(chg(v,p),dmode(M))}</span>`}).join('<br>');
   const db=RP.bars&&M.add&&tot&&tot['__max_'+mk]?`<i style="width:${Math.min(100,pct(v,tot['__max_'+mk]))}%"></i>`:'';
@@ -1858,9 +1871,9 @@ function pivotRows(fs,cms,lvl,path,tot){if(lvl>=RP.rows.length)return '';const d
 function colSpec(){const isQ=RP.col==='quarter',last=CUR[CUR.length-1],cols=isQ?[...CUR]:uniq(CUR.map(fyStart));
   const lastQs=isQ?[last]:CUR.filter(q=>fyStart(q)===cols[cols.length-1]);const yoyS=new Set(lastQs.map(q=>q-4).filter(q=>q>=0)),qoqS=new Set(isQ&&last-1>=0?[last-1]:[]);
   return {isQ,cols,lastQs,yoyS,qoqS,all:uniq([...CUR,...yoyS,...qoqS]),ck:f=>isQ?f.q:fyStart(f.q)}}
-function colTable(){const M=MEAS[RP.m[0]],C=colSpec(),fs=factsFor(C.all),val=x=>x.length&&(!M.unit||single(x))?M.f(x):null,fv=v=>v==null?'–':M.fmt(v);
+function colTable(){const M=MEAS[RP.m[0]],C=colSpec(),fs=factsFor(C.all),val0=(x,cm)=>x.length&&(!M.unit||single(x)||cm)?M.f(x):null,fv=v=>v==null?'–':M.fmt(v);
   const dd=(a,b)=>a==null||b==null?'<span class="nt">–</span>':M.pp?dlx(a-b,dmode(M),'pts'):dlx(chg(a,b),dmode(M));
-  const line=(x,label,lvl,p,canOpen,isOpen,cls='')=>{const cur=x.filter(f=>CUR.includes(f.q)),vs=C.cols.map(c=>val(cur.filter(f=>C.ck(f)===c))),lv=val(x.filter(f=>C.lastQs.includes(f.q)));
+  const line=(x,label,lvl,p,canOpen,isOpen,cls='')=>{const val=y=>val0(y,x.combo),cur=x.filter(f=>CUR.includes(f.q)),vs=C.cols.map(c=>val(cur.filter(f=>C.ck(f)===c))),lv=val(x.filter(f=>C.lastQs.includes(f.q)));
     const mxv=Math.max(...vs.filter(v=>v!=null),0)||1;
     return `<tr class="${cls}"><td style="padding-left:${10+lvl*18}px">${p==null?'':togBtn(p,lvl,isOpen,canOpen)}${label}</td>${vs.map(v=>`<td class="n ${RP.bars&&M.add&&v!=null?'db':''}">${RP.bars&&M.add&&v!=null&&!cls?`<i style="width:${pct(v,mxv)}%"></i>`:''}<span>${fv(v)}</span></td>`).join('')}${C.isQ?`<td class="n">${dd(lv,val(x.filter(f=>C.qoqS.has(f.q))))}</td>`:''}<td class="n">${dd(lv,val(x.filter(f=>C.yoyS.has(f.q))))}</td></tr>`};
   const rowsOf=(x,lvl,path)=>{if(lvl>=RP.rows.length)return '';const dim=RP.rows[lvl],D=DIMS[dim];let gs=group(x,dim);const key=path.join('|'),capN=D.leaf?(RP.more[key]||CFG.pageSize):Infinity,more=gs.length>capN;gs=gs.slice(0,capN);
@@ -1895,12 +1908,13 @@ function reportView(){const R=RM[RP.id],fs=factsFor(CUR),tot={};RP.m.forEach(m=>
     `<button class="btn" data-nav2="reports">All reports</button><button class="btn" data-save="1">Save view</button><button class="btn" data-pexport="1">Export CSV</button><button class="btn" data-pexcel="1">Excel</button><button class="btn" data-pexcel="1">PDF</button>`)+periodBar()+
    `<div class="rb"><section class="panel">${wells}${opts}<div class="applied">${appliedText()}</div>${RP.view==='table'?tbl:`<div class="pb"><div class="cv" style="height:${RP.col?320:Math.max(260,group(fs,RP.rows[0]).slice(0,25).length*28+60)}px"><canvas id="cPivot"></canvas></div></div>`}${unitNote}</section>${fp}</div>`+footer()}
 function fgroup(k,h,items){return `<div class="fg"><div class="fl">${h}</div><div class="scroll">${items.map(([v,l])=>`<label><input type="checkbox" data-f="${k}" value="${esc(v)}" ${RP.f[k].includes(v)?'checked':''}> ${l}</label>`).join('')}</div></div>`}
-function pivotChart(fs){const el=document.getElementById('cPivot');if(!el||!window.Chart)return;const dim=RP.rows[0],D=DIMS[dim],lab=k=>D.t?D.t(k):String(k);
+function pivotChart(fs,el0,cap0){const el=el0||document.getElementById('cPivot'),cap=cap0||25;if(!el||!window.Chart)return;const dim=RP.rows[0],D=DIMS[dim],lab=k=>D.t?D.t(k):String(k);
   if(RP.col){const C=colSpec(),M=MEAS[RP.m[0]],f2=factsFor(CUR),gs=group(f2,dim).slice(0,8),pal=['#1E4A8A','#2E6EBF','#7FA7DA','#5F6B7A','#C2611C','#1E7B4B','#8B98A8','#C0392B'];
-    mkChart(el,{type:'line',data:{labels:C.cols.map(c=>C.isQ?QLAB(c):FYLAB(c)),datasets:gs.map((g,i)=>({label:lab(g.k),data:C.cols.map(c=>{const x=g.fs.filter(f=>C.ck(f)===c);return x.length&&(!M.unit||single(x))?M.f(x):null}),borderColor:pal[i],backgroundColor:pal[i],borderWidth:2,pointRadius:3,tension:0}))},
+    mkChart(el,{type:'line',data:{labels:C.cols.map(c=>C.isQ?QLAB(c):FYLAB(c)),datasets:gs.map((g,i)=>({label:lab(g.k),data:C.cols.map(c=>{const x=g.fs.filter(f=>C.ck(f)===c);return x.length&&(!M.unit||single(x)||g.fs.combo)?M.f(x):null}),borderColor:pal[i],backgroundColor:pal[i],borderWidth:2,pointRadius:3,tension:0}))},
       options:{maintainAspectRatio:false,animation:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:2,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>`${i.dataset.label}: ${M.fmt(i.raw)}`}}},scales:{y:{ticks:{color:'#64707E',callback:v=>M.fmt(v)},grid:{color:'#F2F4F6'}},x:{grid:{display:false},ticks:{color:'#64707E'}}}}});return}
-  const m=RP.m.find(x=>!MEAS[x].unit||single(fs))||RP.m[0],M=MEAS[m],gs=group(fs,dim).slice(0,25);
+  const m=RP.m.find(x=>!MEAS[x].unit||single(fs))||RP.m[0],M=MEAS[m],gs=group(fs,dim).slice(0,cap);
   const ds=[{label:M.h+', '+perLabel(CUR),data:gs.map(g=>M.unit&&!single(g.fs)?0:M.f(g.fs)),backgroundColor:'#2E6EBF',barThickness:12}];
+  (RP.multi||[]).slice(1).forEach(mm=>ds.push({label:MEAS[mm].h,data:gs.map(g=>MEAS[mm].f(g.fs)),backgroundColor:'#B8C1CC',barThickness:12}));if(RP.multi)ds[0].label=M.h;
   cmpSets().forEach((c,i)=>{const cf=factsFor(c.set).map(f=>({...f,qv:f.q+c.sh})),mm=new Map();group(cf,dim).forEach(g=>mm.set(g.k,g.fs));ds.push({label:`${c.lab} (${perLabel(c.set)})`,data:gs.map(g=>{const x=mm.get(g.k)||[];return x.length&&(!M.unit||single(x))?M.f(x):0}),backgroundColor:i?'#D8DEE6':'#B8C1CC',barThickness:12})});
   mkChart(el,{type:'bar',data:{labels:gs.map(g=>D.leaf?PALL[g.k].name:lab(g.k)),datasets:ds},options:{indexAxis:'y',maintainAspectRatio:false,animation:false,
     plugins:{legend:{display:ds.length>1,position:'bottom',labels:{boxWidth:10,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>`${i.dataset.label}: ${M.fmt(i.raw)}`}}},
@@ -1916,7 +1930,7 @@ document.addEventListener('click',e=>{if(ST.view!=='report')return;const b=e.tar
   else if(d.expand){RP.open=new Set();if(d.expand==='1'){const walk=(fs,l,path)=>{if(l>=RP.rows.length-1||DIMS[RP.rows[l]].leaf)return;group(fs,RP.rows[l]).forEach(g=>{const p=[...path,g.k];RP.open.add(p.join('|'));walk(g.fs,l+1,p)})};walk(factsFor(RP.col?colSpec().all:CUR),0,[])}}
   else if(d.psort)RP.sort=RP.sort===d.psort?null:d.psort;
   else if(d.clear){Object.keys(RP.f).forEach(k=>RP.f[k]=[]);RP.flags=[]}
-  else if(d.save){SAVED.unshift({n:`${RM[RP.id].title} (my view)`,rep:RP.id,who:roleName(),on:fd(TODAY)});return toast('Saved to Saved views (REQ-AN-005).')}
+  else if(d.save){openSaveDialog();return}
   else if(d.pexport){const C=RP.col?colSpec():null,fs=factsFor(C?C.all:CUR),out=[];
     const vals=x=>C?C.cols.map(c=>{const y=x.filter(f=>CUR.includes(f.q)&&C.ck(f)===c);return y.length&&(!MEAS[RP.m[0]].unit||single(y))?Math.round(MEAS[RP.m[0]].f(y)*100)/100:''}):RP.m.map(m=>MEAS[m].unit&&!single(x)?'':Math.round(MEAS[m].f(x)*100)/100);
     const walk=(x,l,lab)=>group(x,RP.rows[l]).forEach(g=>{const D=DIMS[RP.rows[l]],L=[...lab,D.t?D.t(g.k):String(g.k)];if(l<RP.rows.length-1)walk(g.fs,l+1,L);else out.push([...L,...vals(g.fs)])});walk(fs,0,[]);
@@ -1934,13 +1948,205 @@ document.addEventListener('change',e=>{if(ST.view!=='report')return;const t=e.ta
   else if(d.col!=null){RP.col=t.value;RP.rows=RP.rows.filter(r=>r!=='quarter'&&r!=='fy');if(!RP.rows.length)RP.rows=['zone']}
   else return;rerenderReport()});
 
+/* ===================== section tabs under the period bar ===================== */
+ST.tab='overview';ST.cv={};ST.sel={R3:new Set()};REPORTS.forEach(r=>{if(r[5]&&r[5].rows[0]==='substance')ST.sel[r[1]]=new Set()});ST.mode={};ST.range={R5:{from:null,to:null}};
+['R2','R5','K1','T4'].forEach(id=>{ST.sel[id]=new Set()});
+const zoneSub=id=>['R2','R5','K1','T4'].includes(id);
+FLAGS.cmb=['',p=>RP.comboPred?RP.comboPred(p):true];
+const subCard=id=>!!ST.sel[id]&&id!=='R3',isQty=id=>RM[id].def.m.some(m=>MEAS[m].unit);
+const TABS=[['overview','Overview'],['reg','Registration'],['cap','Installed capacity'],['use','Usage'],['cmp','Compliance'],['trade','Import and export'],['risk','Cross-cutting']];
+const TABSEC={reg:{t:'Registration status',n:'Query 1',ids:['R1','R2','R3','R4','R5','QQ3']},
+  cap:{t:'Installed capacity',n:'Query 2',ids:['C1','C2','C3','C4','C5']},
+  use:{t:'Usage by registrants',n:'Query 3',ids:['U1','QQ2','U4','U2']},
+  cmp:{t:'Compliance: quarterly returns not filed',n:'Query 4',ids:['K1','K4','K2','QQ1','K3']},
+  trade:{t:'Import and export activity',n:'Query 5',ids:['T1','T2','T3','T4']},
+  risk:{t:'Cross-cutting and advanced',n:'Query 6',ids:['X2','X3','X5','X6','X7','M1','L1']}};
+const tabBar=()=>`<div class="stabs" role="tablist" aria-label="Sections">${TABS.map(([k,l])=>`<button type="button" role="tab" aria-selected="${ST.tab===k}" class="${ST.tab===k?'on':''}" data-tab="${k}">${l}</button>`).join('')}</div>`;
+function withTabs(h){const mk='<!--pb-->',i=h.indexOf(mk);if(i<0)return h;const head=h.slice(0,i+mk.length);
+  if(ST.tab==='overview'||!TABSEC[ST.tab])return head+tabBar()+h.slice(i+mk.length);
+  afterFns=[];   // the overview's own drawing is not needed on a section tab
+  return head+tabBar()+sectionView(ST.tab)+footer()}
+function sectionView(tab){const S=TABSEC[tab];
+  return `<div class="sintro"><b>${S.t}</b> <span class="sm">· ${S.n} of the NCB query list. Each card has a chart and a table. Open report shows the full report.</span></div>
+   <div class="scards">${S.ids.map(id=>`<div id="sc-${id}"${(()=>{const c=[WIDECARDS.has(id)?'wide':'',CARDW[id]||'',(CARDKIND[id]||'pill')==='pill'?'lst':''].filter(Boolean).join(' ');return c?' class="'+c+'"':''})()}>${cardInner(id)}</div>`).join('')}</div>`}
+/* run a catalogue report's first level in place, without leaving the dashboard */
+const rangeFor=id=>{const r=ST.range[id];if(!r||(r.from==null&&r.to==null))return null;let a=r.from==null?0:r.from,b=r.to==null?NQ-1:r.to;if(a>b)[a,b]=[b,a];return {view:'custom',from:a,to:b}};
+const CARDM={R5:['adds','cans','premises'],K1:['missed','filed','premises'],K2:['missed','filed'],K4:['filed','missed','premises'],T1:['importers','imp'],T2:['exporters','exp'],T4:['importers','exporters','imp','exp'],
+  X5:['util','cap','use','low'],X6:['filed','unm','low','use'],M1:['unm','unmq'],C4:['util','cap','use','low'],K3:['premises','cap','score'],C1:['cap','use','util']},CARDMULTI={R5:['adds','cans']};
+/* the form each card is drawn in: pill bars (ranked lists), columns (time or zones), donut (a split), tiles (zones), rings (percentages), multiples (quantities per substance) */
+const CARDKIND={R1:'pill',R2:'polar',R3:'donut',R4:'area',R5:'columns',C1:'logcols',C2:'radar',C3:'cumarea',C4:'lollipop',C5:'ratio',U1:'logcols',U2:'bubble',U4:'donut',K1:'bubble',K2:'pill',K3:'polar',K4:'radar',T1:'radar',T2:'pill',T3:'butterfly',T4:'butterfly',X2:'lollipop',X3:'columns',X5:'radar',X6:'bubble',X7:'ratio',M1:'pill',L1:'donut'};
+const CANVAS_KIND=new Set(['butterfly','donut','columns','lollipop','logcols','ratio','area','cumarea','polar','radar','bubble']);
+const RATIO={C5:{base:'cap',ms:['imp','exp']},X7:{base:'cap',ms:['use','imp','exp']},T3:{base:'use',ms:['imp','exp']}};
+function withReport(id,fn){const d=RM[id].def,oldRP=RP,sv={...PER},ov=rangeFor(id)||d.per;
+  RP={id,rows:[d.rows[0]],m:[...(CARDM[id]||d.m)],multi:CARDMULTI[id],f:{region:[],zone:[],substance:[],tier:[],status:[],...(d.f||{})},flags:[...(d.flags||[])],cmp:'none',col:d.col||'',pctTot:!!d.pctTot,bars:false,open:new Set(),sort:d.sort||null,view:'table',more:{}};
+  if(id==='R3'&&ST.sel.R3.size)RP.f.substance=SORD.filter(i=>ST.sel.R3.has(i));
+  if(id==='R3')RP.custom=fs=>[{k:'1 substance',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length===1)},{k:'2 or more substances',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length>1)}];
+  if(zoneSub(id)&&ST.sel[id].size){const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only';RP.comboPred=p=>sel.every(i=>p.subs.includes(i))&&(!only||p.subs.length===sel.length);RP.flags.push('cmb')}
+  if(subCard(id)&&!zoneSub(id)&&ST.sel[id].size)RP.custom=fs=>{const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only',
+      hold=x=>sel.every(i=>x.p.subs.includes(i))&&(!only||x.p.subs.length===sel.length);
+    if(isQty(id)){const H=fs.filter(x=>!x.p.cx&&hold(x)),out=sel.map(i=>({k:i,fs:H.filter(x=>x.S.id===i)}));
+      if(sel.length>1){const cg=H.filter(x=>sel.includes(x.S.id));cg.combo=true;out.unshift({k:sel.join(' + '),fs:cg})}return out}
+    const out=sel.map(i=>({k:i,fs:fs.filter(x=>x.S.id===i)}));
+    if(sel.length>1)out.unshift({k:sel.join(' + '),fs:fs.filter(x=>sel.includes(x.S.id)&&hold(x))});return out};
+  if(ov){Object.assign(PER,ov);applyPeriod()}
+  try{return fn()}finally{if(ov){Object.assign(PER,sv);applyPeriod()}RP=oldRP}}
+function cardNote(){const d=RM[RP.id].def,own=!!(RP.col||d.per||rangeFor(RP.id)),bits=[];if(own)bits.push(RP.col?'Eight quarters ending '+QLAB(CUR[CUR.length-1]):perLabel(CUR));
+  Object.entries(RP.f).forEach(([k,v])=>{if(v.length)bits.push(v.map(x=>k==='substance'?SM[x].sh:k==='tier'?'Tier '+x:x).join(', ')+' only')});
+  RP.flags.forEach(k=>{if(k!=='cmb')bits.push(FLAGS[k][0])});
+  if(subCard(RP.id)&&ST.sel[RP.id].size){const ids=SORD.filter(i=>ST.sel[RP.id].has(i));bits.push('Premises holding '+ids.join(' + ')+(ST.mode[RP.id]==='only'?' only':'')+(isQty(RP.id)?(ids.length>1?', each substance and the combined total of the chosen substances':', quantities per substance'):''))}
+  return bits.join(' · ')}
+const spacer=h=>h.replace('</tbody>','<tr class="sp"><td colspan="'+((h.match(/<th/g)||[]).length||1)+'"></td></tr></tbody>');
+function cardTable(){const fs=factsFor(CUR);if(RP.col)return spacer(colTable());
+  const tot={};RP.m.forEach(m=>tot[m]=MEAS[m].f(fs));
+  const cms=cmpSets().map(c=>({lab:c.lab,fs:factsFor(c.set).map(x=>({...x,qv:x.q+c.sh}))}));
+  const body=pivotRows(fs,cms,0,[],tot).replace(/<tr><td colspan="\d+"[^>]*><button class="btn link" data-more[\s\S]*?<\/tr>/,'');
+  return `<div class="frame"><table class="t"><thead><tr><th>${DIMS[RP.rows[0]].h}</th>${RP.m.map(m=>`<th class="n">${MEAS[m].h}</th>`).join('')}</tr></thead><tbody>${body}<tr class="sp"><td colspan="${RP.m.length+1}"></td></tr></tbody><tfoot><tr class="tot"><td>Total</td>${RP.m.map(m=>cell(m,fs,cms,null)).join('')}</tr></tfoot></table></div>`}
+const rangeMenu=id=>{const r=ST.range[id],qs=[...Array(NQ)].map((_,i)=>i),opt=(k,lab)=>`<select class="rng" data-rq="${id}:${k}" aria-label="${lab} quarter"><option value="">${lab}</option>${qs.map(i=>`<option value="${i}" ${r[k]===i?'selected':''}>${QLAB(i)}</option>`).join('')}</select>`;
+  return opt('from','From')+opt('to','To')};
+const selLbl=id=>ST.sel[id].size?'Substances ('+ST.sel[id].size+')':'All substances';
+const selMenu=id=>`<details class="msub cardsel" id="msub-${id}"><summary class="btn" aria-label="Choose substances"><span>${selLbl(id)}</span> ▾</summary>
+  <div class="mmenu"><div class="mmh">${id==='R3'?'Pick one or more substances. Premises that hold any of them are counted.':zoneSub(id)?'Pick one or more. Each zone counts the premises that hold all of them.':isQty(id)?'Pick two or more. Each substance is shown for the premises that hold all of them.':'Pick two or more to see them held together'}</div>${SUBS.map(S=>`<label class="mchk"><input type="checkbox" data-rsub="${id}:${S.id}" ${ST.sel[id].has(S.id)?'checked':''}> ${esc(S.sh)}</label>`).join('')}
+  ${id!=='R3'?`<div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad"><label><input type="radio" name="mode-${id}" data-rmode="${id}:all" ${ST.mode[id]!=='only'?'checked':''}> All of these</label><label><input type="radio" name="mode-${id}" data-rmode="${id}:only" ${ST.mode[id]==='only'?'checked':''}> Only these</label></div>`:''}
+  <button type="button" class="btn link" data-rclear="${id}">Clear</button></div></details>`;
+/* data shared by the forms below */
+function cardData(cap){const fs=factsFor(CUR),D=DIMS[RP.rows[0]],gs=group(fs,RP.rows[0]).filter(g=>g.k!=='–').slice(0,cap),
+    first=RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.rows[0]==='substance')||RP.m[0],ms=(RP.multi||[first]).map(m=>MEAS[m]);
+  return {fs,D,gs,ms,M:ms[0],label:g=>D.leaf?PALL[g.k].name:D.t?D.t(g.k):String(g.k),val:(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo?0:M.f(g.fs)}}
+const mixRGB=(a,b,t)=>'rgb('+a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(',')+')';
+/* donut: a split into a few parts */
+const DPAL=['#6FA2E6','#B49BE0','#6FC9B6','#F2C27B','#EC9A94','#A7B3C4','#8FB8E8','#D9B4E4'];
+function cardDonut(el){if(!el||!window.Chart)return;const d=cardData(8),vals=d.gs.map(g=>d.val(d.M,g)),keep=d.gs.map((g,i)=>i).filter(i=>vals[i]>0),tot=keep.reduce((a,i)=>a+vals[i],0)||1;
+  mkChart(el,{type:'doughnut',data:{labels:keep.map(i=>d.label(d.gs[i])),datasets:[{data:keep.map(i=>vals[i]),backgroundColor:keep.map((_,k)=>DPAL[k%DPAL.length]),borderColor:'#fff',borderWidth:3,borderRadius:8,hoverOffset:4}]},
+    options:{maintainAspectRatio:false,animation:false,cutout:'66%',layout:{padding:6},
+      plugins:{tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>`${i.label}: ${d.M.fmt(i.raw)} (${f1(i.raw/tot*100)}%)`}},
+        legend:{position:'right',labels:{boxWidth:12,color:'#1A2332',padding:12,generateLabels:ch=>Chart.overrides.doughnut.plugins.legend.labels.generateLabels(ch).map((l,k)=>({...l,text:`${l.text}: ${d.M.fmt(keep.map(i=>vals[i])[k])} (${f1(keep.map(i=>vals[i])[k]/tot*100)}%)`}))}}}},
+    plugins:[{id:'ctr',afterDraw(ch){const a=ch.chartArea,x=(a.left+a.right)/2,y=(a.top+a.bottom)/2,c=ch.ctx;c.save();c.textAlign='center';c.fillStyle='#1A2332';c.font='700 22px Segoe UI,Arial';c.fillText(d.M.fmt(tot),x,y+4);c.fillStyle='#64707E';c.font='400 11px Segoe UI,Arial';c.fillText(d.M.h,x,y+22);c.restore()}}]})}
+/* lollipop: a thin stem and a dot for each place, the figure above the dot */
+function cardLollipop(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g)),many=d.gs.length>8||d.gs.some(g=>d.label(g).length>9);
+  mkChart(el,{type:'bar',data:{labels:d.gs.map(d.label),datasets:[
+      {type:'bar',data:vals,backgroundColor:'#C9D6EA',barThickness:3,borderRadius:2,order:2},
+      {type:'line',data:vals,showLine:false,pointRadius:8,pointHoverRadius:10,pointBackgroundColor:ctx=>{const mx=Math.max(1,...vals),t=(vals[ctx.dataIndex]||0)/mx;return mixRGB([111,162,230],[30,74,138],t)},pointBorderColor:'#fff',pointBorderWidth:2,order:1}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:22}},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
+      scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>d.M.fmt(v)}},x:{grid:{display:false},ticks:{color:'#1A2332',autoSkip:false,maxRotation:many?55:0,minRotation:many?55:0}}}},
+    plugins:[{id:'lbl',afterDatasetsDraw(ch){const m=ch.getDatasetMeta(1),c=ch.ctx;c.save();c.font='600 11px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';m.data.forEach((p,i)=>c.fillText(d.M.fmt(vals[i]),p.x,p.y-13));c.restore()}}]})}
+/* ratio: several measures for each substance as a share of one base, so the substances share a scale */
+function cardRatio(el){if(!el||!window.Chart)return;const R=RATIO[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,12),B=MEAS[R.base],ms=R.ms.map(m=>MEAS[m]),
+    base=g=>single(g.fs)||g.fs.combo?B.f(g.fs):0,pair=[['#7FAEEA','#1E4A8A'],['#DDE3EA','#9AA8BC'],['#F5C08F','#C2611C']],
+    grad=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return a;const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
+  mkChart(el,{type:'bar',data:{labels:gs.map(g=>D.t?D.t(g.k):String(g.k)),datasets:ms.map((M,i)=>({label:M.h,data:gs.map(g=>base(g)?M.f(g.fs)/base(g)*100:0),backgroundColor:grad(pair[i%3][0],pair[i%3][1]),borderRadius:{topLeft:8,topRight:8},borderSkipped:'bottom',barPercentage:.7,categoryPercentage:.8}))},
+    options:{maintainAspectRatio:false,animation:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>{const M=ms[i.datasetIndex],g=gs[i.dataIndex];return M.h+': '+f1(i.raw)+'% of '+B.h.toLowerCase()+' ('+M.fmt(M.f(g.fs))+')'}}}},
+      scales:{y:{beginAtZero:true,title:{display:true,text:'% of '+B.h.toLowerCase(),color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>f1(v)+'%'}},x:{grid:{display:false},ticks:{color:'#1A2332',autoSkip:false,maxRotation:55,minRotation:55}}}}})}
+/* area: a filled line for a series over time */
+const areaFill=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return 'rgba(46,110,191,.12)';const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
+function cardArea(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g));
+  mkChart(el,{type:'line',data:{labels:d.gs.map(d.label),datasets:[{label:d.M.h,data:vals,fill:true,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:'#1E4A8A',borderWidth:2.5,tension:.35,pointRadius:5,pointBackgroundColor:'#1E4A8A',pointBorderColor:'#fff',pointBorderWidth:2,pointHoverRadius:7}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:8,right:8}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
+      scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>d.M.fmt(v)}},x:{grid:{display:false},ticks:{color:'#1A2332'}}}}})}
+/* cumulative share: how quickly the largest holders add up to the whole */
+function cardCumArea(el){if(!el||!window.Chart)return;const d=cardData(12),vals=d.gs.map(g=>d.val(d.M,g)),tot=d.M.f(d.fs)||1;let acc=0;const cum=vals.map(v=>acc+=v/tot*100);
+  mkChart(el,{type:'line',data:{labels:d.gs.map(g=>{const t=d.label(g);return t.length>24?t.slice(0,23)+'…':t}),datasets:[{label:'Top holders together',data:cum,fill:true,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:'#1E4A8A',borderWidth:2.5,tension:.3,pointRadius:4,pointBackgroundColor:'#1E4A8A',pointBorderColor:'#fff',pointBorderWidth:2}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:8,right:8}},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>'Top '+(i[0].dataIndex+1)+' holders',label:i=>'Together: '+f1(i.raw)+'% of the total',afterLabel:i=>d.label(d.gs[i.dataIndex])+': '+f1(vals[i.dataIndex]/tot*100)+'% ('+d.M.fmt(vals[i.dataIndex])+')'}}},
+      scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:'Share of total capacity',color:'#64707E'},ticks:{color:'#64707E',callback:v=>f1(v)+'%'}},x:{grid:{display:false},title:{display:true,text:'Holders, largest first',color:'#64707E'},ticks:{color:'#1A2332',autoSkip:false,maxRotation:40,minRotation:40}}}}})}
+/* polar: a petal for each place, its length the value */
+function cardPolar(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g)),tot=vals.reduce((a,b)=>a+b,0)||1,pal=['#6FA2E6','#B49BE0','#6FC9B6','#F2C27B','#EC9A94','#A7B3C4','#8FB8E8','#D9B4E4','#9AD7A4','#F0A97C','#7FC8E6','#C7B2E8','#E8C0A0'];
+  mkChart(el,{type:'polarArea',data:{labels:d.gs.map(d.label),datasets:[{data:vals,backgroundColor:vals.map((v,i)=>pal[i%pal.length]+'CC'),borderColor:'#fff',borderWidth:2}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:4},
+      plugins:{legend:{position:'right',labels:{boxWidth:10,color:'#1A2332',font:{size:11},padding:7}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)+' ('+f1(i.raw/tot*100)+'%)'}}},
+      scales:{r:{beginAtZero:true,grid:{color:'#E0E4E8'},angleLines:{color:'#E0E4E8'},ticks:{display:false}}}}})}
+/* radar: a spoke for each place or substance */
+function cardRadar(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g));
+  mkChart(el,{type:'radar',data:{labels:d.gs.map(g=>{const t=d.label(g);return t.length>13?t.split(' '):t}),datasets:[{label:d.M.h,data:vals,borderColor:'#2E6EBF',backgroundColor:'rgba(46,110,191,.16)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#2E6EBF',pointBorderColor:'#fff'}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:4},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>d.label(d.gs[i[0].dataIndex]),label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
+      scales:{r:{beginAtZero:true,grid:{color:'#E0E4E8'},angleLines:{color:'#E0E4E8'},pointLabels:{color:'#1A2332',font:{size:11.5}},ticks:{color:'#64707E',backdropColor:'transparent',callback:v=>d.M.fmt(v)}}}}})}
+/* bubble: two measures on the axes and a third as the size of each place */
+const BUBBLE={K1:{x:'filed',y:'missed',r:'premises'},X6:{x:'filed',y:'use',r:'unm'},U2:{x:'cap',y:'use',r:'util'}},WIDECARDS=new Set(['K1','X6','C3','T3','T4']),CARDW={U4:'w4',U2:'w8',K4:'w5',K2:'w7',QQ1:'w7',K3:'w5'};
+function cardBubble(el){if(!el||!window.Chart)return;const B=BUBBLE[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),X=MEAS[B.x],Y=MEAS[B.y],Z=MEAS[B.r],
+    v=(M,g)=>M.unit&&!single(g.fs)?0:M.f(g.fs),zs=gs.map(g=>v(Z,g)),zmin=Math.min(...zs),zmax=Math.max(...zs),size=z=>zmax===zmin?12:7+16*(z-zmin)/(zmax-zmin),label=g=>D.t?D.t(g.k):String(g.k);
+  mkChart(el,{type:'bubble',data:{datasets:[{data:gs.map((g,i)=>({x:v(X,g),y:v(Y,g),r:size(zs[i])})),backgroundColor:'rgba(46,110,191,.55)',borderColor:'#fff',borderWidth:2,hoverBackgroundColor:'rgba(30,74,138,.8)'}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:16,right:24}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>label(gs[i[0].dataIndex]),label:i=>[X.h+': '+X.fmt(i.raw.x),Y.h+': '+Y.fmt(i.raw.y),Z.h+': '+Z.fmt(zs[i.dataIndex])+' (bubble size)']}}},
+      scales:{x:{title:{display:true,text:X.h,color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:q=>X.fmt(q)}},y:{beginAtZero:true,title:{display:true,text:Y.h,color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:q=>Y.fmt(q)}}}},
+    plugins:[{id:'bl',afterDatasetsDraw(ch){const m=ch.getDatasetMeta(0),c=ch.ctx;c.save();c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';m.data.forEach((p,i)=>c.fillText(label(gs[i]),p.x,p.y-p.options.radius-4));c.restore()}}]})}
+/* butterfly: imported to the left, exported to the right, from one centre line */
+const BUTTER={T3:{l:'imp',r:'exp',base:'use'},T4:{l:'importers',r:'exporters'}};
+function cardButterfly(el){if(!el||!window.Chart)return;const B=BUTTER[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),L=MEAS[B.l],Rm=MEAS[B.r],Bs=B.base?MEAS[B.base]:null,
+    sg=g=>single(g.fs)||g.fs.combo,
+    vals=(M,g)=>{if(M.unit&&!sg(g))return 0;const v=M.f(g.fs);if(!Bs)return v;const b=sg(g)?Bs.f(g.fs):0;return b?v/b*100:0},
+    lv=gs.map(g=>vals(L,g)),rv=gs.map(g=>vals(Rm,g)),fv=v=>Bs?f1(v)+'%':fmt(v),mx=Math.max(1,...lv,...rv)*1.18;
+  mkChart(el,{type:'bar',data:{labels:gs.map(g=>D.t?D.t(g.k):String(g.k)),datasets:[
+      {label:L.h,data:lv.map(v=>-v),backgroundColor:'#5B8FD6',borderRadius:7,borderSkipped:false,barThickness:15},
+      {label:Rm.h,data:rv,backgroundColor:'#B8C1CC',borderRadius:7,borderSkipped:false,barThickness:15}]},
+    options:{indexAxis:'y',maintainAspectRatio:false,animation:false,layout:{padding:{right:6}},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>i.dataset.label+': '+fv(Math.abs(i.raw))+(Bs?' of '+Bs.h.toLowerCase():'')}}},
+      scales:{x:{stacked:true,min:-mx,max:mx,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:Bs?'% of '+Bs.h.toLowerCase():'Number of firms',color:'#64707E'},ticks:{color:'#64707E',callback:v=>fv(Math.abs(v))}},y:{stacked:true,grid:{display:false},ticks:{color:'#1A2332'}}}},
+    plugins:[{id:'bfl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 11px Segoe UI,Arial';c.fillStyle='#1A2332';
+      ch.getDatasetMeta(0).data.forEach((p,i)=>{c.textAlign='right';c.fillText(fv(lv[i]),p.x-6,p.y+4)});
+      ch.getDatasetMeta(1).data.forEach((p,i)=>{c.textAlign='left';c.fillText(fv(rv[i]),p.x+6,p.y+4)});c.restore()}}]})}
+const DRAW={butterfly:cardButterfly,donut:cardDonut,lollipop:cardLollipop,ratio:cardRatio,area:cardArea,cumarea:cardCumArea,polar:cardPolar,radar:cardRadar,bubble:cardBubble,columns:cardColumns,logcols:cardColumns};
+/* columns: rounded gradient columns, for time or a row of places */
+function cardColumns(el){if(!el||!window.Chart)return;const d=cardData(13),log=CARDKIND[RP.id]==='logcols',many=d.gs.length>8||d.gs.some(g=>d.label(g).length>9),
+    grad=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return a;const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
+  mkChart(el,{type:'bar',data:{labels:d.gs.map(d.label),datasets:d.ms.map((M,i)=>({label:M.h,data:d.gs.map(g=>log?(d.val(M,g)||null):d.val(M,g)),backgroundColor:i?grad('#DDE3EA','#9AA8BC'):grad('#7FAEEA','#1E4A8A'),borderRadius:{topLeft:10,topRight:10},borderSkipped:'bottom',barPercentage:.62,categoryPercentage:.8}))},
+    options:{maintainAspectRatio:false,animation:false,
+      plugins:{legend:{display:d.ms.length>1,position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>`${i.dataset.label}: ${d.ms[i.datasetIndex].fmt(i.raw)}`}}},
+      scales:{y:Object.assign({grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>d.M.fmt(v)}},log?{type:'logarithmic',min:1}:{beginAtZero:true}),x:{grid:{display:false},ticks:{color:'#1A2332',autoSkip:false,maxRotation:many?55:0,minRotation:many?55:0}}}}})}
+/* pill bars: a gradient fill on a pale track, the figure in bold with its share beside it */
+function pillList(fs,cap){const gs=group(fs,RP.rows[0]).slice(0,cap),D=DIMS[RP.rows[0]],ms=(RP.multi||[RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.rows[0]==='substance')||RP.m[0]]);
+  const val=(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo?0:M.f(g.fs),all=ms.map(mm=>MEAS[mm]),tots=all.map(M=>M.add?M.f(fs):0);
+  const mx=Math.max(1,...gs.flatMap(g=>all.map(M=>val(M,g)))),multi=ms.length>1;
+  const row=g=>`<div class="pl-r"><span class="pl-n" title="${esc(D.t?D.t(g.k):String(g.k))}">${D.leaf?esc(PALL[g.k].name):D.t?esc(D.t(g.k)):esc(String(g.k))}</span><span class="pl-bars">${all.map((M,i)=>{const v=val(M,g),w=v/mx*100,share=tots[i]?`<span class="pl-s">${f1(v/tots[i]*100)}%</span>`:'';
+    return `<span class="pl-t${multi?' thin':''}"><i class="pl-f c${i}${RP.custom&&String(g.k).includes(' + ')?' cb':''}" style="width:${Math.max(w,v?1.5:0)}%"></i><span class="pl-v${w>=82?' in':''}" style="${w>=82?'right:calc('+(100-w)+'% + 10px)':'left:calc('+w+'% + 8px)'}"><b>${M.fmt(v)}</b> ${share}</span></span>`}).join('')}</span></div>`;
+  const lg=multi?`<div class="pl-lg" aria-hidden="true">${all.map((M,i)=>`<span><i class="c${i}"></i>${M.h}</span>`).join('')}</div>`:'';
+  return `<div class="pb pl">${lg}${gs.map(row).join('')||'<div class="sm">Nothing to show.</div>'}</div>`}
+function cardInner(id){const R=RM[id];if(!R||!R.def)return '';const view=ST.cv[id]||'chart';
+  const ctl=`<span class="mapctl">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>${openRep(id)}</span>`;
+  const body=withReport(id,()=>{const fs=factsFor(CUR),note=cardNote(),cap=note?`<div class="sm sc-cap">${esc(note)}</div>`:'';
+    if(view==='table')return cap+`<div class="sc-t">${cardTable()}</div>`;
+    const kind=CARDKIND[id]||'pill';
+    if(!RP.col&&!CANVAS_KIND.has(kind))return cap+pillList(fs,12);
+    return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(WIDECARDS.has(id)?310:id==='U2'?330:380):kind==='cumarea'?340:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>${id==='T3'?`<div class="note tnote">${tradeNote(P)}</div>`:''}`});
+  if(view==='chart'&&(R.def.col||CANVAS_KIND.has(CARDKIND[id])))later(()=>withReport(id,()=>R.def.col?pivotChart(factsFor(CUR),document.getElementById('cv-'+id),12):(DRAW[CARDKIND[id]]||cardColumns)(document.getElementById('cv-'+id))));
+  return panel(R.title,`Query ${R.q} · ${AV[R.av][1]}`,body,ctl)}
+document.addEventListener('change',e=>{const t=e.target;if(!t.dataset.rq)return;const [id,k]=t.dataset.rq.split(':');ST.range[id][k]=t.value===''?null:+t.value;selRefresh(id)});
+function selRefresh(id){const box=document.getElementById('sc-'+id);if(!box)return;const m=document.getElementById('msub-'+id),open=!!(m&&m.open),ch=window.Chart&&Chart.getChart('cv-'+id);if(ch)ch.destroy();
+  box.innerHTML=cardInner(id);if(open){const n=document.getElementById('msub-'+id);if(n)n.open=true}after()}
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.dataset.rsub){const [id,sid]=t.dataset.rsub.split(':');t.checked?ST.sel[id].add(sid):ST.sel[id].delete(sid);selRefresh(id)}
+  else if(t.dataset.rmode){const [id,m]=t.dataset.rmode.split(':');ST.mode[id]=m;selRefresh(id)}});
+document.addEventListener('click',e=>{const cl=e.target.closest('[data-rclear]');if(cl){const id=cl.dataset.rclear;ST.sel[id].clear();return selRefresh(id)}
+  document.querySelectorAll('.cardsel[open]').forEach(m=>{if(!m.contains(e.target))m.open=false})});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t){ST.tab=t.dataset.tab;const y=window.scrollY;go();window.scrollTo(0,Math.min(y,document.querySelector('.stabs')?document.querySelector('.stabs').offsetTop-60:0));return}
+  const b=e.target.closest('[data-cv]');if(!b)return;const [id,v]=b.dataset.cv.split(':'),box=document.getElementById('sc-'+id);if(!box)return;
+  ST.cv[id]=v;const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();box.innerHTML=cardInner(id);after()});
+
+/* ===================== saving a view under a name ===================== */
+const snapOf=()=>({rows:[...RP.rows],m:[...RP.m],f:JSON.parse(JSON.stringify(RP.f)),flags:[...RP.flags],cmp:RP.cmp,col:RP.col,pctTot:RP.pctTot,bars:RP.bars,sort:RP.sort,view:RP.view,per:{...PER}});
+function openSaveDialog(){if(document.getElementById('savedlg')||!RP)return;const R=RM[RP.id],prev=document.activeElement,d=document.createElement('div');d.id='savedlg';d.className='dlg-back';
+  d.innerHTML=`<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="sdT"><h2 id="sdT">Save this view</h2><p class="sm">Give the view a name. It keeps the rows, values, filters and period as they are now, and opens from Saved views.</p>
+   <label class="fl" for="sdName">Name</label><input id="sdName" class="fi" maxlength="80" autocomplete="off" value="${esc(R.title)}"><div class="sd-err" id="sdErr" role="alert"></div>
+   <div class="dlg-acts"><button type="button" class="btn" id="sdCancel">Cancel</button><button type="button" class="btn pri" id="sdSave">Save view</button></div></div>`;
+  document.body.appendChild(d);const inp=document.getElementById('sdName'),err=document.getElementById('sdErr');inp.focus();inp.select();
+  const close=()=>{d.remove();document.removeEventListener('keydown',kd);if(prev&&prev.focus)prev.focus()};
+  const save=()=>{const n=inp.value.trim();if(!n){err.textContent='Enter a name for this view.';inp.focus();return}
+    if(SAVED.some(x=>x.who===roleName()&&x.n.toLowerCase()===n.toLowerCase())){err.textContent='You already have a view with this name. Choose another.';inp.focus();inp.select();return}
+    SAVED.unshift({n,rep:RP.id,who:roleName(),on:fd(TODAY),snap:snapOf()});close();toast('Saved "'+n+'" to Saved views.')};
+  const kd=e=>{if(e.key==='Escape'){e.preventDefault();close()}else if(e.key==='Enter'&&e.target===inp){e.preventDefault();save()}
+    else if(e.key==='Tab'){const els=[inp,document.getElementById('sdCancel'),document.getElementById('sdSave')],i=els.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();els[2].focus()}else if(!e.shiftKey&&i===2){e.preventDefault();els[0].focus()}}};
+  document.addEventListener('keydown',kd);inp.addEventListener('input',()=>{err.textContent=''});
+  document.getElementById('sdCancel').onclick=close;document.getElementById('sdSave').onclick=save;d.addEventListener('mousedown',e=>{if(e.target===d)close()})}
+function openSaved(i){const v=SAVED[i];if(!v)return;openReport(v.rep);if(!v.snap)return;const x=v.snap;Object.assign(PER,x.per);applyPeriod();
+  Object.assign(RP,{rows:[...x.rows],m:[...x.m],f:JSON.parse(JSON.stringify(x.f)),flags:[...x.flags],cmp:x.cmp,col:x.col,pctTot:x.pctTot,bars:x.bars,sort:x.sort,view:x.view,open:new Set(),more:{}});rerenderReport();toast('Opened "'+v.n+'".')}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-oview]');if(b)openSaved(+b.dataset.oview)});
+
 /* ===================== catalogue and saved views ===================== */
 function catalog(){const secs=uniq(REPORTS.map(r=>r[0]));const isSuper=ST.role==='super';
   return pageHead(isSuper?'Report catalogue':'Reports',isSuper?'Which reports exist, where their data comes from, and who may open them.':`${REPORTS.length} reports, one or more for every query in NCB's precursor analysis sheet. Each opens with your jurisdiction applied.`,
     isSuper?'':`<button class="btn pri" data-open="X3">Build your own from Regional comparison</button>`)+
    secs.map(s=>`<div class="sec">${s}</div><div class="cat">${REPORTS.filter(r=>r[0]===s).map(r=>`<button class="ci" data-open="${r[1]}"><b>${r[2]}</b><span class="sm">NCB query ${r[3]}</span><span class="av ${AV[r[4]][0]}">${AV[r[4]][1]}</span>${isSuper?`<span class="sm">Open to: ${r[4]==='n'?'nobody until the source is linked':'HQ, Regional and Zonal Admins, scoped'}</span>`:''}</button>`).join('')}</div>`).join('')+footer()}
 function savedView(){return pageHead('Saved views','Your own report layouts, kept with their rows, values and filters (REQ-AN-005, REQ-AN-008).')+
-  `<div class="g">${panel('Saved views','',table('savedT',[{k:'n',h:'Name',f:s=>`<b>${esc(s.n)}</b>`},{k:'rep',h:'Report',f:s=>RM[s.rep].title},{k:'who',h:'Saved by'},{k:'on',h:'Saved on'},{k:'a',h:'',nosort:1,f:s=>`<button class="btn" data-open="${s.rep}">Open</button>`}],SAVED,{}))}</div>`}
+  `<div class="g">${panel('Saved views','',table('savedT',[{k:'n',h:'Name',f:s=>`<b>${esc(s.n)}</b>`},{k:'rep',h:'Report',f:s=>RM[s.rep].title},{k:'who',h:'Saved by'},{k:'on',h:'Saved on'},{k:'a',h:'',nosort:1,f:s=>`<button class="btn" data-oview="${SAVED.indexOf(s)}">Open</button>`}],SAVED,{}))}</div>`}
 
 /* ===================== Super Admin configuration ===================== */
 function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['watch','Watch rules'],['perf','Data refresh and performance'],['log','Change log']];
