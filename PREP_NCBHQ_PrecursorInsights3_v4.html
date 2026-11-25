@@ -779,6 +779,245 @@ html, body { height:100%; overflow:hidden; }
 .rg-top{background:#DCEBFA;color:#1E4A8A;font-weight:700}
 .rg-top sup{font-size:9px;margin-left:2px;color:#1E4A8A}
 .tbl-wrap.rg-mx.short{max-height:480px}
+/* ===== Overview tab (DG brief) ===== */
+.ov { display:flex; flex-direction:column; gap:14px; }
+.ov-hero { background:linear-gradient(135deg,#0E1A2B 0%,#1A2B44 55%,#1B3558 100%); color:#fff; border-radius:6px; padding:20px 22px 22px; }
+.ov-eyebrow { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#8FB4E8; font-weight:600; }
+.ov-hero h2 { font-size:26px; line-height:1.15; margin:6px 0 4px; font-weight:700; color:#fff; }
+.ov-asof { font-size:12px; color:#A9B8CC; }
+.ov-headline { display:flex; gap:12px; align-items:flex-start; margin:18px 0 4px; max-width:900px; font-size:18px; line-height:1.5; color:#D6E0EE; }
+.ov-headline b { color:#fff; }
+.ov-headline .dot { flex:0 0 14px; height:14px; margin-top:7px; border-radius:50%; background:#E8847A; box-shadow:0 0 0 5px rgba(232,132,122,.22); }
+.ov-tiles { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:16px; }
+.ov-tile { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:15px 16px; color:#fff; min-width:0; }
+.ov-tile .l { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#A9B8CC; }
+.ov-tile .mid { display:flex; justify-content:space-between; align-items:flex-end; gap:8px; margin-top:8px; }
+.ov-tile .v { font-size:32px; font-weight:700; line-height:1; }
+.ov-tile .v small { font-size:12px; color:#A9B8CC; margin-left:4px; font-weight:500; }
+.ov-tile svg { flex:0 1 auto; width:110px; max-width:48%; height:auto; }
+.ov-tile .ft { display:flex; align-items:center; gap:8px; margin-top:11px; font-size:11px; color:#A9B8CC; flex-wrap:wrap; }
+.ov-pill { font-size:11px; font-weight:700; border-radius:10px; padding:3px 8px; }
+.ov-pill.good { background:rgba(63,181,120,.2); color:#7FD9A8; }
+.ov-pill.bad { background:rgba(232,132,122,.2); color:#F1A39B; }
+.ov-pill.flat { background:rgba(255,255,255,.1); color:#C8D3E2; }
+.ov-segs { display:flex; gap:3px; margin-top:10px; }
+.ov-segs i { flex:1; height:7px; border-radius:2px; }
+
+.ov-sh { font-size:12px; font-weight:700; color:#1A2332; }
+.ov-ss { font-size:11px; color:#73808F; margin:2px 0 10px; }
+.ov-note { font-size:10px; color:#8B98A8; margin-top:8px; }
+.ov-leaders { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
+.ov-leader { background:#fff; border:1px solid #E0E4E8; border-radius:6px; padding:12px 14px; text-align:left; cursor:pointer; font:inherit; color:inherit; display:block; width:100%; }
+button.ov-leader:hover { background:#FAFBFC; }
+.ov-leader .l { font-size:10px; text-transform:uppercase; letter-spacing:.04em; color:#73808F; }
+.ov-leader .r { font-size:17px; font-weight:700; margin-top:5px; color:#1A2332; }
+.ov-leader .m { font-size:12px; color:#5A6474; margin-top:2px; }
+.ov-leader .bar { height:5px; background:#F2F4F6; border-radius:3px; margin-top:8px; overflow:hidden; }
+.ov-leader .bar b { display:block; height:100%; background:#2E6EBF; }
+.ov-leader.bad .bar b { background:#C0392B; }
+.ov-leader .nx { font-size:10px; color:#8B98A8; margin-top:6px; }
+
+.ov-row2 { display:grid; grid-template-columns:minmax(0,1fr); gap:14px; }
+.ov-card { background:#fff; border:1px solid #E0E4E8; border-radius:6px; padding:16px 18px; min-width:0; }
+.ov-mhead { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+.ov-tabs { display:flex; gap:4px; border-bottom:1px solid #E0E4E8; margin-bottom:8px; flex-wrap:wrap; }
+.ov-tabs button { background:none; border:0; border-bottom:2px solid transparent; padding:0 10px; min-height:44px; font:inherit; font-size:12px; color:#73808F; cursor:pointer; margin-bottom:-1px; }
+.ov-tabs button.on { color:#1E4A8A; border-bottom-color:#2E6EBF; font-weight:600; }
+.ov-rule { font-size:11px; color:#73808F; background:#FAFBFC; border:1px dashed #E0E4E8; border-radius:6px; padding:7px 10px; margin-bottom:6px; }
+.ov-att { list-style:none; margin:0; padding:0; }
+.ov-att li { display:flex; gap:12px; align-items:flex-start; padding:11px 4px; border-bottom:1px solid #F2F4F6; cursor:pointer; }
+.ov-att li:hover { background:#FAFBFC; }
+.ov-att li:last-child { border-bottom:0; }
+.ov-att .rk { flex:0 0 24px; height:24px; border-radius:50%; background:#F2F4F6; font-weight:700; font-size:11px; display:flex; align-items:center; justify-content:center; }
+.ov-att .t { flex:1; min-width:0; }
+.ov-att .zs { font-weight:600; font-size:13px; }
+.ov-att .zs span { color:#73808F; font-weight:400; }
+.ov-att .why { font-size:12px; color:#5A6474; margin-top:2px; }
+.ov-att .go { color:#2E6EBF; font-size:11px; white-space:nowrap; align-self:center; }
+.ov .chip { display:inline-block; font-size:10px; font-weight:700; border-radius:10px; padding:2px 8px; white-space:nowrap; align-self:center; }
+.ov .chip.red { background:#FBEAE8; color:#C0392B; }
+.ov .chip.amber { background:#FCF0E4; color:#C2611C; }
+.ov .chip.green { background:#E6F3EC; color:#1E7B4B; }
+
+.ov-toggle { display:inline-flex; border:1px solid #D0D5DC; border-radius:4px; overflow:hidden; }
+.ov-toggle button { background:#fff; border:0; border-right:1px solid #D0D5DC; padding:0 11px; min-height:44px; font:inherit; font-size:11px; color:#5A6474; cursor:pointer; }
+.ov-toggle button:last-child { border-right:0; }
+.ov-toggle button.on { background:#1E4A8A; color:#fff; }
+.ov-mapwrap { display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; }
+.ov-mapl { flex:0 0 auto; width:44%; min-width:250px; }
+.ov-map { height:100%; width:auto; max-width:100%; display:block; }
+.ov-map path { stroke:#fff; stroke-width:.6; cursor:pointer; transition:opacity .15s; }
+.ov-map path:hover { opacity:.75; }
+.ov-map path.sel { stroke:#1A2332; stroke-width:1.6; }
+.ov-map path.none { cursor:default; }
+.ov-legend { display:flex; gap:12px; flex-wrap:wrap; }
+.ov-legend span { font-size:10px; color:#73808F; }
+.ov-legend i { width:12px; height:12px; border-radius:2px; display:inline-block; margin-right:5px; vertical-align:-2px; }
+.ov-panel { flex:1; min-width:240px; background:#FAFBFC; border:1px solid #E6EAEF; border-radius:8px; padding:14px 16px; }
+.ov-panel h3 { margin:0 0 10px; font-size:15px; }
+.ov-chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+.ov-chips button { background:#fff; border:1px solid #D0D5DC; border-radius:14px; padding:0 11px; min-height:44px; font:inherit; font-size:11px; color:#5A6474; cursor:pointer; }
+.ov-chips button.on { background:#1A2332; color:#fff; border-color:#1A2332; }
+.ov-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:0 0 12px; }
+.ov-stat { background:#fff; border:1px solid #E0E4E8; border-radius:6px; padding:7px 9px; }
+.ov-stat .l { font-size:10px; color:#73808F; text-transform:uppercase; letter-spacing:.03em; }
+.ov-stat .v { font-size:14px; font-weight:700; margin-top:2px; }
+.ov-zh { font-size:11px; font-weight:700; margin-bottom:4px; }
+.ov-zrows { margin:0; padding:0; list-style:none; }
+.ov-zrows li { display:flex; align-items:center; gap:8px; font-size:12px; padding:6px 0; border-bottom:1px solid #F2F4F6; cursor:pointer; }
+.ov-zrows .nm { flex:0 0 96px; }
+.ov-zrows .bar { flex:1; height:6px; background:#F2F4F6; border-radius:3px; overflow:hidden; }
+.ov-zrows .bar b { display:block; height:100%; }
+.ov-zrows .pc { flex:0 0 30px; text-align:right; font-weight:600; }
+.ov-link { background:none; border:0; color:#2E6EBF; font:inherit; font-size:12px; cursor:pointer; padding:10px 0 0; min-height:44px; }
+
+.ov-tbl { overflow:auto; max-height:440px; border:1px solid #E0E4E8; border-radius:6px; margin-top:4px; }
+.ov-tbl th { position:sticky; top:0; z-index:2; }
+.ov-tbl th:first-child { z-index:3; }
+.ov-tbl tr:last-child td { position:sticky; bottom:0; z-index:2; }
+.ov-tbl table { width:100%; border-collapse:collapse; font-size:12px; }
+.ov-tbl th { text-align:right; color:#73808F; font-weight:600; font-size:11px; padding:9px 10px; border-bottom:1px solid #E0E4E8; background:#FAFBFC; white-space:nowrap; }
+.ov-tbl td { text-align:right; padding:9px 10px; border-bottom:1px solid #F2F4F6; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.ov-tbl th:first-child, .ov-tbl td:first-child { text-align:left; position:sticky; left:0; background:#fff; z-index:1; }
+.ov-tbl th:first-child { background:#FAFBFC; }
+.ov-tbl tr.region { cursor:pointer; font-weight:600; }
+.ov-tbl tr.region:hover td { background:#FAFBFC; }
+.ov-tbl tr.child td { background:#FAFBFC; font-weight:400; }
+.ov-tbl tr.child td:first-child { padding-left:30px; }
+.ov-tbl tr:last-child td { background:#F2F5F9; font-weight:700; border-top:2px solid #E0E4E8; }
+.ov-tbl .caret { display:inline-block; width:14px; color:#8B98A8; transition:transform .15s; }
+.ov-tbl tr.open .caret { transform:rotate(90deg); }
+.ov-tbl .zsub { font-size:10px; color:#8B98A8; font-weight:400; display:block; }
+.ov-tbl .neg { color:#C0392B; } .ov-tbl .pos { color:#1E7B4B; }
+.ov-foot { font-size:11px; color:#73808F; margin-top:10px; line-height:1.5; }
+
+@media (min-width:768px) { .ov-tiles { grid-template-columns:repeat(4,1fr); } .ov-leaders { grid-template-columns:repeat(3,1fr); } }
+@media (min-width:1280px) { .ov-leaders { grid-template-columns:repeat(6,1fr); } .ov-row2 { grid-template-columns:minmax(0,5fr) minmax(0,6fr); } }
+@media (max-width:479px) { .ov-tile svg { display:none; } }
+@media (max-width:767px) { .ov-mapl { width:100%; } .ov-hero { padding:16px 14px; } .ov-hero h2 { font-size:21px; } .ov-headline { font-size:16px; } .ov-tile .v { font-size:26px; } }
+
+/* Map fills the card; the details panel slides in from the right, with its own scroll */
+.ov-card .ov-chips { margin-top:12px; }
+.ov-stage { position:relative; height:500px; overflow:hidden; background:#FAFBFC; border:1px solid #E6EAEF; border-radius:6px; }
+.ov-mapc { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:16px 52px 48px; transition:padding .2s; }
+.ov-stage.open .ov-mapc { padding:16px 352px 48px 12px; }
+.ov-legend { position:absolute; left:14px; bottom:12px; background:rgba(255,255,255,.9); padding:5px 9px; border-radius:6px; z-index:1; }
+.ov-sumc { position:absolute; top:12px; left:14px; background:#fff; border:1px solid #E0E4E8; border-radius:6px; padding:8px 12px; box-shadow:0 2px 8px rgba(0,0,0,.06); max-width:60%; z-index:1; }
+.ov-stage.open .ov-sumc { display:none; }
+.ov-sumc b { display:block; font-size:14px; }
+.ov-sumc span { font-size:11px; color:#73808F; }
+.ov-sidebtn { position:absolute; top:50%; right:0; margin-top:-28px; z-index:3; width:36px; height:56px; padding:0; border:1px solid #D0D5DC; border-right:0; border-radius:6px 0 0 6px; background:#fff; color:#1E4A8A; font:inherit; font-size:20px; line-height:1; cursor:pointer; box-shadow:-2px 0 8px rgba(0,0,0,.08); transition:right .2s; display:flex; align-items:center; justify-content:center; }
+.ov-sidebtn:hover { background:#F3F6FA; }
+.ov-sidebtn.open { right:340px; }
+.ov-side { position:absolute; top:0; right:0; bottom:0; width:340px; max-width:100%; background:#fff; border-left:1px solid #E0E4E8; box-shadow:-6px 0 18px rgba(0,0,0,.08); overflow-y:auto; padding:16px 18px 20px; transform:translateX(100%); visibility:hidden; transition:transform .2s, visibility .2s; z-index:2; }
+.ov-side.open { transform:none; visibility:visible; }
+.ov-side h3 { margin:0 0 10px; font-size:15px; }
+@media (max-width:767px) {
+  .ov-stage { height:520px; }
+  .ov-mapc, .ov-stage.open .ov-mapc { padding:56px 40px 48px 12px; }
+  .ov-side { width:100%; }
+  .ov-sidebtn { width:44px; }
+  .ov-sidebtn.open { right:10px; top:10px; margin-top:0; height:44px; border:1px solid #D0D5DC; border-radius:6px; }
+}
+
+/* Thin controls on larger screens (phones keep the 44px tap size) */
+@media (min-width:768px) {
+  .ov-chips { gap:6px; }
+  .ov-chips button { min-height:28px; padding:0 12px; border-radius:6px; font-size:12px; }
+  .ov-toggle button { min-height:28px; padding:0 12px; font-size:12px; }
+  .ov-tabs button { min-height:34px; }
+  .ov-link { min-height:32px; }
+}
+
+/* Reference look: dot and text for status, quiet table, pale selected row */
+.ov .rag { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; white-space:nowrap; }
+.ov .rag::before { content:""; width:8px; height:8px; border-radius:50%; flex:none; }
+.ov .rag.g::before { background:#1E7B4B; } .ov .rag.a::before { background:#D9A13B; } .ov .rag.r::before { background:#C0392B; }
+.ov .rag.g { color:#1E7B4B; } .ov .rag.a { color:#9A6B12; } .ov .rag.r { color:#C0392B; }
+.ov-att .rk.r { background:#FBE9E7; color:#C0392B; }
+.ov-att .rk.a { background:#FBF2DF; color:#9A6B12; }
+.ov-card { border-color:#E3E7EC; box-shadow:0 1px 2px rgba(16,24,40,.04); }
+.ov-tbl th { color:#5F6B7A; background:#FAFBFC; font-size:11.5px; }
+.ov-tbl tr.region { font-weight:700; }
+.ov-tbl tr.region.sel td, .ov-tbl tr.region.sel td:first-child { background:#F1F6FD; }
+.ov-tbl td.b { font-weight:700; }
+.ov-tbl td.chg .up { color:#1E7B4B; font-weight:600; }
+.ov-tbl td.chg .dn { color:#C0392B; font-weight:600; }
+.ov-tbl td.chg .zsub { text-align:right; }
+.ov-tbl tr:last-child td { border-top:1px solid #E0E4E8; }
+.ov-foot .rag { margin-right:6px; }
+.ov-att .rag { align-self:center; }
+
+/* Paired bars: last year in grey, this year in blue */
+.ov-cmp { margin:6px 0 16px; padding:14px 16px; border:1px solid #EEF1F4; border-radius:6px; background:#fff; }
+.ov-cmp-h { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+.ov-cmp-t { font-size:12px; font-weight:700; color:#1A2332; }
+.ov-cmp-l { display:flex; gap:14px; font-size:11.5px; color:#5F6B7A; }
+.ov-cmp-l i { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+.ov-cmp-l i.p { background:#C5CDD7; } .ov-cmp-l i.c { background:#1E4A8A; }
+.ov-cr { display:grid; grid-template-columns:150px minmax(0,1fr); gap:12px; align-items:center; padding:6px 0; }
+.ov-cn { text-align:right; font-size:12px; line-height:1.35; color:#1A2332; }
+.ov-cn small { display:block; font-size:11px; font-weight:600; color:#5F6B7A; white-space:nowrap; }
+.ov-cn small.up { color:#1E7B4B; } .ov-cn small.dn { color:#C0392B; }
+.ov-cb { display:flex; flex-direction:column; gap:4px; }
+.ov-bar { position:relative; height:13px; border-radius:999px; }
+.ov-bar.p { background:linear-gradient(90deg,#DCE1E8,#C5CDD7); }
+.ov-bar.c { background:linear-gradient(90deg,#5B90D6,#1E4A8A); }
+.ov-bar em { position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%); font-style:normal; font-size:11.5px; font-weight:700; color:#1A2332; font-variant-numeric:tabular-nums; }
+@media (max-width:767px) { .ov-cr { grid-template-columns:96px minmax(0,1fr); } }
+
+/* Sub-menu cards in the reference style */
+.ov-xgrid { display:grid; grid-template-columns:minmax(0,1fr); gap:14px; }
+@media (min-width:1280px) { .ov-xgrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+.ov-xc { background:#fff; border:1px solid #E3E7EC; border-radius:6px; padding:18px 20px; box-shadow:0 1px 2px rgba(16,24,40,.04); min-width:0; }
+.ov-xc h3 { font-size:15px; margin:0; font-weight:700; letter-spacing:-.01em; color:#1A2332; }
+.ov-xs { font-size:12.5px; color:#5F6B7A; margin:4px 0 14px; line-height:1.55; }
+.ov-xs b { color:#1A2332; }
+.ov-xrows { display:flex; flex-direction:column; gap:10px; }
+.ov-xr { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2px 14px; padding:12px 14px; border:1px solid #EEF1F4; border-radius:6px; background:linear-gradient(180deg,#fff,#FAFBFD); }
+.ov-xr.click { cursor:pointer; }
+.ov-xr.click:hover { border-color:#CFDDEC; }
+.ov-xn { font-weight:700; font-size:13px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; color:#1A2332; }
+.ov-xn i { width:9px; height:9px; border-radius:2px; display:inline-block; flex:none; }
+.ov-xtag { font-size:11px; font-weight:600; background:#EEF1F5; color:#1A2332; border-radius:10px; padding:2px 9px; }
+.ov-xm { font-size:11.5px; color:#64707E; line-height:1.5; margin-top:3px; }
+.ov-xv { display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:5px; text-align:right; }
+.ov-xv b { font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1; font-variant-numeric:tabular-nums; color:#1A2332; }
+.ov-xv b small { font-size:11px; color:#5F6B7A; font-weight:600; margin-left:3px; letter-spacing:0; }
+.ov-xd { font-size:11.5px; font-weight:600; border-radius:999px; padding:2px 9px; white-space:nowrap; }
+.ov-xd.good { background:#E7F3EC; color:#1E7B4B; }
+.ov-xd.bad { background:#FBE9E7; color:#C0392B; }
+.ov-xd.nt { background:#F2F4F6; color:#5F6B7A; }
+.ov-xnote { font-size:12px; color:#64707E; margin:12px 0 0; line-height:1.5; }
+.ov-search { font:inherit; font-size:16px; min-height:44px; padding:0 12px; border:1px solid #D0D5DC; border-radius:6px; min-width:260px; color:#1A2332; }
+@media (min-width:768px) { .ov-search { font-size:13px; min-height:34px; } }
+.ov-tbl th.srt { cursor:pointer; user-select:none; }
+.ov-tbl th.srt:hover { color:#2E6EBF; }
+.ov-tbl tr.region td { font-weight:400; }
+.ov-tbl td:nth-child(n+5) { text-align:right; }
+.ov-tbl th:nth-child(n+5) { text-align:right; }
+
+.ov-tbl.plain tr:last-child td { background:#fff; border-top:0; position:static; font-weight:400; }
+.ov-tbl.plain tr.region:last-child:hover td { background:#FAFBFC; }
+.ov-tbl.plain td:nth-child(-n+4), .ov-tbl.plain th:nth-child(-n+4) { text-align:left; }
+
+@media (min-width:768px) { .ov-toggle.sm button { min-height:26px; padding:0 10px; font-size:11.5px; } }
+.ov-cmp-h { row-gap:8px; }
+
+.ov-tg2 { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+/* Filter icon and drawer */
+.hd .ov-fbtn { background:#1A2332; color:#fff; border-color:#1A2332; gap:8px; }
+.hd .ov-fbtn:hover { background:#2A3850; }
+.ov-cnt { background:#E0B44A; color:#1A2332; border-radius:9px; font-size:10px; font-weight:700; padding:1px 7px; }
+.ov-scrim { position:fixed; inset:0; background:rgba(14,26,43,.5); z-index:1000; }
+.ov-drawer { position:fixed; top:0; right:0; bottom:0; width:380px; max-width:100%; background:#fff; z-index:1001; box-shadow:-8px 0 30px rgba(0,0,0,.25); display:flex; flex-direction:column; text-align:left; }
+.ov-drawer .dh { display:flex; justify-content:space-between; align-items:center; padding:12px 8px 12px 18px; border-bottom:1px solid #E0E4E8; }
+.ov-drawer .dh h2 { margin:0; font-size:15px; }
+.hd .ov-drawer .x { border:0; background:none; font-size:18px; color:#73808F; width:44px; justify-content:center; }
+.ov-drawer .db { padding:16px 18px; overflow:auto; flex:1; display:flex; flex-direction:column; gap:14px; }
+.ov-drawer .df { display:flex; gap:8px; justify-content:flex-end; padding:14px 18px; border-top:1px solid #E0E4E8; }
+.hd .ov-drawer .ov-b.pri { background:#1E4A8A; color:#fff; border-color:#1E4A8A; }
 </style>
 <script>window.PREP_A3=true;</script></head>
 <body>
@@ -1172,7 +1411,442 @@ function RgActivity(){
       rows:rows,onRow:function(r){e(r.g,r.live)},key:"t"}),
       rgH(rgSay,{key:"s"},lows.length?lows.length+" of "+rows.length+" "+nm+" are marked Low. The quietest are "+lows.slice(0,5).map(function(r){return r.g+" ("+r.live.length+" registrants, "+r.add.length+" added)"}).join(", ")+".":"None of the "+nm+" is below half the average.")]})
 }
-var Z=S(Q()),FE=[["over","Overview"],["reg","Registrations"],["cap","Capacity"],["use","Usage"],["comp","Compliance"],["trade","Import & export"],["risk","Risk & anomalies"],["data","Data explorer"]],Xye=[["all","All substances"]].concat(ve.map((e,t)=>[String(t),e])),$E="prep-analytics3-config",QY=()=>{try{return JSON.parse(localStorage.getItem($E))||{}}catch{return{}}},ZY=e=>{try{localStorage.setItem($E,JSON.stringify(e))}catch{}};function JY({openList:e}){let t=hr.default.useContext(e3),{list:r,yi:n,sub:o,all:i}=t,s=pe(r,n,o,i),a=pe(r,i?0:Math.max(0,n-1),o),l=i||n===4,u=i?"since "+Fe[0]:"on "+Fe[Math.max(0,n-1)],c=r.filter(y=>Rt(y,n)&&vr(y,o)),p=Object.entries(Ye(c,y=>y.zone)).map(([y,x])=>({z:y,l:x})),d=Object.entries(Ye(c,y=>y.region)).map(([y,x])=>({r:y,l:x,g:pe(x,n,o)})).slice().sort((y,x)=>y.g.ontimePct-x.g.ontimePct)[0],h=ve.map((y,x)=>({i:x,g:pe(r,n,String(x))})).sort((y,x)=>x.g.cap-x.g.use-(y.g.cap-y.g.use))[0],m=Bc(r,Math.max(0,n-1),n),b=ve.map((y,x)=>({i:x,g:Ao(pe(m,Math.max(0,n-1),String(x)).use,pe(m,n,String(x)).use),n:pe(m,n,String(x)).n})).filter(y=>y.n>5).sort((y,x)=>x.g-y.g)[0],g=p.map(y=>({...y,risk:Dt(y.l,x=>x.risk)/y.l.length})).sort((y,x)=>x.risk-y.risk)[0];return(0,Z.jsxs)(Z.Fragment,{children:[(0,Z.jsxs)("div",{className:"finds",children:[g&&(0,Z.jsxs)("button",{className:"find red",onClick:()=>e(g.z+" Zone",g.l),children:[(0,Z.jsx)("span",{className:"k",children:"Highest risk zone"}),(0,Z.jsx)("b",{children:g.z})," averages a risk score of ",Math.round(g.risk)," across ",g.l.length," registrants."]}),d&&(0,Z.jsxs)("button",{className:"find amber",onClick:()=>e(Gt(d.r)+" Region \xB7 not on time",d.l.filter(y=>y.q[3]!=="on")),children:[(0,Z.jsx)("span",{className:"k",children:"Weakest compliance"}),(0,Z.jsx)("b",{children:Gt(d.r)})," files ",kt(d.g.ontimePct)," of returns on time."]}),h&&(0,Z.jsxs)("button",{className:"find",onClick:()=>e(ve[h.i]+" \xB7 low usage vs capacity",c.filter(y=>y.subs.indexOf(h.i)>=0).sort((y,x)=>y.util25-x.util25).slice(0,30)),children:[(0,Z.jsx)("span",{className:"k",children:"Largest unused capacity"}),(0,Z.jsx)("b",{children:ve[h.i]})," has ",fe(h.g.cap-h.g.use)," tonnes spare, at ",kt(h.g.util)," utilisation."]}),b&&(0,Z.jsxs)("button",{className:"find green",onClick:()=>e(ve[b.i]+" \xB7 fastest growth",c.filter(y=>y.subs.indexOf(b.i)>=0).slice(0,40)),children:[(0,Z.jsx)("span",{className:"k",children:"Fastest growing usage"}),(0,Z.jsx)("b",{children:ve[b.i]})," usage by the same companies moved ",Mo(b.g)," on the year before."]})]}),(0,Z.jsxs)("div",{className:"tiles",children:[(0,Z.jsx)(Hs,{tone:"",icon:"users",label:"Registrants",help:Us.Registrants,value:s.n,note:Mo(Ao(a.n,s.n))+" "+u,onClick:()=>e("All registrants",c)}),(0,Z.jsx)(Hs,{tone:"green",icon:"box",label:"Installed capacity",help:Us["Installed capacity"],value:fe(s.cap)+" tonnes",note:Mo(Ao(a.cap,s.cap))+" "+u,onClick:()=>e("Largest capacity",c.slice().sort((y,x)=>x.cap25-y.cap25).slice(0,50))}),(0,Z.jsx)(Hs,{tone:"grey",icon:"gauge",label:"Reported usage",help:Us["Reported usage"],value:fe(s.use)+" tonnes",note:kt(s.util)+" of capacity",onClick:()=>e("Highest usage",c.slice().sort((y,x)=>x.use25-y.use25).slice(0,50))}),(0,Z.jsx)(Hs,{tone:"lav",icon:"check",label:"On-time filing",help:Us["On-time filing"],value:l?kt(s.ontimePct):"\u2014",note:l?s.n-s.onTime-s.nonf+" filed late":"Filing is known for the latest quarter only",onClick:()=>e("Not filed on time",c.filter(y=>y.q[3]!=="on"))}),(0,Z.jsx)(Hs,{tone:"rose",icon:"alert",label:"Non-filers",help:Us["Non-filers"],value:l?s.nonf:"\u2014",note:l?K(s.nonfPct)+"% of registrants":"Filing is known for the latest quarter only",onClick:()=>e("Non-filers",c.filter(y=>y.nonf))}),(0,Z.jsx)(Hs,{tone:"teal",icon:"swap",label:"Net trade",help:Us["Net trade"],value:fe(s.net)+" tonnes",note:fe(s.imp)+" in \xB7 "+fe(s.exp)+" out",onClick:()=>e("Trading companies",c.filter(y=>se(y,"imp",o,n)+se(y,"exp",o,n)>0).slice(0,80))})]})]})}function eK({close:e}){return(0,Z.jsx)("div",{className:"dr-wrap",onClick:e,children:(0,Z.jsxs)("aside",{className:"dr",onClick:t=>t.stopPropagation(),role:"dialog","aria-label":"What the figures mean",children:[(0,Z.jsxs)("div",{className:"dr-h",children:[(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"dr-t",children:"What the figures mean"}),(0,Z.jsx)("div",{className:"cd-s",children:"Plain-English meaning of the terms used on this page. Every card also has a ? button for its own explanation."})]}),(0,Z.jsx)("button",{className:"x",onClick:e,"aria-label":"Close",children:"\xD7"})]}),(0,Z.jsx)("div",{className:"dr-b",children:lE.map(t=>(0,Z.jsxs)("div",{className:"gl-i",children:[(0,Z.jsx)("div",{className:"gl-t",children:t[0]}),(0,Z.jsx)("div",{className:"gl-d",children:t[1]})]},t[0]))})]})})}function tK({cfg:e,setCfg:t,close:r}){let n=e.hidden||{},o=i=>t({...e,hidden:{...n,[i]:!n[i]}});return(0,Z.jsx)("div",{className:"dr-wrap",onClick:r,children:(0,Z.jsxs)("aside",{className:"dr",onClick:i=>i.stopPropagation(),role:"dialog","aria-label":"Customise dashboard",children:[(0,Z.jsxs)("div",{className:"dr-h",children:[(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"dr-t",children:"Customise this dashboard"}),(0,Z.jsx)("div",{className:"cd-s",children:"Choose what each tab shows. Your choices are saved in this browser."})]}),(0,Z.jsx)("button",{className:"x",onClick:r,"aria-label":"Close",children:"\xD7"})]}),(0,Z.jsxs)("div",{className:"dr-b",children:[(0,Z.jsxs)("div",{className:"fb",children:[(0,Z.jsx)(Br,{label:"Chart height",value:String(e.ch||260),onChange:i=>t({...e,ch:+i}),options:[["220","Compact"],["260","Standard"],["340","Tall"]]}),(0,Z.jsx)(Br,{label:"Headline strip",value:e.head===!1?"off":"on",onChange:i=>t({...e,head:i==="on"}),options:[["on","Show findings and tiles"],["off","Hide"]]}),(0,Z.jsx)("button",{className:"btn",onClick:()=>t({}),children:"Reset everything"})]}),FE.map(([i,s])=>(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"cd-t",style:{margin:"16px 0 6px"},children:s}),l8.filter(a=>a.tab===i).map(a=>(0,Z.jsxs)("label",{className:"chk",children:[(0,Z.jsx)("input",{type:"checkbox",checked:!n[a.id],onChange:()=>o(a.id)})," ",a.title]},a.id))]},i))]})]})})}function rK(){let[e,t]=(0,hr.useState)(QY),r=R=>{t(R),ZY(R)},[n,o]=(0,hr.useState)("over"),[i,s]=(0,hr.useState)("all"),[a,l]=(0,hr.useState)("all"),u=i==="all",c=u?4:+i,[p,f]=(0,hr.useState)({region:"all",zone:"all",state:"all"}),[d,h]=(0,hr.useState)(null),[m,b]=(0,hr.useState)(!1),[g,y]=(0,hr.useState)(!1),x=R=>{f(R);let $=document.getElementById("regionSelect");$&&($.value=R.region.indexOf(",")>=0?"all":R.region);let N=document.getElementById("scopeChip");N&&(N.textContent=R.state!=="all"?R.state:R.region==="all"?"7 Regions \xB7 30 Zones":R.region.split(",").map(Gt).join(", ")+(R.region.indexOf(",")>=0?" Regions":" Region"))};(0,hr.useEffect)(()=>{window.__setRegion=R=>x({region:R,zone:"all",state:"all"})},[]);let v=(0,hr.useMemo)(()=>B0(Xr,p),[p]),T=(R,$,N)=>h($.length===1?{title:R,list:null,note:"",company:$[0]}:{title:R,list:$,note:N||"",company:null}),_=R=>h($=>({...$,company:R}));(0,hr.useEffect)(()=>{let R=$=>{$.key==="Escape"&&(h(null),b(!1),y(!1))};return window.addEventListener("keydown",R),()=>window.removeEventListener("keydown",R)},[]);let w=p.region==="all"?null:p.region.split(","),O=Ho.filter(R=>!w||w.indexOf(R.region)>=0),A=Object.keys(J1).map(R=>[R,Gt(R)]),M=(R,$)=>R==="all"?null:R.split(",").map($).join(", "),E=[M(p.region,Gt)&&[M(p.region,Gt)+" Region",()=>x({region:"all",zone:"all",state:"all"})],M(p.zone,R=>R)&&[M(p.zone,R=>R)+" Zone",()=>f({...p,zone:"all"})],M(p.state,R=>R)&&[M(p.state,R=>R),()=>f({...p,state:"all"})]].filter(Boolean),j=e.hidden||{},L=l8.filter(R=>R.tab===n&&!j[R.id]),I={list:v,yi:c,all:u,sub:a,scope:p,setScope:x,openList:T,openCompany:_,drawer:d,closeDrawer:()=>h(null),ch:e.ch||260};return(0,Z.jsxs)(e3.Provider,{value:I,children:[(0,Z.jsxs)("div",{className:"wrap",children:[(0,Z.jsxs)("div",{className:"hd",children:[(0,Z.jsxs)("div",{className:"hd-l",children:[(0,Z.jsx)("h1",{children:"Precursor analytics"}),(0,Z.jsxs)("p",{children:["Registrations, capacity, usage, compliance and trade for Schedule-A substances \xB7 ",(0,Z.jsx)("span",{className:"scopetxt",children:E.length?E.map(R=>R[0]).join(" \u203A "):"All India"})," \xB7 ",u?"All years to date, 2021\u20132025. Usage and trade are totals, registrants and capacity are as at 2025. Quantities are in tonnes (1 tonne = 1,000 kg).":"FY "+Fe[c]]}),E.length>0&&(0,Z.jsx)("div",{className:"crumbs",children:E.map(R=>(0,Z.jsxs)("button",{className:"chipx",onClick:R[1],children:[R[0]," \xD7"]},R[0]))})]}),(0,Z.jsxs)("div",{className:"hd-r",children:[(0,Z.jsx)(Br,{label:"Year",value:i,onChange:s,options:[["all","All years (till date)"]].concat(Fe.map((R,$)=>[String($),"FY "+R]))}),(0,Z.jsx)(Eo,{label:"Substances",value:a,onChange:l}),(0,Z.jsx)(Eo,{label:"Regions",value:p.region,onChange:R=>x({region:R,zone:"all",state:"all"}),options:A,allLabel:"All regions"}),(0,Z.jsx)(Eo,{label:"Zones",value:p.zone,onChange:R=>f({...p,zone:R}),options:O.map(R=>[R.zone,R.zone]),allLabel:"All zones",disabled:p.region==="all",disabledText:"Select a region first"}),(0,Z.jsx)("a",{className:"hbtn",href:"PREP_Analytics2_Query_to_Chart_Map.xlsx",download:!0,title:"Excel sheet: which graph answers which query in the PDF, and why",children:"Chart guide (Excel)"}),(0,Z.jsx)("button",{type:"button",onClick:()=>b(!0),children:"Customise"}),(0,Z.jsx)("button",{type:"button",onClick:()=>a8("analytics-companies.csv",[["Company","Zone","State","Region","Substances","Capacity t","Usage t","Risk"]].concat(v.filter(R=>Rt(R,4)).map(R=>[R.name,R.zone,R.state,Gt(R.region),R.combo,K(R.cap25),K(R.use25),R.risk]))),children:"Export CSV"})]})]}),(0,Z.jsx)("div",{className:"tabs",role:"tablist",children:FE.map(R=>(0,Z.jsx)("button",{role:"tab","aria-selected":n===R[0],className:"tab"+(n===R[0]?" on":""),onClick:()=>o(R[0]),children:R[1]},R[0]))}),!1&&(0,Z.jsx)(JY,{openList:T},i+a+JSON.stringify(p)),(0,Z.jsx)("div",{className:"grid",children:L.map(R=>(0,Z.jsx)("div",{className:"cell"+(R.wide?" wide":"")+(R.full?" full":"")+(R.top?" top":""),children:(0,Z.jsx)(R.C,{})},R.id+i+a+JSON.stringify(p)))}),null]}),(0,Z.jsx)(_E,{}),m&&(0,Z.jsx)(tK,{cfg:e,setCfg:r,close:()=>b(!1)}),g&&(0,Z.jsx)(eK,{close:()=>y(!1)})]})}})();
+/* ===== Overview tab: Director General brief (hero, regional leaders, needs attention, map, scorecard) ===== */
+var ovH=rgH;
+var ovN=function(n){return Math.round(+n||0).toLocaleString("en-IN")};
+var ovD=function(n,d){return(+n||0).toLocaleString("en-IN",{minimumFractionDigits:d,maximumFractionDigits:d})};
+var ovPct=function(a,b){return b?(a-b)/b*100:0};
+var ovGroup=function(list,key){var o={};list.forEach(function(e){(o[e[key]]=o[e[key]]||[]).push(e)});return o};
+var ovLiveList=function(list,yi,sub){return list.filter(function(e){return Rt(e,yi)&&vr(e,sub)})};
+var ovAvgRisk=function(l){return l.length?l.reduce(function(s,e){return s+e.risk},0)/l.length:0};
+var ovStat=function(list,yi,sub,all){
+  var o=pe(list,yi,sub,all),yr=R5[yi];o.add=0;o.can=0;
+  list.forEach(function(e){if(!vr(e,sub))return;if(e.reg===yr)o.add++;if(e.cancel===yr)o.can++});
+  var l=ovLiveList(list,yi,sub);o.risk=ovAvgRisk(l);o.hi=l.filter(function(e){return e.risk>=60}).length;return o};
+var ovSpark=function(vals,color){
+  var w=120,h=38,mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),sp=(mx-mn)||1,
+  pts=vals.map(function(v,i){return[(i*(w-6)/Math.max(1,vals.length-1)+3),(h-5-(v-mn)/sp*(h-12))]}),
+  line=pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1)}).join(" "),
+  last=pts[pts.length-1];
+  return ovH("svg",{width:w,height:h,viewBox:"0 0 "+w+" "+h,"aria-hidden":"true"},
+    ovH("polygon",{points:"3,"+h+" "+line+" "+last[0]+","+h,fill:color,opacity:".18"}),
+    ovH("polyline",{points:line,fill:"none",stroke:color,strokeWidth:"2"}),
+    ovH("circle",{cx:last[0],cy:last[1],r:"3.2",fill:color}))};
+var OV_GREY={"st-ar":1,"st-mn":1,"st-mz":1,"st-nl":1,"st-tr":1,"st-ld":1};
+var OV_BLUES=["#DCE7F4","#B5CCE8","#7FA6D6","#4A7EC0","#1E4A8A"];
+var OV_FIL=["#C0392B","#E48577","#F2CB7A","#55B285","#1E7B4B"];
+var OV_RISK=["#1E7B4B","#D9A13B","#C0392B"];
+var OV_METRICS=[["n","Registrants"],["cap","Capacity"],["fil","On-time filing"],["risk","Risk"]];
+var ovColor=function(m,st,max,minRisk,maxRisk){
+  if(m==="fil"){var p=st.ontimePct;return p<70?OV_FIL[0]:p<76?OV_FIL[1]:p<82?OV_FIL[2]:p<88?OV_FIL[3]:OV_FIL[4]}
+  if(m==="risk"){var t=(st.risk-minRisk)/((maxRisk-minRisk)||1);return t>.66?OV_RISK[2]:t>.33?OV_RISK[1]:OV_RISK[0]}
+  var v=m==="n"?st.n:st.cap;return OV_BLUES[Math.min(4,Math.floor(v/(max||1)*5))]};
+var ovLegend=function(m){
+  if(m==="fil")return[["Below 70%",OV_FIL[0]],["70–75%",OV_FIL[1]],["76–81%",OV_FIL[2]],["82–87%",OV_FIL[3]],["88% and above",OV_FIL[4]]];
+  if(m==="risk")return[["Lower risk",OV_RISK[0]],["Middle",OV_RISK[1]],["Higher risk",OV_RISK[2]]];
+  return[["Lowest",OV_BLUES[0]],["",OV_BLUES[1]],["",OV_BLUES[2]],["",OV_BLUES[3]],["Highest",OV_BLUES[4]]]};
+
+/* zone x substance pairs for the Needs attention tabs */
+var ovPairs=function(list,yi,sub,all){
+  var out=[],zones=ovGroup(ovLiveList(list,yi,sub),"zone");
+  Object.keys(zones).forEach(function(z){
+    ve.forEach(function(nm,si){
+      if(sub!=="all"&&Xn(sub).indexOf(si)<0)return;
+      var st=pe(zones[z],yi,String(si),all);
+      if(st.n>=3){st.zone=z;st.si=si;st.sname=nm;st.region=zones[z][0].region;st.list=zones[z].filter(function(e){return vr(e,String(si))});out.push(st)}})});
+  return out};
+var ovAttention=function(pairs,yi){
+  var maxTrade=Math.max.apply(null,pairs.map(function(p){return p.imp+p.exp}).concat([1]));
+  var hasFil=yi===4;
+  var enf=pairs.map(function(p){return{p:p,s:(hasFil?p.nonfPct*.6:0)+(p.imp+p.exp)/maxTrade*40}}).sort(function(a,b){return b.s-a.s}).slice(0,5).map(function(x){var p=x.p;
+    return{p:p,why:(hasFil?p.nonf+" of "+p.n+" premises did not file. ":"")+ovN(p.imp)+" t imported, "+ovN(p.exp)+" t exported.",hi:x.s>=40}});
+  var capSorted=pairs.map(function(p){return p.cap}).sort(function(a,b){return a-b}),medCap=capSorted[Math.floor(capSorted.length/2)]||0;
+  var und=pairs.filter(function(p){return p.cap>=medCap&&p.cap>0}).sort(function(a,b){return a.util-b.util}).slice(0,5).map(function(p){
+    return{p:p,why:"Reported usage is "+ovN(p.util)+"% of installed capacity ("+ovN(p.cap)+" t).",hi:p.util<25}});
+  var ano=pairs.filter(function(p){return p.cap>0}).map(function(p){return{p:p,r:p.imp/p.cap}}).sort(function(a,b){return b.r-a.r}).slice(0,5).map(function(x){var p=x.p;
+    return{p:p,why:"Imports of "+ovN(p.imp)+" t are "+ovD(x.r,1)+" times installed capacity. Usage is "+ovN(p.useY)+" t.",hi:x.r>=3}});
+  [enf,und,ano].forEach(function(l){l.forEach(function(it,i){it.hi=i<2})});
+  return{enf:enf,und:und,ano:ano}};
+
+function OvDG(){
+  var cx=hr.default.useContext(e3),list=cx.list,yi=cx.yi,sub=cx.sub,all=cx.all;
+  var s1=hr.useState("n"),metric=s1[0],setMetric=s1[1];
+  var s2=hr.useState(null),selReg=s2[0],setSelReg=s2[1];
+  var s3=hr.useState("enf"),attTab=s3[0],setAttTab=s3[1];
+  var s4=hr.useState("region"),view=s4[0],setView=s4[1];
+  var s5=hr.useState({}),openRows=s5[0],setOpenRows=s5[1];
+  var s6=hr.useState(false),panelOpen=s6[0],setPanelOpen=s6[1];
+  var s7=hr.useState("n"),cmpKey=s7[0],setCmpKey=s7[1];
+  var s8=hr.useState("table"),disp=s8[0],setDisp=s8[1];
+  var hasFil=yi===4,fyLabel="FY "+Fe[yi],prevYi=Math.max(0,yi-1);
+  var live=ovLiveList(list,yi,sub),s=ovStat(list,yi,sub,all),p=pe(list,prevYi,sub,false);
+  var series=[0,1,2,3,4].filter(function(i){return i<=yi}).map(function(i){return pe(list,i,sub,false)});
+  var sr=function(k){return series.map(function(x){return x[k]})};
+  var grow=ovPct(s.n,p.n);
+  var zoneG=ovGroup(live,"zone"),zoneRisk=Object.keys(zoneG).map(function(z){return{z:z,r:ovAvgRisk(zoneG[z]),l:zoneG[z]}}).sort(function(a,b){return b.r-a.r});
+  var riskCut=zoneRisk.length?zoneRisk[Math.max(0,Math.floor(zoneRisk.length*.25)-1)].r:0;
+  var attZones=zoneRisk.filter(function(z){return z.r>=riskCut&&zoneRisk.length>0}),highZones=attZones.filter(function(z){return z.r>=riskCut+(zoneRisk[0].r-riskCut)*.5});
+  var regG=ovGroup(list,"region"),regKeys=E5.filter(function(k){return regG[k]});
+  var regStat={};regKeys.forEach(function(k){regStat[k]=ovStat(regG[k],yi,sub,all)});
+  var selEff=selReg==="all"?null:selReg&&regStat[selReg]?selReg:(regKeys.slice().sort(function(a,b){return hasFil?regStat[a].ontimePct-regStat[b].ontimePct:regStat[b].risk-regStat[a].risk})[0]||null);
+  var maxN=Math.max.apply(null,regKeys.map(function(k){return regStat[k].n}).concat([1])),
+      maxC=Math.max.apply(null,regKeys.map(function(k){return regStat[k].cap}).concat([1])),
+      risks=regKeys.map(function(k){return regStat[k].risk}),minR=Math.min.apply(null,risks),maxR=Math.max.apply(null,risks);
+  var maxOf=function(key,dir){var best=null;regKeys.forEach(function(k){var v=regStat[k][key];if(best===null||(dir>0?v>regStat[best][key]:v<regStat[best][key]))best=k});return best};
+  var runner=function(key,dir,top){var o=regKeys.filter(function(k){return k!==top}).sort(function(a,b){return dir>0?regStat[b][key]-regStat[a][key]:regStat[a][key]-regStat[b][key]});return o[0]};
+  var total=function(key){return regKeys.reduce(function(t,k){return t+regStat[k][key]},0)};
+  var LEAD=[["Highest installed capacity","cap",1,function(v){return ovN(v)+" t"},true],["Highest usage","useY",1,function(v){return ovN(v)+" t"},true],
+    ["Highest importer","imp",1,function(v){return ovN(v)+" t"},true],["Highest exporter","exp",1,function(v){return ovN(v)+" t"},true],
+    ["Lowest on-time filing","ontimePct",-1,function(v){return ovD(v,0)+"%"},false],["Most added registrations","add",1,function(v){return ovN(v)+" added"},true]];
+  var leaders=LEAD.map(function(L){
+    if(L[1]==="ontimePct"&&!hasFil)return ovH("div",{className:"ov-leader",key:L[0]},ovH("div",{className:"l"},L[0]),ovH("div",{className:"r"},"Latest year only"),ovH("div",{className:"nx"},"Filing is held for FY "+Fe[4]+"."));
+    var top=maxOf(L[1],L[2]);if(!top)return null;var st=regStat[top],run=runner(L[1],L[2],top),share=L[4]&&total(L[1])?st[L[1]]/total(L[1])*100:null;
+    return ovH("button",{type:"button",className:"ov-leader"+(L[2]<0?" bad":""),key:L[0],onClick:function(){setSelReg(top)}},
+      ovH("div",{className:"l"},L[0]),ovH("div",{className:"r"},J1[top].name),ovH("div",{className:"m"},L[3](st[L[1]])+(share!==null?" · "+ovD(share,0)+"% of India":"")),
+      ovH("div",{className:"bar"},ovH("b",{style:{width:Math.max(4,share!==null?share:st.ontimePct)+"%"}})),
+      run?ovH("div",{className:"nx"},"Next: "+J1[run].name+" "+L[3](regStat[run][L[1]])):null)});
+
+  var delta=function(cur,prev,goodUp,suffix){var d=ovPct(cur,prev),cls=Math.abs(d)<.05?"flat":((d>0)===goodUp?"good":"bad");return ovH("span",{className:"ov-pill "+cls},(d>=0?"▲ ":"▼ ")+ovD(Math.abs(d),1)+"%")};
+  var TILES=[
+    {l:"Registered premises",v:ovN(s.n),sp:ovSpark(sr("n"),"#8FB4E8"),pill:delta(s.n,p.n,true),note:"vs "+(yi?"FY "+Fe[prevYi]:"first year")},
+    {l:"High-risk premises",v:ovN(s.hi),sp:null,pill:null,note:"risk score 60 or more · "+ovD(s.n?s.hi/s.n*100:0,1)+"% of register",warn:true},
+    {l:"Zones needing attention",v:ovN(attZones.length),segs:zoneRisk,pill:null,note:highZones.length+" high priority · "+(zoneRisk.length-attZones.length)+" within range",warn:true},
+    {l:"On-time filing",v:hasFil?ovD(s.ontimePct,0)+"%":"—",sp:null,pill:null,note:hasFil?ovN(s.nonf)+" premises did not file":"Held for the latest year only"},
+    {l:"Installed capacity",v:ovN(s.cap),u:"t",sp:ovSpark(sr("cap"),"#8FB4E8"),pill:delta(s.cap,p.cap,true),note:"vs "+(yi?"FY "+Fe[prevYi]:"first year")},
+    {l:"Reported usage",v:ovN(all?s.use:s.useY),u:"t",sp:ovSpark(sr("use"),"#E0B44A"),pill:delta(s.useY,p.use,true),note:all?"all years to date":"in "+fyLabel},
+    {l:"Imports",v:ovN(s.imp),u:"t",sp:ovSpark(sr("imp"),"#8FB4E8"),pill:null,note:s.impCos+" importing premises"},
+    {l:"Exports",v:ovN(s.exp),u:"t",sp:ovSpark(sr("exp"),"#8FB4E8"),pill:null,note:"Net "+(s.net>=0?"+":"")+ovN(s.net)+" t"}];
+  var tiles=TILES.map(function(t){
+    return ovH("div",{className:"ov-tile"+(t.warn?" warn":""),key:t.l},
+      ovH("div",{className:"l"},t.l),
+      ovH("div",{className:"mid"},ovH("div",{className:"v"},t.v,t.u?ovH("small",{},t.u):null),t.sp||null),
+      t.segs?ovH("div",{className:"ov-segs"},t.segs.map(function(z,i){var c=z.r>=riskCut+(zoneRisk[0].r-riskCut)*.5?"#E8847A":z.r>=riskCut?"#E0B44A":"#3A475A";return ovH("i",{key:i,style:{background:c},title:z.z+" · average risk "+ovN(z.r)})})):null,
+      ovH("div",{className:"ft"},t.pill,ovH("span",{},t.note)))});
+
+  var headline=ovH("div",{},ovH("b",{},"The register is "+(grow>8?"growing quickly":grow>0?"growing steadily":grow<0?"shrinking":"flat")+". "),
+    ovN(s.n)+" premises are registered in "+(all?"FY "+Fe[4]:fyLabel)+(yi?", "+(grow>=0?"up ":"down ")+ovD(Math.abs(grow),1)+"% on FY "+Fe[prevYi]:"")+". ",
+    ovH("b",{},attZones.length+" zones need your attention"),", "+highZones.length+" of them high priority.");
+
+  var pairs=ovPairs(list,yi,sub,all),att=ovAttention(pairs,yi),
+      ATTL=[["enf","Enforcement focus","Ranked by the share of premises that did not file, plus import and export volume."],["und","Under-reporting","High installed capacity but low reported usage."],["ano","Anomalies","Imports far above what the installed capacity can explain."]];
+  var attList=att[attTab].map(function(it,i){var pp=it.p;
+    return ovH("li",{key:pp.zone+pp.sname,onClick:function(){cx.openList(pp.zone+" Zone · "+pp.sname,pp.list,it.why)}},
+      ovH("span",{className:"rk "+(it.hi?"r":"a")},i+1),ovH("div",{className:"t"},ovH("div",{className:"zs"},pp.zone," ",ovH("span",{},"· "+pp.sname+" · "+J1[pp.region].name)),ovH("div",{className:"why"},it.why)),
+      ovH("span",{className:"rag "+(it.hi?"r":"a")},it.hi?"Act":"Watch"),ovH("span",{className:"go"},"Open ›"))});
+
+  var legend=ovLegend(metric).map(function(x,i){return ovH("span",{key:i},ovH("i",{style:{background:x[1]}}),x[0])});
+  var paths=Qm.states.map(function(st){
+    var grey=OV_GREY[st.id]||!regStat[st.region];
+    return ovH("path",{key:st.id,d:st.d,className:(grey?"none ":"")+(st.region===selEff?"sel":""),style:{fill:grey?"#D5DAE0":ovColor(metric,regStat[st.region],metric==="cap"?maxC:maxN,minR,maxR)},
+      onClick:grey?undefined:function(){setSelReg(st.region)}},ovH("title",{},st.name+" · "+J1[st.region].name))});
+  var panel=null,sumTxt="";
+  if(selEff&&regStat[selEff]){
+    var r=regStat[selEff],zl=ovGroup(ovLiveList(regG[selEff],yi,sub),"zone"),zrows=Object.keys(zl).map(function(z){var zs=pe(zl[z],yi,sub,all);zs.z=z;zs.r=ovAvgRisk(zl[z]);return zs}).sort(function(a,b){return b.r-a.r});
+    var mini=function(l,v){return ovH("div",{className:"ov-stat"},ovH("div",{className:"l"},l),ovH("div",{className:"v"},v))};
+    sumTxt=ovN(r.n)+" registrants · "+(hasFil?ovD(r.ontimePct,0)+"% on time · ":"")+ovN(r.cap)+" t capacity";
+    panel=ovH("div",{},ovH("h3",{},J1[selEff].name+" region"),ovH("div",{className:"ov-stats"},mini("Registrants",ovN(r.n)),mini("On-time filing",hasFil?ovD(r.ontimePct,0)+"%":"—"),mini("Non-filers",hasFil?ovN(r.nonf):"—"),mini("Installed capacity",ovN(r.cap)+" t"),
+        mini("Usage",ovN(r.useY)+" t"),mini("Added / cancelled",r.add+" / "+r.can),mini("Import",ovN(r.imp)+" t"),mini("Export",ovN(r.exp)+" t")),
+      ovH("div",{className:"ov-zh"},"Zones in this region · average risk score"),
+      ovH("ul",{className:"ov-zrows"},zrows.map(function(z){var c=z.r>=60?"#C0392B":z.r>=40?"#D9A13B":"#1E7B4B";
+        return ovH("li",{key:z.z,onClick:function(){cx.openList(z.z+" Zone",zl[z.z],"")}},ovH("span",{className:"nm"},z.z),ovH("span",{className:"bar"},ovH("b",{style:{width:Math.min(100,z.r)+"%",background:c}})),ovH("span",{className:"pc"},ovN(z.r)))})),
+      ovH("button",{type:"button",className:"ov-link",onClick:function(){cx.setScope({region:selEff,zone:"all",state:"all"})}},"Filter the whole page to this region ›"))}
+  else{
+    var mini=function(l,v){return ovH("div",{className:"ov-stat"},ovH("div",{className:"l"},l),ovH("div",{className:"v"},v))};
+    sumTxt=ovN(s.n)+" registrants · "+(hasFil?ovD(s.ontimePct,0)+"% on time · ":"")+ovN(s.cap)+" t capacity";
+    var rr=regKeys.map(function(k){return{k:k,r:regStat[k].risk}}).sort(function(a,b){return b.r-a.r});
+    panel=ovH("div",{},ovH("h3",{},"All India"),
+      ovH("div",{className:"ov-stats"},mini("Registrants",ovN(s.n)),mini("On-time filing",hasFil?ovD(s.ontimePct,0)+"%":"—"),mini("Non-filers",hasFil?ovN(s.nonf):"—"),mini("Installed capacity",ovN(s.cap)+" t"),
+        mini("Usage",ovN(s.useY)+" t"),mini("Added / cancelled",s.add+" / "+s.can),mini("Import",ovN(s.imp)+" t"),mini("Export",ovN(s.exp)+" t")),
+      ovH("div",{className:"ov-zh"},"Regions · average risk score"),
+      ovH("ul",{className:"ov-zrows"},rr.map(function(x){var c=x.r>=60?"#C0392B":x.r>=40?"#D9A13B":"#1E7B4B";
+        return ovH("li",{key:x.k,onClick:function(){setSelReg(x.k)}},ovH("span",{className:"nm"},J1[x.k].name),ovH("span",{className:"bar"},ovH("b",{style:{width:Math.min(100,x.r)+"%",background:c}})),ovH("span",{className:"pc"},ovN(x.r)))})))}
+  var chips=ovH("div",{className:"ov-chips"},[ovH("button",{type:"button",key:"all",className:!selEff?"on":"",onClick:function(){setSelReg("all")}},"All India")].concat(regKeys.map(function(k){return ovH("button",{type:"button",key:k,className:k===selEff?"on":"",onClick:function(){setSelReg(k)}},J1[k].name)})));
+
+  var ovStatus=function(st){var lv=hasFil?(st.ontimePct<80?2:st.ontimePct<85?1:0):(st.risk>=riskCut?2:0),nm=hasFil?["On track","Watch","Act"]:["On track","Watch","Act"];return ovH("span",{className:"rag "+["g","a","r"][lv]},nm[lv])};
+  var row=function(st,name,sub2,child,k,open,onClick,lst,selected,isTotal){
+    var net=st.add-st.can,pn=pe(lst,prevYi,sub,false).n,chg=pn?ovPct(st.n,pn):0,fl=hasFil?(st.ontimePct<80?"r":st.ontimePct<85?"a":"g"):null;
+    return ovH("tr",{key:k,className:(child?"child":isTotal?"total":"region")+(open?" open":"")+(selected?" sel":""),onClick:onClick},
+      ovH("td",{},child?null:ovH("span",{className:"caret"},onClick?"▸":""),name,sub2?ovH("span",{className:"zsub"},sub2):null),
+      ovH("td",{className:"b"},ovN(st.n)),
+      ovH("td",{className:"chg"},yi?ovH("span",{className:chg>=0?"up":"dn"},(chg>=0?"▲ ":"▼ ")+ovD(Math.abs(chg),1)+"%"):"—",yi?ovH("span",{className:"zsub"},ovN(pn)+" → "+ovN(st.n)):null),
+      ovH("td",{},fl?ovH("span",{className:"rag "+fl},ovD(st.ontimePct,0)+"%"):"—"),
+      ovH("td",{},hasFil?ovN(st.nonf):"—"),ovH("td",{},ovN(st.util)+"%"),ovH("td",{},st.add),ovH("td",{},st.can),ovH("td",{className:net<0?"neg":"pos"},(net>0?"+":"")+net),
+      ovH("td",{},ovN(st.cap)),ovH("td",{},ovN(st.imp)),ovH("td",{},ovN(st.exp)),
+      ovH("td",{},ovStatus(st)))};
+  var body=[];
+  if(view==="region"){regKeys.forEach(function(k){
+      var rs=regStat[k],zl2=ovGroup(regG[k],"zone"),zk=Object.keys(zl2),open=!!openRows[k];
+      body.push(row(rs,J1[k].name+" Region",zk.length+" zones",false,k,open,function(){var o=Object.assign({},openRows);o[k]=!open;setOpenRows(o);setSelReg(k)},regG[k],k===selEff));
+      if(open)zk.forEach(function(z){var zs=ovStat(zl2[z],yi,sub,all);body.push(row(zs,z,null,true,k+z,false,null,zl2[z]))})})}
+  else regKeys.forEach(function(k){var zl2=ovGroup(regG[k],"zone");Object.keys(zl2).forEach(function(z){body.push(row(ovStat(zl2[z],yi,sub,all),z,J1[k].name,false,k+z,false,null,zl2[z]))})});
+  body.push(row(s,"India",null,false,"tot",false,null,list,false,true));
+  var CMP_L={n:"Registered premises",cap:"Installed capacity, tonnes",useY:"Reported usage, tonnes",imp:"Imports, tonnes",exp:"Exports, tonnes"},CMP_T=[["n","Premises"],["cap","Capacity"],["useY","Usage"],["imp","Imports"],["exp","Exports"]];
+  var cRows;
+  if(view==="region"){cRows=regKeys.map(function(k){return{name:J1[k].name,cur:pe(regG[k],yi,sub,false)[cmpKey],prev:pe(regG[k],prevYi,sub,false)[cmpKey]}})}
+  else{cRows=[];regKeys.forEach(function(k){var zl3=ovGroup(regG[k],"zone");Object.keys(zl3).forEach(function(z){cRows.push({name:z,cur:pe(zl3[z],yi,sub,false)[cmpKey],prev:pe(zl3[z],prevYi,sub,false)[cmpKey]})})});
+    cRows=cRows.sort(function(a,c){return c.cur-a.cur}).slice(0,10)}
+  if(view==="region")cRows.sort(function(a,c){return c.cur-a.cur});
+  var cMax=Math.max.apply(null,cRows.map(function(r){return Math.max(r.cur,r.prev)}).concat([1]));
+  var cmp=ovH("div",{className:"ov-cmp"},
+    ovH("div",{className:"ov-cmp-h"},ovH("div",{className:"ov-cmp-t"},CMP_L[cmpKey]+(view==="zone"?" · ten largest zones":"")+(yi?", FY "+Fe[prevYi]+" against FY "+Fe[yi]:", "+fyLabel)),
+      ovH("div",{className:"ov-toggle sm",role:"group","aria-label":"Measure"},CMP_T.map(function(t){return ovH("button",{type:"button",key:t[0],className:cmpKey===t[0]?"on":"",onClick:function(){setCmpKey(t[0])}},t[1])})),
+      yi?ovH("div",{className:"ov-cmp-l"},ovH("span",{},ovH("i",{className:"p"}),"FY "+Fe[prevYi]),ovH("span",{},ovH("i",{className:"c"}),"FY "+Fe[yi])):null),
+    cRows.map(function(r){var d=r.cur-r.prev,pc=ovPct(r.cur,r.prev);
+      return ovH("div",{className:"ov-cr",key:r.name},
+        ovH("div",{className:"ov-cn"},ovH("span",{},r.name),yi?ovH("small",{className:d>=0?"up":"dn"},(d>=0?"+":"")+ovN(d)+" · "+(d>=0?"▲ ":"▼ ")+ovD(Math.abs(pc),1)+"%"):null),
+        ovH("div",{className:"ov-cb"},yi?ovH("div",{className:"ov-bar p",style:{width:Math.max(2,r.prev/cMax*92)+"%"}},ovH("em",{},ovN(r.prev))):null,
+          ovH("div",{className:"ov-bar c",style:{width:Math.max(2,r.cur/cMax*92)+"%"}},ovH("em",{},ovN(r.cur)))))}));
+  var TH=["Registered premises","Change vs FY "+Fe[prevYi],"On-time filing","Non-filers","Utilisation","Added","Cancelled","Net","Capacity (t)","Import (t)","Export (t)","Status"];
+
+  return ovH("div",{className:"ov"},
+    ovH("section",{className:"ov-hero","aria-label":"Executive brief"},
+      ovH("div",{className:"ov-eyebrow"},"Narcotics Control Bureau · Headquarters"),
+      ovH("h2",{},"Registration of Schedule-A substances"),
+      ovH("div",{className:"ov-asof"},"Executive brief · "+(all?"all years to date, 2021–2025":fyLabel)+" · quantities in tonnes"),
+      ovH("div",{className:"ov-headline"},ovH("span",{className:"dot","aria-hidden":"true"}),headline),
+      ovH("div",{className:"ov-tiles"},tiles)),
+    ovH("section",{"aria-label":"Regional leaders"},ovH("div",{className:"ov-sh"},"Regional leaders"),ovH("div",{className:"ov-ss"},"Which region leads on each measure. Click a card to see it on the map."),ovH("div",{className:"ov-leaders"},leaders)),
+    ovH("div",{className:"ov-row2"},
+      ovH("div",{className:"ov-card"},ovH("div",{className:"ov-sh"},"Needs attention"),
+        ovH("div",{className:"ov-tabs",role:"tablist"},ATTL.map(function(t){return ovH("button",{type:"button",key:t[0],role:"tab","aria-selected":attTab===t[0],className:attTab===t[0]?"on":"",onClick:function(){setAttTab(t[0])}},t[1])})),
+        ovH("div",{className:"ov-rule"},ATTL.filter(function(t){return t[0]===attTab})[0][2]),
+        attList.length?ovH("ul",{className:"ov-att"},attList):ovH("p",{className:"ov-note"},"Nothing to show for this filter.")),
+      ovH("div",{className:"ov-card"},
+        ovH("div",{className:"ov-mhead"},ovH("div",{},ovH("div",{className:"ov-sh"},"India map · seven regions"),ovH("div",{className:"ov-ss"},"Click a region. Use the arrow on the right to open its details.")),
+          ovH("div",{className:"ov-toggle",role:"group","aria-label":"Map measure"},OV_METRICS.map(function(m){return ovH("button",{type:"button",key:m[0],className:metric===m[0]?"on":"",onClick:function(){setMetric(m[0])}},m[1])}))),
+        chips,
+        ovH("div",{className:"ov-stage"+(panelOpen?" open":"")},
+          ovH("div",{className:"ov-mapc"},ovH("svg",{className:"ov-map",viewBox:Qm.viewBox,role:"img","aria-label":"India map coloured by region"},paths)),
+          ovH("div",{className:"ov-sumc"},ovH("b",{},selEff?J1[selEff].name+" region":"All India"),ovH("span",{},sumTxt)),
+          ovH("div",{className:"ov-legend"},legend),
+          ovH("button",{type:"button",className:"ov-sidebtn"+(panelOpen?" open":""),"aria-expanded":panelOpen,"aria-controls":"ov-side","aria-label":panelOpen?"Close region details":"Open region details",onClick:function(){setPanelOpen(!panelOpen)}},panelOpen?"›":"‹"),
+          ovH("aside",{id:"ov-side",className:"ov-side"+(panelOpen?" open":""),"aria-label":"Region details"},panel)),
+        ovH("div",{className:"ov-note"},"Grey areas hold no zone yet. The map follows the earlier thirty-zone chart until it is redrawn for thirteen zones."))),
+    ovH("div",{className:"ov-card"},
+      ovH("div",{className:"ov-mhead"},ovH("div",{},ovH("div",{className:"ov-sh"},"Region and zone scorecard"),ovH("div",{className:"ov-ss"},"A region row is the sum of its zones. Click a region row to open its zones.")),
+        ovH("div",{className:"ov-tg2"},ovH("div",{className:"ov-toggle",role:"group","aria-label":"View by"},[["region","By region"],["zone","By zone"]].map(function(v){return ovH("button",{type:"button",key:v[0],className:view===v[0]?"on":"",onClick:function(){setView(v[0])}},v[1])})),ovH("div",{className:"ov-toggle",role:"group","aria-label":"Display"},[["table","Table"],["chart","Chart"]].map(function(v){return ovH("button",{type:"button",key:v[0],className:disp===v[0]?"on":"",onClick:function(){setDisp(v[0])}},v[1])})))),
+      disp==="chart"?cmp:null,disp==="table"?ovH("div",{className:"ov-tbl"},ovH("table",{},ovH("thead",{},ovH("tr",{},ovH("th",{},view==="region"?"Region":"Zone"),TH.map(function(h){return ovH("th",{key:h},h)}))),ovH("tbody",{},body))):null,
+      disp==="table"?ovH("div",{className:"ov-foot"},ovH("span",{className:"rag g"},"On track")," ",ovH("span",{className:"rag a"},"Watch")," ",ovH("span",{className:"rag r"},"Act"),". Status compares rates, not counts: on-time filing below 80% is Act and below 85% is Watch. Years before the latest have no filing data, so the risk score is used. Added and cancelled count registrations that started or ended in the year. Expired URNs are not held in this data set, and manufacturing output is not either, so installed capacity and usage stand in for it."):null))}
+l8.push({id:"ov-dg",tab:"over",title:"Director General overview",full:true,top:true,C:OvDG});
+
+/* Filters behind an icon: a drawer that holds the year, substance, region and zone controls */
+function OvFilters(props){
+  var st=hr.useState(false),open=st[0],setOpen=st[1];
+  hr.useEffect(function(){var k=function(e){if(e.key==="Escape")setOpen(false)};window.addEventListener("keydown",k);return function(){window.removeEventListener("keydown",k)}},[]);
+  var funnel=ovH("svg",{width:16,height:16,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round","aria-hidden":"true"},ovH("polygon",{points:"22 3 2 3 10 12.5 10 19 14 21 14 12.5 22 3"}));
+  return ovH(C.Fragment,{},
+    ovH("button",{type:"button",className:"ov-fbtn","aria-haspopup":"dialog","aria-expanded":open,onClick:function(){setOpen(true)}},funnel,"Filters",props.count?ovH("span",{className:"ov-cnt"},props.count):null),
+    open?ovH("div",{className:"ov-scrim",onClick:function(){setOpen(false)}}):null,
+    open?ovH("aside",{className:"ov-drawer",role:"dialog","aria-modal":"true","aria-label":"Filters"},
+      ovH("div",{className:"dh"},ovH("h2",{},"Filters"),ovH("button",{type:"button",className:"x","aria-label":"Close filters",onClick:function(){setOpen(false)}},"✕")),
+      ovH("div",{className:"db"},props.children,ovH("div",{className:"ov-note"},"One filter set applies to every tab.")),
+      ovH("div",{className:"df"},ovH("button",{type:"button",className:"ov-b",onClick:props.onReset},"Reset"),ovH("button",{type:"button",className:"ov-b pri",onClick:function(){setOpen(false)}},"Done"))):null)}
+
+/* ===== Sub-menu pages: dark brief on top, then cards in the reference style ===== */
+var OV_SUBC=["#2E6EBF","#C0392B","#D9A13B","#1E7B4B","#4A5A73","#7A5BB5","#C2611C","#2A9D8F","#8E6C4B","#5B90D6"];
+var ovB=function(t){return ovH("b",{},t)};
+var ovDelta=function(cur,prev,goodUp){if(!prev)return null;var d=ovPct(cur,prev);if(Math.abs(d)<.05)return["nt","▬ 0.0%"];return[(d>0)===goodUp?"good":"bad",(d>0?"▲ ":"▼ ")+ovD(Math.abs(d),1)+"%"]};
+var ovPill=function(d){return d?ovH("span",{className:"ov-pill "+(d[0]==="nt"?"flat":d[0])},d[1]):null};
+var ovMore=function(arr,n){var t=arr.slice(0,n).join(" · ");return arr.length>n?t+" · +"+(arr.length-n)+" more":t};
+var ovVT=function(n,u){return[ovN(n),ovH("small",{},u||"t")]};
+var ovAddCan=function(list,i,sub){var yr=R5[i],a=0,c=0;list.forEach(function(e){if(!vr(e,sub))return;if(e.reg===yr)a++;if(e.cancel===yr)c++});return{add:a,can:c}};
+var ovTileEl=function(t){return ovH("div",{className:"ov-tile"+(t.warn?" warn":""),key:t.l},ovH("div",{className:"l"},t.l),
+  ovH("div",{className:"mid"},ovH("div",{className:"v"},t.v,t.u?ovH("small",{},t.u):null),t.sp||null),
+  ovH("div",{className:"ft"},t.pill||null,ovH("span",{},t.note||"")))};
+var ovHeroEl=function(c){return ovH("section",{className:"ov-hero","aria-label":c.title},ovH("div",{className:"ov-eyebrow"},c.eyebrow),ovH("h2",{},c.title),ovH("div",{className:"ov-asof"},c.sub),
+  ovH("div",{className:"ov-headline"},ovH("span",{className:"dot","aria-hidden":"true"}),ovH("div",{},c.headline)),
+  ovH("div",{className:"ov-tiles"},c.tiles.map(ovTileEl)))};
+var ovCardEl=function(c){return ovH("section",{className:"ov-xc",key:c.title},ovH("h3",{},c.title),ovH("p",{className:"ov-xs"},c.summary),
+  ovH("div",{className:"ov-xrows"},c.rows.map(function(r,i){return ovH("div",{className:"ov-xr"+(r.onClick?" click":""),key:i,onClick:r.onClick},
+    ovH("div",{className:"ov-xl"},ovH("div",{className:"ov-xn"},ovH("i",{style:{background:r.color||"#2E6EBF"}}),r.name,r.tag?ovH("span",{className:"ov-xtag"},r.tag):null),ovH("div",{className:"ov-xm"},r.meta)),
+    ovH("div",{className:"ov-xv"},ovH("b",{},r.value),r.delta?ovH("span",{className:"ov-xd "+r.delta[0]},r.delta[1]):null))})),
+  c.note?ovH("p",{className:"ov-xnote"},c.note):null)};
+
+var ovBase=function(cx){
+  var list=cx.list,yi=cx.yi,sub=cx.sub,prevYi=Math.max(0,yi-1),b={cx:cx,list:list,yi:yi,sub:sub,prevYi:prevYi,hasFil:yi===4,fy:"FY "+Fe[yi],pfy:"FY "+Fe[prevYi]};
+  b.s=ovStat(list,yi,sub,false);b.p=pe(list,prevYi,sub,false);
+  b.series=[0,1,2,3,4].filter(function(i){return i<=yi}).map(function(i){return pe(list,i,sub,false)});
+  b.sr=function(k){return b.series.map(function(x){return x[k]})};
+  b.live=ovLiveList(list,yi,sub);
+  var rg=ovGroup(list,"region"),zg=ovGroup(list,"zone"),liveOf=function(l){return l.filter(function(e){return Rt(e,yi)&&vr(e,sub)})};
+  b.reg=E5.filter(function(k){return rg[k]}).map(function(k){var st=ovStat(rg[k],yi,sub,false);st.k=k;st.name=J1[k].name;st.color=J1[k].color;st.list=liveOf(rg[k]);st.pv=pe(rg[k],prevYi,sub,false);return st});
+  b.zones=Object.keys(zg).map(function(z){var st=ovStat(zg[z],yi,sub,false);st.z=z;st.region=zg[z][0].region;st.list=liveOf(zg[z]);st.pv=pe(zg[z],prevYi,sub,false);return st}).filter(function(z){return z.n>0});
+  b.subs=ve.map(function(nm,si){return{si:si,name:nm,color:OV_SUBC[si%OV_SUBC.length],st:pe(list,yi,String(si),false),pv:pe(list,prevYi,String(si),false)}}).filter(function(x){return(sub==="all"||Xn(sub).indexOf(x.si)>=0)&&x.st.n>0});
+  b.regTop=function(si,key,n){return ovMore(b.reg.map(function(r){return[r.name,pe(r.list,yi,String(si),false)[key]]}).sort(function(a,c){return c[1]-a[1]}).filter(function(a){return a[1]>0}).map(function(a){return a[0]+" "+ovN(a[1])}),n||3)};
+  b.zoneTop=function(r,key,n){return ovMore(b.zones.filter(function(z){return z.region===r.k}).sort(function(a,c){return c[key]-a[key]}).map(function(z){return z.z+" "+ovN(z[key])}),n||3)};
+  b.open=function(title,l,note){return function(){cx.openList(title,l,note||"")}};
+  b.by=function(arr,key,dir){return arr.slice().sort(function(a,c){return dir>0?a[key]-c[key]:c[key]-a[key]})};
+  b.zrow=function(z,value,meta,delta){return{name:z.z,color:J1[z.region].color,tag:J1[z.region].name,meta:meta,value:value,delta:delta,onClick:b.open(z.z+" Zone",z.list)}};
+  b.rrow=function(r,value,meta,delta){return{name:r.name+" Region",color:r.color,meta:meta,value:value,delta:delta,onClick:b.open(r.name+" Region",r.list)}};
+  b.srow=function(x,value,meta,delta){return{name:x.name,color:x.color,meta:meta,value:value,delta:delta}};
+  b.hero=function(eyebrow,title,headline,tiles){return{eyebrow:eyebrow+" · Narcotics Control Bureau",title:title,sub:b.fy+" · quantities in tonnes",headline:headline,tiles:tiles}};
+  return b};
+
+var OV_TABS={
+reg:function(b){
+  var s=b.s,p=b.p,g=ovPct(s.n,p.n),ac=[0,1,2,3,4].filter(function(i){return i<=b.yi}).map(function(i){return ovAddCan(b.list,i,b.sub)}),
+      multi=b.live.filter(function(e){return e.subs.length>1}).length,small=b.by(b.reg,"n",1)[0],avgZ=b.zones.length?s.n/b.zones.length:0,net=s.add-s.can,
+      low=b.by(b.zones.filter(function(z){return z.n<avgZ/2}),"n",1),big=b.by(b.reg,"n",-1)[0];
+  return{hero:b.hero("Registrations","Who is on the register",[ovB(ovN(s.n))," premises are registered in "+b.fy+(b.yi?", "+(g>=0?"up ":"down "):"."),b.yi?ovB(ovD(Math.abs(g),1)+"%"):null,b.yi?" on "+b.pfy+". ":" ",ovB(s.add+" were added")," and ",ovB(s.can+" cancelled"),"."],[
+    {l:"Registered premises",v:ovN(s.n),sp:ovSpark(b.sr("n"),"#8FB4E8"),pill:ovPill(ovDelta(s.n,p.n,true)),note:"vs "+b.pfy},
+    {l:"Added in the year",v:ovN(s.add),sp:ovSpark(ac.map(function(x){return x.add}),"#8FB4E8"),note:"URNs approved"},
+    {l:"Cancelled in the year",v:ovN(s.can),sp:ovSpark(ac.map(function(x){return x.can}),"#E0B44A"),note:"Cancellation Certificates issued"},
+    {l:"Net change",v:(net>0?"+":"")+net,note:"added minus cancelled",warn:net<0},
+    {l:"Single-substance",v:ovN(s.n-multi),note:ovD(s.n?(s.n-multi)/s.n*100:0,0)+"% of the register"},
+    {l:"Multi-substance",v:ovN(multi),note:ovD(s.n?multi/s.n*100:0,0)+"% of the register"},
+    {l:"Zones with a register",v:ovN(b.zones.length),note:"average "+ovN(avgZ)+" premises a zone"},
+    {l:"Smallest region",v:small?ovN(small.n):"—",note:small?small.name+" Region":""}]),
+  cards:[
+   {title:"Registrants per substance",summary:["A premise can hold more than one substance, so these rows add up to more than ",ovB(ovN(s.n)),"."],
+    rows:b.by(b.subs.map(function(x){x.n=x.st.n;return x}),"n",-1).slice(0,6).map(function(x){return b.srow(x,ovN(x.st.n),ovD(s.n?x.st.n/s.n*100:0,0)+"% of premises · "+b.regTop(x.si,"n",3),ovDelta(x.st.n,x.pv.n,true))}),
+    note:"Top "+Math.min(6,b.subs.length)+" of "+b.subs.length+" substances. Counts only."},
+   {title:"Registrations by region",summary:[big?ovB(big.name+" Region"):"—"," holds the most premises, ",big?ovB(ovD(s.n?big.n/s.n*100:0,0)+"%"):"—"," of India."],
+    rows:b.by(b.reg,"n",-1).map(function(r){return b.rrow(r,ovN(r.n),"added "+r.add+" · cancelled "+r.can+" · "+b.zoneTop(r,"n",3),ovDelta(r.n,r.pv.n,true))}),note:"Click a region to open its premises."},
+   {title:"Quietest zones",summary:[ovB(low.length+" of "+b.zones.length+" zones")," hold fewer than half the average of ",ovB(ovN(avgZ))," premises."],
+    rows:b.by(b.zones,"n",1).slice(0,5).map(function(z){return b.zrow(z,ovN(z.n),"added "+z.add+" · cancelled "+z.can,ovDelta(z.n,z.pv.n,true))}),note:"The five smallest zone registers."},
+   {title:"One substance or several",summary:[ovB(ovN(multi))," premises hold more than one substance."],
+    rows:[1,2,3].map(function(k){var c=b.live.filter(function(e){return k===3?e.subs.length>=3:e.subs.length===k}).length;return{name:k===1?"One substance":k===2?"Two substances":"Three or more",color:OV_SUBC[k],meta:ovD(s.n?c/s.n*100:0,0)+"% of premises",value:ovN(c)}}),note:"Counts only."}]}},
+
+cap:function(b){
+  var s=b.s,p=b.p,top5=b.by(b.zones,"cap",-1).slice(0,5),share=s.cap?top5.reduce(function(t,z){return t+z.cap},0)/s.cap*100:0,
+      under=b.live.filter(function(e){var c=se(e,"cap",b.sub,b.yi);return c>0&&se(e,"use",b.sub,b.yi)/c<.3}).length,bigR=b.by(b.reg,"cap",-1)[0],
+      med=b.by(b.zones,"cap",1).map(function(z){return z.cap})[Math.floor(b.zones.length/2)]||0;
+  return{hero:b.hero("Capacity","How much can be made",[ovB(ovN(s.cap)+" t")," of installed capacity, ",ovB(ovD(Math.abs(ovPct(s.cap,p.cap)),1)+"%")+(s.cap>=p.cap?" more":" less")+" than in "+b.pfy+". Reported usage is ",ovB(ovD(s.util,0)+"%")," of it."],[
+    {l:"Installed capacity",v:ovN(s.cap),u:"t",sp:ovSpark(b.sr("cap"),"#8FB4E8"),pill:ovPill(ovDelta(s.cap,p.cap,true)),note:"vs "+b.pfy},
+    {l:"Reported usage",v:ovN(s.useY),u:"t",sp:ovSpark(b.sr("useY"),"#E0B44A"),pill:ovPill(ovDelta(s.useY,p.useY,true)),note:"in "+b.fy},
+    {l:"Utilisation",v:ovD(s.util,0)+"%",note:"usage ÷ installed capacity"},
+    {l:"Capacity added",v:(s.cap-p.cap>=0?"+":"")+ovN(s.cap-p.cap),u:"t",note:"since "+b.pfy},
+    {l:"Largest region",v:bigR?ovN(bigR.cap):"—",u:"t",note:bigR?bigR.name+" Region":""},
+    {l:"Top five zones",v:ovD(share,0)+"%",note:"of all installed capacity"},
+    {l:"Under-used premises",v:ovN(under),note:"use under 30% of capacity",warn:true},
+    {l:"Capacity per premise",v:ovN(s.n?s.cap/s.n:0),u:"t",note:"average"}]),
+  cards:[
+   {title:"Capacity per substance",summary:["Installed capacity in tonnes, with usage as a share of it."],
+    rows:b.by(b.subs.map(function(x){x.cap=x.st.cap;return x}),"cap",-1).slice(0,6).map(function(x){return b.srow(x,ovVT(x.st.cap),"utilisation "+ovN(x.st.util)+"% · "+b.regTop(x.si,"cap",3),ovDelta(x.st.cap,x.pv.cap,true))}),note:"Top "+Math.min(6,b.subs.length)+" of "+b.subs.length+" substances."},
+   {title:"Capacity by region",summary:[bigR?ovB(bigR.name+" Region"):"—"," leads with ",bigR?ovB(ovD(s.cap?bigR.cap/s.cap*100:0,0)+"%"):"—"," of national capacity."],
+    rows:b.by(b.reg,"cap",-1).map(function(r){return b.rrow(r,ovVT(r.cap),"utilisation "+ovN(r.util)+"% · "+b.zoneTop(r,"cap",3),ovDelta(r.cap,r.pv.cap,true))}),note:"Click a region to open its premises."},
+   {title:"Zones with the most capacity",summary:["The five zones hold ",ovB(ovD(share,0)+"%")," of installed capacity."],
+    rows:top5.map(function(z){return b.zrow(z,ovVT(z.cap),"utilisation "+ovN(z.util)+"% · "+ovN(z.n)+" premises",ovDelta(z.cap,z.pv.cap,true))}),note:"Zone level. Company names open one click down."},
+   {title:"Low utilisation",summary:["Large zones whose usage is far below their capacity. These can point to under-reporting."],
+    rows:b.by(b.zones.filter(function(z){return z.cap>=med&&z.cap>0}),"util",1).slice(0,5).map(function(z){return b.zrow(z,[ovN(z.util),ovH("small",{},"%")],"capacity "+ovN(z.cap)+" t · usage "+ovN(z.useY)+" t")}),note:"Zones at or above the median capacity of "+ovN(med)+" t."}]}},
+
+use:function(b){
+  var s=b.s,p=b.p,gr=ovPct(s.useY,p.useY),topR=b.by(b.reg,"useY",-1)[0],topZ=b.by(b.zones,"useY",-1)[0],zero=b.live.filter(function(e){return se(e,"use",b.sub,b.yi)<=0}).length;
+  return{hero:b.hero("Usage","What is being used",[ovB(ovN(s.useY)+" t")," were used in "+b.fy+", ",ovB(ovD(Math.abs(gr),1)+"%")+(gr>=0?" more":" less")+" than in "+b.pfy+". ",topR?ovB(topR.name+" Region"):"—"," used the most."],[
+    {l:"Reported usage",v:ovN(s.useY),u:"t",sp:ovSpark(b.sr("useY"),"#E0B44A"),pill:ovPill(ovDelta(s.useY,p.useY,true)),note:"in "+b.fy},
+    {l:"Utilisation",v:ovD(s.util,0)+"%",note:"usage ÷ installed capacity"},
+    {l:"Growth",v:(gr>=0?"+":"")+ovD(gr,1)+"%",note:"vs "+b.pfy},
+    {l:"Usage per premise",v:ovN(s.n?s.useY/s.n:0),u:"t",note:"average"},
+    {l:"Largest user region",v:topR?ovN(topR.useY):"—",u:"t",note:topR?topR.name+" Region":""},
+    {l:"Largest user zone",v:topZ?ovN(topZ.useY):"—",u:"t",note:topZ?topZ.z+" Zone":""},
+    {l:"Premises with no usage",v:ovN(zero),note:"reported nothing in the year",warn:zero>0},
+    {l:"Premises",v:ovN(s.n),note:"on the register"}]),
+  cards:[
+   {title:"Usage per substance",summary:["Tonnes used in "+b.fy+", against the year before."],
+    rows:b.by(b.subs.map(function(x){x.u=x.st.useY;return x}),"u",-1).slice(0,6).map(function(x){return b.srow(x,ovVT(x.st.useY),b.regTop(x.si,"useY",3),ovDelta(x.st.useY,x.pv.useY,true))}),note:"Top "+Math.min(6,b.subs.length)+" of "+b.subs.length+" substances."},
+   {title:"Usage by region",summary:[topR?ovB(topR.name+" Region"):"—"," used ",topR?ovB(ovD(s.useY?topR.useY/s.useY*100:0,0)+"%"):"—"," of the national total."],
+    rows:b.by(b.reg,"useY",-1).map(function(r){return b.rrow(r,ovVT(r.useY),"utilisation "+ovN(r.util)+"% · "+b.zoneTop(r,"useY",3),ovDelta(r.useY,r.pv.useY,true))}),note:"Click a region to open its premises."},
+   {title:"Zones that use the most",summary:["The five largest zones by usage."],
+    rows:b.by(b.zones,"useY",-1).slice(0,5).map(function(z){return b.zrow(z,ovVT(z.useY),"utilisation "+ovN(z.util)+"% · "+ovN(z.n)+" premises",ovDelta(z.useY,z.pv.useY,true))}),note:"Zone level."},
+   {title:"Fastest growing zones",summary:["Zones with at least three premises, ranked by growth in usage."],
+    rows:b.by(b.zones.filter(function(z){return z.n>=3&&z.pv.useY>0}).map(function(z){z.g=ovPct(z.useY,z.pv.useY);return z}),"g",-1).slice(0,5).map(function(z){return b.zrow(z,(z.g>=0?"+":"")+ovD(z.g,0)+"%","from "+ovN(z.pv.useY)+" t to "+ovN(z.useY)+" t")}),note:"Growth compares "+b.fy+" with "+b.pfy+"."}]}},
+
+comp:function(b){
+  var s=b.s,late=b.live.filter(function(e){return e.q[3]==="late"}).length,missed=b.live.filter(function(e){return e.q.filter(function(x){return x!=="on"}).length>=3}).length,
+      zbelow=b.zones.filter(function(z){return z.ontimePct<80}),rbelow=b.reg.filter(function(r){return r.ontimePct<80});
+  if(!b.hasFil)return{hero:b.hero("Compliance","Who is filing on time",["Filing data is held for ",ovB("FY "+Fe[4])," only. Pick that year in the filters to see it."],[
+      {l:"On-time filing",v:"—",note:"latest year only"},{l:"Non-filers",v:"—",note:"latest year only"},{l:"Late filers",v:"—",note:"latest year only"},{l:"Zones below the floor",v:"—",note:"latest year only"}]),
+    cards:[{title:"Filing history",summary:["Returns are compared for the latest year. Earlier years are not held in this data set."],rows:[],note:"Select FY "+Fe[4]+" in the filters."}]};
+  return{hero:b.hero("Compliance","Who is filing on time",[ovB(ovD(s.ontimePct,0)+"%")," of premises filed on time. ",ovB(ovN(s.nonf)+" did not file")," and ",ovB(zbelow.length+" zones")," are below the 80% floor."],[
+    {l:"On-time filing",v:ovD(s.ontimePct,0)+"%",note:"of registered premises"},
+    {l:"Non-filers",v:ovN(s.nonf),note:ovD(s.nonfPct,0)+"% of premises",warn:true},
+    {l:"Late filers",v:ovN(late),note:"filed after the due date"},
+    {l:"Missed three or more",v:ovN(missed),note:"of the last four quarters",warn:true},
+    {l:"Zones below the floor",v:ovN(zbelow.length),u:"of "+b.zones.length,note:"on-time filing under 80%",warn:true},
+    {l:"Regions below the floor",v:ovN(rbelow.length),u:"of "+b.reg.length,note:"on-time filing under 80%"},
+    {l:"Best region",v:b.by(b.reg,"ontimePct",-1)[0]?ovD(b.by(b.reg,"ontimePct",-1)[0].ontimePct,0)+"%":"—",note:b.by(b.reg,"ontimePct",-1)[0]?b.by(b.reg,"ontimePct",-1)[0].name+" Region":""},
+    {l:"Weakest region",v:b.by(b.reg,"ontimePct",1)[0]?ovD(b.by(b.reg,"ontimePct",1)[0].ontimePct,0)+"%":"—",note:b.by(b.reg,"ontimePct",1)[0]?b.by(b.reg,"ontimePct",1)[0].name+" Region":"",warn:true}]),
+  cards:[
+   {title:"Filing by region",summary:["On-time filing, weakest region first. The floor is ",ovB("80%"),"."],
+    rows:b.by(b.reg,"ontimePct",1).map(function(r){return b.rrow(r,[ovD(r.ontimePct,0),ovH("small",{},"%")],r.nonf+" non-filers of "+r.n+" premises · "+b.zoneTop(r,"nonf",3))}),note:"Click a region to open its premises."},
+   {title:"Zones below the floor",summary:[ovB(zbelow.length+" of "+b.zones.length+" zones")," filed under 80% on time."],
+    rows:b.by(zbelow,"ontimePct",1).slice(0,5).map(function(z){return b.zrow(z,[ovD(z.ontimePct,0),ovH("small",{},"%")],z.nonf+" non-filers of "+z.n+" premises")}),note:"The five weakest zones."},
+   {title:"Non-filers per substance",summary:["Premises that did not file, by the substances they hold."],
+    rows:b.by(b.subs.map(function(x){x.nf=x.st.nonf;return x}),"nf",-1).slice(0,6).map(function(x){return b.srow(x,ovN(x.st.nonf),ovD(x.st.nonfPct,0)+"% of "+ovN(x.st.n)+" premises · "+b.regTop(x.si,"nonf",3))}),note:"Top "+Math.min(6,b.subs.length)+" of "+b.subs.length+" substances."}]}},
+
+trade:function(b){
+  var s=b.s,p=b.p,topI=b.by(b.reg,"imp",-1)[0],topE=b.by(b.reg,"exp",-1)[0],exp=b.live.filter(function(e){return se(e,"exp",b.sub,b.yi)>0}).length;
+  return{hero:b.hero("Import & export","What moves in and out",[ovB(ovN(s.imp)+" t")," were imported and ",ovB(ovN(s.exp)+" t")," exported in "+b.fy+". Net trade is ",ovB((s.net>=0?"+":"")+ovN(s.net)+" t"),"."],[
+    {l:"Imports",v:ovN(s.imp),u:"t",sp:ovSpark(b.sr("imp"),"#8FB4E8"),pill:ovPill(ovDelta(s.imp,p.imp,true)),note:"vs "+b.pfy},
+    {l:"Exports",v:ovN(s.exp),u:"t",sp:ovSpark(b.sr("exp"),"#8FB4E8"),pill:ovPill(ovDelta(s.exp,p.exp,true)),note:"vs "+b.pfy},
+    {l:"Net trade",v:(s.net>=0?"+":"")+ovN(s.net),u:"t",note:"imports minus exports"},
+    {l:"Importing premises",v:ovN(s.impCos),note:ovD(s.n?s.impCos/s.n*100:0,0)+"% of premises"},
+    {l:"Exporting premises",v:ovN(exp),note:ovD(s.n?exp/s.n*100:0,0)+"% of premises"},
+    {l:"Imports vs capacity",v:ovD(s.cap?s.imp/s.cap*100:0,0)+"%",note:"imports ÷ installed capacity"},
+    {l:"Top importing region",v:topI?ovN(topI.imp):"—",u:"t",note:topI?topI.name+" Region":""},
+    {l:"Top exporting region",v:topE?ovN(topE.exp):"—",u:"t",note:topE?topE.name+" Region":""}]),
+  cards:[
+   {title:"Imports per substance",summary:["Tonnes imported in "+b.fy+", against the year before."],
+    rows:b.by(b.subs.map(function(x){x.i=x.st.imp;return x}),"i",-1).filter(function(x){return x.i>0}).slice(0,6).map(function(x){return b.srow(x,ovVT(x.st.imp),x.st.impCos+" importing premises · "+b.regTop(x.si,"imp",3),ovDelta(x.st.imp,x.pv.imp,true))}),note:"Top substances by tonnes imported."},
+   {title:"Exports per substance",summary:["Tonnes exported in "+b.fy+", against the year before."],
+    rows:b.by(b.subs.map(function(x){x.x=x.st.exp;return x}),"x",-1).filter(function(x){return x.x>0}).slice(0,6).map(function(x){return b.srow(x,ovVT(x.st.exp),x.st.expCos+" exporting premises · "+b.regTop(x.si,"exp",3),ovDelta(x.st.exp,x.pv.exp,true))}),note:"Top substances by tonnes exported."},
+   {title:"Trade by region",summary:["Imports plus exports, with the net position."],
+    rows:b.by(b.reg.map(function(r){r.tr=r.imp+r.exp;return r}),"tr",-1).map(function(r){return b.rrow(r,ovVT(r.tr),"imports "+ovN(r.imp)+" · exports "+ovN(r.exp)+" · net "+(r.net>=0?"+":"")+ovN(r.net),ovDelta(r.tr,r.pv.imp+r.pv.exp,true))}),note:"Click a region to open its premises."},
+   {title:"Zones that import the most",summary:["The five largest zones by tonnes imported."],
+    rows:b.by(b.zones,"imp",-1).slice(0,5).map(function(z){return b.zrow(z,ovVT(z.imp),"exports "+ovN(z.exp)+" t · "+ovN(z.n)+" premises",ovDelta(z.imp,z.pv.imp,true))}),note:"Zone level."}]}},
+
+risk:function(b){
+  var s=b.s,avg=ovAvgRisk(b.live),FLAGS=["Non-filer","High capacity","Trade activity","Low usage vs capacity","Eph + Pse combination"],
+      fl=FLAGS.map(function(f,i){var l=b.live.filter(function(e){return e.flags.indexOf(f)>=0}),zc={};l.forEach(function(e){zc[e.zone]=(zc[e.zone]||0)+1});
+        return{f:f,n:l.length,color:["#C0392B","#2E6EBF","#D9A13B","#7A5BB5","#4A5A73"][i],top:ovMore(Object.keys(zc).map(function(z){return[z,zc[z]]}).sort(function(a,c){return c[1]-a[1]}).map(function(a){return a[0]+" "+a[1]}),3)}}),
+      flagged=b.live.filter(function(e){return e.flags.length>0}).length,zr=b.by(b.zones,"risk",-1),cut=zr.length?zr[Math.max(0,Math.floor(zr.length*.25)-1)].risk:0,att=zr.filter(function(z){return z.risk>=cut}),
+      zset={};b.live.filter(function(e){return e.flags.length}).forEach(function(e){zset[e.zone]=1});
+  return{hero:b.hero("Risk & anomalies","Where the risk sits",[ovB(ovN(s.hi))," premises score 60 or more. ",ovB(att.length+" zones")," need attention, led by ",att[0]?ovB(att[0].z):"—","."],[
+    {l:"High-risk premises",v:ovN(s.hi),note:"risk score 60 or more",warn:true},
+    {l:"Average risk score",v:ovN(avg),note:"across live premises"},
+    {l:"Zones needing attention",v:ovN(att.length),u:"of "+b.zones.length,note:"top quarter by average risk",warn:true},
+    {l:"Flagged premises",v:ovN(flagged),note:ovD(s.n?flagged/s.n*100:0,0)+"% carry at least one flag"},
+    {l:"Non-filers flagged",v:ovN(fl[0].n),note:"missed the latest quarter"},
+    {l:"Eph + Pse premises",v:ovN(fl[4].n),note:"hold both substances"},
+    {l:"Low usage vs capacity",v:ovN(fl[3].n),note:"use under 30% of capacity"},
+    {l:"Zones with a flag",v:ovN(Object.keys(zset).length),note:"of "+b.zones.length}]),
+  cards:[
+   {title:"Risk flags",summary:[ovB(ovN(flagged))," premises carry at least one flag, across ",ovB(ovN(Object.keys(zset).length)+" zones"),"."],
+    rows:fl.map(function(x){return{name:x.f,color:x.color,tag:x.f==="Eph + Pse combination"?"Combination":null,meta:ovD(s.n?x.n/s.n*100:0,0)+"% of premises · "+(x.top||"none"),value:ovN(x.n)}}),note:"Counts only. Premises are named on the zone page."},
+   {title:"Risk by region",summary:["Average risk score of live premises, highest first."],
+    rows:b.by(b.reg,"risk",-1).map(function(r){return b.rrow(r,[ovN(r.risk),ovH("small",{},"avg")],r.hi+" high-risk of "+r.n+" premises · "+b.zoneTop(r,"hi",3))}),note:"Click a region to open its premises."},
+   {title:"Zones needing attention",summary:["The five zones with the highest average risk."],
+    rows:zr.slice(0,5).map(function(z){return b.zrow(z,[ovN(z.risk),ovH("small",{},"avg")],z.hi+" high-risk premises · "+(b.hasFil?z.nonf+" non-filers":ovN(z.n)+" premises"))}),note:"Zone level."}]}},
+
+data:function(b){
+  var s=b.s,cancelled=b.list.filter(function(e){return e.cancel!==null}).length,mx=b.live.reduce(function(m,e){return Math.max(m,e.risk)},0);
+  return{hero:b.hero("Data explorer","Every premises on record",[ovB(ovN(b.list.length))," premises are on record, ",ovB(ovN(s.n))," of them live in "+b.fy+". Search below, or sort by risk."],[
+    {l:"Premises on record",v:ovN(b.list.length),note:"live and cancelled"},{l:"Live in the year",v:ovN(s.n),note:b.fy},{l:"Cancelled to date",v:ovN(cancelled),note:"history is kept"},
+    {l:"Zones",v:ovN(b.zones.length),note:"with a register"},{l:"Regions",v:ovN(b.reg.length),note:"seven NCB regions"},{l:"Substances",v:ovN(b.subs.length),note:"on the register"},
+    {l:"Capacity per premise",v:ovN(s.n?s.cap/s.n:0),u:"t",note:"average"},{l:"Highest risk score",v:ovN(mx),note:"of 100"}]),cards:[]}}
+};
+
+function OvExplorer(props){
+  var b=props.b,st=hr.useState(""),q=st[0],setQ=st[1],so=hr.useState("risk"),key=so[0],setKey=so[1];
+  var rows=b.live.map(function(e){return{e:e,name:e.name,zone:e.zone,region:J1[e.region].name,combo:e.combo,cap:se(e,"cap",b.sub,b.yi),use:se(e,"use",b.sub,b.yi),risk:e.risk}}),
+      qq=q.trim().toLowerCase();
+  if(qq)rows=rows.filter(function(r){return(r.name+" "+r.zone+" "+r.region+" "+r.combo).toLowerCase().indexOf(qq)>=0});
+  rows.sort(function(a,c){return typeof a[key]==="string"?String(a[key]).localeCompare(c[key]):c[key]-a[key]});
+  var TH=[["name","Premises"],["zone","Zone"],["region","Region"],["combo","Substances"],["cap","Capacity (t)"],["use","Usage (t)"],["risk","Risk"]];
+  return ovH("section",{className:"ov-xc"},ovH("div",{className:"ov-mhead"},ovH("div",{},ovH("h3",{},"Premises"),ovH("p",{className:"ov-xs"},ovN(rows.length)+" match. Showing the first 50, sorted by "+TH.filter(function(t){return t[0]===key})[0][1].toLowerCase()+".")),
+      ovH("input",{type:"search",className:"ov-search","aria-label":"Search premises",placeholder:"Search premises, zone or substance",value:q,onChange:function(e){setQ(e.target.value)}})),
+    ovH("div",{className:"ov-tbl plain"},ovH("table",{},ovH("thead",{},ovH("tr",{},TH.map(function(t){return ovH("th",{key:t[0],className:"srt",onClick:function(){setKey(t[0])}},t[1]+(t[0]===key?" ▾":""))}))),
+      ovH("tbody",{},rows.slice(0,50).map(function(r){return ovH("tr",{key:r.e.id,className:"region",onClick:function(){b.cx.openList(r.name,[r.e],"")}},
+        ovH("td",{},r.name),ovH("td",{},r.zone),ovH("td",{},r.region),ovH("td",{},r.combo),ovH("td",{},ovN(r.cap)),ovH("td",{},ovN(r.use)),
+        ovH("td",{},ovH("span",{className:"rag "+(r.risk>=60?"r":r.risk>=40?"a":"g")},ovN(r.risk))))})))))}
+
+function OvTab(props){
+  var cx=hr.default.useContext(e3),b=ovBase(cx),cfg=OV_TABS[props.k](b);
+  return ovH("div",{className:"ov"},ovHeroEl(cfg.hero),cfg.cards.length?ovH("div",{className:"ov-xgrid"},cfg.cards.map(ovCardEl)):null,props.k==="data"?ovH(OvExplorer,{b:b}):null)}
+[["reg","Registrations"],["cap","Capacity"],["use","Usage"],["comp","Compliance"],["trade","Import & export"],["risk","Risk & anomalies"],["data","Data explorer"]].forEach(function(t){
+  l8.push({id:"ov-"+t[0],tab:t[0],title:t[1]+" brief",full:true,top:true,C:function(){return ovH(OvTab,{k:t[0]})}})});
+
+var Z=S(Q()),FE=[["over","Overview"],["reg","Registrations"],["cap","Capacity"],["use","Usage"],["comp","Compliance"],["trade","Import & export"],["risk","Risk & anomalies"],["data","Data explorer"]],Xye=[["all","All substances"]].concat(ve.map((e,t)=>[String(t),e])),$E="prep-analytics3-config",QY=()=>{try{return JSON.parse(localStorage.getItem($E))||{}}catch{return{}}},ZY=e=>{try{localStorage.setItem($E,JSON.stringify(e))}catch{}};function JY({openList:e}){let t=hr.default.useContext(e3),{list:r,yi:n,sub:o,all:i}=t,s=pe(r,n,o,i),a=pe(r,i?0:Math.max(0,n-1),o),l=i||n===4,u=i?"since "+Fe[0]:"on "+Fe[Math.max(0,n-1)],c=r.filter(y=>Rt(y,n)&&vr(y,o)),p=Object.entries(Ye(c,y=>y.zone)).map(([y,x])=>({z:y,l:x})),d=Object.entries(Ye(c,y=>y.region)).map(([y,x])=>({r:y,l:x,g:pe(x,n,o)})).slice().sort((y,x)=>y.g.ontimePct-x.g.ontimePct)[0],h=ve.map((y,x)=>({i:x,g:pe(r,n,String(x))})).sort((y,x)=>x.g.cap-x.g.use-(y.g.cap-y.g.use))[0],m=Bc(r,Math.max(0,n-1),n),b=ve.map((y,x)=>({i:x,g:Ao(pe(m,Math.max(0,n-1),String(x)).use,pe(m,n,String(x)).use),n:pe(m,n,String(x)).n})).filter(y=>y.n>5).sort((y,x)=>x.g-y.g)[0],g=p.map(y=>({...y,risk:Dt(y.l,x=>x.risk)/y.l.length})).sort((y,x)=>x.risk-y.risk)[0];return(0,Z.jsxs)(Z.Fragment,{children:[(0,Z.jsxs)("div",{className:"finds",children:[g&&(0,Z.jsxs)("button",{className:"find red",onClick:()=>e(g.z+" Zone",g.l),children:[(0,Z.jsx)("span",{className:"k",children:"Highest risk zone"}),(0,Z.jsx)("b",{children:g.z})," averages a risk score of ",Math.round(g.risk)," across ",g.l.length," registrants."]}),d&&(0,Z.jsxs)("button",{className:"find amber",onClick:()=>e(Gt(d.r)+" Region \xB7 not on time",d.l.filter(y=>y.q[3]!=="on")),children:[(0,Z.jsx)("span",{className:"k",children:"Weakest compliance"}),(0,Z.jsx)("b",{children:Gt(d.r)})," files ",kt(d.g.ontimePct)," of returns on time."]}),h&&(0,Z.jsxs)("button",{className:"find",onClick:()=>e(ve[h.i]+" \xB7 low usage vs capacity",c.filter(y=>y.subs.indexOf(h.i)>=0).sort((y,x)=>y.util25-x.util25).slice(0,30)),children:[(0,Z.jsx)("span",{className:"k",children:"Largest unused capacity"}),(0,Z.jsx)("b",{children:ve[h.i]})," has ",fe(h.g.cap-h.g.use)," tonnes spare, at ",kt(h.g.util)," utilisation."]}),b&&(0,Z.jsxs)("button",{className:"find green",onClick:()=>e(ve[b.i]+" \xB7 fastest growth",c.filter(y=>y.subs.indexOf(b.i)>=0).slice(0,40)),children:[(0,Z.jsx)("span",{className:"k",children:"Fastest growing usage"}),(0,Z.jsx)("b",{children:ve[b.i]})," usage by the same companies moved ",Mo(b.g)," on the year before."]})]}),(0,Z.jsxs)("div",{className:"tiles",children:[(0,Z.jsx)(Hs,{tone:"",icon:"users",label:"Registrants",help:Us.Registrants,value:s.n,note:Mo(Ao(a.n,s.n))+" "+u,onClick:()=>e("All registrants",c)}),(0,Z.jsx)(Hs,{tone:"green",icon:"box",label:"Installed capacity",help:Us["Installed capacity"],value:fe(s.cap)+" tonnes",note:Mo(Ao(a.cap,s.cap))+" "+u,onClick:()=>e("Largest capacity",c.slice().sort((y,x)=>x.cap25-y.cap25).slice(0,50))}),(0,Z.jsx)(Hs,{tone:"grey",icon:"gauge",label:"Reported usage",help:Us["Reported usage"],value:fe(s.use)+" tonnes",note:kt(s.util)+" of capacity",onClick:()=>e("Highest usage",c.slice().sort((y,x)=>x.use25-y.use25).slice(0,50))}),(0,Z.jsx)(Hs,{tone:"lav",icon:"check",label:"On-time filing",help:Us["On-time filing"],value:l?kt(s.ontimePct):"\u2014",note:l?s.n-s.onTime-s.nonf+" filed late":"Filing is known for the latest quarter only",onClick:()=>e("Not filed on time",c.filter(y=>y.q[3]!=="on"))}),(0,Z.jsx)(Hs,{tone:"rose",icon:"alert",label:"Non-filers",help:Us["Non-filers"],value:l?s.nonf:"\u2014",note:l?K(s.nonfPct)+"% of registrants":"Filing is known for the latest quarter only",onClick:()=>e("Non-filers",c.filter(y=>y.nonf))}),(0,Z.jsx)(Hs,{tone:"teal",icon:"swap",label:"Net trade",help:Us["Net trade"],value:fe(s.net)+" tonnes",note:fe(s.imp)+" in \xB7 "+fe(s.exp)+" out",onClick:()=>e("Trading companies",c.filter(y=>se(y,"imp",o,n)+se(y,"exp",o,n)>0).slice(0,80))})]})]})}function eK({close:e}){return(0,Z.jsx)("div",{className:"dr-wrap",onClick:e,children:(0,Z.jsxs)("aside",{className:"dr",onClick:t=>t.stopPropagation(),role:"dialog","aria-label":"What the figures mean",children:[(0,Z.jsxs)("div",{className:"dr-h",children:[(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"dr-t",children:"What the figures mean"}),(0,Z.jsx)("div",{className:"cd-s",children:"Plain-English meaning of the terms used on this page. Every card also has a ? button for its own explanation."})]}),(0,Z.jsx)("button",{className:"x",onClick:e,"aria-label":"Close",children:"\xD7"})]}),(0,Z.jsx)("div",{className:"dr-b",children:lE.map(t=>(0,Z.jsxs)("div",{className:"gl-i",children:[(0,Z.jsx)("div",{className:"gl-t",children:t[0]}),(0,Z.jsx)("div",{className:"gl-d",children:t[1]})]},t[0]))})]})})}function tK({cfg:e,setCfg:t,close:r}){let n=e.hidden||{},o=i=>t({...e,hidden:{...n,[i]:!n[i]}});return(0,Z.jsx)("div",{className:"dr-wrap",onClick:r,children:(0,Z.jsxs)("aside",{className:"dr",onClick:i=>i.stopPropagation(),role:"dialog","aria-label":"Customise dashboard",children:[(0,Z.jsxs)("div",{className:"dr-h",children:[(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"dr-t",children:"Customise this dashboard"}),(0,Z.jsx)("div",{className:"cd-s",children:"Choose what each tab shows. Your choices are saved in this browser."})]}),(0,Z.jsx)("button",{className:"x",onClick:r,"aria-label":"Close",children:"\xD7"})]}),(0,Z.jsxs)("div",{className:"dr-b",children:[(0,Z.jsxs)("div",{className:"fb",children:[(0,Z.jsx)(Br,{label:"Chart height",value:String(e.ch||260),onChange:i=>t({...e,ch:+i}),options:[["220","Compact"],["260","Standard"],["340","Tall"]]}),(0,Z.jsx)(Br,{label:"Headline strip",value:e.head===!1?"off":"on",onChange:i=>t({...e,head:i==="on"}),options:[["on","Show findings and tiles"],["off","Hide"]]}),(0,Z.jsx)("button",{className:"btn",onClick:()=>t({}),children:"Reset everything"})]}),FE.map(([i,s])=>(0,Z.jsxs)("div",{children:[(0,Z.jsx)("div",{className:"cd-t",style:{margin:"16px 0 6px"},children:s}),l8.filter(a=>a.tab===i).map(a=>(0,Z.jsxs)("label",{className:"chk",children:[(0,Z.jsx)("input",{type:"checkbox",checked:!n[a.id],onChange:()=>o(a.id)})," ",a.title]},a.id))]},i))]})]})})}function rK(){let[e,t]=(0,hr.useState)(QY),r=R=>{t(R),ZY(R)},[n,o]=(0,hr.useState)("over"),[i,s]=(0,hr.useState)("all"),[a,l]=(0,hr.useState)("all"),u=i==="all",c=u?4:+i,[p,f]=(0,hr.useState)({region:"all",zone:"all",state:"all"}),[d,h]=(0,hr.useState)(null),[m,b]=(0,hr.useState)(!1),[g,y]=(0,hr.useState)(!1),x=R=>{f(R);let $=document.getElementById("regionSelect");$&&($.value=R.region.indexOf(",")>=0?"all":R.region);let N=document.getElementById("scopeChip");N&&(N.textContent=R.state!=="all"?R.state:R.region==="all"?"7 Regions \xB7 30 Zones":R.region.split(",").map(Gt).join(", ")+(R.region.indexOf(",")>=0?" Regions":" Region"))};(0,hr.useEffect)(()=>{window.__setRegion=R=>x({region:R,zone:"all",state:"all"})},[]);let v=(0,hr.useMemo)(()=>B0(Xr,p),[p]),T=(R,$,N)=>h($.length===1?{title:R,list:null,note:"",company:$[0]}:{title:R,list:$,note:N||"",company:null}),_=R=>h($=>({...$,company:R}));(0,hr.useEffect)(()=>{let R=$=>{$.key==="Escape"&&(h(null),b(!1),y(!1))};return window.addEventListener("keydown",R),()=>window.removeEventListener("keydown",R)},[]);let w=p.region==="all"?null:p.region.split(","),O=Ho.filter(R=>!w||w.indexOf(R.region)>=0),A=Object.keys(J1).map(R=>[R,Gt(R)]),M=(R,$)=>R==="all"?null:R.split(",").map($).join(", "),E=[M(p.region,Gt)&&[M(p.region,Gt)+" Region",()=>x({region:"all",zone:"all",state:"all"})],M(p.zone,R=>R)&&[M(p.zone,R=>R)+" Zone",()=>f({...p,zone:"all"})],M(p.state,R=>R)&&[M(p.state,R=>R),()=>f({...p,state:"all"})]].filter(Boolean),j=e.hidden||{},L=l8.filter(R=>R.tab===n&&!j[R.id]),I={list:v,yi:c,all:u,sub:a,scope:p,setScope:x,openList:T,openCompany:_,drawer:d,closeDrawer:()=>h(null),ch:e.ch||260};return(0,Z.jsxs)(e3.Provider,{value:I,children:[(0,Z.jsxs)("div",{className:"wrap",children:[(0,Z.jsxs)("div",{className:"hd",children:[(0,Z.jsxs)("div",{className:"hd-l",children:[(0,Z.jsx)("h1",{children:"Precursor analytics"}),(0,Z.jsxs)("p",{children:["Registrations, capacity, usage, compliance and trade for Schedule-A substances \xB7 ",(0,Z.jsx)("span",{className:"scopetxt",children:E.length?E.map(R=>R[0]).join(" \u203A "):"All India"})," \xB7 ",u?"All years to date, 2021\u20132025. Usage and trade are totals, registrants and capacity are as at 2025. Quantities are in tonnes (1 tonne = 1,000 kg).":"FY "+Fe[c]]}),E.length>0&&(0,Z.jsx)("div",{className:"crumbs",children:E.map(R=>(0,Z.jsxs)("button",{className:"chipx",onClick:R[1],children:[R[0]," \xD7"]},R[0]))})]}),(0,Z.jsxs)("div",{className:"hd-r",children:[(0,Z.jsx)(OvFilters,{count:(i!=="all"?1:0)+(a!=="all"?1:0)+(p.region!=="all"?1:0)+(p.zone!=="all"?1:0)+(p.state!=="all"?1:0),onReset:()=>{s("all");l("all");x({region:"all",zone:"all",state:"all"})},children:[(0,Z.jsx)(Br,{label:"Year",value:i,onChange:s,options:[["all","All years (till date)"]].concat(Fe.map((R,$)=>[String($),"FY "+R]))}),(0,Z.jsx)(Eo,{label:"Substances",value:a,onChange:l}),(0,Z.jsx)(Eo,{label:"Regions",value:p.region,onChange:R=>x({region:R,zone:"all",state:"all"}),options:A,allLabel:"All regions"}),(0,Z.jsx)(Eo,{label:"Zones",value:p.zone,onChange:R=>f({...p,zone:R}),options:O.map(R=>[R.zone,R.zone]),allLabel:"All zones",disabled:p.region==="all",disabledText:"Select a region first"})]}),(0,Z.jsx)("a",{className:"hbtn",href:"PREP_Analytics2_Query_to_Chart_Map.xlsx",download:!0,title:"Excel sheet: which graph answers which query in the PDF, and why",children:"Chart guide (Excel)"}),(0,Z.jsx)("button",{type:"button",onClick:()=>b(!0),children:"Customise"}),(0,Z.jsx)("button",{type:"button",onClick:()=>a8("analytics-companies.csv",[["Company","Zone","State","Region","Substances","Capacity t","Usage t","Risk"]].concat(v.filter(R=>Rt(R,4)).map(R=>[R.name,R.zone,R.state,Gt(R.region),R.combo,K(R.cap25),K(R.use25),R.risk]))),children:"Export CSV"})]})]}),(0,Z.jsx)("div",{className:"tabs",role:"tablist",children:FE.map(R=>(0,Z.jsx)("button",{role:"tab","aria-selected":n===R[0],className:"tab"+(n===R[0]?" on":""),onClick:()=>o(R[0]),children:R[1]},R[0]))}),!1&&(0,Z.jsx)(JY,{openList:T},i+a+JSON.stringify(p)),(0,Z.jsx)("div",{className:"grid",children:L.map(R=>(0,Z.jsx)("div",{className:"cell"+(R.wide?" wide":"")+(R.full?" full":"")+(R.top?" top":""),children:(0,Z.jsx)(R.C,{})},R.id+i+a+JSON.stringify(p)))}),null]}),(0,Z.jsx)(_E,{}),m&&(0,Z.jsx)(tK,{cfg:e,setCfg:r,close:()=>b(!1)}),g&&(0,Z.jsx)(eK,{close:()=>y(!1)})]})}(0,zE.createRoot)(document.getElementById("root")).render((0,Z.jsx)(rK,{}));})();
 /*! Bundled license information:
 
 react/cjs/react.production.min.js:
