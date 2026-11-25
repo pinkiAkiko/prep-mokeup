@@ -630,6 +630,7 @@ table.t{width:100%;border-collapse:collapse;font-size:12.5px}
 section.panel:has(>.tdo){display:flex;flex-direction:column}
 .tdo{flex:1 1 auto;display:flex;flex-direction:column}
 .tdo .sm{white-space:nowrap}
+@media(max-width:640px){.tdo .sm{white-space:normal;font-size:11px;line-height:1.25}.tdo>div:first-child{grid-template-columns:minmax(0,96px) minmax(0,1fr) minmax(0,1fr)!important}}
 .tdo>div:first-child{flex:1 1 auto}
 .dlg-back{position:fixed;inset:0;z-index:500;background:rgba(26,35,50,.45);display:flex;align-items:center;justify-content:center;padding:16px}
 .dlg{background:#fff;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.3);width:min(440px,100%);padding:20px 22px}
@@ -669,10 +670,16 @@ section.panel:has(>.tdo){display:flex;flex-direction:column}
 .rcbar .mfs{width:auto;min-width:110px;max-width:220px}
 .rcscroll{max-height:424px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#C7CED6 transparent}
 .rcscroll::-webkit-scrollbar{width:6px}.rcscroll::-webkit-scrollbar-thumb{background:#D3D9E0;border-radius:3px}
+.cardsel .mmenu{left:0;right:auto}
+.mmenu.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px;min-width:min(500px,calc(100vw - 40px))}
+/* on a phone a dropdown opens as a sheet at the bottom of the screen, so it can never run off the side */
+@media(max-width:640px){.mmenu,.mmenu.two{position:fixed;left:12px;right:12px;bottom:12px;top:auto;width:auto;min-width:0;max-height:min(70vh,520px);grid-template-columns:minmax(0,1fr);z-index:60}}
+.mmsec{font-weight:600;color:var(--navy);font-size:12px;border-bottom:1px solid var(--b2);padding-bottom:3px}
 .sc-key{display:inline-flex;align-items:center;gap:6px;margin-right:10px}.sc-key i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:6px}
 .qqnote{padding:0 16px 12px;font-size:12px;color:var(--sub)}
 .rcf{display:inline-flex;align-items:center;gap:6px}
 .rcnote{padding-top:4px;padding-bottom:6px}
+.rcbar{max-width:100%;min-width:0}.rcbar .sm,.qqnote{white-space:normal;overflow-wrap:anywhere;min-width:0}
 .rcbar{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px 16px 0}
 #regcmp .pl{padding-top:8px}
 @media(min-width:1280px){.g>.panel.pwide{grid-column:1/-1}
@@ -1217,6 +1224,14 @@ const holds=(p,id)=>p.subs.includes(id);
 /* a combination: any of the chosen precursors, all of them together, or only those and nothing else */
 function holdOk(p,sub,mode){const ids=[...sub];return mode==='all'?ids.every(i=>p.subs.includes(i)):mode==='only'?ids.every(i=>p.subs.includes(i))&&p.subs.length===ids.length:ids.some(i=>p.subs.includes(i))}
 const modeRadios=(name,attr,mode)=>'<div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad">'+[['any','Any of these'],['all','All of these, together'],['only','Only these']].map(([v,l])=>'<label><input type="radio" name="'+name+'" '+attr+'="'+v+'"'+(mode===v?' checked':'')+'> '+l+'</label>').join('')+'</div>';
+/* every precursor dropdown has two parts: the ones shown on their own, and the ones shown combined */
+const combNote=(set,mode)=>SUBS.filter(S=>set.has(S.id)).map(S=>S.id).join(' + ')+(mode==='only'?' only':' together');
+const precMenu=(id,lbl,o)=>{const chk=(c,set)=>SUBS.map(S=>'<label class="mchk"><input type="checkbox" '+c.attr+'="'+c.val(S.id)+'"'+(set.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('');
+  return '<details class="msub cardsel" id="'+id+'"><summary class="btn" aria-label="Choose precursors"><span>'+lbl+'</span> ▾</summary><div class="mmenu'+(o.cmb?' two':'')+'"><div><div class="mmh mmsec">Shown on their own</div><div class="mmh">'+o.ownHint+'</div>'+chk(o.own,o.own.set)+'<button type="button" class="btn link" '+o.own.clear+'>Clear</button></div>'
+    +(o.cmb?'<div><div class="mmh mmsec">Shown combined</div><div class="mmh">'+o.cmbHint+'</div>'+chk(o.cmb,o.cmb.set)+'<div class="mmh" style="margin-top:6px">The combined result counts premises that hold</div><div class="mrad">'+[['all','All of these, together'],['only','Only these']].map(([v,l])=>'<label><input type="radio" name="'+id+'-mode" '+o.cmb.modeAttr+'="'+o.cmb.modeVal(v)+'"'+(o.cmb.mode===v?' checked':'')+'> '+l+'</label>').join('')+'</div><button type="button" class="btn link" '+o.cmb.clear+'>Clear</button></div>':'')+'</div></details>'};
+document.addEventListener('toggle',e=>{const d=e.target;if(!d.matches||!d.matches('details.cardsel')||!d.open||innerWidth<=640)return;const m=d.querySelector('.mmenu');if(!m)return;
+  m.style.left='0';m.style.right='auto';let r=m.getBoundingClientRect();
+  if(r.right>innerWidth-8){m.style.left='auto';m.style.right='0';r=m.getBoundingClientRect();if(r.left<8){const c=m.offsetParent?m.offsetParent.getBoundingClientRect().left:0;m.style.right='auto';m.style.left=(8-c)+'px'}}},true);
 const subNote=(sub,mode)=>SUBS.filter(S=>sub.has(S.id)).map(S=>S.sh).join(mode==='any'?' or ':' + ')+(mode==='all'?' together':mode==='only'?' only':'');
 const H=(p,id)=>p.hs.find(h=>h.id===id);
 /* rate across every quarter in the period; counts and lr (last-quarter rate) at the period's last quarter */
@@ -1428,29 +1443,30 @@ function strip(A,key){const vals=A.st.map(s=>s?s[key]:null),ok=vals.filter(v=>v!
 function scopeA(){return ST.role==='region'?RS[ST.r]:ST.role==='zone'?ZS[ST.z]:IN}
 function scopePS(){return ST.role==='region'?P.filter(p=>p.r===ST.r):ST.role==='zone'?P.filter(p=>p.z===ST.z):P}
 /* Quarter by quarter: a chart of one measure over the eight quarters, or the full table */
-ST.qq={view:'chart',m:0,reg:'',zone:'',sub:new Set(),mode:'any'};let QQS=null;
-const qqSubLbl=()=>{const n=ST.qq.sub.size;return !n?'All precursors':n===1?SM[[...ST.qq.sub][0]].sh:n+' precursors'};
+ST.qq={view:'chart',m:0,reg:'',zone:'',sub:new Set(),combo:new Set(),mode:'all'};let QQS=null;
+const qqSubLbl=()=>{const n=ST.qq.sub.size;return (!n?'All precursors':n===1?SM[[...ST.qq.sub][0]].sh:n+' precursors')+(ST.qq.combo.size>=2?' · '+SUBS.filter(S=>ST.qq.combo.has(S.id)).map(S=>S.id).join(' + '):'')};
 const qqSel=(k,lab,opts)=>'<label class="rcf"><span class="sm">'+lab+'</span><select class="mfs" data-qqf="'+k+'" aria-label="'+lab+'">'+opts.map(([v,l])=>'<option value="'+v+'"'+(String(ST.qq[k])===String(v)?' selected':'')+'>'+l+'</option>').join('')+'</select></label>';
-const qqBar=(first='')=>{const F=ST.qq,hq=ST.role==='hq';return '<div class="rcbar">'+first+(hq?qqSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])])+qqSel('zone','Zonal unit',[['','All zonal units'],...ZONES.filter(Z=>!F.reg||Z.r===F.reg).map(Z=>[Z.z,Z.z])]):'')+'<label class="rcf"><span class="sm">Precursor</span><details class="msub cardsel" id="msub-QQ"><summary class="btn" aria-label="Choose precursors"><span>'+qqSubLbl()+'</span> ▾</summary><div class="mmenu"><div class="mmh">Pick one or more. Only the chosen precursors are measured.</div>'+SUBS.map(S=>'<label class="mchk"><input type="checkbox" data-qqsub="'+S.id+'"'+(F.sub.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('')+modeRadios('qqmode','data-qqmode',F.mode)+'<button type="button" class="btn link" data-qqsubclear="1">Clear</button></div></details></label>'+(qqFiltered()?'<button type="button" class="btn link" data-qqreset="1">Clear filters</button>':'')+'</div>'};
+const qqBar=(first='')=>{const F=ST.qq,hq=ST.role==='hq';return '<div class="rcbar">'+first+(hq?qqSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])])+qqSel('zone','Zonal unit',[['','All zonal units'],...ZONES.filter(Z=>!F.reg||Z.r===F.reg).map(Z=>[Z.z,Z.z])]):'')+'<label class="rcf"><span class="sm">Precursor</span>'+precMenu('msub-QQ',qqSubLbl(),{ownHint:'Measure only the premises that hold any of the ticked precursors. Leave all empty for every precursor.',own:{attr:'data-qqsub',val:i=>i,set:F.sub,clear:'data-qqsubclear="1"'},cmbHint:'Tick two or more to measure premises that hold those precursors as a combination. This replaces the list on the left.',cmb:{attr:'data-qqcombo',val:i=>i,set:F.combo,modeAttr:'data-qqmode',modeVal:v=>v,mode:F.mode,clear:'data-qqcomboclear="1"'}})+'</label>'+(qqFiltered()?'<button type="button" class="btn link" data-qqreset="1">Clear filters</button>':'')+'</div>'};
 function qqBody(){const {Q,rows,val,d}=QQS;
   if(ST.qq.view==='table')return qqBar()+'<div class="frame"><table class="t qq"><thead><tr><th></th>'+Q.map(q=>'<th class="n '+(CUR.includes(q)?'cur':'')+'">'+(q<0?'–':QLAB(q))+'</th>').join('')+'<th class="n">QoQ</th><th class="n">YoY</th></tr></thead><tbody>'+rows.map(r=>{const v=Q.map((_,i)=>val(r,i));return '<tr><td><b>'+r[0]+'</b></td>'+v.map((x,i)=>'<td class="n '+(CUR.includes(Q[i])?'cur':'')+'">'+(x==null?'–':r[2](x))+'</td>').join('')+'<td class="n">'+d(v[7],v[6],r)+'</td><td class="n">'+d(v[7],v[3],r)+'</td></tr>'}).join('')+'</tbody></table></div>';
   const r=rows[ST.qq.m],v=Q.map((_,i)=>val(r,i));
   return qqBar('<label class="rcf"><span class="sm">Measure</span><select class="mfs" data-qqm="1" aria-label="Measure">'+rows.map((x,i)=>'<option value="'+i+'"'+(ST.qq.m===i?' selected':'')+'>'+x[0]+'</option>').join('')+'</select></label>')+'<div class="pb pbc"><div class="cv" style="min-height:300px"><canvas id="cv-qq" role="img" aria-label="'+r[0]+' by quarter"></canvas></div></div><div class="note qqnote">'+r[0]+' by quarter. The dark columns are the period you chose. Last quarter against the one before: '+d(v[7],v[6],r)+'. Against a year earlier: '+d(v[7],v[3],r)+'.</div>'}
 function qqDraw(){const el=document.getElementById('cv-qq');if(!el||!window.Chart||!QQS)return;const {Q,rows,val}=QQS,r=rows[ST.qq.m],v=Q.map((_,i)=>val(r,i));
   VFMT.set(el,x=>r[2](x));
-  mkChart(el,{type:'bar',data:{labels:Q.map(q=>q<0?'–':QLAB(q)),datasets:[{label:r[0],data:v,backgroundColor:Q.map(q=>CUR.includes(q)?'#6F9BDD':'#C9DAF3'),borderRadius:{topLeft:8,topRight:8},borderSkipped:'bottom',barPercentage:.62,categoryPercentage:.85}]},
+  mkChart(el,{type:'bar',data:{labels:Q.map(q=>q<0?'–':QLAB(q)),datasets:[{label:r[0],data:v,backgroundColor:Q.map(q=>CUR.includes(q)?'#6F9BDD':'#C9DAF3'),borderRadius:{topLeft:6,topRight:6},borderSkipped:'bottom',barPercentage:.9,categoryPercentage:.3}]},
     options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:24}},plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>r[0]+': '+r[2](i.raw)}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:'#F2F4F6'},ticks:{callback:x=>r[2](x)}}}}})}
 function qqRedraw(){const w=document.getElementById('qqbody');if(!w||!QQS)return;const m=document.getElementById('msub-QQ'),open=!!(m&&m.open);qqData();const c=window.Chart&&Chart.getChart('cv-qq');if(c)c.destroy();w.innerHTML=qqBody();if(open){const n=document.getElementById('msub-QQ');if(n)n.open=true}if(ST.qq.view==='chart')qqDraw()}
 const qqCtl=()=>'<span class="seg2" role="group" aria-label="View">'+['chart','table'].map(x=>'<button type="button" data-qqv="'+x+'" aria-pressed="'+(ST.qq.view===x)+'" class="'+(ST.qq.view===x?'on':'')+'">'+(x==='chart'?'Chart':'Table')+'</button>').join('')+'</span><button class="btn link" data-open="QQ1">Open as a report</button>';
 document.addEventListener('click',e=>{const b=e.target.closest('[data-qqv]');if(!b)return;ST.qq.view=b.dataset.qqv;document.querySelectorAll('[data-qqv]').forEach(x=>{const on=x.dataset.qqv===ST.qq.view;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});qqRedraw()});
 document.addEventListener('change',e=>{const t=e.target;if(t.dataset.qqmode){ST.qq.mode=t.dataset.qqmode;return qqRedraw()}if(t.dataset.qqm){ST.qq.m=+t.value;return qqRedraw()}
   if(t.dataset.qqf){const k=t.dataset.qqf;ST.qq[k]=t.value;if(k==='reg')ST.qq.zone='';return qqRedraw()}
-  if(t.dataset.qqsub){t.checked?ST.qq.sub.add(t.dataset.qqsub):ST.qq.sub.delete(t.dataset.qqsub);qqRedraw()}});
-document.addEventListener('click',e=>{if(e.target.closest('[data-qqsubclear]')){ST.qq.sub.clear();return qqRedraw()}if(e.target.closest('[data-qqreset]')){ST.qq={...ST.qq,reg:'',zone:'',sub:new Set(),mode:'any'};qqRedraw()}});
-const qqFiltered=()=>{const F=ST.qq;return ST.role==='hq'&&(F.reg||F.zone)||F.sub.size};
+  if(t.dataset.qqsub){t.checked?ST.qq.sub.add(t.dataset.qqsub):ST.qq.sub.delete(t.dataset.qqsub);qqRedraw()}
+  else if(t.dataset.qqcombo){t.checked?ST.qq.combo.add(t.dataset.qqcombo):ST.qq.combo.delete(t.dataset.qqcombo);qqRedraw()}});
+document.addEventListener('click',e=>{if(e.target.closest('[data-qqsubclear]')){ST.qq.sub.clear();return qqRedraw()}if(e.target.closest('[data-qqcomboclear]')){ST.qq.combo.clear();return qqRedraw()}if(e.target.closest('[data-qqreset]')){ST.qq={...ST.qq,reg:'',zone:'',sub:new Set(),combo:new Set(),mode:'all'};qqRedraw()}});
+const qqFiltered=()=>{const F=ST.qq;return ST.role==='hq'&&(F.reg||F.zone)||F.sub.size||F.combo.size};
 function qqData(){const F=ST.qq,hq=ST.role==='hq';let A=scopeA(),ps=scopePS(),zs=scopeZones(),psAll=ps;
   if(qqFiltered()){const inA=x=>hq?(!F.reg||x.r===F.reg)&&(!F.zone||x.z===F.zone):1;
-    ps=ps.filter(inA);if(F.sub.size)ps=ps.filter(p=>holdOk(p,F.sub,F.mode));psAll=ps;if(F.sub.size)ps=ps.map(p=>({...p,hs:p.hs.filter(h=>F.sub.has(h.id)),subs:p.subs.filter(i=>F.sub.has(i))}));
+    ps=ps.filter(inA);const cb=F.combo.size>=2,sel=cb?F.combo:F.sub;if(sel.size)ps=ps.filter(p=>holdOk(p,sel,cb?F.mode:'any'));psAll=ps;if(sel.size)ps=ps.map(p=>({...p,hs:p.hs.filter(h=>sel.has(h.id)),subs:p.subs.filter(i=>sel.has(i))}));
     if(ps.length){A=area(ps,F.sub.size?[]:CAN.filter(c=>inA(c)&&zs.includes(c.z)))}
     else A=null;
     if(hq)zs=zs.filter(z=>{const Z=ZONES.find(x=>x.z===z);return (!F.reg||Z.r===F.reg)&&(!F.zone||z===F.zone)})}
@@ -1538,25 +1554,26 @@ function dashHQ(){const L=lists(),hi=L.att.filter(x=>x.m.sev===3).length,act=Obj
 
 /* chart view of Regions compared: pick one measure, see the seven regions ranked */
 const RCM={n:{h:'Premises',v:x=>x.n,t:v=>fmt(v),c:'c0'},share:{h:"Share of India"+String.fromCharCode(39)+"s use",v:x=>x.share,t:v=>f1(v)+'%',c:'c0'},qr:{h:'Returns filed',v:x=>x.q.rate,t:v=>f1(v)+'%',c:'rg',base:60,ref:()=>IN.q.rate},unmPct:{h:'Unmatched',v:x=>x.unmPct,t:v=>f1(v)+'%',c:'c2',ref:()=>IN.unmPct},anom:{h:'Far under capacity',v:x=>x.anom,t:v=>String(v),c:'c2'},hr:{h:'Tier 1 premises',v:x=>x.hr,t:v=>String(v),c:'c0'},late:{h:'Applications over 30 days',v:x=>x.late,t:v=>String(v),c:'c2'}};
-ST.rc={view:'chart',m:'qr',by:'region',reg:'',sort:'high',sub:new Set(),top:10,mode:'any'};
-const rcArea=(ps,cans)=>{const sub=ST.rc.sub;if(!sub.size)return area(ps,cans);const q=ps.filter(p=>holdOk(p,sub,ST.rc.mode)).map(p=>({...p,hs:p.hs.filter(h=>sub.has(h.id)),subs:p.subs.filter(i=>sub.has(i))}));return q.length?area(q,[]):null};
+ST.rc={view:'chart',m:'qr',by:'region',reg:'',sort:'high',sub:new Set(),combo:new Set(),top:10,mode:'all'};
+const rcArea=(ps,cans)=>{const R=ST.rc,cb=R.combo.size>=2,sub=cb?R.combo:R.sub;if(!sub.size)return area(ps,cans);const q=ps.filter(p=>holdOk(p,sub,cb?R.mode:'any')).map(p=>({...p,hs:p.hs.filter(h=>sub.has(h.id)),subs:p.subs.filter(i=>sub.has(i))}));return q.length?area(q,[]):null};
 const rcSel=(k,lab,opts)=>'<label class="rcf"><span class="sm">'+lab+'</span><select class="mfs" data-rcf="'+k+'" aria-label="'+lab+'">'+opts.map(([v,l])=>'<option value="'+v+'"'+(String(ST.rc[k])===String(v)?' selected':'')+'>'+l+'</option>').join('')+'</select></label>';
-const rcSubLbl=()=>{const n=ST.rc.sub.size;return !n?'All precursors':n===1?SM[[...ST.rc.sub][0]].sh:n+' precursors'};
-const rcSubMenu=()=>'<label class="rcf"><span class="sm">Precursor</span><details class="msub cardsel" id="msub-RC"><summary class="btn" aria-label="Choose precursors"><span>'+rcSubLbl()+'</span> ▾</summary><div class="mmenu"><div class="mmh">Pick one or more. Only the chosen precursors are measured.</div>'+SUBS.map(S=>'<label class="mchk"><input type="checkbox" data-rcsub="'+S.id+'"'+(ST.rc.sub.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('')+modeRadios('rcmode','data-rcmode',ST.rc.mode)+'<button type="button" class="btn link" data-rcsubclear="1">Clear</button></div></details></label>';
+const rcSubLbl=()=>{const n=ST.rc.sub.size;return (!n?'All precursors':n===1?SM[[...ST.rc.sub][0]].sh:n+' precursors')+(ST.rc.combo.size>=2?' · '+SUBS.filter(S=>ST.rc.combo.has(S.id)).map(S=>S.id).join(' + '):'')};
+const rcSubMenu=()=>'<label class="rcf"><span class="sm">Precursor</span>'+precMenu('msub-RC',rcSubLbl(),{ownHint:'Measure only the premises that hold any of the ticked precursors. Leave all empty for every precursor.',own:{attr:'data-rcsub',val:i=>i,set:ST.rc.sub,clear:'data-rcsubclear="1"'},cmbHint:'Tick two or more to measure premises that hold those precursors as a combination. This replaces the list on the left.',cmb:{attr:'data-rccombo',val:i=>i,set:ST.rc.combo,modeAttr:'data-rcmode',modeVal:v=>v,mode:ST.rc.mode,clear:'data-rccomboclear="1"'}})+'</label>';
 function regionChart(){const M=RCM[ST.rc.m],R=ST.rc,byZ=R.by==='zone',all=(byZ?ZONES.map(Z=>{const a=rcArea(P.filter(p=>p.z===Z.z),CAN.filter(c=>c.z===Z.z));return a&&{...a,r:Z.r,zs:[Z.z],name:Z.z,tip:Z.r+' · zonal unit',zone:Z.z,late:appsIn([Z.z]).filter(a=>a.age>30).length}}):REGIONS.map(([r,zs])=>{const a=rcArea(P.filter(p=>p.r===r),CAN.filter(c=>c.r===r));return a&&{...a,r,zs,name:r.replace(' Region',''),tip:zs.join(', '),late:appsIn(zs).filter(a=>a.age>30).length}})).filter(Boolean),
     cut=all.filter(x=>(!R.reg||x.r===R.reg)).sort(R.sort==='az'?(a,b)=>a.name.localeCompare(b.name):R.sort==='low'?(a,b)=>M.v(a)-M.v(b):(a,b)=>M.v(b)-M.v(a)),rows=R.top?cut.slice(0,R.top):cut,base=M.base||0,mx=Math.max(...rows.map(M.v),M.ref?M.ref():0),span=Math.max(1e-9,mx-base),ref=M.ref?M.ref():null;
   const row=x=>{const v=M.v(x),w=Math.max(v?1.5:0,(v-base)/span*100),cls=M.c==='rg'?(v<CFG.th.file.t[2]?'cr':'cg'):M.c,inside=w>=82;
     return '<div class="pl-r click" '+(byZ?'data-zonepick="'+x.zone+'"':'data-region="'+x.r+'"')+'><span class="pl-n" title="'+x.tip+'">'+x.name+'</span><span class="pl-bars"><span class="pl-t"><i class="pl-f '+cls+'" style="width:'+w+'%"></i>'+(ref!=null?'<u class="pl-ref" style="left:'+Math.max(0,(ref-base)/span*100)+'%" title="India '+M.t(ref)+'"></u>':'')+'<span class="pl-v'+(inside?' in':'')+'" style="'+(inside?'right:calc('+(100-w)+'% + 10px)':'left:calc('+w+'% + 8px)')+'"><b>'+M.t(v)+'</b></span></span></span></div>'};
-  return '<div class="rcbar">'+rcSel('m','Measure',Object.entries(RCM).map(([k,m])=>[k,m.h]))+rcSel('by','Show by',[['region','Region'],['zone','Zonal unit']])+(byZ?rcSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])]):'')+rcSel('sort','Order',[['high','Highest first'],['low','Lowest first'],['az','A to Z']])+rcSubMenu()+rcSel('top','Show',[[10,'Top 10'],[0,'All']])+(ST.rc.reg||ST.rc.sort!=='high'||ST.rc.sub.size||ST.rc.top!==10||byZ?'<button type="button" class="btn link" data-rcreset="1">Clear filters</button>':'')+'</div><div class="rcbar rcnote">'+'<span class="sm">'+rows.length+' of '+all.length+' '+(byZ?'zonal units':'regions')+(R.sub.size?', premises holding '+subNote(R.sub,R.mode):'')+'. </span>'+(ref!=null?'<span class="sm">The black tick is India, '+M.t(ref)+'.'+(base?' Bars start at '+base+'%.':'')+'</span>':'<span class="sm">Select one to see it on the map.</span>')+'</div><div class="pb pl rcscroll">'+(rows.map(row).join('')||'<div class="sm" style="grid-column:1/-1">Nothing matches these filters.</div>')+'</div>'}
+  return '<div class="rcbar">'+rcSel('m','Measure',Object.entries(RCM).map(([k,m])=>[k,m.h]))+rcSel('by','Show by',[['region','Region'],['zone','Zonal unit']])+(byZ?rcSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])]):'')+rcSel('sort','Order',[['high','Highest first'],['low','Lowest first'],['az','A to Z']])+rcSubMenu()+rcSel('top','Show',[[10,'Top 10'],[0,'All']])+(ST.rc.reg||ST.rc.sort!=='high'||ST.rc.sub.size||ST.rc.combo.size||ST.rc.top!==10||byZ?'<button type="button" class="btn link" data-rcreset="1">Clear filters</button>':'')+'</div><div class="rcbar rcnote">'+'<span class="sm">'+rows.length+' of '+all.length+' '+(byZ?'zonal units':'regions')+(R.combo.size>=2?', premises holding '+combNote(R.combo,R.mode):R.sub.size?', premises holding '+subNote(R.sub,'any'):'')+'. </span>'+(ref!=null?'<span class="sm">The black tick is India, '+M.t(ref)+'.'+(base?' Bars start at '+base+'%.':'')+'</span>':'<span class="sm">Select one to see it on the map.</span>')+'</div><div class="pb pl rcscroll">'+(rows.map(row).join('')||'<div class="sm" style="grid-column:1/-1">Nothing matches these filters.</div>')+'</div>'}
 const regCmpBody=()=>ST.rc.view==='chart'?regionChart():regionTable();
 const regCmpCtl=()=>'<span class="seg2" role="group" aria-label="View">'+['chart','table'].map(v=>'<button type="button" data-rcv="'+v+'" aria-pressed="'+(ST.rc.view===v)+'" class="'+(ST.rc.view===v?'on':'')+'">'+(v==='chart'?'Chart':'Table')+'</button>').join('')+'</span>'+openRep('X3');
 document.addEventListener('click',e=>{const b=e.target.closest('[data-rcv]');if(!b)return;ST.rc.view=b.dataset.rcv;const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody();document.querySelectorAll('[data-rcv]').forEach(x=>{const on=x.dataset.rcv===ST.rc.view;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)})});
 const rcRedraw=()=>{const w=document.getElementById('regcmp'),m=document.getElementById('msub-RC'),open=!!(m&&m.open);if(!w)return;w.innerHTML=regCmpBody();if(open){const n=document.getElementById('msub-RC');if(n)n.open=true}};
 document.addEventListener('change',e=>{if(e.target.dataset.rcmode){ST.rc.mode=e.target.dataset.rcmode;return rcRedraw()}const i=e.target.dataset.rcsub;if(!i)return;e.target.checked?ST.rc.sub.add(i):ST.rc.sub.delete(i);rcRedraw()});
-document.addEventListener('click',e=>{if(e.target.closest('[data-rcsubclear]')){ST.rc.sub.clear();rcRedraw()}});
+document.addEventListener('change',e=>{const i=e.target.dataset.rccombo;if(!i)return;e.target.checked?ST.rc.combo.add(i):ST.rc.combo.delete(i);rcRedraw()});
+document.addEventListener('click',e=>{if(e.target.closest('[data-rcsubclear]')){ST.rc.sub.clear();rcRedraw()}if(e.target.closest('[data-rccomboclear]')){ST.rc.combo.clear();rcRedraw()}});
 document.addEventListener('change',e=>{const k=e.target.dataset.rcf;if(!k)return;ST.rc[k]=k==='top'?+e.target.value:e.target.value;if(k==='by')ST.rc.reg='';const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody()});
 document.addEventListener('click',e=>{const z=e.target.closest('[data-zonepick]');if(z&&ST.role==='hq'){selectZone(z.dataset.zonepick);document.getElementById('map').scrollIntoView({block:'center'});return}
-  if(e.target.closest('[data-rcreset]')){ST.rc={...ST.rc,by:'region',reg:'',sort:'high',sub:new Set(),top:10,mode:'any'};const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody()}});
+  if(e.target.closest('[data-rcreset]')){ST.rc={...ST.rc,by:'region',reg:'',sort:'high',sub:new Set(),combo:new Set(),top:10,mode:'all'};const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody()}});
 function regionTable(){const rows=REGIONS.map(([r,zs])=>({r,zs,...RS[r],late:appsIn(zs).filter(a=>a.age>30).length}));
   return table('reg',[
     {k:'r',h:'Region',f:x=>`<b title="${x.zs.join(', ')}">${x.r.replace(' Region','')}</b>`},
@@ -1572,38 +1589,56 @@ function regionTable(){const rows=REGIONS.map(([r,zs])=>({r,zs,...RS[r],late:app
 document.addEventListener('click',e=>{const tr=e.target.closest('tr[data-region],.pl-r[data-region]');if(tr&&ST.role==='hq'){const z=ZONES.filter(Z=>Z.r===tr.dataset.region).map(Z=>ZS[Z.z]).sort((a,b)=>({r:0,a:1,g:2})[a.c]-({r:0,a:1,g:2})[b.c])[0];selectZone(z.z);document.getElementById('map').scrollIntoView({block:'center'})}});
 
 /* Premises by precursor as a graph: one measure at a time, one dot per precursor on a stem, coloured by tier. Quantities are in kilograms, on a log scale. */
-ST.sc={view:'chart',m:'n',reg:'',zone:'',tier:'',sub:new Set(),sort:'high',mode:'any'};
+ST.sc={view:'chart',m:'n',reg:'',zone:'',tier:'',sub:new Set(),sort:'high',combo:new Set()};
 const SCM={n:{h:'Premises',v:x=>x.n,t:v=>fmt(v)},util:{h:'Capacity in use',v:x=>x.util,t:v=>f1(v)+'%'},q:{h:'Returns filed',v:x=>x.q,t:v=>f1(v)+'%',min:60},unm:{h:'Unmatched',v:x=>x.unm,t:v=>f1(v)+'%'},cap:{h:'Installed capacity',v:x=>x.cap,t:fq,log:1},use:{h:'Declared use',v:x=>x.use,t:fq,log:1},imp:{h:'Imported',v:x=>x.imp,t:fq,log:1},exp:{h:'Exported',v:x=>x.exp,t:fq,log:1}};
 const SCT={1:'#E9A39B',2:'#F0BD8D',3:'#B7C0CC'};let SCP=[];
 const scSel=(k,lab,opts)=>'<label class="rcf"><span class="sm">'+lab+'</span><select class="mfs" data-scf="'+k+'" aria-label="'+lab+'">'+opts.map(([v,l])=>'<option value="'+v+'"'+(String(ST.sc[k])===String(v)?' selected':'')+'>'+l+'</option>').join('')+'</select></label>';
 const scSubLbl=()=>{const n=ST.sc.sub.size;return !n?'All precursors':n===1?SM[[...ST.sc.sub][0]].sh:n+' precursors'};
-function scCombo(ps,sel){const ids=[...sel],hs=ps.flatMap(p=>ids.map(id=>H(p,id))),cap=sum(hs,h=>h.cap),use=sum(hs,h=>h.use),sent=sum(hs,h=>h.sent),unm=sum(hs,h=>h.unm);
-  return {combo:1,S:{sh:ids.join(' + '),name:ids.map(i=>SM[i].name).join(' + ')},id:ids[0],n:ps.length,cap,use,util:cap?use/cap*100:0,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),q:ps.length?qrate(ps,3).rate:0,unm:sent?unm/sent*100:0}}
-function scRows(){const F=ST.sc,hq=ST.role==='hq',M=SCM[F.m],together=F.sub.size>=2&&F.mode!=='any';let ps=SCP;if(hq)ps=ps.filter(p=>(!F.reg||p.r===F.reg)&&(!F.zone||p.z===F.zone));
-  if(F.sub.size&&F.mode!=='any')ps=ps.filter(p=>holdOk(p,F.sub,F.mode));
-  let rows=subRows(ps).filter(x=>(!F.tier||String(tierOf(x.id))===F.tier)&&(!F.sub.size||F.sub.has(x.id)));
-  rows=rows.filter(x=>!M.log||M.v(x)>0);
-  rows.sort(F.sort==='az'?(a,b)=>a.S.sh.localeCompare(b.S.sh):F.sort==='low'?(a,b)=>M.v(a)-M.v(b):F.sort==='tier'?(a,b)=>tierOf(a.id)-tierOf(b.id)||M.v(b)-M.v(a):(a,b)=>M.v(b)-M.v(a));
-  if(together){const c=scCombo(ps,F.sub);if(c.n&&(!M.log||M.v(c)>0))rows.unshift(c)}return rows}
-function scTableBody(){const F=ST.sc,hq=ST.role==='hq';let ps=SCP;if(hq)ps=ps.filter(p=>(!F.reg||p.r===F.reg)&&(!F.zone||p.z===F.zone));if(F.sub.size&&F.mode!=='any')ps=ps.filter(p=>holdOk(p,F.sub,F.mode));
+const scComboLbl=()=>{const n=ST.sc.combo.size;return !n?'None':SUBS.filter(S=>ST.sc.combo.has(S.id)).map(S=>S.id).join(' + ')};
+/* Every premises is counted once, so the bars add up to the total: premises that hold one precursor only, the chosen combination (exactly those precursors), and "Other combinations" for every other mix. */
+function scGroup(ps,ids,S,kind,id){const hs=ids?ps.flatMap(p=>ids.map(i=>H(p,i))):ps.flatMap(p=>p.hs),cap=sum(hs,h=>h.cap),use=sum(hs,h=>h.use),sent=sum(hs,h=>h.sent),unm=sum(hs,h=>h.unm);
+  return {kind,combo:kind==='combo'?1:0,S,id,n:ps.length,cap,use,util:cap?use/cap*100:0,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),q:ps.length?qrate(ps,3).rate:0,unm:sent?unm/sent*100:0}}
+const sameSet=(p,sel)=>p.subs.length===sel.size&&p.subs.every(i=>sel.has(i));
+function scRows(){const F=ST.sc,hq=ST.role==='hq',M=SCM[F.m];let ps=SCP;if(hq)ps=ps.filter(p=>(!F.reg||p.r===F.reg)&&(!F.zone||p.z===F.zone));
+  const useC=F.combo.size>=2;
+  let singles=SUBS.map(S=>scGroup(ps.filter(p=>p.subs.length===1&&p.subs[0]===S.id),[S.id],S,'single',S.id)).filter(x=>x.n&&(!F.tier||String(tierOf(x.id))===F.tier)&&(!F.sub.size||F.sub.has(x.id)));
+  singles=singles.filter(x=>!M.log||M.v(x)>0);
+  singles.sort(F.sort==='az'?(a,b)=>a.S.sh.localeCompare(b.S.sh):F.sort==='low'?(a,b)=>M.v(a)-M.v(b):F.sort==='tier'?(a,b)=>tierOf(a.id)-tierOf(b.id)||M.v(b)-M.v(a):(a,b)=>M.v(b)-M.v(a));
+  const rows=[];
+  if(useC){const ids=SUBS.filter(S=>F.combo.has(S.id)).map(S=>S.id),c=scGroup(ps.filter(p=>sameSet(p,F.combo)),ids,{sh:ids.join(' + '),name:ids.map(i=>SM[i].name).join(' + ')},'combo',ids[0]);if(c.n&&(!M.log||M.v(c)>0))rows.push(c)}
+  rows.push(...singles);
+  const o=scGroup(ps.filter(p=>p.subs.length>=2&&!(useC&&sameSet(p,F.combo))),null,{sh:'Other combinations',name:'Other combinations of two or more precursors'},'other','');if(o.n&&(!M.log||M.v(o)>0))rows.push(o);
+  rows.total=ps.length;return rows}
+function scTableBody(){const F=ST.sc,hq=ST.role==='hq';let ps=SCP;if(hq)ps=ps.filter(p=>(!F.reg||p.r===F.reg)&&(!F.zone||p.z===F.zone));
   return substanceTable(ps,x=>(!F.tier||String(tierOf(x.id))===F.tier)&&(!F.sub.size||F.sub.has(x.id)))}
+const scBoth=tbl=>{const F=ST.sc,chk=(attr,set)=>SUBS.map(S=>'<label class="mchk"><input type="checkbox" '+attr+'="'+S.id+'"'+(set.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('');
+  const lbl=scSubLbl()+(!tbl&&F.combo.size>=2?' · '+scComboLbl():'');
+  return '<label class="rcf"><span class="sm">Precursor</span><details class="msub cardsel" id="msub-SC"><summary class="btn" aria-label="Choose precursors"><span>'+lbl+'</span> ▾</summary><div class="mmenu'+(tbl?'':' two')+'"><div><div class="mmh mmsec">Shown on their own</div><div class="mmh">Tick the ones to show. Leave all empty to show every precursor.</div>'+chk('data-scsub',F.sub)+'<button type="button" class="btn link" data-scsubclear="1">Clear</button></div>'
+    +(tbl?'':'<div><div class="mmh mmsec">Shown combined</div><div class="mmh">Tick two or more to add one bar for premises that hold exactly those precursors.</div>'+chk('data-sccombo',F.combo)+'<button type="button" class="btn link" data-sccomboclear="1">Clear</button></div>')+'</div></details></label>'};
+const scMenu=(id,lab,btn,hint,attr,set,extra,clear)=>'<label class="rcf"><span class="sm">'+lab+'</span><details class="msub cardsel" id="'+id+'"><summary class="btn" aria-label="'+lab+'"><span>'+btn+'</span> ▾</summary><div class="mmenu"><div class="mmh">'+hint+'</div>'+SUBS.map(S=>'<label class="mchk"><input type="checkbox" '+attr+'="'+S.id+'"'+(set.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('')+extra+'<button type="button" class="btn link" '+clear+'="1">Clear</button></div></details></label>';
+const comboRadios='';
 function subChartBody(){const F=ST.sc,hq=ST.role==='hq',M=SCM[F.m],tbl=F.view==='table',rows=tbl?[]:scRows();
-  const bar='<div class="rcbar">'+(tbl?'':scSel('m','Measure',Object.entries(SCM).map(([k,m])=>[k,m.h])))+(hq?scSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])])+scSel('zone','Zonal unit',[['','All zonal units'],...ZONES.filter(Z=>!F.reg||Z.r===F.reg).map(Z=>[Z.z,Z.z])]):'')+scSel('tier','Tier',[['','All tiers'],['1','Tier 1'],['2','Tier 2'],['3','Tier 3']])+'<label class="rcf"><span class="sm">Precursor</span><details class="msub cardsel" id="msub-SC"><summary class="btn" aria-label="Choose precursors"><span>'+scSubLbl()+'</span> ▾</summary><div class="mmenu"><div class="mmh">Pick one or more precursors. Pick two or more and choose how they combine, to add one combination bar.</div>'+SUBS.map(S=>'<label class="mchk"><input type="checkbox" data-scsub="'+S.id+'"'+(F.sub.has(S.id)?' checked':'')+'> '+esc(S.sh)+'</label>').join('')+modeRadios('scmode','data-scmode',F.mode)+'<button type="button" class="btn link" data-scsubclear="1">Clear</button></div></details></label>'+(tbl?'':scSel('sort','Order',[['high','Highest first'],['low','Lowest first'],['az','A to Z'],['tier','By tier']]))+((F.reg||F.zone||F.tier||F.sub.size||(!tbl&&F.sort!=='high')||F.mode!=='any')?'<button type="button" class="btn link" data-screset="1">Clear filters</button>':'')+'</div>';
+  const bar='<div class="rcbar">'+(tbl?'':scSel('m','Measure',Object.entries(SCM).map(([k,m])=>[k,m.h])))+(hq?scSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])])+scSel('zone','Zonal unit',[['','All zonal units'],...ZONES.filter(Z=>!F.reg||Z.r===F.reg).map(Z=>[Z.z,Z.z])]):'')+scSel('tier','Tier',[['','All tiers'],['1','Tier 1'],['2','Tier 2'],['3','Tier 3']])
+    +scBoth(tbl)
+    +((F.reg||F.zone||F.tier||F.sub.size||(!tbl&&F.combo.size))?'<button type="button" class="btn link" data-screset="1">Clear filters</button>':'')+'</div>';
   if(tbl)return bar+scTableBody();
-  const key='<span class="sc-key"><i style="background:'+SCT[1]+'"></i>Tier 1 <i style="background:'+SCT[2]+'"></i>Tier 2 <i style="background:'+SCT[3]+'"></i>Tier 3'+(rows.some(r=>r.combo)?' <i style="background:#7FA2D8"></i>Combination':'')+'</span>';
-  return bar+'<div class="pb pbc"><div class="cv" style="min-height:320px"><canvas id="cv-sub" role="img" aria-label="'+M.h+' by precursor"></canvas></div></div><div class="note qqnote">'+key+' '+(rows.some(r=>r.combo)?'Combination: premises that hold '+subNote(F.sub,F.mode)+'. Its quantities add up the chosen precursors. ':'')+(rows.length?'':'Nothing matches these filters. ')+(M.log?'Quantities are in kilograms and the height is on a log scale. Quantities are never added across precursors.':M.min?'The scale starts at '+M.min+'%.':'')+'</div>'}
+  const hasC=rows.some(r=>r.combo),key='<span class="sc-key"><i style="background:'+SCT[1]+'"></i>Tier 1 <i style="background:'+SCT[2]+'"></i>Tier 2 <i style="background:'+SCT[3]+'"></i>Tier 3'+(hasC?' <i style="background:#7FA2D8"></i>Combination':'')+(rows.some(r=>r.kind==="other")?' <i style="background:#C7D3EA"></i>Other combinations':'')+'</span>';
+  return bar+'<div class="pb pbc"><div class="cv" style="min-height:320px"><canvas id="cv-sub" role="img" aria-label="'+M.h+' by precursor"></canvas></div></div><div class="note qqnote">'+key+' '+'Each premises is counted once: premises that hold one precursor only'+(hasC?', the combination ('+SUBS.filter(S=>F.combo.has(S.id)).map(S=>S.id).join(' + ')+' only)':'')+' and all other mixes together. '+(ST.sc.m==='n'?'The bars add up to '+fmt(sum(rows,r=>r.n))+' premises. ':M.log?'A mix adds up its precursors. ':'')+(F.combo.size===1?'Tick one more precursor to add a combination bar. ':'')+(rows.length?'':'Nothing matches these filters. ')+(M.log?'Quantities are in kilograms and the height is on a log scale. Quantities are never added across precursors.':M.min?'The scale starts at '+M.min+'%.':'')+'</div>'}
 function subDraw(){const el=document.getElementById('cv-sub');if(!el||!window.Chart)return;const M=SCM[ST.sc.m],rows=scRows(),vals=rows.map(M.v);if(!rows.length){const o=Chart.getChart(el);if(o)o.destroy();return}
   const pos=vals.filter(v=>v>0),mn=Math.min(...pos,1e12),mx=Math.max(...vals,1);
   const lab={id:'sublab',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 11px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';c.textBaseline='bottom';ch.getDatasetMeta(1).data.forEach((p,i)=>{if(vals[i]>0||!M.log)c.fillText(M.t(vals[i]),p.x,p.y-13)});c.restore()}};
   const y=M.log?{type:'logarithmic',min:Math.pow(10,Math.floor(Math.log10(mn))-.3),max:Math.pow(10,Math.ceil(Math.log10(mx))+.2),grid:{color:'#F2F4F6'},ticks:{callback:v=>{const l=Math.log10(v);return Math.abs(l-Math.round(l))<1e-9?fq(v):''},maxTicksLimit:9}}:{beginAtZero:!M.min,min:M.min,suggestedMax:mx*1.12,grid:{color:'#F2F4F6'},ticks:{callback:v=>M.t(v)}};
-  mkChart(el,{type:'bar',plugins:[lab],data:{labels:rows.map(r=>r.combo?r.S.sh:r.S.sh.length>13?r.S.sh.split(' '):r.S.sh),datasets:[{type:'bar',label:M.h,data:vals,backgroundColor:'#DDE3EB',barThickness:3,borderSkipped:false,order:2},{type:'line',label:M.h,data:vals,showLine:false,pointRadius:rows.map(r=>r.combo?13:10),pointHoverRadius:14,pointBackgroundColor:rows.map(r=>r.combo?'#7FA2D8':SCT[tierOf(r.id)]),pointBorderColor:'#fff',pointBorderWidth:2,order:1}]},
-    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:26}},plugins:{legend:{display:false},tooltip:{callbacks:{title:i=>rows[i[0].dataIndex].S.name,label:i=>M.h+': '+M.t(i.raw)+(rows[i.dataIndex].combo?' (combination)':' (Tier '+tierOf(rows[i.dataIndex].id)+')')}}},scales:{x:{grid:{display:false},ticks:{autoSkip:false,font:{size:12}}},y}}})}
+  mkChart(el,{type:'bar',plugins:[lab],data:{labels:rows.map(r=>r.kind==='combo'?r.S.sh:r.S.sh.length>13?r.S.sh.split(' '):r.S.sh),datasets:[{type:'bar',label:M.h,data:vals,backgroundColor:'#DDE3EB',barThickness:3,borderSkipped:false,order:2},{type:'line',label:M.h,data:vals,showLine:false,pointRadius:rows.map(r=>r.kind==='single'?10:13),pointHoverRadius:14,pointBackgroundColor:rows.map(r=>r.kind==='combo'?'#7FA2D8':r.kind==='other'?'#C7D3EA':SCT[tierOf(r.id)]),pointBorderColor:'#fff',pointBorderWidth:2,order:1}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:26}},plugins:{legend:{display:false},tooltip:{callbacks:{title:i=>rows[i[0].dataIndex].S.name,label:i=>M.h+': '+M.t(i.raw)+(rows[i.dataIndex].kind==='combo'?' (combination)':rows[i.dataIndex].kind==='other'?' (other combinations)':' (Tier '+tierOf(rows[i.dataIndex].id)+')')}}},scales:{x:{grid:{display:false},ticks:{autoSkip:false,font:{size:12}}},y}}})}
 const scCtl=rep=>'<span class="seg2" role="group" aria-label="View">'+['chart','table'].map(v=>'<button type="button" data-scv="'+v+'" aria-pressed="'+(ST.sc.view===v)+'" class="'+(ST.sc.view===v?'on':'')+'">'+(v==='chart'?'Chart':'Table')+'</button>').join('')+'</span>'+openRep(rep);
 function substanceChart(ps){SCP=ps;later(subDraw);return '<div id="subchart">'+subChartBody()+'</div>'}
-const scRedraw=()=>{const w=document.getElementById('subchart'),m=document.getElementById('msub-SC'),open=!!(m&&m.open);if(!w)return;const c=window.Chart&&Chart.getChart('cv-sub');if(c)c.destroy();w.innerHTML=subChartBody();if(open){const n=document.getElementById('msub-SC');if(n)n.open=true}subDraw()};
-document.addEventListener('change',e=>{const t=e.target;if(t.dataset.scmode){ST.sc.mode=t.dataset.scmode;return scRedraw()}if(t.dataset.scf){const k=t.dataset.scf;ST.sc[k]=t.value;if(k==='reg')ST.sc.zone='';return scRedraw()}
-  if(t.dataset.scsub){t.checked?ST.sc.sub.add(t.dataset.scsub):ST.sc.sub.delete(t.dataset.scsub);scRedraw()}});
-document.addEventListener('click',e=>{const v=e.target.closest('[data-scv]');if(v){ST.sc.view=v.dataset.scv;document.querySelectorAll('[data-scv]').forEach(x=>{const on=x.dataset.scv===ST.sc.view;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});return scRedraw()}if(e.target.closest('[data-scsubclear]')){ST.sc.sub.clear();return scRedraw()}if(e.target.closest('[data-screset]')){ST.sc={...ST.sc,reg:'',zone:'',tier:'',sub:new Set(),sort:'high',mode:'any'};scRedraw()}});
+const scRedraw=()=>{const w=document.getElementById('subchart');if(!w)return;const open=['msub-SC'].filter(i=>{const m=document.getElementById(i);return m&&m.open}),c=window.Chart&&Chart.getChart('cv-sub');if(c)c.destroy();w.innerHTML=subChartBody();open.forEach(i=>{const n=document.getElementById(i);if(n)n.open=true});subDraw()};
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset.scf){const k=t.dataset.scf;ST.sc[k]=t.value;if(k==='reg')ST.sc.zone='';return scRedraw()}
+  if(t.dataset.scsub){t.checked?ST.sc.sub.add(t.dataset.scsub):ST.sc.sub.delete(t.dataset.scsub);scRedraw()}
+  else if(t.dataset.sccombo){t.checked?ST.sc.combo.add(t.dataset.sccombo):ST.sc.combo.delete(t.dataset.sccombo);scRedraw()}});
+document.addEventListener('click',e=>{const v=e.target.closest('[data-scv]');if(v){ST.sc.view=v.dataset.scv;document.querySelectorAll('[data-scv]').forEach(x=>{const on=x.dataset.scv===ST.sc.view;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});return scRedraw()}
+  if(e.target.closest('[data-scsubclear]')){ST.sc.sub.clear();return scRedraw()}if(e.target.closest('[data-sccomboclear]')){ST.sc.combo.clear();return scRedraw()}
+  if(e.target.closest('[data-screset]')){ST.sc={...ST.sc,reg:'',zone:'',tier:'',sub:new Set(),sort:'high',combo:new Set()};scRedraw()}});
 function subRows(ps){return SUBS.map(S=>{const hp=ps.filter(p=>holds(p,S.id)),hs=hp.map(p=>H(p,S.id));
   const prev=hp.filter(prevExists).length,cap=sum(hs,h=>h.cap),use=sum(hs,h=>h.use),sent=sum(hs,h=>h.sent),unm=sum(hs,h=>h.unm),q=qrate(hp,3);
   return {S,id:S.id,n:hp.length,g:chg(hp.length,prev),cap,use,ug:chg(use,sum(hs,h=>h.useP)),util:cap?use/cap*100:0,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),q:q.rate,unm:sent?unm/sent*100:0,unmQ:unm,low:hp.filter(p=>p.low).length}}).filter(x=>x.n)}
@@ -1667,8 +1702,8 @@ function tradeBlock(ps){const rows=SUBS.map(S=>{const hp=ps.filter(p=>holds(p,S.
    ${rows.map(x=>`<span>${tierTag(x.S.id)} ${x.S.sh}</span><span style="display:flex;justify-content:flex-end;align-items:center;gap:6px;border-right:1px solid var(--navy);padding-right:0"><span class="sm">${f1(x.ip)}% · ${fq(x.imp)}</span><i style="display:block;height:12px;width:${x.ip/mx*90}%;background:#9DBDEB;border-radius:6px 0 0 6px"></i></span><span style="display:flex;align-items:center;gap:6px"><i style="display:block;height:12px;width:${x.ep/mx*90}%;background:#D3D9E2;border-radius:0 6px 6px 0"></i><span class="sm">${f1(x.ep)}% · ${fq(x.exp)}</span></span>`).join('')}
    </div><div class="note" style="margin-top:8px">${rows.filter(x=>x.ig-x.ug>=thv('imp',x.S.id)).map(x=>`<b>${x.S.sh}</b>: imports ${dl(x.ig)}, use ${dl(x.ug)}.`).join(' ')||'No precursor has imports outrunning its use beyond the limit.'}</div></div>`}
 
-const gapsBlock=()=>`<div class="foot"><b>Not yet linked:</b> seizures and NDPS cases · Customs bills of entry · firms trading without a URN.</div>`;
-const footer=()=>`<div class="foot">Generated ${fd(TODAY)}, 06:00 IST · ${roleName()} · ${perLabel(CUR)}${CMPOK?' vs '+perLabel(CMP):''} · thresholds are placeholders · synthetic data (REQ-AN-009)</div>`;
+const gapsBlock=()=>'';
+const footer=()=>'';
 
 const overdue=()=>Math.max(0,Math.round((TODAY-dueOf(CUR[CUR.length-1]))/864e5));
 /* matters list */
@@ -1758,7 +1793,7 @@ function mergedRow(gk,items){const key='merge:'+gk,open=ST.wopen.has(key),w=item
    <button class="mx" data-a="exp" data-id="${esc(key)}" aria-label="${open?'Hide':'Show'} the precursors">${open?'▾':'›'}</button>
    ${open?`<div class="mdet sub">${items.map(mrow).join('')}</div>`:''}</div>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-gt],[data-mmore],[data-mpage],[data-focus],[data-msim]');if(!b||!document.getElementById('watch'))return;const d=b.dataset;
-  if(d.gt!=null){ST.mopenG.has(d.gt)?ST.mopenG.delete(d.gt):ST.mopenG.add(d.gt)}
+  if(d.gt!=null){if(ST.mopenG.has(d.gt))ST.mopenG.delete(d.gt);else ST.mopenG=new Set([d.gt])}
   else if(d.mmore!=null)ST.mmore.add(d.mmore);
   else if(d.mpage)ST.mpage+=5;
   else if(d.focus!=null){ST.mfocus=d.focus?d.focus.split('|'):null;ST.mopenG=null}
@@ -1792,7 +1827,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-a],[data-w
   if(b.dataset.wf){ST.wf=b.dataset.wf;pref.set('wf',ST.wf);renderWatch();return}
   if(b.dataset.wv){ST.wv=b.dataset.wv;pref.set('wv',ST.wv);renderWatch();return}
   const a=b.dataset.a,id=b.dataset.id;
-  if(a==='exp'){ST.wopen.has(id)?ST.wopen.delete(id):ST.wopen.add(id);renderWatch()}
+  if(a==='exp'){if(ST.wopen.has(id))ST.wopen.delete(id);else{const mg=String(id).startsWith('merge:');[...ST.wopen].forEach(k=>{if(String(k).startsWith('merge:')===mg)ST.wopen.delete(k)});ST.wopen.add(id)}renderWatch()}
   if(a==='more'){ST.showAll=!ST.showAll;renderWatch()}
   if(a==='zone'){selectZone(b.dataset.z);document.getElementById('map').scrollIntoView({block:'center'})}
 });
@@ -2134,7 +2169,8 @@ document.addEventListener('change',e=>{if(ST.view!=='report')return;const t=e.ta
 /* ===================== section tabs under the period bar ===================== */
 ST.tab='overview';ST.cv={};ST.sel={R3:new Set()};REPORTS.forEach(r=>{if(r[5]&&r[5].rows[0]==='substance')ST.sel[r[1]]=new Set()});ST.mode={};ST.range={R5:{from:null,to:null}};
 ['R2','R5','K1','T4','C2','C3','U2','X6'].forEach(id=>{ST.sel[id]=new Set()});
-ST.shut={};ST.wide={};
+ST.combo={};Object.keys(ST.sel).forEach(k=>{if(k!=='R3')ST.combo[k]=new Set()});
+ST.shut={};ST.one={};ST.wide={};
 const isWide=id=>id in ST.wide?ST.wide[id]:WIDECARDS.has(id);
 const wideBtn=id=>{const w=isWide(id);return `<button type="button" class="btn wbtn" data-wide="${id}" aria-pressed="${w}" aria-label="${w?'Back to half width':'Show full width'}" title="${w?'Back to half width':'Show full width'}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${w?'<path d="M3 12h6M15 12h6M6 9l3 3-3 3M18 9l-3 3 3 3"/>':'<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>'}</svg></button>`};
 const SUBFILTER=new Set(['C2','C3','U2','X6']);
@@ -2171,36 +2207,33 @@ function withReport(id,fn){const d=RM[id].def,oldRP=RP,sv={...PER},ov=rangeFor(i
   RP={id,rows:CARDDEEP.has(id)?[...d.rows]:[d.rows[0]],m:[...(CARDM[id]||d.m)],multi:CARDMULTI[id],f:{region:[],zone:[],substance:[],tier:[],status:[],...(d.f||{})},flags:[...(d.flags||[])],cmp:'none',col:d.col||'',pctTot:!!d.pctTot,bars:false,open:new Set(),sort:d.sort||null,view:'table',more:{}};
   if(id==='R3'&&ST.sel.R3.size)RP.f.substance=SORD.filter(i=>ST.sel.R3.has(i));
   if(id==='R3')RP.custom=fs=>[{k:'1 precursor',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length===1)},{k:'2 or more precursors',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length>1)}];
-  if(zoneSub(id)&&ST.sel[id].size){const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only';RP.comboPred=p=>sel.every(i=>p.subs.includes(i))&&(!only||p.subs.length===sel.length);RP.flags.push('cmb')}
+  const cbs=ST.combo[id]||new Set(),cbl=SORD.filter(i=>cbs.has(i)),useCb=cbl.length>=2,only=ST.mode[id]==='only',ownl=SORD.filter(i=>ST.sel[id]&&ST.sel[id].has(i));
+  /* zone and filter cards: the left list limits the precursors counted, the right list picks premises that hold a combination */
+  if(zoneSub(id)||SUBFILTER.has(id)){if(ownl.length)RP.f.substance=ownl;if(useCb){RP.comboPred=p=>cbl.every(i=>p.subs.includes(i))&&(!only||p.subs.length===cbl.length);RP.flags.push('cmb')}}
   RP.mixOk=true; /* cards total a place across its precursors, so no cell is left as a dash */
-  if(SUBFILTER.has(id)){RP.f.substance=ST.sel[id].size?SORD.filter(i=>ST.sel[id].has(i)):[];RP.mixOk=true}
-  if(subCard(id)&&!zoneSub(id)&&!SUBFILTER.has(id)&&ST.sel[id].size)RP.custom=fs=>{const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only',
-      hold=x=>sel.every(i=>x.p.subs.includes(i))&&(!only||x.p.subs.length===sel.length);
-    if(isQty(id)){const H=fs.filter(x=>!x.p.cx&&hold(x)),out=sel.map(i=>({k:i,fs:H.filter(x=>x.S.id===i)}));
-      if(sel.length>1){const cg=H.filter(x=>sel.includes(x.S.id));cg.combo=true;out.unshift({k:sel.join(' + '),fs:cg})}return out}
-    const out=sel.map(i=>({k:i,fs:fs.filter(x=>x.S.id===i)}));
-    if(sel.length>1)out.unshift({k:sel.join(' + '),fs:fs.filter(x=>sel.includes(x.S.id)&&hold(x))});return out};
+  /* precursor cards: each ticked precursor on its own, and one extra result for the combination */
+  if(subCard(id)&&!zoneSub(id)&&!SUBFILTER.has(id)&&(ownl.length||useCb))RP.custom=fs=>{const ids=ownl.length?ownl:SORD,out=ids.map(i=>({k:i,fs:fs.filter(x=>x.S.id===i&&(!isQty(id)||!x.p.cx))}));
+    if(useCb){const cg=fs.filter(x=>!x.p.cx&&cbs.has(x.S.id)&&cbl.every(i=>x.p.subs.includes(i))&&(!only||x.p.subs.length===cbl.length));cg.combo=true;out.unshift({k:cbl.join(' + '),fs:cg})}return out};
   if(ov){Object.assign(PER,ov);applyPeriod()}
   try{return fn()}finally{if(ov){Object.assign(PER,sv);applyPeriod()}RP=oldRP}}
 function cardNote(){const d=RM[RP.id].def,own=!!(RP.col||d.per||rangeFor(RP.id)),bits=[];if(own)bits.push(RP.col?'Eight quarters ending '+QLAB(CUR[CUR.length-1]):perLabel(CUR));
   Object.entries(RP.f).forEach(([k,v])=>{if(v.length)bits.push(v.map(x=>k==='substance'?SM[x].sh:k==='tier'?'Tier '+x:x).join(', ')+' only')});
   RP.flags.forEach(k=>{if(k!=='cmb')bits.push(FLAGS[k][0])});
-  if(subCard(RP.id)&&!SUBFILTER.has(RP.id)&&ST.sel[RP.id].size){const ids=SORD.filter(i=>ST.sel[RP.id].has(i));bits.push('Premises holding '+ids.join(' + ')+(ST.mode[RP.id]==='only'?' only':'')+(isQty(RP.id)?(ids.length>1?', each precursor and the combined total of the chosen precursors':', quantities per precursor'):''))}
+  if(subCard(RP.id)){const own=SORD.filter(i=>ST.sel[RP.id].has(i)),cb=SORD.filter(i=>(ST.combo[RP.id]||new Set()).has(i));if(own.length&&!zoneSub(RP.id)&&!SUBFILTER.has(RP.id))bits.push(own.join(', ')+' on their own');if(cb.length>=2)bits.push('Combined: premises holding '+cb.join(' + ')+(ST.mode[RP.id]==='only'?' only':' together'))}
   return bits.join(' · ')}
 const spacer=h=>h.replace('</tbody>','<tr class="sp"><td colspan="'+((h.match(/<th/g)||[]).length||1)+'"></td></tr></tbody>');
 function cardTable(){const fs=factsFor(CUR);if(RP.col)return spacer(colTable());
   const tot={};RP.m.forEach(m=>tot[m]=MEAS[m].f(fs));
-  if(CARDDEEP.has(RP.id)){const shut=ST.shut[RP.id]||(ST.shut[RP.id]=new Set());group(fs,RP.rows[0]).forEach(g=>{if(!shut.has(String(g.k)))RP.open.add(String(g.k))})}
+  if(CARDDEEP.has(RP.id)){const gk=group(fs,RP.rows[0]).map(g=>String(g.k)),cur=RP.id in ST.one?ST.one[RP.id]:gk[0];if(gk.includes(cur))RP.open.add(cur)}
   const cms=cmpSets().map(c=>({lab:c.lab,fs:factsFor(c.set).map(x=>({...x,qv:x.q+c.sh}))}));
   const body=pivotRows(fs,cms,0,[],tot).replace(/<tr><td colspan="\d+"[^>]*><button class="btn link" data-more[\s\S]*?<\/tr>/,'');
   return `<div class="frame"><table class="t"><thead><tr><th>${RP.rows.map(x=>DIMS[x].h).join(' › ')}</th>${RP.m.map(m=>`<th class="n">${MEAS[m].h}</th>`).join('')}</tr></thead><tbody>${body}<tr class="sp"><td colspan="${RP.m.length+1}"></td></tr></tbody><tfoot><tr class="tot"><td>Total</td>${RP.m.map(m=>cell(m,fs,cms,null)).join('')}</tr></tfoot></table></div>`}
 const rangeMenu=id=>{const r=ST.range[id],qs=[...Array(NQ)].map((_,i)=>i),opt=(k,lab)=>`<select class="rng" data-rq="${id}:${k}" aria-label="${lab} quarter"><option value="">${lab}</option>${qs.map(i=>`<option value="${i}" ${r[k]===i?'selected':''}>${QLAB(i)}</option>`).join('')}</select>`;
   return opt('from','From')+opt('to','To')};
-const selLbl=id=>ST.sel[id].size?'Precursors ('+ST.sel[id].size+')':'All precursors';
-const selMenu=id=>`<details class="msub cardsel" id="msub-${id}"><summary class="btn" aria-label="Choose precursors"><span>${selLbl(id)}</span> ▾</summary>
-  <div class="mmenu"><div class="mmh">${id==='R3'?'Pick one or more precursors. Premises that hold any of them are counted.':SUBFILTER.has(id)?'Pick one or more precursors. The chart adds up the chosen precursors.':zoneSub(id)?'Pick one or more. Each zone counts the premises that hold all of them.':isQty(id)?'Pick two or more. Each precursor is shown for the premises that hold all of them.':'Pick two or more to see them held together'}</div>${SUBS.map(S=>`<label class="mchk"><input type="checkbox" data-rsub="${id}:${S.id}" ${ST.sel[id].has(S.id)?'checked':''}> ${esc(S.sh)}</label>`).join('')}
-  ${id!=='R3'&&!SUBFILTER.has(id)?`<div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad"><label><input type="radio" name="mode-${id}" data-rmode="${id}:all" ${ST.mode[id]!=='only'?'checked':''}> All of these</label><label><input type="radio" name="mode-${id}" data-rmode="${id}:only" ${ST.mode[id]==='only'?'checked':''}> Only these</label></div>`:''}
-  <button type="button" class="btn link" data-rclear="${id}">Clear</button></div></details>`;
+const selLbl=id=>{const n=ST.sel[id].size,c=ST.combo[id]||new Set();return (!n?'All precursors':n===1?SM[[...ST.sel[id]][0]].sh:n+' precursors')+(c.size>=2?' · '+SUBS.filter(S=>c.has(S.id)).map(S=>S.id).join(' + '):'')};
+const selMenu=id=>{const hints={R3:'Count premises that hold any of the ticked precursors.',sub:'Tick the ones to show. Leave all empty to show every precursor.',add:'The chart adds up the ticked precursors.',zone:'Count only the ticked precursors in each zone.'},ownHint=id==='R3'?hints.R3:SUBFILTER.has(id)?hints.add:zoneSub(id)?hints.zone:hints.sub,m=ST.mode[id]==='only'?'only':'all';
+  return precMenu('msub-'+id,selLbl(id),{ownHint,own:{attr:'data-rsub',val:i=>id+':'+i,set:ST.sel[id],clear:'data-rclear="'+id+'"'},
+    cmb:id==='R3'?null:{attr:'data-rcb',val:i=>id+':'+i,set:ST.combo[id],modeAttr:'data-rmode',modeVal:v=>id+':'+v,mode:m,clear:'data-rcbclear="'+id+'"'},cmbHint:'Tick two or more to add one combined result for premises that hold exactly those precursors.'})};
 /* data shared by the forms below */
 function cardData(cap){const fs=factsFor(CUR),D=DIMS[RP.rows[0]],gs=group(fs,RP.rows[0]).filter(g=>g.k!=='–').slice(0,cap),
     first=RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.mixOk||RP.rows[0]==='substance')||RP.m[0],ms=(RP.multi||[first]).map(m=>MEAS[m]);
@@ -2321,12 +2354,14 @@ function selRefresh(id){const box=document.getElementById('sc-'+id);if(!box)retu
   box.innerHTML=cardInner(id);if(open){const n=document.getElementById('msub-'+id);if(n)n.open=true}after()}
 document.addEventListener('change',e=>{const t=e.target;
   if(t.dataset.rsub){const [id,sid]=t.dataset.rsub.split(':');t.checked?ST.sel[id].add(sid):ST.sel[id].delete(sid);selRefresh(id)}
+  else if(t.dataset.rcb){const [id,sid]=t.dataset.rcb.split(':');t.checked?ST.combo[id].add(sid):ST.combo[id].delete(sid);selRefresh(id)}
   else if(t.dataset.rmode){const [id,m]=t.dataset.rmode.split(':');ST.mode[id]=m;selRefresh(id)}});
 document.addEventListener('click',e=>{const cl=e.target.closest('[data-rclear]');if(cl){const id=cl.dataset.rclear;ST.sel[id].clear();return selRefresh(id)}
+  const cc=e.target.closest('[data-rcbclear]');if(cc){const id=cc.dataset.rcbclear;ST.combo[id].clear();return selRefresh(id)}
   document.querySelectorAll('.cardsel[open]').forEach(m=>{if(!m.contains(e.target))m.open=false})});
 document.addEventListener('click',e=>{const wb=e.target.closest('[data-wide]');if(wb){const id=wb.dataset.wide,box=document.getElementById('sc-'+id);if(box){ST.wide[id]=!isWide(id);box.classList.toggle('wide',ST.wide[id]);const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();box.innerHTML=cardInner(id);after();const r=document.querySelector('.wreset');if(r)r.hidden=!Object.keys(ST.wide).length;box.scrollIntoView({block:'nearest'});return}}
   if(e.target.closest('[data-wreset]')){const y=window.scrollY;ST.wide={};go();window.scrollTo(0,y);return}
-  const tg=e.target.closest('.sc-t [data-tog]');if(tg){const box=tg.closest('[id^="sc-"]');if(box){const id=box.id.slice(3),k=tg.dataset.tog,sh=ST.shut[id]||(ST.shut[id]=new Set());sh.has(k)?sh.delete(k):sh.add(k);const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();const fr=box.querySelector('.frame'),y=fr?fr.scrollTop:0;box.innerHTML=cardInner(id);after();const f2=box.querySelector('.frame');if(f2)f2.scrollTop=y;return}}
+  const tg=e.target.closest('.sc-t [data-tog]');if(tg){const box=tg.closest('[id^="sc-"]');if(box){const id=box.id.slice(3),k=tg.dataset.tog;ST.one[id]=tg.getAttribute('aria-expanded')==='true'?'':k;const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();const fr=box.querySelector('.frame'),y=fr?fr.scrollTop:0;box.innerHTML=cardInner(id);after();const f2=box.querySelector('.frame');if(f2)f2.scrollTop=y;return}}
   const t=e.target.closest('[data-tab]');if(t){ST.tab=t.dataset.tab;const y=window.scrollY;go();window.scrollTo(0,Math.min(y,document.querySelector('.stabs')?document.querySelector('.stabs').offsetTop-60:0));return}
   const b=e.target.closest('[data-cv]');if(!b)return;const [id,v]=b.dataset.cv.split(':'),box=document.getElementById('sc-'+id);if(!box)return;
   ST.cv[id]=v;const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();box.innerHTML=cardInner(id);after()});
