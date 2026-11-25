@@ -650,12 +650,26 @@ section.panel:has(>.tdo){display:flex;flex-direction:column}
 .scards{grid-auto-flow:dense}
 @media(min-width:1280px){.scards>div.wide{grid-column:1/-1}
 .scards>div.lst>.panel{contain:size;min-height:380px}
+.scards>div.lst .sc-t .frame{min-height:0}
+.scards>div.lst>.panel:has(.sc-t){min-height:500px}
+/* a full-width card has no neighbour to match, so it is only as tall as its rows (up to a limit, then it scrolls) */
+.scards>div.wide.lst>.panel:has(.sc-t){contain:none;min-height:0}
+.scards>div.wide.lst .sc-t .frame{flex:0 1 auto;height:auto;max-height:440px}
+.scards>div.wide.lst .sc-t .t{height:auto}
 .scards>div.lst .pl{flex:1 1 0;min-height:0;overflow-y:auto}}.scards>div>.panel{flex:1;min-width:0}
 .sc-cap{padding:8px 14px 0}
 .scards .panel{display:flex;flex-direction:column}
 .sc-t{flex:1 1 auto;display:flex;flex-direction:column;min-height:0}
 .sc-t .frame{flex:1 1 0;height:0;min-height:340px;overflow:auto}
 .sc-t .t{height:100%}
+.sc-t .tog{cursor:pointer}
+/* first column: a name over its detail, no stray indent, and it stays put when the table scrolls sideways */
+.sc-t .t td:first-child>span[style*="width:18px"]{display:none}
+.sc-t .t td:first-child>b+.sm{display:block;margin-top:2px;white-space:normal}
+.sc-t .t th:first-child,.sc-t .t td:first-child{min-width:170px;position:sticky;left:0;z-index:2;background:#fff}
+.sc-t .t thead th:first-child{background:var(--hd);z-index:5}
+.sc-t .t tfoot td:first-child{background:var(--hd);z-index:5}
+.sc-t .t tr.sp td:first-child{background:transparent}
 .sc-t .t tr.sp{height:100%}
 .sc-t .t tr.sp td{padding:0;border:0}
 .sc-t .t tfoot td{position:sticky;bottom:0;z-index:3;background:var(--hd)}
@@ -751,7 +765,7 @@ textarea.fi{min-height:56px;padding:6px 8px}
 #side::-webkit-scrollbar-thumb{background:#2E3F54;border-radius:3px}
 #side{scrollbar-color:#2E3F54 transparent}
 @media(prefers-reduced-motion:no-preference){#watch,#side,#zp .zbody{scroll-behavior:smooth}}
-@media(min-width:1280px){.arow{align-items:stretch}.arow>.panel:first-child{contain:size;display:flex;flex-direction:column;min-height:0;overflow:hidden}.arow>.panel:first-child #watch{flex:1 1 0;min-height:0;overflow-y:auto}}
+@media(min-width:1280px){.arow{align-items:stretch;grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.arow>.panel:first-child{order:2}.arow>.panel:first-child{contain:size;display:flex;flex-direction:column;min-height:0;overflow:hidden}.arow>.panel:first-child #watch{flex:1 1 0;min-height:0;overflow-y:auto}}
 .mrow.mhead{position:sticky;top:0;z-index:2}
 @container (min-width:700px){
  .mrow{grid-template-columns:70px minmax(0,2fr) 70px minmax(0,1.6fr) 28px;gap:12px}
@@ -1854,7 +1868,7 @@ function group(fs,dim){if(RP&&RP.custom&&dim===RP.rows[0])return RP.custom(fs);c
   else if(D.ord)ks.sort((a,b)=>D.ord.indexOf(a)-D.ord.indexOf(b));else if(D.asc)ks.sort((a,b)=>String(a).localeCompare(String(b)));else{const M=MEAS[RP.m[0]];const v=new Map(ks.map(k=>[k,M.f(g.get(k))]));ks.sort((a,b)=>v.get(b)-v.get(a))}
   return ks.map(k=>({k,fs:g.get(k)}))}
 const dmode=M=>M.good?'g':M.bad?'b':'n';
-function cell(mk,fs,cms,tot){const M=MEAS[mk];if(M.unit&&!single(fs)&&!fs.combo)return `<td class="n sm" title="Pick one substance, or add Substance to rows: units and risks differ">–</td>`;
+function cell(mk,fs,cms,tot){const M=MEAS[mk];if(M.unit&&!single(fs)&&!fs.combo&&!RP.mixOk)return `<td class="n sm" title="Pick one substance, or add Substance to rows: units and risks differ">–</td>`;
   const v=M.f(fs);let s=M.fmt(v);if(RP.pctTot&&M.add&&tot&&tot[mk])s+=` <span class="sm">${f1(pct(v,tot[mk]))}%</span>`;
   const ds=(cms||[]).map(c=>{if(!c.fs||!c.fs.length)return `<span class="sm">${c.lab} –</span>`;const p=M.f(c.fs);return `<span class="sm">${c.lab} ${M.pp?dlx(v-p,dmode(M),'pts'):dlx(chg(v,p),dmode(M))}</span>`}).join('<br>');
   const db=RP.bars&&M.add&&tot&&tot['__max_'+mk]?`<i style="width:${Math.min(100,pct(v,tot['__max_'+mk]))}%"></i>`:'';
@@ -1950,7 +1964,9 @@ document.addEventListener('change',e=>{if(ST.view!=='report')return;const t=e.ta
 
 /* ===================== section tabs under the period bar ===================== */
 ST.tab='overview';ST.cv={};ST.sel={R3:new Set()};REPORTS.forEach(r=>{if(r[5]&&r[5].rows[0]==='substance')ST.sel[r[1]]=new Set()});ST.mode={};ST.range={R5:{from:null,to:null}};
-['R2','R5','K1','T4'].forEach(id=>{ST.sel[id]=new Set()});
+['R2','R5','K1','T4','C2','C3','U2','X6'].forEach(id=>{ST.sel[id]=new Set()});
+ST.shut={};
+const SUBFILTER=new Set(['C2','C3','U2','X6']);
 const zoneSub=id=>['R2','R5','K1','T4'].includes(id);
 FLAGS.cmb=['',p=>RP.comboPred?RP.comboPred(p):true];
 const subCard=id=>!!ST.sel[id]&&id!=='R3',isQty=id=>RM[id].def.m.some(m=>MEAS[m].unit);
@@ -1958,8 +1974,8 @@ const TABS=[['overview','Overview'],['reg','Registration'],['cap','Installed cap
 const TABSEC={reg:{t:'Registration status',n:'Query 1',ids:['R1','R2','R3','R4','R5','QQ3']},
   cap:{t:'Installed capacity',n:'Query 2',ids:['C1','C2','C3','C4','C5']},
   use:{t:'Usage by registrants',n:'Query 3',ids:['U1','QQ2','U4','U2']},
-  cmp:{t:'Compliance: quarterly returns not filed',n:'Query 4',ids:['K1','K4','K2','QQ1','K3']},
-  trade:{t:'Import and export activity',n:'Query 5',ids:['T1','T2','T3','T4']},
+  cmp:{t:'Compliance: quarterly returns not filed',n:'Query 4',ids:['K1','QQ1','K4','K2','K3']},
+  trade:{t:'Import and export activity',n:'Query 5',ids:['T3','T4']},
   risk:{t:'Cross-cutting and advanced',n:'Query 6',ids:['X2','X3','X5','X6','X7','M1','L1']}};
 const tabBar=()=>`<div class="stabs" role="tablist" aria-label="Sections">${TABS.map(([k,l])=>`<button type="button" role="tab" aria-selected="${ST.tab===k}" class="${ST.tab===k?'on':''}" data-tab="${k}">${l}</button>`).join('')}</div>`;
 function withTabs(h){const mk='<!--pb-->',i=h.indexOf(mk);if(i<0)return h;const head=h.slice(0,i+mk.length);
@@ -1971,18 +1987,24 @@ function sectionView(tab){const S=TABSEC[tab];
    <div class="scards">${S.ids.map(id=>`<div id="sc-${id}"${(()=>{const c=[WIDECARDS.has(id)?'wide':'',CARDW[id]||'',(CARDKIND[id]||'pill')==='pill'?'lst':''].filter(Boolean).join(' ');return c?' class="'+c+'"':''})()}>${cardInner(id)}</div>`).join('')}</div>`}
 /* run a catalogue report's first level in place, without leaving the dashboard */
 const rangeFor=id=>{const r=ST.range[id];if(!r||(r.from==null&&r.to==null))return null;let a=r.from==null?0:r.from,b=r.to==null?NQ-1:r.to;if(a>b)[a,b]=[b,a];return {view:'custom',from:a,to:b}};
-const CARDM={R5:['adds','cans','premises'],K1:['missed','filed','premises'],K2:['missed','filed'],K4:['filed','missed','premises'],T1:['importers','imp'],T2:['exporters','exp'],T4:['importers','exporters','imp','exp'],
+const CARDM={R5:['adds','cans','premises'],K1:['missed','filed','premises'],K2:['missed','filed'],K4:['filed','missed','premises'],T1:['importers','imp'],T2:['exporters','exp'],T4:['importers','exporters','imp','exp'],T3:['imp','exp','net','importers','exporters'],
   X5:['util','cap','use','low'],X6:['filed','unm','low','use'],M1:['unm','unmq'],C4:['util','cap','use','low'],K3:['premises','cap','score'],C1:['cap','use','util']},CARDMULTI={R5:['adds','cans']};
 /* the form each card is drawn in: pill bars (ranked lists), columns (time or zones), donut (a split), tiles (zones), rings (percentages), multiples (quantities per substance) */
-const CARDKIND={R1:'pill',R2:'polar',R3:'donut',R4:'area',R5:'columns',C1:'logcols',C2:'radar',C3:'cumarea',C4:'lollipop',C5:'ratio',U1:'logcols',U2:'bubble',U4:'donut',K1:'bubble',K2:'pill',K3:'polar',K4:'radar',T1:'radar',T2:'pill',T3:'butterfly',T4:'butterfly',X2:'lollipop',X3:'columns',X5:'radar',X6:'bubble',X7:'ratio',M1:'pill',L1:'donut'};
+const CARDKIND={R1:'pill',R2:'polar',R3:'donut',R4:'area',R5:'columns',C1:'logcols',C2:'radar',C3:'cumarea',C4:'lollipop',C5:'ratio',U1:'logcols',U2:'bubble',U4:'donut',K1:'bubble',K2:'pill',K3:'polar',K4:'radar',T1:'radar',T2:'pill',T3:'butterfly',T4:'bubble',X2:'lollipop',X3:'columns',X5:'radar',X6:'bubble',X7:'ratio',M1:'pill',L1:'donut'};
+/* cards where the figures or names matter more than the shape open as a table; the switch still offers the chart */
+const TABLEFIRST=new Set(['C3','X2','X3','K1','K3','X6','U2','T4','M1','QQ3','R2','QQ1']);
+const CARDDEEP=new Set(['R2']); /* their table shows every level of the report, opened */
+const CARDTITLE={C2:'Capacity by zone',T3:'Net trade and firms by substance'},CARDQ={T3:'5(i), 5(ii), 5(iii), 5(v)'};
 const CANVAS_KIND=new Set(['butterfly','donut','columns','lollipop','logcols','ratio','area','cumarea','polar','radar','bubble']);
 const RATIO={C5:{base:'cap',ms:['imp','exp']},X7:{base:'cap',ms:['use','imp','exp']},T3:{base:'use',ms:['imp','exp']}};
 function withReport(id,fn){const d=RM[id].def,oldRP=RP,sv={...PER},ov=rangeFor(id)||d.per;
-  RP={id,rows:[d.rows[0]],m:[...(CARDM[id]||d.m)],multi:CARDMULTI[id],f:{region:[],zone:[],substance:[],tier:[],status:[],...(d.f||{})},flags:[...(d.flags||[])],cmp:'none',col:d.col||'',pctTot:!!d.pctTot,bars:false,open:new Set(),sort:d.sort||null,view:'table',more:{}};
+  RP={id,rows:CARDDEEP.has(id)?[...d.rows]:[d.rows[0]],m:[...(CARDM[id]||d.m)],multi:CARDMULTI[id],f:{region:[],zone:[],substance:[],tier:[],status:[],...(d.f||{})},flags:[...(d.flags||[])],cmp:'none',col:d.col||'',pctTot:!!d.pctTot,bars:false,open:new Set(),sort:d.sort||null,view:'table',more:{}};
   if(id==='R3'&&ST.sel.R3.size)RP.f.substance=SORD.filter(i=>ST.sel.R3.has(i));
   if(id==='R3')RP.custom=fs=>[{k:'1 substance',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length===1)},{k:'2 or more substances',fs:fs.filter(x=>!x.p.cx&&x.p.subs.length>1)}];
   if(zoneSub(id)&&ST.sel[id].size){const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only';RP.comboPred=p=>sel.every(i=>p.subs.includes(i))&&(!only||p.subs.length===sel.length);RP.flags.push('cmb')}
-  if(subCard(id)&&!zoneSub(id)&&ST.sel[id].size)RP.custom=fs=>{const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only',
+  RP.mixOk=true; /* cards total a place across its substances, so no cell is left as a dash */
+  if(SUBFILTER.has(id)){RP.f.substance=ST.sel[id].size?SORD.filter(i=>ST.sel[id].has(i)):[];RP.mixOk=true}
+  if(subCard(id)&&!zoneSub(id)&&!SUBFILTER.has(id)&&ST.sel[id].size)RP.custom=fs=>{const sel=SORD.filter(i=>ST.sel[id].has(i)),only=ST.mode[id]==='only',
       hold=x=>sel.every(i=>x.p.subs.includes(i))&&(!only||x.p.subs.length===sel.length);
     if(isQty(id)){const H=fs.filter(x=>!x.p.cx&&hold(x)),out=sel.map(i=>({k:i,fs:H.filter(x=>x.S.id===i)}));
       if(sel.length>1){const cg=H.filter(x=>sel.includes(x.S.id));cg.combo=true;out.unshift({k:sel.join(' + '),fs:cg})}return out}
@@ -1993,25 +2015,26 @@ function withReport(id,fn){const d=RM[id].def,oldRP=RP,sv={...PER},ov=rangeFor(i
 function cardNote(){const d=RM[RP.id].def,own=!!(RP.col||d.per||rangeFor(RP.id)),bits=[];if(own)bits.push(RP.col?'Eight quarters ending '+QLAB(CUR[CUR.length-1]):perLabel(CUR));
   Object.entries(RP.f).forEach(([k,v])=>{if(v.length)bits.push(v.map(x=>k==='substance'?SM[x].sh:k==='tier'?'Tier '+x:x).join(', ')+' only')});
   RP.flags.forEach(k=>{if(k!=='cmb')bits.push(FLAGS[k][0])});
-  if(subCard(RP.id)&&ST.sel[RP.id].size){const ids=SORD.filter(i=>ST.sel[RP.id].has(i));bits.push('Premises holding '+ids.join(' + ')+(ST.mode[RP.id]==='only'?' only':'')+(isQty(RP.id)?(ids.length>1?', each substance and the combined total of the chosen substances':', quantities per substance'):''))}
+  if(subCard(RP.id)&&!SUBFILTER.has(RP.id)&&ST.sel[RP.id].size){const ids=SORD.filter(i=>ST.sel[RP.id].has(i));bits.push('Premises holding '+ids.join(' + ')+(ST.mode[RP.id]==='only'?' only':'')+(isQty(RP.id)?(ids.length>1?', each substance and the combined total of the chosen substances':', quantities per substance'):''))}
   return bits.join(' · ')}
 const spacer=h=>h.replace('</tbody>','<tr class="sp"><td colspan="'+((h.match(/<th/g)||[]).length||1)+'"></td></tr></tbody>');
 function cardTable(){const fs=factsFor(CUR);if(RP.col)return spacer(colTable());
   const tot={};RP.m.forEach(m=>tot[m]=MEAS[m].f(fs));
+  if(CARDDEEP.has(RP.id)){const shut=ST.shut[RP.id]||(ST.shut[RP.id]=new Set());group(fs,RP.rows[0]).forEach(g=>{if(!shut.has(String(g.k)))RP.open.add(String(g.k))})}
   const cms=cmpSets().map(c=>({lab:c.lab,fs:factsFor(c.set).map(x=>({...x,qv:x.q+c.sh}))}));
   const body=pivotRows(fs,cms,0,[],tot).replace(/<tr><td colspan="\d+"[^>]*><button class="btn link" data-more[\s\S]*?<\/tr>/,'');
-  return `<div class="frame"><table class="t"><thead><tr><th>${DIMS[RP.rows[0]].h}</th>${RP.m.map(m=>`<th class="n">${MEAS[m].h}</th>`).join('')}</tr></thead><tbody>${body}<tr class="sp"><td colspan="${RP.m.length+1}"></td></tr></tbody><tfoot><tr class="tot"><td>Total</td>${RP.m.map(m=>cell(m,fs,cms,null)).join('')}</tr></tfoot></table></div>`}
+  return `<div class="frame"><table class="t"><thead><tr><th>${RP.rows.map(x=>DIMS[x].h).join(' › ')}</th>${RP.m.map(m=>`<th class="n">${MEAS[m].h}</th>`).join('')}</tr></thead><tbody>${body}<tr class="sp"><td colspan="${RP.m.length+1}"></td></tr></tbody><tfoot><tr class="tot"><td>Total</td>${RP.m.map(m=>cell(m,fs,cms,null)).join('')}</tr></tfoot></table></div>`}
 const rangeMenu=id=>{const r=ST.range[id],qs=[...Array(NQ)].map((_,i)=>i),opt=(k,lab)=>`<select class="rng" data-rq="${id}:${k}" aria-label="${lab} quarter"><option value="">${lab}</option>${qs.map(i=>`<option value="${i}" ${r[k]===i?'selected':''}>${QLAB(i)}</option>`).join('')}</select>`;
   return opt('from','From')+opt('to','To')};
 const selLbl=id=>ST.sel[id].size?'Substances ('+ST.sel[id].size+')':'All substances';
 const selMenu=id=>`<details class="msub cardsel" id="msub-${id}"><summary class="btn" aria-label="Choose substances"><span>${selLbl(id)}</span> ▾</summary>
-  <div class="mmenu"><div class="mmh">${id==='R3'?'Pick one or more substances. Premises that hold any of them are counted.':zoneSub(id)?'Pick one or more. Each zone counts the premises that hold all of them.':isQty(id)?'Pick two or more. Each substance is shown for the premises that hold all of them.':'Pick two or more to see them held together'}</div>${SUBS.map(S=>`<label class="mchk"><input type="checkbox" data-rsub="${id}:${S.id}" ${ST.sel[id].has(S.id)?'checked':''}> ${esc(S.sh)}</label>`).join('')}
-  ${id!=='R3'?`<div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad"><label><input type="radio" name="mode-${id}" data-rmode="${id}:all" ${ST.mode[id]!=='only'?'checked':''}> All of these</label><label><input type="radio" name="mode-${id}" data-rmode="${id}:only" ${ST.mode[id]==='only'?'checked':''}> Only these</label></div>`:''}
+  <div class="mmenu"><div class="mmh">${id==='R3'?'Pick one or more substances. Premises that hold any of them are counted.':SUBFILTER.has(id)?'Pick one or more substances. The chart adds up the chosen substances.':zoneSub(id)?'Pick one or more. Each zone counts the premises that hold all of them.':isQty(id)?'Pick two or more. Each substance is shown for the premises that hold all of them.':'Pick two or more to see them held together'}</div>${SUBS.map(S=>`<label class="mchk"><input type="checkbox" data-rsub="${id}:${S.id}" ${ST.sel[id].has(S.id)?'checked':''}> ${esc(S.sh)}</label>`).join('')}
+  ${id!=='R3'&&!SUBFILTER.has(id)?`<div class="mmh" style="margin-top:6px">Premises that hold</div><div class="mrad"><label><input type="radio" name="mode-${id}" data-rmode="${id}:all" ${ST.mode[id]!=='only'?'checked':''}> All of these</label><label><input type="radio" name="mode-${id}" data-rmode="${id}:only" ${ST.mode[id]==='only'?'checked':''}> Only these</label></div>`:''}
   <button type="button" class="btn link" data-rclear="${id}">Clear</button></div></details>`;
 /* data shared by the forms below */
 function cardData(cap){const fs=factsFor(CUR),D=DIMS[RP.rows[0]],gs=group(fs,RP.rows[0]).filter(g=>g.k!=='–').slice(0,cap),
-    first=RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.rows[0]==='substance')||RP.m[0],ms=(RP.multi||[first]).map(m=>MEAS[m]);
-  return {fs,D,gs,ms,M:ms[0],label:g=>D.leaf?PALL[g.k].name:D.t?D.t(g.k):String(g.k),val:(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo?0:M.f(g.fs)}}
+    first=RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.mixOk||RP.rows[0]==='substance')||RP.m[0],ms=(RP.multi||[first]).map(m=>MEAS[m]);
+  return {fs,D,gs,ms,M:ms[0],label:g=>D.leaf?PALL[g.k].name:D.t?D.t(g.k):String(g.k),val:(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo&&!RP.mixOk?0:M.f(g.fs)}}
 const mixRGB=(a,b,t)=>'rgb('+a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(',')+')';
 /* donut: a split into a few parts */
 const DPAL=['#6FA2E6','#B49BE0','#6FC9B6','#F2C27B','#EC9A94','#A7B3C4','#8FB8E8','#D9B4E4'];
@@ -2034,20 +2057,23 @@ function cardLollipop(el){if(!el||!window.Chart)return;const d=cardData(13),vals
 function cardRatio(el){if(!el||!window.Chart)return;const R=RATIO[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,12),B=MEAS[R.base],ms=R.ms.map(m=>MEAS[m]),
     base=g=>single(g.fs)||g.fs.combo?B.f(g.fs):0,pair=[['#7FAEEA','#1E4A8A'],['#DDE3EA','#9AA8BC'],['#F5C08F','#C2611C']],
     grad=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return a;const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
+  VFMT.set(el,v=>f1(v)+'%');
   mkChart(el,{type:'bar',data:{labels:gs.map(g=>D.t?D.t(g.k):String(g.k)),datasets:ms.map((M,i)=>({label:M.h,data:gs.map(g=>base(g)?M.f(g.fs)/base(g)*100:0),backgroundColor:grad(pair[i%3][0],pair[i%3][1]),borderRadius:{topLeft:8,topRight:8},borderSkipped:'bottom',barPercentage:.7,categoryPercentage:.8}))},
-    options:{maintainAspectRatio:false,animation:false,
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:22}},
       plugins:{legend:{position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>{const M=ms[i.datasetIndex],g=gs[i.dataIndex];return M.h+': '+f1(i.raw)+'% of '+B.h.toLowerCase()+' ('+M.fmt(M.f(g.fs))+')'}}}},
       scales:{y:{beginAtZero:true,title:{display:true,text:'% of '+B.h.toLowerCase(),color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>f1(v)+'%'}},x:{grid:{display:false},ticks:{color:'#1A2332',autoSkip:false,maxRotation:55,minRotation:55}}}}})}
 /* area: a filled line for a series over time */
 const areaFill=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return 'rgba(46,110,191,.12)';const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
 function cardArea(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g));
+  VFMT.set(el,v=>d.M.fmt(v));
   mkChart(el,{type:'line',data:{labels:d.gs.map(d.label),datasets:[{label:d.M.h,data:vals,fill:true,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:'#1E4A8A',borderWidth:2.5,tension:.35,pointRadius:5,pointBackgroundColor:'#1E4A8A',pointBorderColor:'#fff',pointBorderWidth:2,pointHoverRadius:7}]},
-    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:8,right:8}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:26,right:14}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
       scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>d.M.fmt(v)}},x:{grid:{display:false},ticks:{color:'#1A2332'}}}}})}
 /* cumulative share: how quickly the largest holders add up to the whole */
 function cardCumArea(el){if(!el||!window.Chart)return;const d=cardData(12),vals=d.gs.map(g=>d.val(d.M,g)),tot=d.M.f(d.fs)||1;let acc=0;const cum=vals.map(v=>acc+=v/tot*100);
+  VFMT.set(el,v=>f1(v)+'%');
   mkChart(el,{type:'line',data:{labels:d.gs.map(g=>{const t=d.label(g);return t.length>24?t.slice(0,23)+'…':t}),datasets:[{label:'Top holders together',data:cum,fill:true,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:'#1E4A8A',borderWidth:2.5,tension:.3,pointRadius:4,pointBackgroundColor:'#1E4A8A',pointBorderColor:'#fff',pointBorderWidth:2}]},
-    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:8,right:8}},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:26,right:14}},
       plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>'Top '+(i[0].dataIndex+1)+' holders',label:i=>'Together: '+f1(i.raw)+'% of the total',afterLabel:i=>d.label(d.gs[i.dataIndex])+': '+f1(vals[i.dataIndex]/tot*100)+'% ('+d.M.fmt(vals[i.dataIndex])+')'}}},
       scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:'Share of total capacity',color:'#64707E'},ticks:{color:'#64707E',callback:v=>f1(v)+'%'}},x:{grid:{display:false},title:{display:true,text:'Holders, largest first',color:'#64707E'},ticks:{color:'#1A2332',autoSkip:false,maxRotation:40,minRotation:40}}}}})}
 /* polar: a petal for each place, its length the value */
@@ -2057,58 +2083,68 @@ function cardPolar(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.
       plugins:{legend:{position:'right',labels:{boxWidth:10,color:'#1A2332',font:{size:11},padding:7}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>d.M.h+': '+d.M.fmt(i.raw)+' ('+f1(i.raw/tot*100)+'%)'}}},
       scales:{r:{beginAtZero:true,grid:{color:'#E0E4E8'},angleLines:{color:'#E0E4E8'},ticks:{display:false}}}}})}
 /* radar: a spoke for each place or substance */
-function cardRadar(el){if(!el||!window.Chart)return;const d=cardData(13),vals=d.gs.map(g=>d.val(d.M,g));
-  mkChart(el,{type:'radar',data:{labels:d.gs.map(g=>{const t=d.label(g);return t.length>13?t.split(' '):t}),datasets:[{label:d.M.h,data:vals,borderColor:'#2E6EBF',backgroundColor:'rgba(46,110,191,.16)',borderWidth:2,pointRadius:4,pointBackgroundColor:'#2E6EBF',pointBorderColor:'#fff'}]},
-    options:{maintainAspectRatio:false,animation:false,layout:{padding:4},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>d.label(d.gs[i[0].dataIndex]),label:i=>d.M.h+': '+d.M.fmt(i.raw)}}},
+const RADAR2={T1:['importers','exporters']};
+function cardRadar(el){if(!el||!window.Chart)return;const d=cardData(13),RM2=RADAR2[RP.id]?RADAR2[RP.id].map(m=>MEAS[m]):[d.M],COL=['#2E6EBF','#C2611C'],COLA=['rgba(46,110,191,.16)','rgba(194,97,28,.14)'];
+  mkChart(el,{type:'radar',data:{labels:d.gs.map(g=>{const t=d.label(g);return t.length>13?t.split(' '):t}),datasets:RM2.map((M,i)=>({label:M.h,data:d.gs.map(g=>d.val(M,g)),borderColor:COL[i],backgroundColor:COLA[i],borderWidth:2,pointRadius:4,pointBackgroundColor:COL[i],pointBorderColor:'#fff'}))},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:4},plugins:{legend:{display:RM2.length>1,position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>d.label(d.gs[i[0].dataIndex]),label:i=>i.dataset.label+': '+RM2[i.datasetIndex].fmt(i.raw)}}},
       scales:{r:{beginAtZero:true,grid:{color:'#E0E4E8'},angleLines:{color:'#E0E4E8'},pointLabels:{color:'#1A2332',font:{size:11.5}},ticks:{color:'#64707E',backdropColor:'transparent',callback:v=>d.M.fmt(v)}}}}})}
 /* bubble: two measures on the axes and a third as the size of each place */
-const BUBBLE={K1:{x:'filed',y:'missed',r:'premises'},X6:{x:'filed',y:'use',r:'unm'},U2:{x:'cap',y:'use',r:'util'}},WIDECARDS=new Set(['K1','X6','C3','T3','T4']),CARDW={U4:'w4',U2:'w8',K4:'w5',K2:'w7',QQ1:'w7',K3:'w5'};
+const BUBBLE={K1:{x:'filed',y:'missed',r:'premises'},X6:{x:'filed',y:'use',r:'unm'},U2:{x:'cap',y:'use',r:'util'},T4:{x:'importers',y:'exporters',r:'premises'}},WIDECARDS=new Set(['K1','X6','C3','T3','T4','QQ1','K3']),CARDW={U4:'w4',U2:'w8',K4:'w5',K2:'w7',QQ1:'w7',K3:'w5'};
 function cardBubble(el){if(!el||!window.Chart)return;const B=BUBBLE[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),X=MEAS[B.x],Y=MEAS[B.y],Z=MEAS[B.r],
-    v=(M,g)=>M.unit&&!single(g.fs)?0:M.f(g.fs),zs=gs.map(g=>v(Z,g)),zmin=Math.min(...zs),zmax=Math.max(...zs),size=z=>zmax===zmin?12:7+16*(z-zmin)/(zmax-zmin),label=g=>D.t?D.t(g.k):String(g.k);
+    v=(M,g)=>M.unit&&!single(g.fs)&&!RP.mixOk?0:M.f(g.fs),zs=gs.map(g=>v(Z,g)),zmin=Math.min(...zs),zmax=Math.max(...zs),size=z=>zmax===zmin?12:7+16*(z-zmin)/(zmax-zmin),label=g=>D.t?D.t(g.k):String(g.k);
   mkChart(el,{type:'bubble',data:{datasets:[{data:gs.map((g,i)=>({x:v(X,g),y:v(Y,g),r:size(zs[i])})),backgroundColor:'rgba(46,110,191,.55)',borderColor:'#fff',borderWidth:2,hoverBackgroundColor:'rgba(30,74,138,.8)'}]},
     options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:16,right:24}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>label(gs[i[0].dataIndex]),label:i=>[X.h+': '+X.fmt(i.raw.x),Y.h+': '+Y.fmt(i.raw.y),Z.h+': '+Z.fmt(zs[i.dataIndex])+' (bubble size)']}}},
       scales:{x:{title:{display:true,text:X.h,color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:q=>X.fmt(q)}},y:{beginAtZero:true,title:{display:true,text:Y.h,color:'#64707E'},grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:q=>Y.fmt(q)}}}},
     plugins:[{id:'bl',afterDatasetsDraw(ch){const m=ch.getDatasetMeta(0),c=ch.ctx;c.save();c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';m.data.forEach((p,i)=>c.fillText(label(gs[i]),p.x,p.y-p.options.radius-4));c.restore()}}]})}
 /* butterfly: imported to the left, exported to the right, from one centre line */
-const BUTTER={T3:{l:'imp',r:'exp',base:'use'},T4:{l:'importers',r:'exporters'}};
-function cardButterfly(el){if(!el||!window.Chart)return;const B=BUTTER[RP.id],D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),L=MEAS[B.l],Rm=MEAS[B.r],Bs=B.base?MEAS[B.base]:null,
+const BUTTER={T3:{l:'imp',r:'exp',base:'use',firms:1}};
+function cardButterfly(el){if(!el||!window.Chart)return;const B=BUTTER[RP.id],wide=(el.parentElement.clientWidth||0)>=620,D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),L=MEAS[B.l],Rm=MEAS[B.r],Bs=B.base?MEAS[B.base]:null,
     sg=g=>single(g.fs)||g.fs.combo,
     vals=(M,g)=>{if(M.unit&&!sg(g))return 0;const v=M.f(g.fs);if(!Bs)return v;const b=sg(g)?Bs.f(g.fs):0;return b?v/b*100:0},
     lv=gs.map(g=>vals(L,g)),rv=gs.map(g=>vals(Rm,g)),fv=v=>Bs?f1(v)+'%':fmt(v),mx=Math.max(1,...lv,...rv)*1.18;
-  mkChart(el,{type:'bar',data:{labels:gs.map(g=>D.t?D.t(g.k):String(g.k)),datasets:[
+  mkChart(el,{type:'bar',data:{labels:gs.map(g=>{const nm=D.t?D.t(g.k):String(g.k);return B.firms&&!wide?[nm,'▼ '+MEAS.importers.f(g.fs)+'  ▲ '+MEAS.exporters.f(g.fs)]:nm}),datasets:[
       {label:L.h,data:lv.map(v=>-v),backgroundColor:'#5B8FD6',borderRadius:7,borderSkipped:false,barThickness:15},
       {label:Rm.h,data:rv,backgroundColor:'#B8C1CC',borderRadius:7,borderSkipped:false,barThickness:15}]},
-    options:{indexAxis:'y',maintainAspectRatio:false,animation:false,layout:{padding:{right:6}},
-      plugins:{legend:{position:'top',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>i.dataset.label+': '+fv(Math.abs(i.raw))+(Bs?' of '+Bs.h.toLowerCase():'')}}},
+    options:{indexAxis:'y',maintainAspectRatio:false,animation:false,layout:{padding:{right:B.firms&&wide?200:6}},
+      plugins:{legend:{position:'top',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>i.dataset.label+': '+fv(Math.abs(i.raw))+(Bs?' of '+Bs.h.toLowerCase():''),afterLabel:i=>B.firms?(i.datasetIndex===0?MEAS.importers.f(gs[i.dataIndex].fs)+' importer firms':MEAS.exporters.f(gs[i.dataIndex].fs)+' exporter firms'):''}}},
       scales:{x:{stacked:true,min:-mx,max:mx,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:Bs?'% of '+Bs.h.toLowerCase():'Number of firms',color:'#64707E'},ticks:{color:'#64707E',callback:v=>fv(Math.abs(v))}},y:{stacked:true,grid:{display:false},ticks:{color:'#1A2332'}}}},
     plugins:[{id:'bfl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 11px Segoe UI,Arial';c.fillStyle='#1A2332';
       ch.getDatasetMeta(0).data.forEach((p,i)=>{c.textAlign='right';c.fillText(fv(lv[i]),p.x-6,p.y+4)});
-      ch.getDatasetMeta(1).data.forEach((p,i)=>{c.textAlign='left';c.fillText(fv(rv[i]),p.x+6,p.y+4)});c.restore()}}]})}
+      ch.getDatasetMeta(1).data.forEach((p,i)=>{c.textAlign='left';c.fillText(fv(rv[i]),p.x+6,p.y+4)});
+      if(B.firms&&wide){const x=ch.chartArea.right+24;c.textAlign='left';
+        ch.getDatasetMeta(0).data.forEach((p,i)=>{const g=gs[i];c.fillStyle='#2E6EBF';c.fillText('▼ '+MEAS.importers.f(g.fs),x,p.y+4);c.fillStyle='#6B7788';c.fillText('▲ '+MEAS.exporters.f(g.fs),x+96,p.y+4)});
+        const hy=ch.chartArea.top-20;c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#2E6EBF';c.fillText('Importer',x,hy);c.fillText('firms',x,hy+12);c.fillStyle='#6B7788';c.fillText('Exporter',x+96,hy);c.fillText('firms',x+96,hy+12)}
+      c.restore()}}]})}
+/* value labels: the figure above each bar or point, so nothing needs hovering */
+const VFMT=new WeakMap();
+if(window.Chart)Chart.register({id:'vlab',afterDatasetsDraw(ch){const fmtv=VFMT.get(ch.canvas);if(!fmtv)return;const c=ch.ctx;c.save();c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';
+  ch.data.datasets.forEach((ds,di)=>{const m=ch.getDatasetMeta(di);if(m.hidden)return;m.data.forEach((el,i)=>{const v=ds.data[i];if(v==null||isNaN(v))return;if(el.width!==undefined&&el.width<9)return;c.fillText(fmtv(v,di,i),el.x,el.y-7)})});c.restore()}});
 const DRAW={butterfly:cardButterfly,donut:cardDonut,lollipop:cardLollipop,ratio:cardRatio,area:cardArea,cumarea:cardCumArea,polar:cardPolar,radar:cardRadar,bubble:cardBubble,columns:cardColumns,logcols:cardColumns};
 /* columns: rounded gradient columns, for time or a row of places */
 function cardColumns(el){if(!el||!window.Chart)return;const d=cardData(13),log=CARDKIND[RP.id]==='logcols',many=d.gs.length>8||d.gs.some(g=>d.label(g).length>9),
     grad=(a,b)=>ctx=>{const ch=ctx.chart,ca=ch.chartArea;if(!ca)return a;const g=ch.ctx.createLinearGradient(0,ca.bottom,0,ca.top);g.addColorStop(0,a);g.addColorStop(1,b);return g};
+  VFMT.set(el,(v,di)=>d.ms[di].fmt(v));
   mkChart(el,{type:'bar',data:{labels:d.gs.map(d.label),datasets:d.ms.map((M,i)=>({label:M.h,data:d.gs.map(g=>log?(d.val(M,g)||null):d.val(M,g)),backgroundColor:i?grad('#DDE3EA','#9AA8BC'):grad('#7FAEEA','#1E4A8A'),borderRadius:{topLeft:10,topRight:10},borderSkipped:'bottom',barPercentage:.62,categoryPercentage:.8}))},
-    options:{maintainAspectRatio:false,animation:false,
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:22}},
       plugins:{legend:{display:d.ms.length>1,position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>`${i.dataset.label}: ${d.ms[i.datasetIndex].fmt(i.raw)}`}}},
       scales:{y:Object.assign({grid:{color:'#F2F4F6'},border:{display:false},ticks:{color:'#64707E',callback:v=>d.M.fmt(v)}},log?{type:'logarithmic',min:1}:{beginAtZero:true}),x:{grid:{display:false},ticks:{color:'#1A2332',autoSkip:false,maxRotation:many?55:0,minRotation:many?55:0}}}}})}
 /* pill bars: a gradient fill on a pale track, the figure in bold with its share beside it */
-function pillList(fs,cap){const gs=group(fs,RP.rows[0]).slice(0,cap),D=DIMS[RP.rows[0]],ms=(RP.multi||[RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.rows[0]==='substance')||RP.m[0]]);
-  const val=(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo?0:M.f(g.fs),all=ms.map(mm=>MEAS[mm]),tots=all.map(M=>M.add?M.f(fs):0);
+function pillList(fs,cap){const gs=group(fs,RP.rows[0]).slice(0,cap),D=DIMS[RP.rows[0]],ms=(RP.multi||[RP.m.find(x=>!MEAS[x].unit||single(fs)||RP.mixOk||RP.rows[0]==='substance')||RP.m[0]]);
+  const val=(M,g)=>M.unit&&!single(g.fs)&&!g.fs.combo&&!RP.mixOk?0:M.f(g.fs),all=ms.map(mm=>MEAS[mm]),tots=all.map(M=>M.add?M.f(fs):0);
   const mx=Math.max(1,...gs.flatMap(g=>all.map(M=>val(M,g)))),multi=ms.length>1;
   const row=g=>`<div class="pl-r"><span class="pl-n" title="${esc(D.t?D.t(g.k):String(g.k))}">${D.leaf?esc(PALL[g.k].name):D.t?esc(D.t(g.k)):esc(String(g.k))}</span><span class="pl-bars">${all.map((M,i)=>{const v=val(M,g),w=v/mx*100,share=tots[i]?`<span class="pl-s">${f1(v/tots[i]*100)}%</span>`:'';
     return `<span class="pl-t${multi?' thin':''}"><i class="pl-f c${i}${RP.custom&&String(g.k).includes(' + ')?' cb':''}" style="width:${Math.max(w,v?1.5:0)}%"></i><span class="pl-v${w>=82?' in':''}" style="${w>=82?'right:calc('+(100-w)+'% + 10px)':'left:calc('+w+'% + 8px)'}"><b>${M.fmt(v)}</b> ${share}</span></span>`}).join('')}</span></div>`;
   const lg=multi?`<div class="pl-lg" aria-hidden="true">${all.map((M,i)=>`<span><i class="c${i}"></i>${M.h}</span>`).join('')}</div>`:'';
   return `<div class="pb pl">${lg}${gs.map(row).join('')||'<div class="sm">Nothing to show.</div>'}</div>`}
-function cardInner(id){const R=RM[id];if(!R||!R.def)return '';const view=ST.cv[id]||'chart';
-  const ctl=`<span class="mapctl">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>${openRep(id)}</span>`;
+function cardInner(id){const R=RM[id];if(!R||!R.def)return '';const view=ST.cv[id]||(TABLEFIRST.has(id)?'table':'chart');
+  const ctl=`<span class="mapctl">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>${id==='T3'?`<button class="btn link" data-open="T3">Net trade report</button><button class="btn link" data-open="T1">Importers report</button><button class="btn link" data-open="T2">Exporters report</button>`:openRep(id)}</span>`;
   const body=withReport(id,()=>{const fs=factsFor(CUR),note=cardNote(),cap=note?`<div class="sm sc-cap">${esc(note)}</div>`:'';
     if(view==='table')return cap+`<div class="sc-t">${cardTable()}</div>`;
     const kind=CARDKIND[id]||'pill';
     if(!RP.col&&!CANVAS_KIND.has(kind))return cap+pillList(fs,12);
-    return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(WIDECARDS.has(id)?310:id==='U2'?330:380):kind==='cumarea'?340:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>${id==='T3'?`<div class="note tnote">${tradeNote(P)}</div>`:''}`});
+    return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(WIDECARDS.has(id)?310:id==='U2'?330:380):kind==='cumarea'?340:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>${id==='T3'?`<div class="note tnote"><span class="sm">The two columns on the right count firms: <b style="color:#2E6EBF">▼</b> firms that imported the substance, <b style="color:#6B7788">▲</b> firms that exported it.</span><br>${tradeNote(P)}</div>`:''}`});
   if(view==='chart'&&(R.def.col||CANVAS_KIND.has(CARDKIND[id])))later(()=>withReport(id,()=>R.def.col?pivotChart(factsFor(CUR),document.getElementById('cv-'+id),12):(DRAW[CARDKIND[id]]||cardColumns)(document.getElementById('cv-'+id))));
-  return panel(R.title,`Query ${R.q} · ${AV[R.av][1]}`,body,ctl)}
+  return panel(CARDTITLE[id]||R.title,`Query ${CARDQ[id]||R.q} · ${AV[R.av][1]}`,body,ctl)}
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset.rq)return;const [id,k]=t.dataset.rq.split(':');ST.range[id][k]=t.value===''?null:+t.value;selRefresh(id)});
 function selRefresh(id){const box=document.getElementById('sc-'+id);if(!box)return;const m=document.getElementById('msub-'+id),open=!!(m&&m.open),ch=window.Chart&&Chart.getChart('cv-'+id);if(ch)ch.destroy();
   box.innerHTML=cardInner(id);if(open){const n=document.getElementById('msub-'+id);if(n)n.open=true}after()}
@@ -2117,7 +2153,8 @@ document.addEventListener('change',e=>{const t=e.target;
   else if(t.dataset.rmode){const [id,m]=t.dataset.rmode.split(':');ST.mode[id]=m;selRefresh(id)}});
 document.addEventListener('click',e=>{const cl=e.target.closest('[data-rclear]');if(cl){const id=cl.dataset.rclear;ST.sel[id].clear();return selRefresh(id)}
   document.querySelectorAll('.cardsel[open]').forEach(m=>{if(!m.contains(e.target))m.open=false})});
-document.addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(t){ST.tab=t.dataset.tab;const y=window.scrollY;go();window.scrollTo(0,Math.min(y,document.querySelector('.stabs')?document.querySelector('.stabs').offsetTop-60:0));return}
+document.addEventListener('click',e=>{const tg=e.target.closest('.sc-t [data-tog]');if(tg){const box=tg.closest('[id^="sc-"]');if(box){const id=box.id.slice(3),k=tg.dataset.tog,sh=ST.shut[id]||(ST.shut[id]=new Set());sh.has(k)?sh.delete(k):sh.add(k);const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();const fr=box.querySelector('.frame'),y=fr?fr.scrollTop:0;box.innerHTML=cardInner(id);after();const f2=box.querySelector('.frame');if(f2)f2.scrollTop=y;return}}
+  const t=e.target.closest('[data-tab]');if(t){ST.tab=t.dataset.tab;const y=window.scrollY;go();window.scrollTo(0,Math.min(y,document.querySelector('.stabs')?document.querySelector('.stabs').offsetTop-60:0));return}
   const b=e.target.closest('[data-cv]');if(!b)return;const [id,v]=b.dataset.cv.split(':'),box=document.getElementById('sc-'+id);if(!box)return;
   ST.cv[id]=v;const c=window.Chart&&Chart.getChart('cv-'+id);if(c)c.destroy();box.innerHTML=cardInner(id);after()});
 
