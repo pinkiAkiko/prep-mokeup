@@ -941,14 +941,17 @@ section.panel>[id^="ld-"]{flex:1 1 auto;display:flex;flex-direction:column;min-h
 .wreset[hidden]{display:none}
 @media(min-width:1280px){.wbtn{display:inline-flex}}
 .panel.hasw{position:relative}
-.panel.hasw>.phd:has(>.mapctl){padding-top:16px}
+.panel.hasw>.phd:has(>.mapctl){padding-top:12px;padding-bottom:12px}
+.panel.hasw>.phd>.mapctl{margin-top:0}
 .wbtn svg{width:13px;height:13px;flex:none}
-.phd>.wbtn,.phd>.wbtn:hover{position:absolute;top:12px;right:9px;z-index:6;width:20px;height:20px;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:4px;background:transparent;box-shadow:none;color:var(--sub);opacity:0;pointer-events:none;transition:opacity .22s ease .08s,color .12s}
+.phd>.wbtn,.phd>.wbtn:hover{position:absolute;top:12px;right:6px;z-index:6;width:18px;height:20px;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:4px;background:transparent;box-shadow:none;color:var(--sub);opacity:0;pointer-events:none;transition:opacity .22s ease .08s,color .12s}
 .panel.hasw>.phd{transition:padding-right .22s ease .08s}
-.panel.hasw:hover>.phd,.panel.hasw:has(>.phd>.wbtn:focus-visible)>.phd,.panel.hasw:has(>.phd>.wbtn[aria-pressed="true"])>.phd{padding-right:36px}
-.panel.hasw:hover>.phd>.wbtn,.phd>.wbtn:focus-visible,.phd>.wbtn[aria-pressed="true"]{opacity:1;pointer-events:auto}
+.panel.hasw:hover>.phd,.panel.hasw:has(>.phd>.wbtn:focus-visible)>.phd{padding-right:28px}
+.panel.hasw.wcorner:hover>.phd,.panel.hasw.wcorner:has(>.phd>.wbtn:focus-visible)>.phd{padding-right:14px}
+.panel.hasw.wcorner>.phd>.pt{padding-right:12px}
+.panel.hasw:hover>.phd>.wbtn,.phd>.wbtn:focus-visible{opacity:1;pointer-events:auto}
 .phd>.wbtn:hover,.phd>.wbtn:focus-visible,.phd>.wbtn[aria-pressed="true"]{color:var(--blue)}
-@media(hover:none){.phd>.wbtn{opacity:1;pointer-events:auto}.panel.hasw>.phd{padding-right:36px}}
+@media(hover:none){.phd>.wbtn{opacity:1;pointer-events:auto}.panel.hasw>.phd{padding-right:28px}}
 
 /* first column: a name over its detail, no stray indent, and it stays put when the table scrolls sideways */
 .sc-t .t td:first-child>span[style*="width:18px"]{display:none}
@@ -1168,7 +1171,7 @@ textarea.fi{min-height:56px;padding:6px 8px}
 .scards>div:not(.wide) .mapctl.cmp .orb .ot{display:none}
 .scards>div:not(.wide) .mapctl.cmp .orb{padding:0 9px}
 .scards>div:not(.wide) .mapctl.cmp .orb .oi{display:block}
-.phd{min-width:0;padding:8px 14px;row-gap:8px}.phd>*{min-width:0}
+.phd{min-width:0;padding:8px 14px;row-gap:8px;min-height:50px}.phd>*{min-width:0}
 .pl{padding:14px 16px}
 .pl-f.c2{background:#F2C9A0}
 .pl-f.c3{background:#A9D9CF}
@@ -1727,7 +1730,15 @@ window.addEventListener('resize',fitFill);
 /* the report fills what is left of the window below the period bar */
 function fitRB(){const rb=document.querySelector('main>.rb');if(!rb)return;if(innerWidth<1280){rb.style.height='';return}rb.style.height='';const top=rb.getBoundingClientRect().top+scrollY;rb.style.height=Math.max(460,innerHeight-top-16)+'px'}
 window.addEventListener('resize',fitRB);
-function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();fitFill();fitRB()}
+/* the expand icon sits at the top right. Level with the buttons when they share the title line. In the corner, equal from top and right, when the buttons wrap to a second line */
+function placeW(p){const b=p.querySelector(':scope>.phd>.wbtn'),t=p.querySelector(':scope>.phd h2');if(!b||!t)return;const c=x=>{const r=x.getBoundingClientRect();return (r.top+r.bottom)/2},tc=c(t),shares=[...p.querySelectorAll(':scope>.phd button,:scope>.phd select')].some(x=>x!==b&&x.offsetParent&&!x.closest('.mmenu')&&Math.abs(c(x)-tc)<18),pr=p.getBoundingClientRect();p.classList.toggle('wcorner',!shares);if(shares){b.style.top=Math.round(tc-pr.top-10)+'px';b.style.right=''}else{b.style.top='10px';b.style.right='10px'}}
+function placeAllW(){document.querySelectorAll('.panel.hasw').forEach(placeW)}
+document.addEventListener('mouseover',e=>{const p=e.target.closest&&e.target.closest('.panel.hasw');if(p){placeW(p);setTimeout(()=>placeW(p),380)}});
+document.addEventListener('transitionend',e=>{const p=e.target.closest&&e.target.closest('.panel.hasw');if(p&&e.propertyName==='padding-right')placeW(p)},true);
+document.addEventListener('click',e=>{if(e.target.closest('[data-pwide],[data-wide]'))setTimeout(placeAllW,60)});
+addEventListener('resize',placeAllW);
+if(window.ResizeObserver)new ResizeObserver(()=>placeAllW()).observe(document.getElementById('main')||document.body);
+function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();placeAllW();fitFill();fitRB()}
 const GLB='<button type="button" class="btn" data-gloss="1">Appendix</button>';
 const pageHead=(t,meta,acts='')=>`<div class="ph1"><div><h1>${t}</h1><div class="meta">${meta}</div></div><div class="acts">${acts}</div></div>`;
 const asof=()=>`Data as on ${fd(TODAY)}, 06:00 IST · refreshed nightly at ${CFG.refresh}`;
