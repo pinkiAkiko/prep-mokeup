@@ -715,6 +715,17 @@ html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
 .drh2>span:first-child{color:var(--sub)}
 .drh2>span:last-child{color:var(--sub);text-align:right}
 .drmore{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid var(--b2);font-size:12.5px}
+.apx{columns:2;column-gap:12px}
+@media(max-width:899px){.apx{columns:1}}
+.apxg{break-inside:avoid;margin-bottom:12px}
+.apxg .gl dt:first-child{margin-top:0}
+.apxg .gl dd:last-child{border-bottom:0;padding-bottom:0}
+.msearch.glq{display:block;width:100%;flex:none;min-height:38px;margin:14px 0 2px}
+.gl{margin:0}
+.gl dt{margin:12px 0 2px;font-weight:600;font-size:13px}
+.gtl{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.gtl li{padding:8px 10px;border:1px solid var(--b1);border-radius:4px;background:#FAFBFC;line-height:1.5}
+.gl dd{margin:0;padding-bottom:10px;border-bottom:1px solid var(--b2);font-size:12.5px;line-height:1.55;color:#3B4757}
 .entlink{background:none;border:0;padding:0;color:var(--blue);cursor:pointer;font:inherit;text-align:left}
 .entlink:hover{text-decoration:underline}
 .drlist{list-style:none;margin:0;padding:0}
@@ -727,6 +738,63 @@ html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
 .kpi[data-kgo]:hover,.kpi[data-kgo]:focus-visible{box-shadow:0 2px 10px rgba(30,74,138,.16);outline:0}
 @keyframes flashbox{0%,60%{box-shadow:0 0 0 3px rgba(46,110,191,.55)}100%{box-shadow:0 0 0 0 rgba(46,110,191,0)}}
 .flash{animation:flashbox 1.6s ease-out}
+.cc{display:inline-flex;align-items:baseline;justify-content:flex-end;gap:10px;white-space:nowrap}
+.cvv{font-weight:600}
+.cdd{font-size:11.5px;color:var(--sub)}
+.cdd br{display:none}
+.rb .t tbody tr:hover td{background:#F7FAFE}
+.rb .t td{padding-top:8px;padding-bottom:8px}
+.wells b{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub)}
+.wells{padding:10px 14px;gap:8px 12px}
+.wells .chip{border-radius:14px;padding:0 4px 0 11px;min-height:28px;background:#EEF3FA;border-color:#D5E1F3;color:#1E4A8A;font-weight:600}
+.wells .chip button{color:#5F7FAE}
+.wells select{min-height:30px;border-radius:4px;padding:0 6px}
+.exm .mmenu{right:0;left:auto;min-width:120px;padding:6px}
+.exm .mmenu .btn{display:block;width:100%;text-align:left;border:0;min-height:32px}
+.fp{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
+.cfgp .t th.n,.cfgp .t td.n,.cfgp .t thead th.n{text-align:center}
+.cfgp .t th:last-child,.cfgp .t td:last-child{text-align:center}
+.cfgp .t td.sm:last-child{text-align:center;color:var(--sub)}
+.cfgp .t tr.cgh td{text-align:left}
+.cfgp .t td .uin{margin:0 auto}
+.uin .cfgin{text-align:center}
+.cgh td{background:#F4F6F8;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);padding:6px 12px}
+.uin{display:inline-flex;align-items:stretch;width:132px;border:1px solid var(--line);border-radius:4px;background:#fff;overflow:hidden;vertical-align:middle}
+.cfgrow .uin,.cfgcards .uin,td .uin:only-child{max-width:100%}
+.uin.sm{width:76px}
+.uin .cfgin{color:var(--navy)}
+.adjc{min-width:260px}
+.adj{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12.5px;margin:2px 0}
+.adj>span:first-child{text-align:left;color:var(--sub)}
+.cfgp .t td.adjc{text-align:left}
+.uin .cfgin{border:0;border-radius:0;flex:1;width:auto!important;min-width:0;min-height:32px;background:transparent}
+.uin em{font-style:normal;display:flex;align-items:center;justify-content:center;min-width:66px;padding:0 6px;color:var(--sub);font-size:12px;background:#F4F6F8;border-left:1px solid var(--b1)}
+.uin:focus-within{border-color:var(--blue);box-shadow:0 0 0 2px rgba(46,110,191,.2)}
+.cfgin.chg,.fi.chg{background:#FFF6DA}
+.tseg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.tseg label{position:relative;cursor:pointer}
+.tseg input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.tseg span{display:block;padding:6px 14px;font-size:12.5px;background:#fff}
+.tseg label+label span{border-left:1px solid var(--line)}
+.tseg .t1 input:checked+span{background:#FBE4E1;color:#A8281D;font-weight:600}
+.tseg .t2 input:checked+span{background:#FDEFD9;color:#8A5A00;font-weight:600}
+.tseg .t3 input:checked+span{background:#E9EDF2;color:#3B4757;font-weight:600}
+.tseg label:has(input:focus-visible){outline:2px solid var(--blue);outline-offset:-2px}
+.sw{position:relative;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw i{width:34px;height:20px;border-radius:10px;background:#C7CED6;position:relative;transition:background .12s}
+.sw i::after{content:'';position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .12s}
+.sw input:checked~i{background:#2E6EBF}
+.sw input:checked~i::after{transform:translateX(14px)}
+.sw input:focus-visible~i{outline:2px solid var(--blue);outline-offset:2px}
+.sw .t-on{display:none}.sw input:checked~.t-on{display:inline}.sw input:checked~.t-off{display:none}
+.cfgrow{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--b2)}
+.cfgcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.cfgcards .cc1{border:1px solid var(--b1);border-radius:6px;padding:12px 14px}
+.cfgcards .cc1 .fl{margin-bottom:8px}
+.cfgbar{position:sticky;bottom:0;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:10px 16px;background:#fff;border-top:1px solid var(--b1);box-shadow:0 -6px 12px -8px rgba(26,35,50,.25);z-index:5}
+.cfgbar[hidden]{display:none}
+.cfgbar .cn{margin-right:auto;font-weight:600;color:#8A5A00;font-size:13px}
 .alertbtn b{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:#EAECF0;color:var(--navy);font-size:12px;text-align:center}
 .alertbtn b.r{background:var(--red);color:#fff}
 .kpi{background:#fff;border:1px solid var(--b1);border-radius:4px;padding:10px 12px;min-width:0;border-top:3px solid var(--b1)}
@@ -1242,7 +1310,6 @@ const ZB={Chandigarh:{f:.93,fp:.91,an:1,g:1,u:1,sl:1},Jammu:{f:.89,fp:.9,an:1.2,
  Mumbai:{f:.93,fp:.93,an:1.2,g:1.1,u:2.6,sl:1.1},Chennai:{f:.96,fp:.95,an:.6,g:.9,u:.6,sl:.8},Kolkata:{f:.8,fp:.85,an:1.4,g:.9,u:1.5,sl:1.7},Patna:{f:.75,fp:.62,an:1,g:.5,u:1,sl:1.9},Guwahati:{f:.9,fp:.9,an:1,g:.7,u:1,sl:1.2}};
 const ZONES=[];REGIONS.forEach(([r,zs])=>zs.forEach(z=>ZONES.push({z,r,w:ZW[z]})));
 const RofZ=z=>ZONES.find(x=>x.z===z).r;
-const THREAT={her:'Heroin',met:'Methamphetamine',mqd:'Methaqualone',mep:'Mephedrone',fen:'Fentanyl'};
 const SUBS=[
  {id:'AA',sh:'Acetic Anhydride',name:'Acetic Anhydride',hsn:'2915 24 00',th:'her',cap:160000,w:40,aff:{Mumbai:1.3,Ahmedabad:1.5,Kolkata:1.4,Chennai:1.2},imp:.15,exp:.08,sale:.45},
  {id:'PSE',sh:'Pseudoephedrine',name:'Pseudoephedrine and salts',hsn:'2939 42',th:'met',cap:2400,w:30,aff:{Chandigarh:1.9,Ahmedabad:1.4,Mumbai:1.2,Jammu:1.5,Bangalore:1.2},imp:.32,exp:.06,sale:.25},
@@ -1264,14 +1331,15 @@ const CFG={
   th:{ /* per metric, per tier */
     file:{h:'Quarterly returns filed, at least',u:'%',better:'up',t:[95,90,88],scope:'Zone'},
     unm:{h:'Dispatches not shown as received, at most',u:'%',better:'down',t:[0.5,1,1.5],scope:'Zone × substance'},
-    anom:{h:'Companies using under the low-use line, at most',u:'companies',better:'down',t:[1,3,4],scope:'Zone'},
+    anom:{h:'Companies far under capacity, at most',u:'companies',better:'down',t:[1,3,4],scope:'Zone'},
     low:{h:'Low-use line (use as a share of capacity)',u:'%',better:'up',t:[12,12,12],scope:'Company'},
-    growth:{h:'Growth in registered companies, at most',u:'%',better:'down',t:[25,40,60],scope:'India'},
+    growth:{h:'Growth in Tier 1 companies, at most',u:'%',better:'down',t:[25,40,60],scope:'India'},
     imp:{h:'Import growth above growth in use, at most',u:'pts',better:'down',t:[10,16,25],scope:'India × substance'},
     apps:{h:'Applications waiting, at most',u:'days',better:'down',t:[30,30,30],scope:'Zone'},
     appsn:{h:'Applications past that wait, at most',u:'applications',better:'down',t:[2,3,3],scope:'Zone'},
-    minq:{h:'Smallest unmatched quantity that raises a matter',u:'kg',better:'down',t:[0,5,50],scope:'Zone × substance',note:'A smaller gap still shows in reports'}},
+    minq:{h:'Smallest unmatched quantity that raises an alert',u:'kg',better:'down',t:[0,5,50],scope:'Zone × substance',note:'A smaller gap still shows in reports'}},
   worse:{file:5,unm:.5,anom:2,growth:10,imp:10},
+  alert:{file:{on:1,minMiss:3,gap:6,minCo:30},anom:{on:1,extra:2},apps:{on:1,extra:2},unm:{on:1,mult:3},growth:{on:1},big:{on:1},imp:{on:1}},
   review:[30,60,90], defaultReview:60,
   refresh:'02:00', matterWarn:25, exportCap:100000, pageSize:25, returnDue:'15 Oct 2026'};
 const TIERN={1:'Tier 1 · every gram',2:'Tier 2 · pharma leakage',3:'Tier 3 · bulk volume'};
@@ -1465,7 +1533,7 @@ function zoneStatus(s){const why=[];let c='g';
   return {c,why}}
 /* the risk score: each flag has points and can be switched off. Super Admin sets both in Configuration. */
 const SCORE_DEF=[['tier1','Holds a Tier 1 substance',18,1],['missLast','Missed the latest return',18,1],['miss2','Missed 2 or more of the last 4 returns',14,1],['low','Use under 12% of capacity',20,1],['high','Use above capacity',16,1],['unm','Unmatched dispatch',18,1],['big','Top-10% capacity holder',10,1],['recon','Reconciliation gap',8,1]];
-CFG.score=SCORE_DEF.map(([id,h,pts,on])=>({id,h,pts,on:!!on}));CFG.scoreCap=100;
+CFG.score=SCORE_DEF.map(([id,h,pts,on])=>id==='low'?{id,get h(){return 'Use under '+CFG.th.low.t[2]+'% of capacity'},pts,on:!!on}:{id,h,pts,on:!!on});CFG.scoreCap=100;
 const scoreHelp=()=>'Risk score out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. It only orders the list. The Why column shows the flags. The filter button ranks the top 10 on another basis. Super Admin sets the points in Configuration.';
 function recompute(){
   NAT={};SUBS.forEach(S=>{const hp=P.filter(p=>holds(p,S.id));NAT[S.id]={sent:sum(hp,p=>H(p,S.id).sent)||1,use:sum(hp,p=>H(p,S.id).use)||1}});
@@ -1480,7 +1548,7 @@ function recompute(){
     if(p.subs.some(id=>tierOf(id)===1))add('tier1','','Tier 1 substance');
     if(p.fLast===false)add('missLast','r',`Missed ${QE()}`);
     const miss=p.f4.filter(x=>x===false).length;if(miss>=2)add('miss2','r',`Missed ${miss} of 4`);
-    if(p.low||p.lowM)add('low','a','Use under 12% of capacity');if(p.high)add('high','a','Use above capacity');
+    if(p.low||p.lowM)add('low','a','Use under '+CFG.th.low.t[2]+'% of capacity');if(p.high)add('high','a','Use above capacity');
     if(p.hs.some(h=>h.unm))add('unm','r','Unmatched dispatch');if(p.big)add('big','','Top-10% capacity');
     if(p.recon)add('recon','a','Reconciliation gap');
     p.score=Math.min(CFG.scoreCap,sc);p.f=f})}
@@ -1503,19 +1571,19 @@ let MET={},SNAPZS={},SIM=[];function metric(id){return id in MET?MET[id]:liveMet
 const breach=(id,v)=>{const K=KIND[id.split(':')[0]],t=K.th(id);return K.better==='up'?v<t:v>t};
 function buildMatters(){const M=[];
   Object.values(ZS).forEach(s=>{const miss=s.q.exp-s.q.filed;
-    if(s.q.lr<CFG.th.file.t[2]&&miss>=3)M.push({id:'file:'+s.z,sev:s.q.lr<CFG.th.file.t[2]-6&&s.n>=30?3:2,z:s.z,
+    if(CFG.alert.file.on&&s.q.lr<CFG.th.file.t[2]&&miss>=CFG.alert.file.minMiss)M.push({id:'file:'+s.z,sev:s.q.lr<CFG.th.file.t[2]-CFG.alert.file.gap&&s.n>=CFG.alert.file.minCo?3:2,z:s.z,
       title:`${s.z}: ${miss} of ${s.q.exp} companies did not file the ${QE()} return`,ev:`${f1(100-s.q.lr)}% missed, against ${f1(100-IN.q.lr)}% across India. A year ago the same quarter was ${f1(s.qpl)}% filed.`,cmp:[[s.z,f1(s.q.lr)+'%'],['India',f1(IN.q.lr)+'%'],['Threshold',CFG.th.file.t[2]+'%']]});
-    if(s.anom>=CFG.th.anom.t[2])M.push({id:'anom:'+s.z,sev:s.anom>=CFG.th.anom.t[2]+2?3:2,z:s.z,title:`${s.z}: ${s.anom} companies report using under ${CFG.th.low.t[2]}% of installed capacity`,
+    if(CFG.alert.anom.on&&s.anom>=CFG.th.anom.t[2])M.push({id:'anom:'+s.z,sev:s.anom>=CFG.th.anom.t[2]+CFG.alert.anom.extra?3:2,z:s.z,title:`${s.z}: ${s.anom} companies report using under ${CFG.th.low.t[2]}% of installed capacity`,
       ev:'Capacity far above declared use is the first sign of under-reporting.',cmp:[[s.z,s.anom],['Zone average',f1(sum(Object.values(ZS),x=>x.anom)/ZONES.length)]]});
-    {const old=appsIn([s.z]).filter(a=>a.age>CFG.th.apps.t[2]),n=old.length;if(n>=CFG.th.appsn.t[2])M.push({id:'apps:'+s.z,sev:n>=CFG.th.appsn.t[2]+2?3:2,z:s.z,title:`${s.z}: ${n} applications have waited more than ${CFG.th.apps.t[2]} days`,
+    {const old=appsIn([s.z]).filter(a=>a.age>CFG.th.apps.t[2]),n=old.length;if(CFG.alert.apps.on&&n>=CFG.th.appsn.t[2])M.push({id:'apps:'+s.z,sev:n>=CFG.th.appsn.t[2]+CFG.alert.apps.extra?3:2,z:s.z,title:`${s.z}: ${n} applications have waited more than ${CFG.th.apps.t[2]} days`,
       ev:`The oldest has waited ${Math.max(...old.map(a=>a.age))} days. Across India ${APPS.filter(a=>a.age>CFG.th.apps.t[2]).length} applications are past the limit.`,cmp:[[s.z,n],['All zones',APPS.filter(a=>a.age>CFG.th.apps.t[2]).length]]})}
-    SUBS.forEach(S=>{const u=unmZS(s.z,S.id);if(u.u>0&&u.u>=thv('minq',S.id)&&u.pct>=thv('unm',S.id))M.push({id:`unm:${s.z}:${S.id}`,sev:tierOf(S.id)===1||u.pct>=thv('unm',S.id)*3?3:2,z:s.z,
+    SUBS.forEach(S=>{const u=unmZS(s.z,S.id);if(CFG.alert.unm.on&&u.u>0&&u.u>=thv('minq',S.id)&&u.pct>=thv('unm',S.id))M.push({id:`unm:${s.z}:${S.id}`,sev:tierOf(S.id)===1||u.pct>=thv('unm',S.id)*CFG.alert.unm.mult?3:2,z:s.z,
       title:`${s.z}: ${fq(u.u)} of ${S.sh} sent out and not shown as received`,ev:`${f1(u.pct)}% of what ${u.n===1?'one company':u.n+' companies'} dispatched in four quarters has no matching receipt on a buyer's return. A year ago it was ${f1(u.pctP)}%.`,
       cmp:[[s.z,f1(u.pct)+'%'],[`Tier ${tierOf(S.id)} threshold`,thv('unm',S.id)+'%']]})})});
-  {const v=metric('growth');if(v>=CFG.th.growth.t[0])M.push({id:'growth:t1',sev:3,title:`Companies holding a Tier 1 substance are up ${f1(v)}% in a year`,
+  {const v=metric('growth');if(CFG.alert.growth.on&&v>=CFG.th.growth.t[0])M.push({id:'growth:t1',sev:3,title:`Companies holding a Tier 1 substance are up ${f1(v)}% in a year`,
     ev:`${IN.hr} companies now hold NPP, ANPP or 2-Bromo-4-MPP. Each new holder is a new point where diversion can start.`,cmp:[['Tier 1',f1(v)+'%'],['All companies',f1(IN.g)+'%']]})}
-  if(IN.nonBig)M.push({id:'big:nf',sev:3,title:`${IN.nonBig} of India's biggest holders did not file the ${QE()} return`,ev:`Each is in the top 10% by capacity for a substance it holds. They are in ${uniq(P.filter(p=>p.big&&p.fLast===false).map(p=>p.z)).join(', ')}.`,cmp:null});
-  SUBS.forEach(S=>{const v=metric('imp:'+S.id);if(isFinite(v)&&v>=thv('imp',S.id))M.push({id:'imp:'+S.id,sev:2,title:`${S.sh}: imports grew ${f1(v)} points faster than use`,ev:'Imports outrunning declared use means stock building up, or use under-declared.',cmp:null})});
+  if(CFG.alert.big.on&&IN.nonBig)M.push({id:'big:nf',sev:3,title:`${IN.nonBig} of India's biggest holders did not file the ${QE()} return`,ev:`Each is in the top 10% by capacity for a substance it holds. They are in ${uniq(P.filter(p=>p.big&&p.fLast===false).map(p=>p.z)).join(', ')}.`,cmp:null});
+  SUBS.forEach(S=>{const v=metric('imp:'+S.id);if(CFG.alert.imp.on&&isFinite(v)&&v>=thv('imp',S.id))M.push({id:'imp:'+S.id,sev:2,title:`${S.sh}: imports grew ${f1(v)} points faster than use`,ev:'Imports outrunning declared use means stock building up, or use under-declared.',cmp:null})});
   M.forEach(m=>{m.k=m.id.split(':')[0];m.v=metric(m.id)});return M.sort((a,b)=>b.sev-a.sev||a.id.localeCompare(b.id))}
 let MATTERS=[];
 function snap(){const m={};Object.keys(ZS).forEach(z=>{m['file:'+z]=ZS[z].q.lr;m['anom:'+z]=ZS[z].anom;m['apps:'+z]=liveMetric('apps:'+z);SUBS.forEach(S=>m[`unm:${z}:${S.id}`]=unmZS(z,S.id).pct)});
@@ -1574,13 +1642,13 @@ selZone.innerHTML=ZONES.map(Z=>`<option>${Z.z}</option>`).join('');selZone.value
 selRole.onchange=()=>{ST.role=selRole.value;ST.view=ST.role==='super'?'cfg':'dash';ST.rep=null;go()};
 selRegion.onchange=()=>{ST.r=selRegion.value;go()};selZone.onchange=()=>{ST.z=selZone.value;go()};
 const HQM=[{"g":"Workspace","id":"dashboard","l":"Dashboard","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/></svg>","b":""},{"g":"Workspace","id":"applications","l":"URN Applications","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"/></svg>","b":"6"},{"g":"Workspace","id":"queries","l":"Queries","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"/></svg>","b":"1"},{"g":"Workspace","id":"returns","l":"Returns","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"17 1 21 5 17 9\"/><path d=\"M3 11V9a4 4 0 0 1 4-4h14\"/><polyline points=\"7 23 3 19 7 15\"/><path d=\"M21 13v2a4 4 0 0 1-4 4H3\"/></svg>","b":""},{"g":"Workspace","id":"urn","l":"URN Management","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"8\" r=\"6\"/><path d=\"M8.21 13.89 7 23l5-3 5 3-1.21-9.12\"/></svg>","b":""},{"g":"Workspace","id":"substance","l":"Substance Oversight","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 2v6L4.6 17.6A2 2 0 0 0 6.4 20.5h11.2a2 2 0 0 0 1.8-2.9L15 8V2\"/><line x1=\"8\" y1=\"2\" x2=\"16\" y2=\"2\"/><line x1=\"7\" y1=\"14\" x2=\"17\" y2=\"14\"/></svg>","b":""},{"g":"Workspace","id":"investigations","l":"Investigations","svg":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" aria-hidden=\"true\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\"/><line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"13\"/><line x1=\"12\" y1=\"17\" x2=\"12.01\" y2=\"17\"/></svg>","b":""}];
-const ICON={"dash":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/>","reports":"<path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"8\" y1=\"13\" x2=\"16\" y2=\"13\"/><line x1=\"8\" y1=\"17\" x2=\"16\" y2=\"17\"/>","saved":"<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"/>","cfg":"<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1\"/>","catalog":"<path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"/><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"/>"};
+const ICON={"appendix":"<path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"/><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"/>","dash":"<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/>","reports":"<path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><polyline points=\"14 2 14 8 20 8\"/><line x1=\"8\" y1=\"13\" x2=\"16\" y2=\"13\"/><line x1=\"8\" y1=\"17\" x2=\"16\" y2=\"17\"/>","saved":"<path d=\"M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z\"/>","cfg":"<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1\"/>","catalog":"<path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"/><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"/>"};
 const ROLE={hq:{av:'HQ',who:'NCB HQ Admin',sub:()=>'National · PAN-India',ent:'NCB Headquarters',esub:()=>'Director General · New Delhi',chip:()=>'7 Regions · 13 Zonal units'},
   region:{av:'RA',who:'Regional Admin',sub:()=>ST.r,ent:()=>ST.r,esub:()=>'Regional Admin',chip:()=>((REGIONS.find(x=>x[0]===ST.r)||[0,[]])[1].length)+' Zonal units'},
   zone:{av:'ZA',who:'Zonal Admin',sub:()=>ST.z+' Zone',ent:()=>ST.z+' Zone',esub:()=>'Zonal Admin',chip:()=>(ZONES.find(x=>x.z===ST.z)||{}).r||''},
   super:{av:'SA',who:'Super Admin',sub:()=>'Configuration',ent:'Super Admin',esub:()=>'Configuration and catalogue',chip:()=>'All settings'}};
 const val=v=>typeof v==='function'?v():v;
-function nav(){const items=ST.role==='super'?[['cfg','Configuration'],['catalog','Report catalogue']]:[['dash','Dashboard'],['reports','Reports'],['saved','Saved views']];
+function nav(){const items=ST.role==='super'?[['cfg','Configuration'],['catalog','Report catalogue'],['appendix','Appendix']]:[['dash','Dashboard'],['reports','Reports'],['saved','Saved views'],['appendix','Appendix']];
   const R=ROLE[ST.role];
   const svg=(p,w)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
   const disp=i=>`<button type="button" class="nav-item nav-disp" data-disp="${i.l}"><span class="nav-icon">${i.svg}</span><span class="nav-label">${i.l}</span>${i.b?`<span class="nav-badge">${i.b}</span>`:''}<span class="nav-tooltip">${i.l}</span></button>`;
@@ -1615,12 +1683,14 @@ function go(){killCharts();nav();const m=document.getElementById('main');
   else if(ST.view==='reports'||ST.view==='catalog')m.innerHTML=catalog();
   else if(ST.view==='report')m.innerHTML=reportView();
   else if(ST.view==='saved')m.innerHTML=savedView();
+  else if(ST.view==='appendix')m.innerHTML=appendixView();
   else if(ST.view==='cfg')m.innerHTML=cfgView();
   requestAnimationFrame(after);window.scrollTo(0,0)}
 let afterFns=[];function later(f){afterFns.push(f)}
 function fitFill(){document.querySelectorAll('.cgrid').forEach(t=>{const fr=t.parentElement,c=t.querySelector('tr.fill td');if(!c)return;c.style.height='0px';c.style.height=Math.max(0,fr.clientHeight-t.offsetHeight-2)+'px'})}
 window.addEventListener('resize',fitFill);
 function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();fitFill()}
+const GLB='';
 const pageHead=(t,meta,acts='')=>`<div class="ph1"><div><h1>${t}</h1><div class="meta">${meta}</div></div><div class="acts">${acts}</div></div>`;
 const asof=()=>`Data as on ${fd(TODAY)}, 06:00 IST · refreshed nightly at ${CFG.refresh}`;
 const panel=(title,q,body,acts='',badge='')=>{let ex='';
@@ -1724,7 +1794,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-pwide]');i
 function dashHQ(){const L=lists(),hi=L.att.filter(x=>x.m.sev===3).length,act=Object.values(ZS).filter(z=>z.c==='r');
   const utilM=(()=>{let n=0,d=0;SUBS.forEach(S=>{const hp=P.filter(p=>holds(p,S.id)),c=sum(hp,p=>H(p,S.id).capMPer);if(c){n+=sum(hp,p=>H(p,S.id).mfg)/c*S.w;d+=S.w}});return d?n/d*100:0})();
   const util=pct(sum(SUBS,S=>{const hp=P.filter(p=>holds(p,S.id));return sum(hp,p=>H(p,S.id).use)/sum(hp,p=>H(p,S.id).capPer)*S.w}),sum(SUBS,S=>S.w));
-  const head=pageHead('Analytics dashboard','',`<button class="btn alertbtn" data-gotoalerts="1" title="Go to the alerts">Alerts <b class="${hi?'r':''}">${L.att.length}</b>${hi?` · ${hi} high`:''}</button><button class="btn" data-open="X6">Audit focus report</button><button class="btn" data-open="K4">Compliance report</button>`);
+  const head=pageHead('Analytics dashboard','',GLB+`<button class="btn alertbtn" data-gotoalerts="1" title="Go to the alerts">Alerts <b class="${hi?'r':''}">${L.att.length}</b>${hi?` · ${hi} high`:''}</button><button class="btn" data-open="X6">Audit focus report</button><button class="btn" data-open="K4">Compliance report</button>`);
   const k=`<div class="kpis">${kpi('Registered companies',fmt(IN.n),`${dl(IN.g)} ${vs()}`,'','',strip(IN,'n'))}
    ${kpi('Tier 1 companies',fmt(IN.hr),`${dl(chg(IN.hr,IN.hrP),'b')} ${vs()}`,CMPOK&&chg(IN.hr,IN.hrP)>=CFG.th.growth.t[0]?'r':'','',strip(IN,'t1'))}
    ${kpi('Returns filed',f1(IN.q.rate),`${dl(IN.q.rate-IN.qp,'g','pts')} · ${fmt(IN.nonf)} missed ${QE()}`,IN.q.rate<CFG.th.file.t[2]?'a':'gr','%',strip(IN,'filed'))}
@@ -1875,7 +1945,7 @@ function substanceTable(ps,keep){const rows=SUBS.map(S=>{const hp=ps.filter(p=>h
   return {S,id:S.id,n:hp.length,g:chg(hp.length,prev),cap,capM,mfg,use,ug:chg(use,sum(hs,h=>h.useP)),util:capPer?use/capPer*100:0,utilM:capMPer?mfg/capMPer*100:0,imp:sum(hs,h=>h.imp),exp:sum(hs,h=>h.exp),q:q.rate,unm:sent?unm/sent*100:0,unmQ:unm,low:hp.filter(p=>p.low||p.lowM).length}}).filter(x=>x.n&&(!keep||keep(x)));
   return table('subs'+ps.length+'-'+rows.length,[
     {k:'tier',h:'Tier',v:x=>tierOf(x.id),f:x=>tierTag(x.id)},
-    {k:'name',h:'Substance',v:x=>x.S.sh,f:x=>`<b>${x.S.sh}</b><div class="sm">${THREAT[x.S.th]}</div>`},
+    {k:'name',h:'Substance',v:x=>x.S.sh,f:x=>`<b>${x.S.sh}</b>`},
     {k:'n',h:'Companies',n:1,f:x=>`${fmt(x.n)} <span class="sm">${dl(x.g,tierOf(x.id)===1?'b':'n')}</span>`},
     {k:'capM',h:'Manufacture capacity',n:1,f:x=>x.capM?fq(x.capM):'–'},
     {k:'mfg',h:'Manufactured',n:1,f:x=>x.mfg?fq(x.mfg):'–'},
@@ -2042,18 +2112,18 @@ function registerView(att){const ready=att.filter(x=>x.e&&x.e.ok),rest=att.filte
     &&(!ST.mrule||KIND[it.m.k].lab===ST.mrule)&&(!ST.mtier||(subOf(it.m)&&String(tierOf(subOf(it.m)))===ST.mtier))
     &&(!ST.mfocus||(office(it.m)===ST.mfocus[0]&&KIND[it.m.k].lab===ST.mfocus[1]));
   const shown=rest.filter(pass);
-  const GB={office:it=>office(it.m),rule:it=>KIND[it.m.k].name,none:()=>'All matters'};
+  const GB={office:it=>office(it.m),rule:it=>KIND[it.m.k].name,none:()=>'All alerts'};
   const SO={risk:it=>it.m.sev+(it.e&&it.e.moved==='worse'?.5:it.e?.1:0),ratio:ratioW,oldest:openDays,worsened:it=>it.e&&it.e.moved==='worse'?Math.abs(it.e.delta)/(KIND[it.m.k].th(it.m.id)||1):0};
   const sk=SO[ST.msort],groups=new Map();shown.forEach(it=>{const k=GB[ST.mgb](it);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(it)});
   const gs=[...groups.entries()].map(([k,items])=>({k,items:items.sort((a,b)=>sk(b)-sk(a)),top:Math.max(...items.map(sk))})).sort((a,b)=>b.top-a.top||b.items.length-a.items.length);
   if(!ST.mopenG)ST.mopenG=new Set(gs.some(g=>g.k==='All India')?['All India']:gs.slice(0,1).map(g=>g.k));
   const ret=rest.filter(x=>x.e),offices=uniq(rest.map(x=>office(x.m))),rules=uniq(Object.values(KIND).map(K=>K.lab));
   let h='';
-  if(rest.length>CFG.matterWarn)h+=`<div class="warnbar"><b>${rest.length} matters</b>, more than the usual ${CFG.matterWarn}. The thresholds may be too tight. Super Admin sees the same warning.</div>`;
+  if(rest.length>CFG.matterWarn)h+=`<div class="warnbar"><b>${rest.length} alerts</b>, more than the usual ${CFG.matterWarn}. The thresholds may be too tight.</div>`;
   const nAct=[ST.mreg,ST.mrule,ST.mtier,ST.mgb!=='rule',ST.msort!=='risk',ST.mfocus].filter(Boolean).length;
   const filterBtn=`<button type="button" class="btn ficon${ST.mfo?' on':''}" data-fopen="1" aria-expanded="${!!ST.mfo}" aria-label="${ST.mfo?'Hide':'Show'} filters${nAct?', '+nAct+' in use':''}" title="Filters"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>${nAct?`<span class="fb">${nAct}</span>`:''}</button>`;
   h+=`<div class="msum">
-   <span class="acts"><input type="search" class="msearch" placeholder="Search" value="${esc(ST.mq)}" data-mq="1" aria-label="Search matters">${filterBtn}</span></div>`;
+   <span class="acts"><input type="search" class="msearch" placeholder="Search" value="${esc(ST.mq)}" data-mq="1" aria-label="Search alerts">${filterBtn}</span></div>`;
   h+=`<div class="sevkey"><span><i class="sev s3"></i>High</span><span><i class="sev s2"></i>Medium</span><span><i class="sev s1"></i>Low</span></div>`;
   const og=offices.map(o=>({o,c:rules.map(r=>{const its=rest.filter(x=>office(x.m)===o&&KIND[x.m.k].lab===r);return {n:its.length,s:Math.max(0,...its.map(x=>x.m.sev))}})})).sort((a,b)=>sum(b.c,x=>x.n*x.s)-sum(a.c,x=>x.n*x.s));
   const sel=(k,lab,opts)=>`<select class="mfs" data-mf="${k}" aria-label="${lab}" title="${lab}">${opts.map(([v,l])=>`<option value="${esc(v)}" ${String(ST[k])===String(v)?'selected':''}>${l}</option>`).join('')}</select>`;
@@ -2068,7 +2138,7 @@ function registerView(att){const ready=att.filter(x=>x.e&&x.e.ok),rest=att.filte
       rows=items.slice(0,lim).map(it=>it.merged?mergedRow(g.k,it.merged):mrow(it)).join('')+(items.length>lim?`<div class="mmore"><button class="btn link" data-mmore="${esc(g.k)}">+ ${items.length-lim} more in ${esc(g.k)}</button></div>`:'')}
     return `<div class="mg"><div><button class="gt" data-gt="${esc(g.k)}" aria-expanded="${open}" aria-label="${open?'Collapse':'Expand'} ${esc(g.k)}">${open?'▾':'▸'}</button><b>${esc(g.k)}</b> <span class="sm">· ${g.items.length}</span></div>${(()=>{const n=g.items.filter(x=>x.m.sev===3).length;return n?`<span class="hi">${n} high</span>`:''})()}
       </div>
-      ${rows}`}).join('')||'<div class="pb sm">No matter matches these filters.</div>';
+      ${rows}`}).join('')||'<div class="pb sm">No alert matches these filters.</div>';
   if(ready.length)h+=ready.map(x=>`<div class="ready"><span>✓ <b>${office(x.m)}</b> · ${esc(shortOf(x.m.id))} back within the limit (${KIND[x.m.k].show(x.L.then)} → ${KIND[x.m.k].show(x.e.now)})</span></div>`).join('');
   {const nm=ST.mgb==='office'?'offices':'groups';if(gs.length>ST.mpage)h+=`<div class="mshow"><button class="btn" data-mpage="1">Show ${Math.min(5,gs.length-ST.mpage)} more ${nm}</button>${ST.mpage>5?`<button class="btn" data-mpage="-1">Show less</button>`:''}<span class="sm">${ST.mpage} of ${gs.length} shown</span></div>`;
    else if(gs.length>5)h+=`<div class="mshow"><button class="btn" data-mpage="-1">Show less</button><span class="sm">All ${gs.length} shown</span></div>`}
@@ -2095,7 +2165,7 @@ function renderWatch(){const el=document.getElementById('watch');if(!el)return;c
   if(ST.wTab==='att'&&ST.wv==='rows')h+=registerView(L.att);
   else if(ST.wTab==='att'){const ready=L.att.filter(x=>x.e&&x.e.ok),rest=L.att.filter(x=>!(x.e&&x.e.ok));
     h+=`<div class="msum"><span class="sm">Card view</span><button class="btn" data-wv="rows">Show as register</button></div>`;
-    if(ready.length)h+=`<div class="ready"><span><b>${ready.length} matter${ready.length>1?'s are':' is'} back within the threshold</b>: ${ready.map(x=>x.m.title.split(':')[0]).join(', ')}.</span></div>`;
+    if(ready.length)h+=`<div class="ready"><span><b>${ready.length} alert${ready.length>1?'s are':' is'} back within the threshold</b>: ${ready.map(x=>x.m.title.split(':')[0]).join(', ')}.</span></div>`;
     const shown=ST.showAll?rest:rest.slice(0,6);
     h+=shown.map(it=>mattersItem(it)).join('')||'<div class="pb sm">Nothing needs your decision.</div>';
     if(rest.length>6)h+=`<div class="pb" style="text-align:center"><button class="btn" data-a="more">${ST.showAll?'Show the top six':'Show all '+rest.length}</button></div>`}
@@ -2190,7 +2260,7 @@ function bubble(){const el=document.getElementById('cBubble');if(!el||!window.Ch
 /* ===================== Region dashboard ===================== */
 function dashRegion(){const r=ST.r,zs=ZONES.filter(Z=>Z.r===r).map(Z=>Z.z),ps=P.filter(p=>p.r===r),A=RS[r],ap=appsIn(zs);
   const ex=MATTERS.filter(m=>m.z&&zs.includes(m.z));
-  const head=pageHead(`Dashboard · ${r}`,`${zs.length} zonal unit${zs.length>1?'s':''}: ${zs.join(', ')}`,`<button class="btn" data-open="K1">Non-filer report</button><button class="btn" data-open="M1">Unmatched consignments</button>`);
+  const head=pageHead(`Dashboard · ${r}`,`${zs.length} zonal unit${zs.length>1?'s':''}: ${zs.join(', ')}`,GLB+`<button class="btn" data-open="K1">Non-filer report</button><button class="btn" data-open="M1">Unmatched consignments</button>`);
   const k=`<div class="kpis">${kpi('Registered companies',fmt(A.n),`${dl(A.g)} ${vs()}`,'','',strip(A,'n'))}
    ${kpi('Returns filed',f1(A.q.rate),`${dl(A.q.rate-A.qp,'g','pts')} · India ${f1(IN.q.rate)}%`,A.q.rate<CFG.th.file.t[2]?'r':'gr','%',strip(A,'filed'))}
    ${kpi(`Not filed, ${QE()}`,fmt(A.nonf),`${A.nonBig} big holders`,A.nonBig?'a':'')}
@@ -2226,7 +2296,7 @@ function trendChart(id,series){const el=document.getElementById(id);if(!el||!win
 function dashZone(){const z=ST.z,ps=P.filter(p=>p.z===z),A=ZS[z],ap=appsIn([z]),r=RofZ(z);
   const nf=ps.filter(p=>p.fLast===false),notes=NOTES.filter(n=>n.p.z===z),rec=ps.filter(p=>p.recon),low=ps.filter(p=>p.low||p.lowM||p.high),val=ps.filter(p=>p.st!=='Active'||p.exp<=90),cs=CASES.filter(c=>c.p.z===z&&c.y===2026&&c.status!=='Closed');
   const WL=[['nf',`Not filed, ${QE()}`,nf.length],['notes','Notes not acknowledged',notes.length],['recon','Reconciliation gaps',rec.length],['cap','Use against capacity',low.length],['val','URN validity',val.length],['apps','Applications',ap.length],['loss','Open loss cases',cs.length]];
-  const head=pageHead(`Dashboard · ${z} zonal unit`,`${r}`,`<button class="btn" data-open="K1">Non-filer report</button><button class="btn" data-open="U2">Use by companies</button>`);
+  const head=pageHead(`Dashboard · ${z} zonal unit`,`${r}`,GLB+`<button class="btn" data-open="K1">Non-filer report</button><button class="btn" data-open="U2">Use by companies</button>`);
   const k=`<div class="kpis">${kpi('Registered companies',fmt(A.n),`${dl(A.g)} ${vs()}`,'','',strip(A,'n'))}
    ${kpi('Returns filed',f1(A.q.rate),`${dl(A.q.rate-A.qp,'g','pts')} · India ${f1(IN.q.rate)}%`,A.q.rate<CFG.th.file.t[2]?'r':'gr','%',strip(A,'filed'))}
    ${kpi('Notes not acknowledged',notes.length,`oldest ${Math.max(0,...notes.map(n=>n.days))} days`,notes.length?'a':'')}
@@ -2370,9 +2440,9 @@ function group(fs,dim){if(RP&&RP.custom&&dim===RP.rows[0])return RP.custom(fs);c
 const dmode=M=>M.good?'g':M.bad?'b':'n';
 function cell(mk,fs,cms,tot){const M=MEAS[mk];if(M.unit&&!single(fs)&&!fs.combo&&!RP.mixOk)return `<td class="n sm" title="Pick one substance, or add Substance to rows: units and risks differ">–</td>`;
   const v=M.f(fs);let s=M.fmt(v);if(RP.pctTot&&M.add&&tot&&tot[mk])s+=` <span class="sm">${f1(pct(v,tot[mk]))}%</span>`;
-  const ds=(cms||[]).map(c=>{if(!c.fs||!c.fs.length)return `<span class="sm">${c.lab} –</span>`;const p=M.f(c.fs);return `<span class="sm">${c.lab} ${M.pp?dlx(v-p,dmode(M),'pts'):dlx(chg(v,p),dmode(M))}</span>`}).join('<br>');
+  const ds=(cms||[]).map(c=>{if(!c.fs||!c.fs.length)return `<span class="sm">${c.lab} –</span>`;const p=M.f(c.fs);return `<span class="sm">${c.lab} ${M.pp?dlx(v-p,dmode(M),'pts'):dlx(chg(v,p),dmode(M))}</span>`}).join(' ');
   const db=RP.bars&&M.add&&tot&&tot['__max_'+mk]?`<i style="width:${Math.min(100,pct(v,tot['__max_'+mk]))}%"></i>`:'';
-  return `<td class="n db">${db}<span>${s}${ds?'<br>'+ds:''}</span></td>`}
+  return `<td class="n db">${db}<span class="cc"><span class="cvv">${s}</span>${ds?`<span class="cdd">${ds}</span>`:''}</span></td>`}
 const togBtn=(p,lvl,isOpen,canOpen)=>canOpen?`<button class="tog" data-tog="${esc(p)}" aria-expanded="${isOpen}" aria-label="Expand">${isOpen?'▾':'▸'}</button>`:'<span style="display:inline-block;width:18px"></span>';
 function pivotRows(fs,cms,lvl,path,tot){if(lvl>=RP.rows.length)return '';const dim=RP.rows[lvl],D=DIMS[dim];let gs=group(fs,dim);const key=path.join('|');
   const cg=cms.map(c=>{const m=new Map();group(c.fs,dim).forEach(g=>m.set(g.k,g.fs));return {lab:c.lab,m}});
@@ -2413,7 +2483,7 @@ function reportView(){if(RP.id==='APPS')return appsReport();const R=RM[RP.id],fs
    <b style="margin-left:8px">Columns</b><select data-col aria-label="Columns"><option value="" ${!RP.col?'selected':''}>Values</option><option value="quarter" ${RP.col==='quarter'?'selected':''}>Quarters</option><option value="fy" ${RP.col==='fy'?'selected':''}>Financial years</option></select></div>`;
   const opts=`<div class="wells">${RP.col?`<span class="sm">Showing ${MEAS[RP.m[0]].h} across ${RP.col==='quarter'?'quarters':'financial years'}, with ${RP.col==='quarter'?'QoQ and ':''}YoY</span>`:''}
    ${RP.col?'':`<label><input type="checkbox" data-opt="pctTot" ${RP.pctTot?'checked':''}> % of total</label>`}<label><input type="checkbox" data-opt="bars" ${RP.bars?'checked':''}> Data bars</label>
-   <span style="margin-left:auto" class="acts"><button class="btn ${RP.view==='table'?'pri':''}" data-rv="table">Table</button><button class="btn ${RP.view==='chart'?'pri':''}" data-rv="chart">Chart</button><button class="btn" data-expand="1">Expand all</button><button class="btn" data-expand="0">Collapse</button></span></div>`;
+   <span style="margin-left:auto" class="acts"><span class="seg2" role="group" aria-label="View"><button type="button" class="${RP.view==='table'?'on':''}" aria-pressed="${RP.view==='table'}" data-rv="table">Table</button><button type="button" class="${RP.view==='chart'?'on':''}" aria-pressed="${RP.view==='chart'}" data-rv="chart">Chart</button></span>${RP.view==='table'&&!RP.col?'<button class="btn" data-expand="1">Expand all</button><button class="btn" data-expand="0">Collapse</button>':''}</span></div>`;
   let tbl;if(RP.col)tbl=colTable();else tbl=`<div class="frame"><table class="t"><thead><tr><th>${RP.rows.map(d=>DIMS[d].h).join(' › ')}</th>${RP.m.map(m=>`<th class="n" data-psort="${m}" style="cursor:pointer">${MEAS[m].h}${RP.sort===m?' <span class="ar">▼</span>':''}</th>`).join('')}</tr></thead>
    <tbody>${pivotRows(fs,cms,0,[],tot)}</tbody><tfoot><tr class="tot"><td>Total</td>${RP.m.map(m=>cell(m,fs,cms,null)).join('')}</tr></tfoot></table></div>`;
   const unitNote=RP.m.some(m=>MEAS[m].unit)&&!single(fs)&&!RP.rows.includes('substance')?`<div class="pb note">“–” means more than one substance is mixed. Pick one substance, or add Substance to Rows.</div>`:'';
@@ -2424,7 +2494,7 @@ function reportView(){if(RP.id==='APPS')return appsReport();const R=RM[RP.id],fs
    <div class="fg"><div class="fl">Only companies that</div>${Object.entries(FLAGS).map(([k,v])=>`<label><input type="checkbox" data-flag="${k}" ${RP.flags.includes(k)?'checked':''}> ${v[0]}</label>`).join('')}</div></aside>`;
   later(()=>{if(RP.view==='chart')pivotChart(fs)});
   return pageHead(R.title,`${R.sec}${R.av==='y'?'':` · <span class="av ${AV[R.av][0]}">${AV[R.av][1]}</span>`}`,
-    `<button class="btn" data-nav2="reports">All reports</button><button class="btn" data-save="1">Save view</button><button class="btn" data-pexport="1">Export CSV</button><button class="btn" data-pexcel="1">Excel</button><button class="btn" data-pexcel="1">PDF</button>`)+periodBar()+
+    GLB+`<button class="btn" data-nav2="reports">All reports</button><button class="btn" data-save="1">Save view</button><details class="msub cardsel exm"><summary class="btn">Export ▾</summary><div class="mmenu"><button type="button" class="btn link" data-pexport="1">CSV</button><button type="button" class="btn link" data-pexcel="1">Excel</button><button type="button" class="btn link" data-pexcel="1">PDF</button></div></details>`)+periodBar()+
    `<div class="rb"><section class="panel">${wells}${opts}<div class="applied">${appliedText()}</div>${RP.view==='table'?tbl:`<div class="pb"><div class="cv" style="height:${RP.col?320:Math.max(260,group(fs,RP.rows[0]).slice(0,25).length*28+60)}px"><canvas id="cPivot"></canvas></div></div>`}${unitNote}</section>${fp}</div>`+footer()}
 function fgroup(k,h,items){return `<div class="fg"><div class="fl">${h}</div><div class="scroll">${items.map(([v,l])=>`<label><input type="checkbox" data-f="${k}" value="${esc(v)}" ${RP.f[k].includes(v)?'checked':''}> ${l}</label>`).join('')}</div></div>`}
 function pivotChart(fs,el0,cap0){const el=el0||document.getElementById('cPivot'),cap=cap0||25;if(!el||!window.Chart)return;const dim=RP.rows[0],D=DIMS[dim],lab=k=>D.t?D.t(k):String(k);
@@ -2729,8 +2799,8 @@ function openSaved(i){const v=SAVED[i];if(!v)return;openReport(v.rep);if(!v.snap
 document.addEventListener('click',e=>{const b=e.target.closest('[data-oview]');if(b)openSaved(+b.dataset.oview)});
 
 /* ===================== catalogue and saved views ===================== */
-ST.rq='';ST.rg='';ST.pg={reports:{n:15,p:1},saved:{n:10,p:1}};
-const pageBar=(k,total)=>{const P=ST.pg[k],pages=Math.max(1,Math.ceil(total/P.n));P.p=Math.min(P.p,pages);const a=total?(P.p-1)*P.n+1:0,b=Math.min(total,P.p*P.n);return '<div class="pager"><label class="sm">Rows per page <select class="mfs" data-pgn="'+k+'" aria-label="Rows per page">'+[10,15,25,50].map(n=>'<option value="'+n+'"'+(P.n===n?' selected':'')+'>'+n+'</option>').join('')+'</select></label><span class="sm">'+a+'–'+b+' of '+total+'</span><span class="pgb"><button type="button" class="btn" data-pgp="'+k+':-1" aria-label="Previous page"'+(P.p<=1?' disabled':'')+'>‹</button><span class="sm">Page '+P.p+' of '+pages+'</span><button type="button" class="btn" data-pgp="'+k+':1" aria-label="Next page"'+(P.p>=pages?' disabled':'')+'>›</button></span></div>'};
+ST.rq='';ST.rg='';ST.pg={reports:{n:CFG.pageSize,p:1},saved:{n:CFG.pageSize,p:1}};
+const pageBar=(k,total)=>{const P=ST.pg[k],pages=Math.max(1,Math.ceil(total/P.n));P.p=Math.min(P.p,pages);const a=total?(P.p-1)*P.n+1:0,b=Math.min(total,P.p*P.n);return '<div class="pager"><label class="sm">Rows per page <select class="mfs" data-pgn="'+k+'" aria-label="Rows per page">'+[...new Set([10,15,25,50,CFG.pageSize])].sort((a,b)=>a-b).map(n=>'<option value="'+n+'"'+(P.n===n?' selected':'')+'>'+n+'</option>').join('')+'</select></label><span class="sm">'+a+'–'+b+' of '+total+'</span><span class="pgb"><button type="button" class="btn" data-pgp="'+k+':-1" aria-label="Previous page"'+(P.p<=1?' disabled':'')+'>‹</button><span class="sm">Page '+P.p+' of '+pages+'</span><button type="button" class="btn" data-pgp="'+k+':1" aria-label="Next page"'+(P.p>=pages?' disabled':'')+'>›</button></span></div>'};
 const pgRedraw=k=>{const g=document.getElementById(k==='saved'?'savedgrid':'catgrid');if(g){g.innerHTML=k==='saved'?savedGrid():catGrid();fitFill()}};
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.pgn)return;ST.pg[t.dataset.pgn].n=+t.value;ST.pg[t.dataset.pgn].p=1;pgRedraw(t.dataset.pgn)});
 function flashEl(el){if(!el)return;el.scrollIntoView({block:'start'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1600)}
@@ -2765,37 +2835,50 @@ function savedView(){return pageHead('Saved views','Your own report layouts, kep
 document.addEventListener('input',e=>{const t=e.target;if(!t.dataset||!t.dataset.sq)return;ST.sq=t.value;ST.pg.saved.p=1;const g=document.getElementById('savedgrid');if(g){g.innerHTML=savedGrid();fitFill()}});
 
 /* ===================== Super Admin configuration ===================== */
-function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['watch','Watch rules'],['score','Risk score'],['perf','Data refresh and performance'],['log','Change log']];
+function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['alerts','Alerts'],['score','Risk score'],['perf','Data refresh and performance'],['log','Change log']];
   let b='';
-  if(ST.cfgTab==='th')b=`<div class="pb note">Each threshold is a <code>system_config</code> row. A substance takes the value of its tier, so one change applies to every substance in that tier. Changes apply from the next nightly refresh.</div>`+
-    `<div class="frame"><table class="t"><thead><tr><th>Metric</th><th>Judged at</th><th class="n">Tier 1</th><th class="n">Tier 2</th><th class="n">Tier 3</th><th>Unit</th></tr></thead><tbody>${Object.entries(CFG.th).map(([k,t])=>`<tr><td><b>${t.h}</b><div class="sm">${t.note||(t.better==='up'?'Breached when the figure falls below':'Breached when the figure rises above')}</div></td><td>${t.scope}</td>${t.t.map((v,i)=>`<td class="n"><input class="cfgin" type="number" step="0.1" value="${v}" data-th="${k}:${i}" aria-label="${t.h}, tier ${i+1}"></td>`).join('')}<td>${t.u}</td></tr>`).join('')}</tbody></table></div><div class="pb"><button class="btn pri" data-cfgsave="1">Save thresholds</button></div>`;
-  if(ST.cfgTab==='tier')b=`<div class="pb note">The tier decides which thresholds apply and how the dashboards group substances. Proposed by the portal; to be confirmed by NCB.</div>`+table('tierT',[{k:'name',h:'Substance',f:s=>`<b>${s.sh}</b><div class="sm">HSN ${s.hsn}</div>`,v:s=>s.sh},{k:'th',h:'Illicit use',f:s=>THREAT[s.th]},
-    {k:'t',h:'Tier',v:s=>tierOf(s.id),f:s=>`<select class="fi" style="max-width:240px" data-tier="${s.id}">${[1,2,3].map(t=>`<option value="${t}" ${tierOf(s.id)===t?'selected':''}>${TIERN[t]}</option>`).join('')}</select>`}],SUBS,{})+`<div class="pb"><button class="btn pri" data-cfgsave="1">Save tiers</button></div>`;
-  if(ST.cfgTab==='watch')b=`<div class="pb"><div class="g g2" style="margin:0"><div><div class="fl" style="font-weight:600">Comes back early if it worsens by</div>${Object.entries(CFG.worse).map(([k,v])=>`<label class="fg" style="display:flex;justify-content:space-between;align-items:center;border:0;padding:4px 0">${({file:'Returns filed (points)',unm:'Unmatched (points)',anom:'Companies far under capacity',growth:'Tier 1 growth (points)',imp:'Import gap (points)'})[k]}<input class="cfgin" type="number" step="0.1" value="${v}" data-worse="${k}"></label>`).join('')}</div>
-     <div><div class="fl" style="font-weight:600">Review periods offered to HQ</div><div class="sm" style="margin-bottom:6px">${CFG.review.join(', ')} days, or when the next quarter's returns close. Default ${CFG.defaultReview} days.</div><div class="note">The DG's discussion record is kept per matter, with an <code>audit_log</code> row for each change. It is never sent to a region or zone.</div></div></div><button class="btn pri" data-cfgsave="1" style="margin-top:10px">Save watch rules</button></div>`;
-  if(ST.cfgTab==='score')b=`<div class="pb note">Each flag adds its points to a company's risk score, up to the cap. Switch a flag off to leave it out. The score only orders the Top 10 list. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Flag</th><th class="n">Points</th><th>Active</th></tr></thead><tbody>${CFG.score.map(x=>`<tr><td><b>${x.h}</b></td><td class="n"><input class="cfgin" type="number" min="0" max="100" value="${x.pts}" data-sc="${x.id}:pts" aria-label="Points for ${x.h}"></td><td><label class="mchk"><input type="checkbox" data-sc="${x.id}:on" ${x.on?'checked':''}> ${x.on?'On':'Off'}</label></td></tr>`).join('')}<tr><td><b>Highest score possible</b></td><td class="n"><input class="cfgin" type="number" min="1" max="1000" value="${CFG.scoreCap}" data-sccap="1" aria-label="Highest score"></td><td></td></tr></tbody></table></div><div class="pb"><button class="btn pri" data-cfgsave="1">Save</button></div>`;
-  if(ST.cfgTab==='perf')b=`<div class="pb"><div class="g g2" style="margin:0">
-     <div><div class="fl" style="font-weight:600">Nightly summary refresh</div><input class="fi" style="max-width:120px" type="time" value="${CFG.refresh}"><div class="note">Dashboards read summary tables, never the live returns. Also refreshed one hour after each return due date.</div></div>
-     <div><div class="fl" style="font-weight:600">Rows per page in lists and drill-downs</div><input class="cfgin" type="number" value="${CFG.pageSize}"><div class="note">Companies rows load a page at a time.</div></div>
-     <div><div class="fl" style="font-weight:600">Warn HQ when matters exceed</div><input class="cfgin" type="number" value="${CFG.matterWarn}" data-warn="1"><div class="note">Today: ${MATTERS.length}. A long list usually means the thresholds are too tight.</div></div>
-     <div><div class="fl" style="font-weight:600">Largest export prepared at once</div><input class="cfgin" style="width:110px" type="number" value="${CFG.exportCap}"><div class="note">Bigger exports are built in the background.</div></div>
-     <div><div class="fl" style="font-weight:600">Return due date for Q3 2026</div><input class="fi" style="max-width:160px" value="${CFG.returnDue}" readonly><div class="note">Read from the return calendar, not set here.</div></div></div>
-     <div class="sec">Summary tables behind the dashboards</div>${table('aggT',[{k:'t',h:'Table'},{k:'g',h:'One row per'},{k:'n',h:'Rows today',n:1,f:x=>fmt(x.n)},{k:'s',h:'Fed by'}],[
-      {t:'analytics_holding_quarter',g:'URN × substance × quarter',n:QF.length,s:'urn_substance, return_substance, return_line'},
-      {t:'analytics_area_quarter',g:'zone × substance × quarter',n:13*8*24,s:'analytics_holding_quarter'},
-      {t:'analytics_filing_quarter',g:'URN × form × quarter',n:P.length*8,s:'return_filing, non_filer_entry'},
-      {t:'analytics_movement_quarter',g:'consignment note × quarter',n:NOTES.length*40,s:'consignment_note, its acknowledgement, return_line'}],{})}<button class="btn pri" data-cfgsave="1" style="margin-top:10px">Save</button></div>`;
+  const SW=(attr,on)=>'<label class="sw"><input type="checkbox" '+attr+(on?' checked':'')+'><i></i><span class="t-on">On</span><span class="t-off">Off</span></label>',UIN=(attr,val,u,w,extra)=>'<span class="uin'+(u?'':' sm')+'"><input class="cfgin" type="number" '+(extra||'')+' value="'+val+'" '+attr+(w?' style="width:'+w+'px"':'')+'>'+(u?'<em>'+u+'</em>':'')+'</span>';
+  if(ST.cfgTab==='th'){const G=[['Alerts',['file','unm','anom','growth','imp','apps','appsn','minq']],['Companies',['low']]],U={'%':'percent',companies:'companies',pts:'points',days:'days',applications:'applications',kg:'kg'};
+    b='<div class="pb note">A substance takes the value of its tier, so one change applies to every substance in that tier. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Limit</th><th>Judged at</th><th class="n">Tier 1</th><th class="n">Tier 2</th><th class="n">Tier 3</th><th>Unit</th></tr></thead><tbody>'
+      +G.map(g=>'<tr class="cgh"><td colspan="6">'+g[0]+'</td></tr>'+g[1].filter(k=>CFG.th[k]).map(k=>{const t=CFG.th[k];return '<tr><td><b>'+t.h+'</b><div class="sm">'+(t.note||(t.better==='up'?'Breached when the figure falls below the limit':'Breached when the figure rises above the limit'))+'</div></td><td>'+t.scope+'</td>'+t.t.map((v,i)=>'<td class="n">'+UIN('data-th="'+k+':'+i+'" aria-label="'+t.h+', tier '+(i+1)+'"',v,'',0,'step="0.1"')+'</td>').join('')+'<td class="sm">'+(U[t.u]||t.u)+'</td></tr>'}).join('')).join('')+'</tbody></table></div>'}
+  if(ST.cfgTab==='tier')b='<div class="pb note">The tier decides which limits apply and how the dashboards group substances. Proposed by the portal; to be confirmed by NCB.</div><div class="frame"><table class="t"><thead><tr><th>Substance</th><th>Tier</th></tr></thead><tbody>'+SUBS.map(S=>'<tr><td><b>'+S.sh+'</b><div class="sm">HSN '+S.hsn+'</div></td><td><span class="tseg" role="radiogroup" aria-label="Tier for '+S.sh+'">'+[1,2,3].map(t=>'<label class="t'+t+'"><input type="radio" name="tier-'+S.id+'" data-tier="'+S.id+'" value="'+t+'"'+(tierOf(S.id)===t?' checked':'')+'><span>Tier '+t+'</span></label>').join('')+'</span></td></tr>').join('')+'</tbody></table></div><div class="pb sm">'+[1,2,3].map(t=>'<b>Tier '+t+'</b> '+TIERN[t].split(' · ')[1]).join(' · ')+'</div>';
+  if(ST.cfgTab==='alerts'){const A=CFG.alert,T=CFG.th,on=k=>SW('data-aon="'+k+'"',A[k].on),fld=(lab,k,fd)=>'<label class="adj"><span>'+lab+'</span><span class="uin sm"><input class="cfgin" type="number" min="0" step="1" value="'+A[k][fd]+'" data-asv="'+k+':'+fd+'" aria-label="'+lab+'"></span></label>';
+    const R=[['file','Returns not filed','A zonal unit’s returns filed fall below '+T.file.t[2]+'% and at least '+A.file.minMiss+' companies did not file.','More than '+A.file.gap+' points below the limit, with at least '+A.file.minCo+' companies.',[fld('Companies that must miss','file','minMiss'),fld('High: points below the limit','file','gap'),fld('High: companies in the unit','file','minCo')]],
+      ['anom','Companies far under capacity',T.anom.t[2]+' or more companies in a zonal unit use under '+T.low.t[2]+'% of their capacity.','The count reaches '+(T.anom.t[2]+A.anom.extra)+' or more.',[fld('High: extra companies over the limit','anom','extra')]],
+      ['apps','Applications waiting too long',T.appsn.t[2]+' or more applications in a zonal unit have waited more than '+T.apps.t[2]+' days.','The count reaches '+(T.appsn.t[2]+A.apps.extra)+' or more.',[fld('High: extra applications over the limit','apps','extra')]],
+      ['unm','Dispatches not shown as received','A substance’s unmatched share in a zonal unit passes its Tier limit, and the quantity is above the minimum.','A Tier 1 substance, or '+A.unm.mult+' times the Tier limit.',[fld('High: times the Tier limit','unm','mult')]],
+      ['growth','Tier 1 companies growing too fast','Companies holding a Tier 1 substance grow '+T.growth.t[0]+'% or more in a year.','Always high.',[]],
+      ['big','Biggest holders that did not file','Any of the top 10% holders by capacity did not file the latest return.','Always high.',[]],
+      ['imp','Imports outrunning use','Imports grow faster than use by more than the substance’s Tier limit.','Always medium.',[]]];
+    b='<div class="pb note">Each alert has its own switch. The limits themselves are on the Thresholds tab, and a switched-off alert stops appearing on the dashboard. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Alert</th><th>Raised when</th><th>High priority when</th><th>Adjust</th><th>Active</th></tr></thead><tbody>'+R.map(r=>'<tr><td><b>'+r[1]+'</b></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td class="adjc">'+(r[4].join('')||'<span class="sm">Nothing to adjust</span>')+'</td><td>'+on(r[0])+'</td></tr>').join('')+'</tbody></table></div>'
+      +'<div class="pb cfgrow"><div><div class="fl" style="font-weight:600">Warn HQ when alerts exceed</div><div class="note">Today: '+MATTERS.length+'. A long list usually means the thresholds are too tight.</div></div>'+UIN('data-warn="1" aria-label="Warn HQ when alerts exceed"',CFG.matterWarn,'alerts',0,'min="1"')+'</div>'}
+  if(ST.cfgTab==='score'){const tot=sum(CFG.score.filter(x=>x.on),x=>x.pts);
+    b='<div class="pb note">Each flag adds its points to a company’s risk score, up to the highest score. Switch a flag off to leave it out. The score decides the order of the Top 10 list. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Flag</th><th class="n">Points</th><th>Active</th></tr></thead><tbody>'+CFG.score.map(x=>'<tr><td><b>'+x.h+'</b></td><td class="n">'+UIN('data-sc="'+x.id+':pts" aria-label="Points for '+x.h+'"',x.pts,'',0,'min="0" max="100"')+'</td><td>'+SW('data-sc="'+x.id+':on"',x.on)+'</td></tr>').join('')
+      +'<tr class="cgh"><td colspan="3">Highest score</td></tr><tr><td><b>Highest score possible</b><div class="sm">All active flags together add '+tot+' points. A score is never shown above this.</div></td><td class="n">'+UIN('data-sccap="1" aria-label="Highest score"',CFG.scoreCap,'',0,'min="1" max="1000"')+'</td><td></td></tr></tbody></table></div>'}
+  if(ST.cfgTab==='perf')b='<div class="pb cfgcards"><div class="cc1"><div class="fl" style="font-weight:600">Nightly summary refresh</div><input class="fi" style="max-width:130px" type="time" value="'+CFG.refresh+'" data-cfg="refresh"><div class="note">Dashboards read summary tables, never the live returns. Also refreshed one hour after each return due date.</div></div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Rows per page</div>'+UIN('data-cfg="pageSize" aria-label="Rows per page"',CFG.pageSize,'rows',0,'min="5" max="200"')+'<div class="note">The starting page size for the report and saved-view tables, and for company lists.</div></div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Largest export prepared at once</div>'+UIN('data-cfg="exportCap" aria-label="Largest export"',CFG.exportCap,'rows',0,'min="1000"')+'<div class="note">Bigger exports are built in the background.</div></div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Return due date for '+QLAB(LASTQ)+'</div><input class="fi" style="max-width:160px" value="'+CFG.returnDue+'" readonly><div class="note">Read from the return calendar, not set here.</div></div></div>'
+    +'<div class="sec" style="padding:0 14px">Summary tables behind the dashboards</div>'+table('aggT',[{k:'t',h:'Table'},{k:'g',h:'One row per'},{k:'n',h:'Rows today',n:1,f:x=>fmt(x.n)},{k:'s',h:'Fed by'}],[
+      {t:'Holdings by quarter',g:'Company, substance and quarter',n:QF.length,s:'Registered substances, returns, return lines'},
+      {t:'Zonal units by quarter',g:'Zonal unit, substance and quarter',n:13*8*24,s:'Holdings by quarter'},
+      {t:'Filings by quarter',g:'Company, form and quarter',n:P.length*8,s:'Returns filed, the non-filer list'},
+      {t:'Movements by quarter',g:'Consignment note and quarter',n:NOTES.length*40,s:'Consignment notes, their acknowledgements, return lines'}],{});
   if(ST.cfgTab==='log')b=table('logT',[{k:'on',h:'When'},{k:'who',h:'Who'},{k:'what',h:'What changed'},{k:'b',h:'Before'},{k:'a',h:'After'}],[
     {on:'12 Nov 2026 16:40',who:'Super Admin',what:'Unmatched dispatches, Tier 1',b:'1.0%',a:'0.5%'},{on:'12 Nov 2026 16:38',who:'Super Admin',what:'2-Bromo-4-MPP tier',b:'Tier 2',a:'Tier 1'},{on:'30 Oct 2026 11:05',who:'Super Admin',what:'Rows per page',b:'50',a:'25'}],{});
-  return pageHead('Configuration','Analytics settings for every office. Every change writes an audit_log row with the value before and after.')+
-   `<section class="panel"><div class="tabs" role="tablist">${tabs.map(t=>`<button role="tab" class="${ST.cfgTab===t[0]?'on':''}" data-cfgtab="${t[0]}">${t[1]}</button>`).join('')}</div>${b}</section>`}
+  return pageHead('Configuration','Analytics settings for every office. Every change is recorded with the value before and after.')+
+   `<section class="panel cfgp"><div class="tabs" role="tablist">${tabs.map(t=>`<button role="tab" class="${ST.cfgTab===t[0]?'on':''}" data-cfgtab="${t[0]}">${t[1]}</button>`).join('')}</div>${b}${ST.cfgTab==='log'?'':'<div class="cfgbar" id="cfgbar" hidden><span class="cn" id="cfgn"></span><button type="button" class="btn" data-cfgdiscard="1">Discard</button><button type="button" class="btn pri" data-cfgsave="1">Save changes</button></div>'}</section>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-cfgtab],[data-cfgsave]');if(!b)return;
   if(b.dataset.cfgtab){ST.cfgTab=b.dataset.cfgtab;go()}
   else{document.querySelectorAll('[data-th]').forEach(i=>{const [k,t]=i.dataset.th.split(':');CFG.th[k].t[+t]=+i.value});
-    document.querySelectorAll('[data-tier]').forEach(s=>CFG.tier[s.dataset.tier]=+s.value);
-    document.querySelectorAll('[data-worse]').forEach(i=>CFG.worse[i.dataset.worse]=+i.value);
+    document.querySelectorAll('input[data-tier]:checked').forEach(s=>CFG.tier[s.dataset.tier]=+s.value);document.querySelectorAll('[data-cfg]').forEach(i=>{CFG[i.dataset.cfg]=i.type==='number'?Math.max(0,+i.value||0):i.value});ST.pg.reports.n=ST.pg.saved.n=CFG.pageSize;
+    document.querySelectorAll('[data-aon]').forEach(i=>CFG.alert[i.dataset.aon].on=i.checked?1:0);document.querySelectorAll('[data-asv]').forEach(i=>{const [k,fd]=i.dataset.asv.split(':');CFG.alert[k][fd]=Math.max(0,+i.value||0)});
     document.querySelectorAll('[data-sc]').forEach(i=>{const [id,k]=i.dataset.sc.split(':'),r=CFG.score.find(x=>x.id===id);if(r)r[k]=k==='on'?i.checked:Math.max(0,+i.value||0)});document.querySelectorAll('[data-sccap]').forEach(i=>CFG.scoreCap=Math.max(1,+i.value||100));
-     document.querySelectorAll('[data-warn]').forEach(i=>CFG.matterWarn=+i.value);rebuildMatters();toast('Saved. An audit_log row was written for each change. Dashboards use the new values from the next refresh.')}});
+     document.querySelectorAll('[data-warn]').forEach(i=>CFG.matterWarn=+i.value);rebuildMatters();go();toast('Saved. Each change was recorded. Dashboards use the new values from the next refresh.')}});
+/* the save bar appears once something has changed, and says how many */
+function cfgDirty(){const p=document.querySelector('.cfgp'),bar=document.getElementById('cfgbar');if(!p||!bar)return;const ch=new Set();p.querySelectorAll('input,select').forEach(i=>{if(i.closest('.cfgbar'))return;const d=(i.type==='radio'||i.type==='checkbox')?i.checked!==i.defaultChecked:i.value!==i.defaultValue;if(i.type!=='radio'&&i.type!=='checkbox')i.classList.toggle('chg',d);if(d)ch.add(i.type==='radio'?i.name:i)});bar.hidden=!ch.size;document.getElementById('cfgn').textContent=ch.size+' unsaved change'+(ch.size===1?'':'s')}
+document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.cfgp'))cfgDirty()});document.addEventListener('change',e=>{if(e.target.closest&&e.target.closest('.cfgp'))cfgDirty()});
+document.addEventListener('click',e=>{if(e.target.closest('[data-cfgdiscard]'))go()});
 /* ===================== the detail drawer: click a company, region, zonal unit or substance anywhere to see all of it ===================== */
 const ENT={ready:0},DR={stack:[],from:null};
 function entMaps(){if(ENT.ready)return;ENT.ready=1;ENT.cu=new Map(PALL.map(p=>[p.urn,p]));ENT.cn=new Map();PALL.forEach(p=>ENT.cn.set(p.name,(ENT.cn.get(p.name)||0)+1));ENT.co=new Map(PALL.map(p=>[p.name,p]));ENT.ci=new Map(PALL.map(p=>[p.i,p]));ENT.zn=new Map(ZONES.map(Z=>[Z.z,Z]));
@@ -2882,12 +2965,55 @@ function drLoss(cat,m){const ps=scopePS(),both=CMPOK;m=both&&m==='cmp'?'cmp':'cu
     +(bySub.length?drSec('By substance',drList(bySub.map(x=>'<li><span>'+drLink('sb',x.id,SM[x.id].sh)+'</span><span class="n">'+x.n+' case'+(x.n===1?'':'s')+' · '+fq(x.q)+'</span></li>'))):'')
     +drSec(cs.length?'Cases, largest first':'Cases',cs.length?drList(cs.slice(0,10).map(c=>'<li><span><b>'+esc(c.no)+'</b> · '+QLAB(c.q)+'<br>'+drLink('co',c.p.i,c.p.name)+' <span class="sm">· '+esc(c.S.sh)+'</span></span><span class="n">'+fq(c.qty)+'<br><span class="sm">'+esc(c.status)+'</span></span></li>'))+(cs.length>10?'<div class="drmore"><span class="sm">Top 10 of '+fmt(cs.length)+' shown</span><button type="button" class="entlink" data-drrep="L1">View all in the report ›</button></div>':''):'<div class="sm">No cases in '+perLabel(set)+'.</div>',both?drMode([['cur',perLabel(CUR)],['cmp',perLabel(CMP)]],m):'');
   return {chip:'Loss and damage',title:cat,sub:perLabel(set)+' · '+cs.length+' case'+(cs.length===1?'':'s'),body:body,rep:['L1','Open the loss and damage report']}}
+/* ---- glossary: the words this analytics section uses, in plain English */
+function glossTerms(){const T=CFG.th,tl=t=>SUBS.filter(S=>tierOf(S.id)===t).map(S=>S.sh).join(', ');
+  return [
+   ['Companies and places','Registered company','A company holding a live URN registration, one per premise. Cancelled and surrendered registrations are excluded.'],
+   ['Companies and places','Tier','The classification of a substance by diversion risk. The tier determines the limits applied to it.',[1,2,3].map(t=>['Tier '+t,TIERN[t].split(' · ')[1],tl(t)])],
+   ['Companies and places','Tier 1 company','A company holding at least one Tier 1 substance.'],
+   ['Companies and places','Zonal unit and region','A zonal unit is an NCB office area. The 13 zonal units are grouped into 7 regions.'],
+   ['Returns','Returns filed','The share of quarterly returns filed by the due date. A late filing counts as missed for the deadline.'],
+   ['Returns','Filed late','Filed after the due date. A later return cannot be filed while an earlier one remains open.'],
+   ['Returns','Not filed','A return that remains outstanding after its due date.'],
+   ['Returns','Not registered yet','The quarter precedes the company’s registration, so no return was due.'],
+   ['Capacity and use','Consumption capacity','The annual quantity a company is registered to consume, for each substance.'],
+   ['Capacity and use','Manufacture capacity','The annual quantity a company is registered to manufacture, for each substance.'],
+   ['Capacity and use','Declared use','The quantity consumed, as reported in quarterly returns.'],
+   ['Capacity and use','Capacity in use','Quantity used or made in the period, divided by the capacity for the period. Capacity for the period is annual capacity multiplied by the quarters in the period and divided by 4.'],
+   ['Capacity and use','Far under capacity','Use below '+T.low.t[2]+'% of capacity. This low-use line is set in Configuration.'],
+   ['Capacity and use','Use above capacity','Reported use that exceeds the capacity for the period.'],
+   ['Dispatches and trade','Unmatched dispatch','A reported dispatch with no matching receipt on the buyer’s return, shown as a share of dispatches.'],
+   ['Dispatches and trade','Reconciliation gap','A difference between a company’s dispatch and receipt records.'],
+   ['Dispatches and trade','Importer and exporter firms','Companies that imported or exported the substance in the period.'],
+   ['Dispatches and trade','Net trade','Imports less exports.'],
+   ['Risk','Risk score','The total of points for each flag a company meets, up to '+CFG.scoreCap+'. It ranks the Top 10 list. Points are set in Configuration.'],
+   ['Risk','Top-10% capacity holder','A company in the top tenth by capacity for a substance it holds.'],
+   ['Risk','Why it is flagged','The flags that make up a company’s risk score.'],
+   ['Alerts','Alert','Raised when a figure crosses a limit set in Configuration.'],
+   ['Alerts','Priority','High, Medium or Low, shown by the dot beside each alert.'],
+   ['Alerts','Threshold','A limit, set by tier in Configuration, that triggers an alert.'],
+   ['Periods','Financial year','April to March. FY 2025-26 runs from April 2025 to March 2026.'],
+   ['Periods','Quarter','A calendar quarter: Q1 Jan–Mar, Q2 Apr–Jun, Q3 Jul–Sep, Q4 Oct–Dec.'],
+   ['Periods','Compare with','The earlier period used as the baseline for every figure.'],
+   ['Periods','vs, QoQ and YoY','The change against the baseline: quarter on quarter and year on year.'],
+   ['Loss and damage','Categories','Loss, Damage, Disappearance, Theft, Pilferage, Wastage and Change in nature, as reported in Form N.']]}
+function glossHtml(q){q=(q||'').trim().toLowerCase();const T=glossTerms().filter(t=>!q||(t[1]+' '+t[2]).toLowerCase().includes(q));if(!T.length)return '<div class="sm" style="padding:14px 0">No term matches.</div>';
+  const g=[...new Set(T.map(t=>t[0]))];return g.map(n=>'<section class="drs"><div class="drsh"><h3>'+n+'</h3></div><dl class="gl">'+T.filter(t=>t[0]===n).map(t=>'<dt>'+esc(t[1])+'</dt><dd>'+esc(t[2])+(t[3]?'<ul class="gtl">'+t[3].map(r=>'<li><b>'+esc(r[0])+'</b> <span class="sm">· '+esc(r[1])+'</span><br>'+esc(r[2])+'</li>').join('')+'</ul>':'')+'</dd>').join('')+'</dl></section>').join('')}
+/* the Appendix page: the same terms, as cards in two columns */
+function apxHtml(q){q=(q||'').trim().toLowerCase();const T=glossTerms().filter(t=>!q||(t[1]+' '+t[2]).toLowerCase().includes(q));if(!T.length)return '<div class="pb sm">No entry matches.</div>';
+  return '<div class="apx">'+[...new Set(T.map(t=>t[0]))].map(n=>'<section class="panel apxg"><div class="phd"><h2>'+n+'</h2></div><div class="pb"><dl class="gl">'+T.filter(t=>t[0]===n).map(t=>'<dt>'+esc(t[1])+'</dt><dd>'+esc(t[2])+(t[3]?'<ul class="gtl">'+t[3].map(r=>'<li><b>'+esc(r[0])+'</b> <span class="sm">· '+esc(r[1])+'</span><br>'+esc(r[2])+'</li>').join('')+'</ul>':'')+'</dd>').join('')+'</dl></div></section>').join('')+'</div>'}
+ST.aq='';
+function appendixView(){return pageHead('Appendix','Terms used in the analytics section','<input type="search" class="msearch catsearch" placeholder="Search" value="'+esc(ST.aq)+'" data-aq="1" aria-label="Search the appendix">')+'<div id="apxbody">'+apxHtml(ST.aq)+'</div>'+footer()}
+document.addEventListener('input',e=>{const t=e.target;if(!t.dataset||!t.dataset.aq)return;ST.aq=t.value;const b=document.getElementById('apxbody');if(b)b.innerHTML=apxHtml(ST.aq)});
+function drGloss(){return {chip:'',title:'Appendix',sub:'Terms used in the analytics section',body:'<input type="search" class="msearch glq" id="glq" placeholder="Search" aria-label="Search the appendix"><div id="glist">'+glossHtml('')+'</div>',none:1}}
+document.addEventListener('input',e=>{if(e.target.id!=='glq')return;const l=document.getElementById('glist');if(l)l.innerHTML=glossHtml(e.target.value)});
+document.addEventListener('click',e=>{if(e.target.closest('[data-gloss]'))drOpen('gl','all')});
 /* ---- the shell */
 (function(){const d=document.createElement('div');d.innerHTML='<div class="dr-ov" id="drOv" hidden></div><aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drT" hidden tabindex="-1"><header class="drhd"><button type="button" id="drBack" class="btn drb" aria-label="Back" hidden>‹</button><div class="drtt"><span class="drchip" id="drChip"></span><h2 id="drT"></h2><div class="sm drsub" id="drS"></div></div><button type="button" id="drClose" class="btn drx" aria-label="Close">✕</button></header><div class="drbody" id="drBody"></div><footer class="drf" id="drF"></footer></aside>';document.body.append(...d.children)})();
 function drRender(){const e=DR.stack[DR.stack.length-1];if(!e)return;entMaps();let r;
-  if(e.t==='co')r=drCompany(ENT.ci.get(+e.k));else if(e.t==='zn')r=drZone(e.k,e.m);else if(e.t==='rg')r=drRegion(e.k,e.m);else if(e.t==='lc')r=drLoss(e.k,e.m);else if(e.t==='kp')r=drKpi(e.k);else if(e.t==='tf')r=drTrade(e.k,e.m);else r=drSub(e.k,e.m);
+  if(e.t==='co')r=drCompany(ENT.ci.get(+e.k));else if(e.t==='zn')r=drZone(e.k,e.m);else if(e.t==='rg')r=drRegion(e.k,e.m);else if(e.t==='lc')r=drLoss(e.k,e.m);else if(e.t==='kp')r=drKpi(e.k);else if(e.t==='gl')r=drGloss();else if(e.t==='tf')r=drTrade(e.k,e.m);else r=drSub(e.k,e.m);
   document.getElementById('drChip').textContent=r.chip;document.getElementById('drT').textContent=r.title;document.getElementById('drS').innerHTML=r.sub;document.getElementById('drBody').innerHTML=r.body;document.getElementById('drBody').scrollTop=0;
-  document.getElementById('drF').innerHTML=(r.go?'<button type="button" class="btn pri" data-drgo="'+r.go[0]+'">'+r.go[1]+'</button>':'<button type="button" class="btn pri" data-drrep="'+r.rep[0]+'">'+r.rep[1]+'</button>')+'<button type="button" class="btn" data-drclose="1">Close</button>';document.getElementById('drBack').hidden=DR.stack.length<2}
+  document.getElementById('drF').innerHTML=(r.none?'':r.go?'<button type="button" class="btn pri" data-drgo="'+r.go[0]+'">'+r.go[1]+'</button>':'<button type="button" class="btn pri" data-drrep="'+r.rep[0]+'">'+r.rep[1]+'</button>')+'<button type="button" class="btn" data-drclose="1">Close</button>';document.getElementById('drBack').hidden=DR.stack.length<2}
 function drOpen(t,k){entMaps();clearTimeout(DR.t);const top=DR.stack[DR.stack.length-1];if(top&&top.t===t&&String(top.k)===String(k))return;if(!DR.stack.length)DR.from=document.activeElement;DR.stack.push({t:t,k:k,m:null});drRender();
   const d=document.getElementById('drawer');document.documentElement.classList.add('dr-lock');document.getElementById('drOv').hidden=false;d.hidden=false;requestAnimationFrame(()=>{d.classList.add('open');document.getElementById('drClose').focus()})}
 function drClose(){const d=document.getElementById('drawer');if(d.hidden)return;d.classList.remove('open');document.documentElement.classList.remove('dr-lock');document.getElementById('drOv').hidden=true;clearTimeout(DR.t);DR.t=setTimeout(()=>{d.hidden=true},190);DR.stack=[];if(DR.from&&DR.from.focus&&document.contains(DR.from))DR.from.focus();DR.from=null}
