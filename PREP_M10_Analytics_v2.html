@@ -689,11 +689,12 @@ html{scroll-padding-top:76px}
 .drtt{flex:1;min-width:0}
 .drtt h2{margin:3px 0 4px;font-size:17px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
 .drchip:empty{display:none}
+.drf:empty{display:none}
 .drchip{display:inline-block;padding:1px 9px;border-radius:10px;background:#EAF1FB;color:#1E4A8A;font-size:11px;font-weight:600}
 .drsub{line-height:1.6}
 .drb,.drx{min-height:34px;min-width:34px;padding:0 10px;font-size:15px}
 .drb[hidden],.drawer[hidden],.dr-ov[hidden]{display:none}
-html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
+html.dr-lock{overflow:hidden}
 .dr-ov{overscroll-behavior:contain;touch-action:none}
 .drbody{overscroll-behavior:contain;flex:1;overflow:auto;padding:4px 16px 18px}
 .drf{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--b1)}
@@ -751,7 +752,20 @@ html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
 .wells select{min-height:30px;border-radius:4px;padding:0 6px}
 .exm .mmenu{right:0;left:auto;min-width:120px;padding:6px}
 .exm .mmenu .btn{display:block;width:100%;text-align:left;border:0;min-height:32px}
-.fp{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
+.fp{align-self:stretch!important;position:static;max-height:none}
+.rb{align-items:stretch}
+.rb>.panel{min-height:100%}
+/* on a wide screen the report fills the height of the window and only its table scrolls */
+@media(min-width:1280px){
+ main>.rb{min-height:460px}
+ main>.rb>.panel{display:flex;flex-direction:column;min-height:0;min-width:0}
+ main>.rb>.panel>.frame{flex:1 1 auto;min-height:0;overflow:auto}
+ main>.rb>.panel>.pb:has(.cv){flex:1 1 auto;min-height:0;overflow:auto}
+ main>.rb>.fp{min-height:0;overflow:auto}
+ main>.rb>.fp>h3{position:sticky;top:0;z-index:4}
+ main>.rb .frame thead th{position:sticky;top:0;z-index:3;background:var(--hd)}
+ main>.rb .frame tfoot td{position:sticky;bottom:0;z-index:3;background:var(--hd)}
+}
 .cfgp .t th.n,.cfgp .t td.n,.cfgp .t thead th.n{text-align:center}
 .cfgp .t th:last-child,.cfgp .t td:last-child{text-align:center}
 .cfgp .t td.sm:last-child{text-align:center;color:var(--sub)}
@@ -795,6 +809,17 @@ html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
 .cfgbar{position:sticky;bottom:0;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:10px 16px;background:#fff;border-top:1px solid var(--b1);box-shadow:0 -6px 12px -8px rgba(26,35,50,.25);z-index:5}
 .cfgbar[hidden]{display:none}
 .cfgbar .cn{margin-right:auto;font-weight:600;color:#8A5A00;font-size:13px}
+.fg.acc{padding:0}
+.fg.acc>summary{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;cursor:pointer;list-style:none;user-select:none}
+.fg.acc>summary::-webkit-details-marker{display:none}
+.fg.acc>summary .fl{margin:0;flex:1;font-weight:600}
+.fg.acc>summary .cnt{margin:0}
+.fg.acc>summary:hover{background:#F7FAFE}
+.fg.acc>summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.chev{width:8px;height:8px;border-right:2px solid #8B98A8;border-bottom:2px solid #8B98A8;transform:rotate(45deg);margin:0 4px 3px 0;transition:transform .12s}
+.fg.acc[open]>summary .chev{transform:rotate(-135deg);margin-bottom:-3px}
+.faclist{padding:2px 12px 12px;display:grid;gap:2px}
+.faclist label{display:flex;align-items:center;gap:8px;min-height:30px;font-size:12.5px;cursor:pointer}
 .alertbtn b{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:#EAECF0;color:var(--navy);font-size:12px;text-align:center}
 .alertbtn b.r{background:var(--red);color:#fff}
 .kpi{background:#fff;border:1px solid var(--b1);border-radius:4px;padding:10px 12px;min-width:0;border-top:3px solid var(--b1)}
@@ -1648,7 +1673,7 @@ const ROLE={hq:{av:'HQ',who:'NCB HQ Admin',sub:()=>'National · PAN-India',ent:'
   zone:{av:'ZA',who:'Zonal Admin',sub:()=>ST.z+' Zone',ent:()=>ST.z+' Zone',esub:()=>'Zonal Admin',chip:()=>(ZONES.find(x=>x.z===ST.z)||{}).r||''},
   super:{av:'SA',who:'Super Admin',sub:()=>'Configuration',ent:'Super Admin',esub:()=>'Configuration and catalogue',chip:()=>'All settings'}};
 const val=v=>typeof v==='function'?v():v;
-function nav(){const items=ST.role==='super'?[['cfg','Configuration'],['catalog','Report catalogue'],['appendix','Appendix']]:[['dash','Dashboard'],['reports','Reports'],['saved','Saved views'],['appendix','Appendix']];
+function nav(){const items=ST.role==='super'?[['cfg','Configuration'],['catalog','Report catalogue']]:[['dash','Dashboard'],['reports','Reports'],['saved','Saved views']];
   const R=ROLE[ST.role];
   const svg=(p,w)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
   const disp=i=>`<button type="button" class="nav-item nav-disp" data-disp="${i.l}"><span class="nav-icon">${i.svg}</span><span class="nav-label">${i.l}</span>${i.b?`<span class="nav-badge">${i.b}</span>`:''}<span class="nav-tooltip">${i.l}</span></button>`;
@@ -1689,8 +1714,11 @@ function go(){killCharts();nav();const m=document.getElementById('main');
 let afterFns=[];function later(f){afterFns.push(f)}
 function fitFill(){document.querySelectorAll('.cgrid').forEach(t=>{const fr=t.parentElement,c=t.querySelector('tr.fill td');if(!c)return;c.style.height='0px';c.style.height=Math.max(0,fr.clientHeight-t.offsetHeight-2)+'px'})}
 window.addEventListener('resize',fitFill);
-function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();fitFill()}
-const GLB='';
+/* the report fills what is left of the window below the period bar */
+function fitRB(){const rb=document.querySelector('main>.rb');if(!rb)return;if(innerWidth<1280){rb.style.height='';return}rb.style.height='';const top=rb.getBoundingClientRect().top+scrollY;rb.style.height=Math.max(460,innerHeight-top-16)+'px'}
+window.addEventListener('resize',fitRB);
+function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();fitFill();fitRB()}
+const GLB='<button type="button" class="btn" data-gloss="1">Appendix</button>';
 const pageHead=(t,meta,acts='')=>`<div class="ph1"><div><h1>${t}</h1><div class="meta">${meta}</div></div><div class="acts">${acts}</div></div>`;
 const asof=()=>`Data as on ${fd(TODAY)}, 06:00 IST · refreshed nightly at ${CFG.refresh}`;
 const panel=(title,q,body,acts='',badge='')=>{let ex='';
@@ -2472,7 +2500,7 @@ function appliedText(){if(!RP||ST.view!=='report')return `${roleName()} · ${per
 function appsReport(){const lim=CFG.th.apps.t[2],list=appsIn(scopeZones()).filter(a=>a.age>lim),zs=uniq(list.map(a=>a.z)).length;
   const tbl=table('appsrep',[{k:'ack',h:'Acknowledgement number',f:a=>'<b>'+a.ack+'</b>'},{k:'z',h:'Zonal unit'},{k:'type',h:'Application'},{k:'stage',h:'Now with'},{k:'age',h:'Days waiting',n:1,v:a=>a.age,f:a=>'<b>'+a.age+'</b>'}],list,{sort:'age',dir:-1,export:1,title:'Applications waiting too long'});
   return pageHead('Applications waiting too long','Applications · waiting more than '+lim+' days','<button class="btn" data-nav2="reports">All reports</button>')+
-   '<div class="rb"><section class="panel"><div class="applied">'+list.length+' applications in '+zs+' zonal units have waited more than '+lim+' days. The oldest has waited '+(list.length?Math.max(...list.map(a=>a.age)):0)+' days.</div>'+tbl+'</section></div>'+footer()}
+   '<div class="rb"><section class="panel"><div class="applied">'+list.length+' applications in '+zs+' zonal units have waited more than '+lim+' days. The oldest has waited '+(list.length?Math.max(...list.map(a=>a.age)):0)+' days.</div>'+tbl+'</section></div>'}
 function reportView(){if(RP.id==='APPS')return appsReport();const R=RM[RP.id],fs=factsFor(CUR),tot={};RP.m.forEach(m=>tot[m]=MEAS[m].f(fs));
   const cms=RP.col?[]:cmpSets().map(c=>({lab:c.lab,fs:factsFor(c.set).map(f=>({...f,qv:f.q+c.sh}))}));
   const used=new Set(RP.rows),zs=scopeZones();
@@ -2491,12 +2519,14 @@ function reportView(){if(RP.id==='APPS')return appsReport();const R=RM[RP.id],fs
    ${ST.role==='hq'?fgroup('region','Region',RORD.map(r=>[r,r])):''}${ST.role!=='zone'?fgroup('zone','Zonal unit',zs.map(z=>[z,z])):''}
    ${fgroup('substance','Substance',SUBS.map(s=>[s.id,s.sh]))}${fgroup('tier','Risk tier',[1,2,3].map(t=>[String(t),TIERN[t]]))}
    ${fgroup('status','URN status',['Active','Expired, in grace','Suspended','Cancelled or surrendered'].map(s=>[s,s]))}
-   <div class="fg"><div class="fl">Only companies that</div>${Object.entries(FLAGS).map(([k,v])=>`<label><input type="checkbox" data-flag="${k}" ${RP.flags.includes(k)?'checked':''}> ${v[0]}</label>`).join('')}</div></aside>`;
+   <details class="fg acc" data-facc="flags" ${ST.fopen==='flags'?'open':''}><summary><span class="fl">Only companies that</span>${RP.flags.length?`<span class="cnt">${RP.flags.length}</span>`:''}<i class="chev" aria-hidden="true"></i></summary><div class="faclist">${Object.entries(FLAGS).map(([k,v])=>`<label><input type="checkbox" data-flag="${k}" ${RP.flags.includes(k)?'checked':''}> ${v[0]}</label>`).join('')}</div></details></aside>`;
   later(()=>{if(RP.view==='chart')pivotChart(fs)});
   return pageHead(R.title,`${R.sec}${R.av==='y'?'':` · <span class="av ${AV[R.av][0]}">${AV[R.av][1]}</span>`}`,
-    GLB+`<button class="btn" data-nav2="reports">All reports</button><button class="btn" data-save="1">Save view</button><details class="msub cardsel exm"><summary class="btn">Export ▾</summary><div class="mmenu"><button type="button" class="btn link" data-pexport="1">CSV</button><button type="button" class="btn link" data-pexcel="1">Excel</button><button type="button" class="btn link" data-pexcel="1">PDF</button></div></details>`)+periodBar()+
-   `<div class="rb"><section class="panel">${wells}${opts}<div class="applied">${appliedText()}</div>${RP.view==='table'?tbl:`<div class="pb"><div class="cv" style="height:${RP.col?320:Math.max(260,group(fs,RP.rows[0]).slice(0,25).length*28+60)}px"><canvas id="cPivot"></canvas></div></div>`}${unitNote}</section>${fp}</div>`+footer()}
-function fgroup(k,h,items){return `<div class="fg"><div class="fl">${h}</div><div class="scroll">${items.map(([v,l])=>`<label><input type="checkbox" data-f="${k}" value="${esc(v)}" ${RP.f[k].includes(v)?'checked':''}> ${l}</label>`).join('')}</div></div>`}
+    `<button class="btn" data-nav2="reports">All reports</button><button class="btn" data-save="1">Save view</button><details class="msub cardsel exm"><summary class="btn">Export ▾</summary><div class="mmenu"><button type="button" class="btn link" data-pexport="1">CSV</button><button type="button" class="btn link" data-pexcel="1">Excel</button><button type="button" class="btn link" data-pexcel="1">PDF</button></div></details>`)+periodBar()+
+   `<div class="rb"><section class="panel">${wells}${opts}<div class="applied">${appliedText()}</div>${RP.view==='table'?tbl:`<div class="pb"><div class="cv" style="height:${RP.col?320:Math.max(260,group(fs,RP.rows[0]).slice(0,25).length*28+60)}px"><canvas id="cPivot"></canvas></div></div>`}${unitNote}</section>${fp}</div>`}
+ST.fopen=null;
+function fgroup(k,h,items){const n=RP.f[k].length;return `<details class="fg acc" data-facc="${k}" ${ST.fopen===k?'open':''}><summary><span class="fl">${h}</span>${n?`<span class="cnt">${n}</span>`:''}<i class="chev" aria-hidden="true"></i></summary><div class="faclist">${items.map(([v,l])=>`<label><input type="checkbox" data-f="${k}" value="${esc(v)}" ${RP.f[k].includes(v)?'checked':''}> ${l}</label>`).join('')}</div></details>`}
+document.addEventListener('toggle',e=>{const d=e.target;if(!d.matches||!d.matches('details[data-facc]'))return;const k=d.dataset.facc;if(d.open){ST.fopen=k;document.querySelectorAll('details[data-facc]').forEach(x=>{if(x!==d&&x.open)x.open=false})}else if(ST.fopen===k)ST.fopen=null},true);
 function pivotChart(fs,el0,cap0){const el=el0||document.getElementById('cPivot'),cap=cap0||25;if(!el||!window.Chart)return;const dim=RP.rows[0],D=DIMS[dim],lab=k=>D.t?D.t(k):String(k);
   if(RP.col){const C=colSpec(),M=MEAS[RP.m[0]],f2=factsFor(CUR),gs=group(f2,dim).slice(0,8),pal=['#1E4A8A','#2E6EBF','#7FA7DA','#5F6B7A','#C2611C','#1E7B4B','#8B98A8','#C0392B'];
     mkChart(el,{type:'line',data:{labels:C.cols.map(c=>C.isQ?QLAB(c):FYLAB(c)),datasets:gs.map((g,i)=>({label:lab(g.k),data:C.cols.map(c=>{const x=g.fs.filter(f=>C.ck(f)===c);return x.length&&(!M.unit||single(x)||g.fs.combo)?M.f(x):null}),borderColor:pal[i],backgroundColor:pal[i],borderWidth:2,pointRadius:3,tension:0}))},
@@ -2821,7 +2851,7 @@ function catalog(){const secs=uniq(REPORTS.map(r=>r[0])),isSuper=ST.role==='supe
   return pageHead(isSuper?'Report catalogue':'Reports',isSuper?'Which reports exist, where their data comes from, and who may open them.':REPORTS.length+' reports. Each opens with your jurisdiction applied.',
     '<input type="search" class="msearch catsearch" placeholder="Search reports" value="'+esc(ST.rq)+'" data-rq="1" aria-label="Search reports">'+viewSwitch('reports')+(isSuper?'':'<button class="btn pri" data-open="X3">Build your own</button>'))+
    '<div class="stabs cattabs" role="tablist" aria-label="Report group">'+[['','All',REPORTS.length],...secs.map(x=>[x,x,REPORTS.filter(r=>r[0]===x).length])].map(([k,l,n])=>'<button type="button" role="tab" class="'+(ST.rg===k?'on':'')+'" data-rg="'+esc(k)+'" aria-selected="'+(ST.rg===k)+'">'+l+'</button>').join('')+'</div>'+
-   '<div id="catgrid">'+catGrid()+'</div>'+footer()}
+   '<div id="catgrid">'+catGrid()+'</div>'}
 /* in the All view, the tab of the section on screen lights up as you scroll */
 function catSpy(){const bar=document.querySelector('.cattabs');if(!bar||ST.rg||ST.cview.reports!=='cards')return;const lim=bar.getBoundingClientRect().bottom+24;let cur='';document.querySelectorAll('#catgrid .sec').forEach(e=>{if(e.getBoundingClientRect().top<=lim)cur=e.firstChild.textContent.trim()});bar.querySelectorAll('button').forEach(b=>{const on=b.dataset.rg===cur;if(b.classList.contains('on')!==on){b.classList.toggle('on',on);b.setAttribute('aria-selected',on);if(on&&bar.scrollWidth>bar.clientWidth)bar.scrollLeft=Math.max(0,b.offsetLeft-24)}})}
 window.addEventListener('scroll',catSpy,{passive:true});
@@ -2831,7 +2861,7 @@ ST.sq='';
 function savedGrid(){const q=ST.sq.trim().toLowerCase(),rows=SAVED.map((v,i)=>({v,i})).filter(({v})=>!q||(v.n+' '+(RM[v.rep]?RM[v.rep].title:'')).toLowerCase().includes(q));
   if(ST.cview.saved==='table'&&rows.length){const P1=ST.pg.saved,pp=Math.min(P1.p,Math.max(1,Math.ceil(rows.length/P1.n))),pr=rows.slice((pp-1)*P1.n,pp*P1.n);return '<div class="frame cgf"><div class="cgs"><table class="t cgrid"><thead><tr><th>Name</th><th>Report</th><th>Shows</th><th>Saved on</th><th></th></tr></thead><tbody>'+pr.map(({v,i})=>'<tr><td><b>'+esc(v.n)+'</b></td><td>'+esc(RM[v.rep]?RM[v.rep].title:v.rep)+'</td><td class="sm">'+(RM[v.rep]?catDesc([0,0,0,0,0,RM[v.rep].def]).replace('<br>',' · '):'')+'</td><td>'+esc(v.on)+'</td><td class="n"><button class="btn" data-oview="'+i+'">Open</button></td></tr>').join('')+'<tr class="fill"><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>'+pageBar('saved',rows.length)+'</div>'}
   return rows.length?'<div class="cat">'+rows.map(({v,i})=>'<button class="ci" data-oview="'+i+'"><b>'+esc(v.n)+'</b><span class="cd">'+esc(RM[v.rep]?RM[v.rep].title:v.rep)+'<br>Saved on '+esc(v.on)+'</span><span class="cf"><span class="go">Open ›</span></span></button>').join('')+'</div>':'<div class="pb sm">'+(SAVED.length?'No saved view matches.':'Nothing saved yet. Open a report, set it up, and choose Save view.')+'</div>'}
-function savedView(){return pageHead('Saved views','Your own report layouts, kept with their rows, values and filters.','<input type="search" class="msearch catsearch" placeholder="Search saved views" value="'+esc(ST.sq)+'" data-sq="1" aria-label="Search saved views">'+viewSwitch('saved'))+'<div id="savedgrid">'+savedGrid()+'</div>'+footer()}
+function savedView(){return pageHead('Saved views','Your own report layouts, kept with their rows, values and filters.','<input type="search" class="msearch catsearch" placeholder="Search saved views" value="'+esc(ST.sq)+'" data-sq="1" aria-label="Search saved views">'+viewSwitch('saved'))+'<div id="savedgrid">'+savedGrid()+'</div>'}
 document.addEventListener('input',e=>{const t=e.target;if(!t.dataset||!t.dataset.sq)return;ST.sq=t.value;ST.pg.saved.p=1;const g=document.getElementById('savedgrid');if(g){g.innerHTML=savedGrid();fitFill()}});
 
 /* ===================== Super Admin configuration ===================== */
@@ -3013,10 +3043,10 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-gloss]'))drOpen
 function drRender(){const e=DR.stack[DR.stack.length-1];if(!e)return;entMaps();let r;
   if(e.t==='co')r=drCompany(ENT.ci.get(+e.k));else if(e.t==='zn')r=drZone(e.k,e.m);else if(e.t==='rg')r=drRegion(e.k,e.m);else if(e.t==='lc')r=drLoss(e.k,e.m);else if(e.t==='kp')r=drKpi(e.k);else if(e.t==='gl')r=drGloss();else if(e.t==='tf')r=drTrade(e.k,e.m);else r=drSub(e.k,e.m);
   document.getElementById('drChip').textContent=r.chip;document.getElementById('drT').textContent=r.title;document.getElementById('drS').innerHTML=r.sub;document.getElementById('drBody').innerHTML=r.body;document.getElementById('drBody').scrollTop=0;
-  document.getElementById('drF').innerHTML=(r.none?'':r.go?'<button type="button" class="btn pri" data-drgo="'+r.go[0]+'">'+r.go[1]+'</button>':'<button type="button" class="btn pri" data-drrep="'+r.rep[0]+'">'+r.rep[1]+'</button>')+'<button type="button" class="btn" data-drclose="1">Close</button>';document.getElementById('drBack').hidden=DR.stack.length<2}
+  document.getElementById('drF').innerHTML=(r.none?'':r.go?'<button type="button" class="btn pri" data-drgo="'+r.go[0]+'">'+r.go[1]+'</button>':'<button type="button" class="btn pri" data-drrep="'+r.rep[0]+'">'+r.rep[1]+'</button>')+'';document.getElementById('drBack').hidden=DR.stack.length<2}
 function drOpen(t,k){entMaps();clearTimeout(DR.t);const top=DR.stack[DR.stack.length-1];if(top&&top.t===t&&String(top.k)===String(k))return;if(!DR.stack.length)DR.from=document.activeElement;DR.stack.push({t:t,k:k,m:null});drRender();
-  const d=document.getElementById('drawer');document.documentElement.classList.add('dr-lock');document.getElementById('drOv').hidden=false;d.hidden=false;requestAnimationFrame(()=>{d.classList.add('open');document.getElementById('drClose').focus()})}
-function drClose(){const d=document.getElementById('drawer');if(d.hidden)return;d.classList.remove('open');document.documentElement.classList.remove('dr-lock');document.getElementById('drOv').hidden=true;clearTimeout(DR.t);DR.t=setTimeout(()=>{d.hidden=true},190);DR.stack=[];if(DR.from&&DR.from.focus&&document.contains(DR.from))DR.from.focus();DR.from=null}
+  const d=document.getElementById('drawer');if(!document.documentElement.classList.contains('dr-lock')){const sbw=innerWidth-document.documentElement.clientWidth;document.documentElement.style.paddingRight=sbw>0?sbw+'px':'';document.documentElement.classList.add('dr-lock')}document.getElementById('drOv').hidden=false;d.hidden=false;requestAnimationFrame(()=>{d.classList.add('open');document.getElementById('drClose').focus()})}
+function drClose(){const d=document.getElementById('drawer');if(d.hidden)return;d.classList.remove('open');document.documentElement.classList.remove('dr-lock');document.documentElement.style.paddingRight='';document.getElementById('drOv').hidden=true;clearTimeout(DR.t);DR.t=setTimeout(()=>{d.hidden=true},190);DR.stack=[];if(DR.from&&DR.from.focus&&document.contains(DR.from))DR.from.focus();DR.from=null}
 document.addEventListener('click',e=>{const t=e.target;
   const en=t.closest('.ent');if(en&&!t.closest('.drawer')){e.preventDefault();const [k,v]=en.dataset.ent.split(/:(.+)/);return drOpen(k,v)}
   const dl=t.closest('[data-dr]');if(dl){const [k,v]=dl.dataset.dr.split(/:(.+)/);return drOpen(k,v)}
