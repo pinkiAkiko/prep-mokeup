@@ -679,6 +679,54 @@ html{scroll-padding-top:76px}
 #sc-C3 .t thead th{white-space:normal;line-height:1.25;vertical-align:bottom}
 #sc-C3 .t th,#sc-C3 .t td{padding-left:8px;padding-right:10px}
 #sc-C3 .t td:first-child,#sc-C3 .t th:first-child{min-width:230px}
+.ent{cursor:pointer}
+.ent:hover{color:var(--blue);text-decoration:underline}
+.ent:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.dr-ov{position:fixed;inset:0;background:rgba(26,35,50,.35);z-index:1000}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(500px,100vw);background:#fff;z-index:1001;box-shadow:-10px 0 28px rgba(26,35,50,.22);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .18s ease;outline:0}
+.drawer.open{transform:none}
+.drhd{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-bottom:1px solid var(--b1)}
+.drtt{flex:1;min-width:0}
+.drtt h2{margin:3px 0 4px;font-size:17px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.drchip:empty{display:none}
+.drchip{display:inline-block;padding:1px 9px;border-radius:10px;background:#EAF1FB;color:#1E4A8A;font-size:11px;font-weight:600}
+.drsub{line-height:1.6}
+.drb,.drx{min-height:34px;min-width:34px;padding:0 10px;font-size:15px}
+.drb[hidden],.drawer[hidden],.dr-ov[hidden]{display:none}
+html.dr-lock{overflow:hidden;scrollbar-gutter:stable}
+.dr-ov{overscroll-behavior:contain;touch-action:none}
+.drbody{overscroll-behavior:contain;flex:1;overflow:auto;padding:4px 16px 18px}
+.drf{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--b1)}
+.drsh{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.drsh h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub)}
+.drg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.drt{border:1px solid var(--b1);border-radius:4px;padding:8px 10px;min-width:0}
+.drt .l{font-size:11.5px;color:var(--sub)}
+.drt .v{font-size:19px;font-weight:600;margin-top:2px;overflow-wrap:anywhere}
+.drt .s{font-size:11.5px;color:var(--sub)}
+.drtags{display:flex;flex-wrap:wrap;gap:6px}
+.drqs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.drq{border:1px solid var(--b1);border-radius:4px;padding:6px 4px;text-align:center;font-size:12px}
+.drq b{display:block;font-weight:600}
+.drq.lt{background:#FFF6E3;color:#8A5A00}.drq.ok{background:#EEF7F1;color:#1E7B4B}.drq.no{background:#FBEDEB;color:#A8281D}.drq.na{color:var(--sub)}
+.drhold{border:1px solid var(--b1);border-radius:4px;padding:8px 10px;margin-bottom:8px}
+.drh1{display:flex;align-items:center;gap:6px;font-weight:600}
+.drh2{display:grid;grid-template-columns:90px auto 1fr;gap:2px 10px;font-size:12.5px;margin-top:4px;align-items:baseline}
+.drh2>span:first-child{color:var(--sub)}
+.drh2>span:last-child{color:var(--sub);text-align:right}
+.drmore{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:8px;border-top:1px solid var(--b2);font-size:12.5px}
+.entlink{background:none;border:0;padding:0;color:var(--blue);cursor:pointer;font:inherit;text-align:left}
+.entlink:hover{text-decoration:underline}
+.drlist{list-style:none;margin:0;padding:0}
+.drlist li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--b2);font-size:12.5px;line-height:1.45}
+.drlist .n{text-align:right;white-space:nowrap}
+@media(max-width:560px){.drg{grid-template-columns:1fr 1fr}.drh2{grid-template-columns:1fr}.drh2>span:last-child{text-align:left}}
+.kpi[data-kgo]{position:relative;cursor:pointer;transition:box-shadow .12s,border-color .12s}
+.kpi[data-kgo]::after{content:"See breakdown ›";position:absolute;right:8px;bottom:8px;padding:3px 10px;border-radius:10px;background:var(--navy);color:#fff;font-size:11.5px;font-weight:600;opacity:0;transform:translateY(3px);transition:opacity .12s,transform .12s;pointer-events:none}
+.kpi[data-kgo]:hover::after,.kpi[data-kgo]:focus-visible::after{opacity:1;transform:none}
+.kpi[data-kgo]:hover,.kpi[data-kgo]:focus-visible{box-shadow:0 2px 10px rgba(30,74,138,.16);outline:0}
+@keyframes flashbox{0%,60%{box-shadow:0 0 0 3px rgba(46,110,191,.55)}100%{box-shadow:0 0 0 0 rgba(46,110,191,0)}}
+.flash{animation:flashbox 1.6s ease-out}
 .alertbtn b{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:#EAECF0;color:var(--navy);font-size:12px;text-align:center}
 .alertbtn b.r{background:var(--red);color:#fff}
 .kpi{background:#fff;border:1px solid var(--b1);border-radius:4px;padding:10px 12px;min-width:0;border-top:3px solid var(--b1)}
@@ -1008,6 +1056,12 @@ textarea.fi{min-height:56px;padding:6px 8px}
 #map path.dim{opacity:.6}
 .mapctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .mapctl{max-width:100%;min-width:0}.mapctl>*{max-width:100%;min-width:0}
+.orb .oi{display:none}
+.mapctl.cmp{flex-wrap:nowrap;gap:6px}
+.mapctl.cmp>*{flex:0 0 auto}
+.scards>div:not(.wide) .mapctl.cmp .orb .ot{display:none}
+.scards>div:not(.wide) .mapctl.cmp .orb{padding:0 9px}
+.scards>div:not(.wide) .mapctl.cmp .orb .oi{display:block}
 .phd{min-width:0;padding:8px 14px;row-gap:8px}.phd>*{min-width:0}
 .pl{padding:14px 16px}
 .pl-f.c2{background:#F2C9A0}
@@ -1289,6 +1343,7 @@ PALL.forEach(p=>{
   p.regQ=p.reg<2023?-99:p.reg===2026?11+Math.floor(R3()*3):Math.max(0,qIndex(p.reg,1+Math.floor(R3()*4)));
   const b=ZB[p.z];
   p.fq=[...Array(NQ)].map((_,q)=>q<p.regQ?null:R3()<Math.max(.3,(q>=10?b.f:q>=6?b.fp:b.fp-.02)-(p.chronic?.4:0)));
+  p.late=Array(NQ).fill(false);{let later=false;for(let q=NQ-1;q>=0;q--){if(p.fq[q]===true)later=true;else if(p.fq[q]===false&&later)p.late[q]=true}}
   p.lowM=R4()<.014*b.an;
   p.hs.forEach(h=>{const gr=Math.min(1.12,Math.max(.9,h.useP?Math.pow(h.use/h.useP,.25):1.02));
     const mk=(tot,noise)=>[...Array(NQ)].map((_,q)=>q<p.regQ||!tot?0:tot/4*Math.pow(gr,q-11.5)*SEAS[qNum(q)-1]*Math.max(.3,1+noise*g3()));
@@ -1303,7 +1358,7 @@ PALL.forEach(p=>{
 CAN.forEach(c=>{c.q=c.y<2023?-99:Math.min(LASTQ,Math.max(0,qIndex(c.y,1+Math.floor(R3()*4))));if(c.y===2026)c.q=Math.max(10,c.q)});
 
 /* ===================== the period: one control for every dashboard and report ===================== */
-const PER={view:'q',q:LASTQ,fy:fyStart(LASTQ),from:LASTQ-7,to:LASTQ,cmp:'yoy'};
+const PER={view:'fy',q:LASTQ,fy:fyStart(LASTQ)-1,from:LASTQ-7,to:LASTQ,cmp:'yoy'};
 let CUR=[],CMP=[],SHIFT=4,CMPOK=true;
 function periodSets(){let c;
   if(PER.view==='q')c=[PER.q];
@@ -1406,7 +1461,7 @@ function zoneStatus(s){const why=[];let c='g';
   const late=appsIn([s.z]).filter(a=>a.age>CFG.th.apps.t[2]).length;if(late>=3){if(c==='g')c='a';why.push(['a',`${late} applications over ${CFG.th.apps.t[2]} days`])}
   return {c,why}}
 /* the risk score: each flag has points and can be switched off. Super Admin sets both in Configuration. */
-const SCORE_DEF=[['tier1','Holds a Tier 1 substance',18,1],['route','Holds a substance route',10,1],['missLast','Missed the latest return',18,1],['miss2','Missed 2 or more of the last 4 returns',14,1],['low','Use under 12% of capacity',20,1],['high','Use above capacity',16,1],['unm','Unmatched dispatch',18,1],['big','Top-10% capacity holder',10,1],['recon','Reconciliation gap',8,1]];
+const SCORE_DEF=[['tier1','Holds a Tier 1 substance',18,1],['missLast','Missed the latest return',18,1],['miss2','Missed 2 or more of the last 4 returns',14,1],['low','Use under 12% of capacity',20,1],['high','Use above capacity',16,1],['unm','Unmatched dispatch',18,1],['big','Top-10% capacity holder',10,1],['recon','Reconciliation gap',8,1]];
 CFG.score=SCORE_DEF.map(([id,h,pts,on])=>({id,h,pts,on:!!on}));CFG.scoreCap=100;
 const scoreHelp=()=>'Risk score out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. It only orders the list. The Why column shows the flags. The filter button ranks the top 10 on another basis. Super Admin sets the points in Configuration.';
 function recompute(){
@@ -1420,7 +1475,6 @@ function recompute(){
   Object.values(RS).forEach(s=>{const zs=ZONES.filter(Z=>Z.r===s.r).map(Z=>ZS[Z.z]);s.c=zs.some(z=>z.c==='r')?'r':zs.some(z=>z.c==='a')?'a':'g';s.why=zs.filter(z=>z.c!=='g').map(z=>[z.c,`${z.z}: ${z.why[0]?z.why[0][1]:''}`])});
   P.forEach(p=>{const f=[];let sc=0;const add=(id,col,txt)=>{const r=CFG.score.find(x=>x.id===id);if(!r||!r.on)return;sc+=r.pts;f.push([col,txt,id])};
     if(p.subs.some(id=>tierOf(id)===1))add('tier1','','Tier 1 substance');
-    if(ROUTES.some(r=>r.ids.every(id=>p.subs.includes(id))))add('route','','Holds a route');
     if(p.fLast===false)add('missLast','r',`Missed ${QE()}`);
     const miss=p.f4.filter(x=>x===false).length;if(miss>=2)add('miss2','r',`Missed ${miss} of 4`);
     if(p.low||p.lowM)add('low','a','Use under 12% of capacity');if(p.high)add('high','a','Use above capacity');
@@ -1548,7 +1602,11 @@ document.getElementById('hNotif').onclick=()=>toast('Notifications are not part 
 document.getElementById('hHelp').onclick=()=>toast('Help is not part of this board.');
 document.getElementById('side').addEventListener('click',e=>{const b=e.target.closest('[data-nav]');if(b){ST.view=b.dataset.nav;ST.rep=null;go()}});
 let charts=[];function killCharts(){charts.forEach(c=>c.destroy());charts=[]}
-function mkChart(el,cfg){const old=Chart.getChart(el);if(old)old.destroy();const c=new Chart(el,cfg);charts.push(c);return c}
+function mkChart(el,cfg){const old=Chart.getChart(el);if(old)old.destroy();cfg.options=cfg.options||{};const ents=cfg.ents;delete cfg.ents;
+  if(!cfg.options.onClick){const ent=(ch,i)=>ents&&ents[i]?ents[i]:chartEnt((()=>{const l=ch.data.labels&&ch.data.labels[i];return Array.isArray(l)?l.join(' '):l})()),lab=(ch,i)=>{const l=ch.data.labels&&ch.data.labels[i];return Array.isArray(l)?l.join(' '):l},oh=cfg.options.onHover;
+    cfg.options.onClick=(ev,els,ch)=>{if(!els.length)return;const x=ent(ch,els[0].index);if(x)drOpen(x[0],x[1])};
+    cfg.options.onHover=(ev,els,ch)=>{const c=ev.native&&ev.native.target;if(c)c.style.cursor=els.length&&ent(ch,els[0].index)?'pointer':'default';if(oh)oh(ev,els,ch)}}
+  const c=new Chart(el,cfg);charts.push(c);return c}
 function go(){killCharts();nav();const m=document.getElementById('main');
   if(ST.view==='dash')m.innerHTML=withTabs(ST.role==='hq'?dashHQ():ST.role==='region'?dashRegion():dashZone());
   else if(ST.view==='reports'||ST.view==='catalog')m.innerHTML=catalog();
@@ -1565,8 +1623,9 @@ const asof=()=>`Data as on ${fd(TODAY)}, 06:00 IST · refreshed nightly at ${CFG
 const panel=(title,q,body,acts='',badge='')=>{let ex='';
   body=body.replace(/<div class="tw-bar"><span><\/span><span class="acts"><span class="sm">[^<]*<\/span>(<button class="btn" data-export="([^"]+)">Export CSV<\/button>)<\/span><\/div>/,(m,btn,id)=>{ex=btn;if(TB[id])TB[id].o.hoist=true;return ''});
   return `<section class="panel"><div class="phd"><div class="pt"><h2>${title}</h2>${q?`<span class="info" tabindex="0" role="note" aria-label="${esc(q)}" data-tip="${esc(q)}">i</span>`:''}${badge}</div>${ex?`<span class="pa">${ex}${acts}</span>`:acts}</div>${body}</section>`};
-const kpi=(l,v,d,c='',u='',sr='')=>{if(!CMPOK)d='';return `<div class="kpi ${c}"><div class="kl">${l}</div><div class="kv">${v}${u?`<small>${u}</small>`:''}</div><div class="kd">${d}</div>${sr}</div>`};
-const openRep=id=>`<button class="btn" data-open="${id}">Open report</button>`;
+const KGO={'Registered companies':['reg','See the breakdown','reg:R1','Open registered companies by substance'],'Tier 1 companies':['t1','See the breakdown','sc:tier1','Show Tier 1 in the substance chart'],'Returns filed':['ret','See the breakdown','cmp:K1','Open returns not filed, by zone'],'Unmatched dispatches':['unm','See the breakdown','alerts:unm','Open the alert'],'Manufacture capacity in use':['mfr','See the breakdown','cap:C4','Open capacity in use, by substance'],'Consumption capacity in use':['con','See the breakdown','cap:C4','Open capacity in use, by substance']};
+const kpi=(l,v,d,c='',u='',sr='')=>{if(!CMPOK)d='';const go=KGO[l];return `<div class="kpi ${c}"${go?` data-kgo="${go[0]}" tabindex="0" role="button" aria-label="${l}: see the breakdown"`:''}><div class="kl">${l}</div><div class="kv">${v}${u?`<small>${u}</small>`:''}</div><div class="kd">${d}</div>${sr}</div>`};
+const openRep=id=>`<button class="btn orb" data-open="${id}" aria-label="Open report" title="Open report"><span class="ot">Open report</span><svg class="oi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg></button>`;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open]');if(b){openReport(b.dataset.open)}});
 
 /* ===================== period bar, trend strips, quarter-by-quarter table ===================== */
@@ -1597,17 +1656,17 @@ const qqSubLbl=()=>{const n=ST.qq.sub.size;return (!n?'All substances':n===1?SM[
 const qqSel=(k,lab,opts)=>'<label class="rcf"><span class="sm">'+lab+'</span><select class="mfs" data-qqf="'+k+'" aria-label="'+lab+'">'+opts.map(([v,l])=>'<option value="'+v+'"'+(String(ST.qq[k])===String(v)?' selected':'')+'>'+l+'</option>').join('')+'</select></label>';
 const qqBar=(first='')=>{const F=ST.qq,hq=ST.role==='hq';return '<div class="rcbar">'+first+(hq?qqSel('reg','Region',[['','All regions'],...REGIONS.map(r=>[r[0],r[0].replace(' Region','')])])+qqSel('zone','Zonal unit',[['','All zonal units'],...ZONES.filter(Z=>!F.reg||Z.r===F.reg).map(Z=>[Z.z,Z.z])]):'')+'<label class="rcf"><span class="sm">Substance</span>'+precMenu('msub-QQ',qqSubLbl(),{ownHint:'Measure only the companies that hold any of the ticked substances. Leave all empty for every substance.',own:{attr:'data-qqsub',val:i=>i,set:F.sub,clear:'data-qqsubclear="1"'},cmbHint:'Tick two or more to measure companies that hold those substances as a combination. This replaces the list on the left.',cmb:{attr:'data-qqcombo',val:i=>i,set:F.combo,modeAttr:'data-qqmode',modeVal:v=>v,mode:F.mode,clear:'data-qqcomboclear="1"'}})+'</label>'+(qqFiltered()?'<button type="button" class="btn link" data-qqreset="1">Clear filters</button>':'')+'</div>'};
 function qqBody(){const {Q,rows,val,d}=QQS;
-  if(ST.qq.view==='table')return qqBar()+'<div class="frame"><table class="t qq"><thead><tr><th></th>'+Q.map(q=>'<th class="n '+(CUR.includes(q)?'cur':'')+'">'+(q<0?'–':QLAB(q))+'</th>').join('')+'<th class="n">QoQ</th><th class="n">YoY</th></tr></thead><tbody>'+[rows[0],...rows.filter(x=>x[5]),...rows.slice(1).filter(x=>!x[5])].map(r=>{const v=Q.map((_,i)=>val(r,i));return '<tr><td>'+(r[5]?'<span class="sm" style="padding-left:14px">of which '+r[0].toLowerCase()+'</span>':'<b>'+r[0]+'</b>')+'</td>'+v.map((x,i)=>'<td class="n '+(CUR.includes(Q[i])?'cur':'')+'">'+(x==null?'–':r[2](x))+'</td>').join('')+'<td class="n">'+d(v[7],v[6],r)+'</td><td class="n">'+d(v[7],v[3],r)+'</td></tr>'}).join('')+'</tbody></table></div>';
+  if(ST.qq.view==='table')return qqBar()+'<div class="frame"><table class="t qq"><thead><tr><th></th>'+Q.filter(q=>q>=0).map(q=>'<th class="n '+(CUR.includes(q)?'cur':'')+'">'+QLAB(q)+'</th>').join('')+'<th class="n">QoQ</th><th class="n">YoY</th></tr></thead><tbody>'+[rows[0],...rows.filter(x=>x[5]),...rows.slice(1).filter(x=>!x[5])].map(r=>{const v=Q.map((_,i)=>val(r,i));return '<tr><td>'+(r[5]?'<span class="sm" style="padding-left:14px">of which '+r[0].toLowerCase()+'</span>':'<b>'+r[0]+'</b>')+'</td>'+v.map((x,i)=>Q[i]<0?'':'<td class="n '+(CUR.includes(Q[i])?'cur':'')+'">'+(x==null?'–':r[2](x))+'</td>').join('')+'<td class="n">'+d(v[7],v[6],r)+'</td><td class="n">'+d(v[7],v[3],r)+'</td></tr>'}).join('')+'</tbody></table></div>';
   const r=rows[ST.qq.m],v=Q.map((_,i)=>val(r,i));
   return qqBar('<label class="rcf"><span class="sm">Measure</span><select class="mfs" data-qqm="1" aria-label="Measure">'+rows.map((x,i)=>x[5]?'':'<option value="'+i+'"'+(ST.qq.m===i?' selected':'')+'>'+x[0]+'</option>').join('')+'</select></label>')+'<div class="pb pbc"><div class="cv" style="min-height:300px"><canvas id="cv-qq" role="img" aria-label="'+r[0]+' by quarter"></canvas></div></div>'}
-function qqDraw(){const el=document.getElementById('cv-qq');if(!el||!window.Chart||!QQS)return;const {Q,rows,val}=QQS,r=rows[ST.qq.m],v=Q.map((_,i)=>val(r,i)),labels=Q.map(q=>q<0?'–':QLAB(q));
-  const bars={type:'bar',label:r[0],data:v,backgroundColor:Q.map(q=>CUR.includes(q)?'#6F9BDD':'#C9DAF3'),borderRadius:{topLeft:6,topRight:6},borderSkipped:'bottom',barPercentage:.9,categoryPercentage:.3,order:5};
-  const legend={display:true,position:'top',align:'end',labels:{boxWidth:12,boxHeight:12}};
+function qqDraw(){const el=document.getElementById('cv-qq');if(!el||!window.Chart||!QQS)return;const {Q,rows,val}=QQS,keep=Q.map((q,i)=>q>=0?i:-1).filter(i=>i>=0),Qk=keep.map(i=>Q[i]),r=rows[ST.qq.m],v=keep.map(i=>val(r,i)),labels=Qk.map(q=>QLAB(q));
+  const bars={type:'bar',label:r[0],data:v,backgroundColor:Qk.map(q=>CUR.includes(q)?'#6F9BDD':'#C9DAF3'),borderRadius:{topLeft:6,topRight:6},borderSkipped:'bottom',barPercentage:.9,categoryPercentage:.3,order:5};
+  const legend={display:true,position:'bottom',align:'center',labels:{boxWidth:12,boxHeight:12,padding:14}};
   if(ST.qq.m===0){
     /* registrants: a bar for all, and a line for each tier */
-    const T=[['Tier 1 companies','t1','#C0392B'],['Tier 2 companies','t2','#E08E45'],['Tier 3 companies','t3','#6B7788']],tv=T.map(t=>Q.map((_,i)=>val(['',t[1]],i)));
+    const T=[['Tier 1 companies','t1','#C0392B'],['Tier 2 companies','t2','#E08E45'],['Tier 3 companies','t3','#6B7788']],tv=T.map(t=>keep.map(i=>val(['',t[1]],i)));
     VFMT.set(el,(x,di)=>di===0?r[2](x):'');
-    const lab={id:'qqtier',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 10px Segoe UI,Arial';c.textAlign='center';T.forEach((t,k)=>{ch.getDatasetMeta(k+1).data.forEach((p,i)=>{if(tv[k][i]==null||(i!==0&&i!==Q.length-1))return;c.fillStyle=t[2];c.fillText(fmt(tv[k][i]),p.x+(i===0?-4:4),p.y-9)})});c.restore()}};
+    const lab={id:'qqtier',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 10px Segoe UI,Arial';c.textAlign='center';T.forEach((t,k)=>{ch.getDatasetMeta(k+1).data.forEach((p,i)=>{if(tv[k][i]==null||(i!==0&&i!==Qk.length-1))return;c.fillStyle=t[2];c.fillText(fmt(tv[k][i]),p.x+(i===0?-4:4),p.y-9)})});c.restore()}};
     mkChart(el,{type:'bar',plugins:[lab],data:{labels,datasets:[bars,...T.map((t,k)=>({type:'line',label:t[0].replace(' companies',''),data:tv[k],borderColor:t[2],backgroundColor:t[2],borderWidth:2,tension:0,pointRadius:4,pointBorderColor:'#fff',pointBorderWidth:1.5,order:k+1}))]},
       options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:24}},plugins:{legend,tooltip:{callbacks:{label:i=>(i.datasetIndex===0?'Registrants':i.dataset.label)+': '+fmt(i.raw)}}},scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:'#F2F4F6'},ticks:{callback:x=>fmt(x)}}}}});return}
   /* every other measure: a bar, and a line for the gain or loss on the quarter before, on its own scale above the bars */
@@ -1615,7 +1674,7 @@ function qqDraw(){const el=document.getElementById('cv-qq');if(!el||!window.Char
   const col=x=>x==null?'#5F6B7A':r[3]==='n'?'#5F6B7A':((x>=0)===(r[3]==='g'))?'#1E7B4B':'#C0392B',sg=x=>(x>0?'+':x<0?'−':'')+f1(Math.abs(x))+(pts?' pts':'%'),cv=chg.filter(x=>x!=null),lo=Math.min(0,...cv),hi=Math.max(0,...cv),span=(hi-lo)||1,bmax=Math.max(...v.filter(x=>x!=null),1)/.42,band=span/.3,top2=hi+.04*band;
   VFMT.set(el,(x,di)=>di===0?r[2](x):'');
   const lab={id:'qqchg',afterDatasetsDraw(ch){const c=ch.ctx,m=ch.getDatasetMeta(1);c.save();c.font='600 10.5px Segoe UI,Arial';c.textAlign='center';m.data.forEach((p,i)=>{if(chg[i]==null)return;c.fillStyle=col(chg[i]);c.fillText(sg(chg[i]),p.x,p.y+(chg[i]>=0?-10:18))});c.restore()}};
-  mkChart(el,{type:'bar',plugins:[lab],data:{labels,datasets:[{...bars,backgroundColor:Q.map((q,i)=>{const bad=chg[i]!=null&&((r[3]==='b'&&chg[i]>0)||(r[3]==='g'&&chg[i]<0));return bad?(CUR.includes(q)?'#D9645A':'#F0B8B1'):(CUR.includes(q)?'#6F9BDD':'#C9DAF3')}),order:2},{type:'line',label:'Gain or loss on the quarter before',data:chg,yAxisID:'y2',borderColor:'#5F6B7A',borderWidth:2,tension:0,spanGaps:false,pointRadius:5,pointHoverRadius:6,pointBackgroundColor:chg.map(col),pointBorderColor:'#fff',pointBorderWidth:2,order:1}]},
+  mkChart(el,{type:'bar',plugins:[lab],data:{labels,datasets:[{...bars,backgroundColor:Qk.map((q,i)=>{const bad=chg[i]!=null&&((r[3]==='b'&&chg[i]>0)||(r[3]==='g'&&chg[i]<0));return bad?(CUR.includes(q)?'#D9645A':'#F0B8B1'):(CUR.includes(q)?'#6F9BDD':'#C9DAF3')}),order:2},{type:'line',label:'Gain or loss on the quarter before',data:chg,yAxisID:'y2',borderColor:'#5F6B7A',borderWidth:2,tension:0,spanGaps:false,pointRadius:5,pointHoverRadius:6,pointBackgroundColor:chg.map(col),pointBorderColor:'#fff',pointBorderWidth:2,order:1}]},
     options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:24}},plugins:{legend,tooltip:{callbacks:{label:i=>i.datasetIndex===0?r[0]+': '+r[2](i.raw):'Change on the quarter before: '+sg(i.raw)}}},
       scales:{x:{grid:{display:false}},y:{beginAtZero:true,max:bmax,grid:{color:'#F2F4F6'},ticks:{callback:x=>(pts&&x>100)?'':r[2](x)}},y2:{position:'right',min:top2-band,max:top2,grid:{drawOnChartArea:false},ticks:{callback:x=>(x<lo-span*.2)?'':(x>0?'+':x<0?'−':'')+f1(Math.abs(x))+(pts?' pts':'%')}}}}})}
 function qqRedraw(){const w=document.getElementById('qqbody');if(!w||!QQS)return;const m=document.getElementById('msub-QQ'),open=!!(m&&m.open);qqData();const c=window.Chart&&Chart.getChart('cv-qq');if(c)c.destroy();w.innerHTML=qqBody();if(open){const n=document.getElementById('msub-QQ');if(n)n.open=true}if(ST.qq.view==='chart')qqDraw()}
@@ -1738,7 +1797,7 @@ document.addEventListener('change',e=>{if(e.target.dataset.rcmode){ST.rc.mode=e.
 document.addEventListener('change',e=>{const i=e.target.dataset.rccombo;if(!i)return;e.target.checked?ST.rc.combo.add(i):ST.rc.combo.delete(i);rcRedraw()});
 document.addEventListener('click',e=>{if(e.target.closest('[data-rcsubclear]')){ST.rc.sub.clear();rcRedraw()}if(e.target.closest('[data-rccomboclear]')){ST.rc.combo.clear();rcRedraw()}});
 document.addEventListener('change',e=>{const k=e.target.dataset.rcf;if(!k)return;ST.rc[k]=k==='top'?+e.target.value:e.target.value;if(k==='by')ST.rc.reg='';const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody()});
-document.addEventListener('click',e=>{const z=e.target.closest('[data-zonepick]');if(z&&ST.role==='hq'){selectZone(z.dataset.zonepick);document.getElementById('map').scrollIntoView({block:'center'});return}
+document.addEventListener('click',e=>{const z=e.target.closest('[data-zonepick]');if(z&&ST.role==='hq'){selectZone(z.dataset.zonepick);drOpen('zn',z.dataset.zonepick);return}
   if(e.target.closest('[data-rcreset]')){ST.rc={...ST.rc,by:'region',reg:'',sort:'high',sub:new Set(),combo:new Set(),top:10,mode:'all'};const w=document.getElementById('regcmp');if(w)w.innerHTML=regCmpBody()}});
 function regionTable(){const rows=REGIONS.map(([r,zs])=>({r,zs,...RS[r],late:appsIn(zs).filter(a=>a.age>30).length}));
   return table('reg',[
@@ -1751,7 +1810,7 @@ function regionTable(){const rows=REGIONS.map(([r,zs])=>({r,zs,...RS[r],late:app
     {k:'hr',h:'Tier 1 companies',n:1,f:x=>`${x.hr} <span class="sm">${dl(chg(x.hr,x.hrP),'b')}</span>`},
     {k:'late',h:'Applications over 30 days',n:1,v:x=>x.late}],rows,
     {sort:'n',dir:-1,rowAttr:x=>`class="click" data-region="${x.r}"`,foot:`<tr class="tot"><td>India</td><td class="n">${fmt(IN.n)}</td><td class="n">100%</td><td class="n">${f1(IN.q.rate)}%</td><td class="n">${f1(IN.unmPct)}%</td><td class="n">${IN.anom}</td><td class="n">${IN.hr}</td><td class="n">${APPS.filter(a=>a.age>30).length}</td></tr>`})}
-document.addEventListener('click',e=>{const tr=e.target.closest('tr[data-region],.pl-r[data-region]');if(tr&&ST.role==='hq'){const z=ZONES.filter(Z=>Z.r===tr.dataset.region).map(Z=>ZS[Z.z]).sort((a,b)=>({r:0,a:1,g:2})[a.c]-({r:0,a:1,g:2})[b.c])[0];selectZone(z.z);document.getElementById('map').scrollIntoView({block:'center'})}});
+document.addEventListener('click',e=>{const tr=e.target.closest('tr[data-region],.pl-r[data-region]');if(tr&&ST.role==='hq'){const z=ZONES.filter(Z=>Z.r===tr.dataset.region).map(Z=>ZS[Z.z]).sort((a,b)=>({r:0,a:1,g:2})[a.c]-({r:0,a:1,g:2})[b.c])[0];selectZone(z.z);drOpen('rg',tr.dataset.region)}});
 
 /* Companies by substance as a graph: one measure at a time, one dot per substance on a stem, coloured by tier. Quantities are in kilograms, on a log scale. */
 ST.sc={view:'chart',m:'n',reg:'',zone:'',tier:'',sub:new Set(),sort:'high',combo:new Set()};
@@ -1855,8 +1914,8 @@ function ldDraw(id){const L=LDS[id],el=document.getElementById('cv-ld-'+id);if(!
       rs.forEach((r,i)=>{const py=y.getPixelForValue(i),up=!(showP&&showN)||r.n>=r.np;
         if(showN){c.textAlign=up?'left':'right';c.fillText(String(r.n),x.getPixelForValue(r.n)+(up?12:-12),py)}
         if(showP&&(r.n!==r.np||!showN)){c.textAlign=showN?(up?'right':'left'):'left';c.fillStyle='#73808F';c.fillText(String(r.np),x.getPixelForValue(r.np)+(showN?(up?-12:12):12),py);c.fillStyle='#1A2332'}});c.restore()}};
-  mkChart(el,{type:'scatter',plugins:[bell],data:{datasets:[{label:L.cmp,hidden:!CMPOK,data:rs.map((r,i)=>({x:r.np,y:i})),backgroundColor:'#C3CBD6',borderColor:'#fff',borderWidth:2,pointRadius:7,pointHoverRadius:8,order:1},{label:L.cur,data:rs.map((r,i)=>({x:r.n,y:i})),backgroundColor:'#8FB4E6',borderColor:'#fff',borderWidth:2,pointRadius:7,pointHoverRadius:8,order:0}]},
-    options:{maintainAspectRatio:false,animation:false,layout:{padding:{left:4,right:14}},plugins:{legend:{position:'top',align:'end',labels:{usePointStyle:true,pointStyle:'circle',boxWidth:9,boxHeight:9}},tooltip:{callbacks:{title:i=>cats[i[0].raw.y],label:i=>i.dataset.label+': '+i.raw.x+' cases'}}},
+  const chB=mkChart(el,{ents:cats.map(c=>['lc',c]),type:'scatter',plugins:[bell],data:{datasets:[{label:L.cmp,hidden:!CMPOK,data:rs.map((r,i)=>({x:r.np,y:i})),backgroundColor:'#C3CBD6',borderColor:'#fff',borderWidth:2,pointRadius:7,pointHoverRadius:8,order:1},{label:L.cur,data:rs.map((r,i)=>({x:r.n,y:i})),backgroundColor:'#8FB4E6',borderColor:'#fff',borderWidth:2,pointRadius:7,pointHoverRadius:8,order:0}]},
+    options:{maintainAspectRatio:false,animation:false,layout:{padding:{left:4,right:14}},plugins:{legend:{position:'top',align:'end',labels:{usePointStyle:true,pointStyle:'circle',boxWidth:9,boxHeight:9}},tooltip:{callbacks:{title:i=>cats[i[0].raw.y],label:i=>i.dataset.label+': '+i.raw.x+(i.raw.x===1?' case':' cases')}}},
       scales:{x:{min:-.7,suggestedMax:Math.max(2,...rs.map(r=>Math.max(r.n,r.np)))+1,ticks:{precision:0,callback:v=>v<0?'':v},grid:{color:'#F2F4F6'}},y:{reverse:true,min:-.6,max:cats.length-.4,grid:{color:'#F2F4F6'},ticks:{stepSize:1,autoSkip:false,font:{size:12},callback:v=>Number.isInteger(v)?cats[v]:''}}}}})}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-ldv]');if(!b)return;ST.ld.view=b.dataset.ldv;document.querySelectorAll('[data-ldv]').forEach(x=>{const on=x.dataset.ldv===ST.ld.view;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});
   Object.keys(LDS).forEach(id=>{const w=document.getElementById('ld-'+id);if(!w)return;const c=window.Chart&&Chart.getChart('cv-ld-'+id);if(c)c.destroy();w.innerHTML=ldBody(id);if(ST.ld.view==='chart')ldDraw(id)})});
@@ -2259,11 +2318,11 @@ const REPORTS=[
  ['Registration status','R4','Registrations by year','1(v)','y',{rows:['regYear'],m:['premises']}],
  ['Registration status','R5','Additions and cancellations','1(vii), 1(viii), 1(ix)','y',{rows:['zone','substance'],m:['premises','adds','cans']}],
  ['Registration status','R6','Combinations held','1(ii)','y',{rows:['combo'],m:['premises','filed']}],
- ['Installed capacity','C1','Capacity per substance','2(i)','y',{rows:['substance'],m:['capm','cap','mfg','use','utilm','util'],cmp:1}],
- ['Installed capacity','C2','Capacity by zone, one substance','2(ii)','y',{rows:['zone'],m:['cap','premises'],f:{substance:['AA']},pctTot:1}],
- ['Installed capacity','C3','Largest holders by capacity','2(iii), 2(iv)','y',{rows:['premises'],m:['cap','use','util'],f:{substance:['AA']},sort:'cap'}],
- ['Installed capacity','C4','Capacity in use','2(v)','y',{rows:['substance','zone'],m:['capm','cap','mfg','use','utilm','util','low']}],
- ['Installed capacity','C5','Capacity against trade','2(vi)','p',{rows:['substance'],m:['cap','imp','exp'],cmp:1}],
+ ['Capacity','C1','Capacity per substance','2(i)','y',{rows:['substance'],m:['capm','cap','mfg','use','utilm','util'],cmp:1}],
+ ['Capacity','C2','Capacity by zone, one substance','2(ii)','y',{rows:['zone'],m:['cap','premises'],f:{substance:['AA']},pctTot:1}],
+ ['Capacity','C3','Largest holders by capacity','2(iii), 2(iv)','y',{rows:['premises'],m:['cap','use','util'],f:{substance:['AA']},sort:'cap'}],
+ ['Capacity','C4','Capacity in use','2(v)','y',{rows:['substance','zone'],m:['capm','cap','mfg','use','utilm','util','low']}],
+ ['Capacity','C5','Capacity against trade','2(vi)','p',{rows:['substance'],m:['cap','imp','exp'],cmp:1}],
  ['Usage','U1','Declared use per substance','3(i), 3(iii), 3(iv)','y',{rows:['substance'],m:['use','premises'],cmp:1}],
  ['Usage','U2','Use by zone and companies','3(ii), 3(v)','y',{rows:['zone','premises'],m:['use','cap','util'],f:{substance:['PSE']}}],
  ['Usage','U3','Use by combination','3(vi)','y',{rows:['combo'],m:['premises','use'],f:{substance:['EPH']}}],
@@ -2291,10 +2350,11 @@ const CMPN={none:'None',prev:'Previous period',yoy:'Same period last year',both:
 function cmpSets(){const len=CUR.length,out=[],add=(lab,sh)=>{const s=CUR.map(q=>q-sh);if(s.every(q=>q>=0))out.push({lab,sh,set:s})};
   if(RP.cmp==='prev'||RP.cmp==='both')add(len===1?'QoQ':'vs prev',PER.view==='fy'?4:len);
   if(RP.cmp==='yoy'||RP.cmp==='both')add('YoY',4);return out}
-function openReport(id){if(id==='APPS'){RP={id,rows:[],m:[],f:{region:[],zone:[],substance:[],tier:[],status:[]},flags:[],cmp:'none',col:'',open:new Set(),more:{},view:'table'};ST.view='report';go();return}
+function openReport(id,ov){if(id==='APPS'){RP={id,rows:[],m:[],f:{region:[],zone:[],substance:[],tier:[],status:[]},flags:[],cmp:'none',col:'',open:new Set(),more:{},view:'table'};ST.view='report';go();return}
   const R=RM[id];if(!R||!R.def){toast('This report needs data PREP does not hold yet.');return}
   const d=R.def;if(d.per){Object.assign(PER,d.per);applyPeriod()}
   RP={id,rows:[...d.rows],m:[...d.m],f:{region:[],zone:[],substance:[],tier:[],status:[],...(d.f||{})},flags:[...(d.flags||[])],cmp:PER.cmp,col:d.col||'',pctTot:!!d.pctTot,bars:false,open:new Set(),sort:d.sort||null,view:'table',more:{}};
+  if(ov){if(ov.rows)RP.rows=[...ov.rows];if(ov.m)RP.m=[...ov.m];if(ov.sort)RP.sort=ov.sort;if(ov.f)Object.assign(RP.f,ov.f)}
   ST.view='report';go();if(d.per)toast(`Period set to ${perLabel(CUR)} for this report.`)}
 function factsFor(set){const zs=new Set(scopeZones()),S=new Set(set);return QF.filter(f=>S.has(f.q)&&zs.has(f.p.z)&&
   (!RP.f.region.length||RP.f.region.includes(f.p.r))&&(!RP.f.zone.length||RP.f.zone.includes(f.p.z))&&(!RP.f.substance.length||RP.f.substance.includes(f.S.id))&&
@@ -2415,9 +2475,9 @@ const SUBFILTER=new Set(['C2','C3','U2','X6']);
 const zoneSub=id=>['R2','R5','K1','T4'].includes(id);
 FLAGS.cmb=['',p=>RP.comboPred?RP.comboPred(p):true];
 const subCard=id=>!!ST.sel[id]&&id!=='R3',isQty=id=>RM[id].def.m.some(m=>MEAS[m].unit);
-const TABS=[['overview','Overview'],['reg','Registration'],['cap','Installed capacity'],['use','Usage'],['cmp','Compliance'],['trade','Import and export']];
+const TABS=[['overview','Overview'],['reg','Registration'],['cap','Capacity'],['use','Usage'],['cmp','Compliance'],['trade','Import and export']];
 const TABSEC={reg:{t:'Registered companies',n:'Query 1',ids:['R1','R2','R3','R4','R5','QQ3']},
-  cap:{t:'Installed capacity',n:'Query 2',ids:['C1','C2','C3','C4','C5']},
+  cap:{t:'Capacity',n:'Query 2',ids:['C1','C2','C3','C4','C5']},
   use:{t:'Usage by companies',n:'Query 3',ids:['U1','QQ2','U4','U2']},
   cmp:{t:'Compliance: quarterly returns not filed',n:'Query 4',ids:['K1','QQ1','K4','K2','K3']},
   trade:{t:'Import and export activity',n:'Query 5',ids:['T3','T4']}};
@@ -2428,7 +2488,7 @@ function withTabs(h){const mk='<!--pb-->',i=h.indexOf(mk);if(i<0)return h;const 
   return head+tabBar()+sectionView(ST.tab)+footer()}
 function sectionView(tab){const S=TABSEC[tab];
   return `<div class="sintro"><b>${S.t}</b> <button type="button" class="btn link wreset" data-wreset="1" ${Object.keys(ST.wide).length?'':'hidden'}>Reset layout</button></div>
-   <div class="scards">${S.ids.map(id=>`<div id="sc-${id}"${(()=>{const c=[isWide(id)?'wide':'',CARDW[id]||'',(CARDKIND[id]||'pill')==='pill'?'lst':''].filter(Boolean).join(' ');return c?' class="'+c+'"':''})()}>${cardInner(id)}</div>`).join('')}</div>`}
+   <div class="scards">${S.ids.map(id=>`<div id="sc-${id}"${(()=>{const c=[isWide(id)?'wide':'',CARDW[id]||'',((CARDKIND[id]||'pill')==='pill'&&!(RM[id]&&RM[id].def&&RM[id].def.col))?'lst':''].filter(Boolean).join(' ');return c?' class="'+c+'"':''})()}>${cardInner(id)}</div>`).join('')}</div>`}
 /* run a catalogue report's first level in place, without leaving the dashboard */
 const rangeFor=id=>{const r=ST.range[id];if(!r||(r.from==null&&r.to==null))return null;let a=r.from==null?0:r.from,b=r.to==null?NQ-1:r.to;if(a>b)[a,b]=[b,a];return {view:'custom',from:a,to:b}};
 const CARDM={R5:['adds','cans','premises'],K1:['missed','filed','premises'],K2:['missed','filed'],K4:['filed','missed','premises'],T1:['importers','imp'],T2:['exporters','exp'],T4:['importers','exporters','imp','exp'],T3:['imp','exp','net','importers','exporters'],
@@ -2536,7 +2596,7 @@ function cardCumArea(el){if(!el||!window.Chart)return;const d=cardData(100000),C
   const S=d.ms.map(M=>{const tot=M.f(d.fs)||1;let acc=0;return {M,tot,cum:order.map(g=>acc+=d.val(M,g)/tot*100)}});
   const labels=order.map(g=>{const t=d.label(g);return t.length>24?t.slice(0,23)+'…':t});
   VFMT.set(el,v=>f1(v)+'%');
-  mkChart(el,{type:'line',data:{labels,datasets:S.map((x,k)=>({label:x.M.h,data:x.cum,fill:!two,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:COL[k],borderWidth:2.5,tension:.3,pointRadius:4,pointBackgroundColor:COL[k],pointBorderColor:'#fff',pointBorderWidth:2}))},
+  mkChart(el,{ents:order.map(g=>['co',PALL[g.k].i]),type:'line',data:{labels,datasets:S.map((x,k)=>({label:x.M.h,data:x.cum,fill:!two,backgroundColor:areaFill('rgba(111,162,230,.05)','rgba(30,74,138,.35)'),borderColor:COL[k],borderWidth:2.5,tension:.3,pointRadius:4,pointBackgroundColor:COL[k],pointBorderColor:'#fff',pointBorderWidth:2}))},
     options:{maintainAspectRatio:false,animation:false,layout:{padding:{top:26,right:14}},
       plugins:{legend:{display:two,position:'bottom',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{title:i=>d.label(order[i[0].dataIndex]),label:i=>{const x=S[i.datasetIndex],g=order[i.dataIndex];return (two?x.M.h+': ':'Together: ')+f1(i.raw)+'% of the total · this company '+x.M.fmt(d.val(x.M,g))}}}},
       scales:{y:{beginAtZero:true,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:'Share of total capacity',color:'#64707E'},ticks:{color:'#64707E',callback:v=>f1(v)+'%'}},x:{grid:{display:false},title:{display:true,text:'Holders, largest first',color:'#64707E'},ticks:{color:'#1A2332',autoSkip:false,maxRotation:40,minRotation:40}}}}})}
@@ -2562,24 +2622,32 @@ function cardBubble(el){if(!el||!window.Chart)return;const B=BUBBLE[RP.id],D=DIM
     plugins:[{id:'bl',afterDatasetsDraw(ch){const m=ch.getDatasetMeta(0),c=ch.ctx;c.save();c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#1A2332';c.textAlign='center';m.data.forEach((p,i)=>c.fillText(label(gs[i]),p.x,p.y-p.options.radius-4));c.restore()}}]})}
 /* butterfly: imported to the left, exported to the right, from one centre line */
 const BUTTER={T3:{l:'imp',r:'exp',base:'use',firms:1}};
+/* where a click or hover on the butterfly lands: a bar, or one of the two firm-count columns */
+function tfHit(ch,ev,els,B,wide){const i0=els.length?els[0].index:null;if(i0!=null)return {i:i0,kind:els[0].datasetIndex===0?'imp':'exp'};
+  if(!B.firms||!wide||ev.x==null)return null;const x0=ch.chartArea.right+30;if(ev.x<x0||ev.x>x0+270||ev.y<ch.chartArea.top||ev.y>ch.chartArea.bottom)return null;
+  const i=Math.round(ch.scales.y.getValueForPixel(ev.y));if(!(i>=0))return null;return {i:i,kind:ev.x<x0+130?'imp':'exp'}}
 function cardButterfly(el){if(!el||!window.Chart)return;const B=BUTTER[RP.id],wide=(el.parentElement.clientWidth||0)>=620,D=DIMS[RP.rows[0]],gs=group(factsFor(CUR),RP.rows[0]).filter(g=>g.k!=='–').slice(0,13),L=MEAS[B.l],Rm=MEAS[B.r],Bs=B.base?MEAS[B.base]:null,
     sg=g=>single(g.fs)||g.fs.combo,
     vals=(M,g)=>{if(M.unit&&!sg(g))return 0;const v=M.f(g.fs);if(!Bs)return v;const b=sg(g)?Bs.f(g.fs):0;return b?v/b*100:0},
     lv=gs.map(g=>vals(L,g)),rv=gs.map(g=>vals(Rm,g)),fv=v=>Bs?f1(v)+'%':fmt(v),mx=Math.max(1,...lv,...rv)*(Bs?1.6:1.18),
     lq=gs.map(g=>Bs&&sg(g)?L.f(g.fs):0),rq=gs.map(g=>Bs&&sg(g)?Rm.f(g.fs):0),tx=(v,q)=>fv(v)+(Bs&&q?' · '+fq(q):'');
-  mkChart(el,{type:'bar',data:{labels:gs.map(g=>{const nm=D.t?D.t(g.k):String(g.k);return B.firms&&!wide?[nm,'▼ '+MEAS.importers.f(g.fs)+'  ▲ '+MEAS.exporters.f(g.fs)]:nm}),datasets:[
+  const chB=mkChart(el,{type:'bar',data:{labels:gs.map(g=>{const nm=D.t?D.t(g.k):String(g.k);return B.firms&&!wide?[nm,MEAS.importers.f(g.fs)+' importers · '+MEAS.exporters.f(g.fs)+' exporters']:nm}),datasets:[
       {label:L.h,data:lv.map(v=>-v),backgroundColor:'#9DBDEB',borderRadius:{topLeft:7,bottomLeft:7},borderSkipped:false,barThickness:15},
       {label:Rm.h,data:rv,backgroundColor:'#D3D9E2',borderRadius:{topRight:7,bottomRight:7},borderSkipped:false,barThickness:15}]},
-    options:{indexAxis:'y',maintainAspectRatio:false,animation:false,layout:{padding:{right:B.firms&&wide?200:6}},
+    options:{indexAxis:'y',maintainAspectRatio:false,animation:false,layout:{padding:{right:B.firms&&wide?300:6}},onClick:(ev,els,ch)=>{const hit=tfHit(ch,ev,els,B,wide);if(hit&&D===DIMS.substance&&gs[hit.i])drOpen('tf',hit.kind+':'+gs[hit.i].k)},onHover:(ev,els,ch)=>{const c=ev.native&&ev.native.target;if(c)c.style.cursor=tfHit(ch,ev,els,B,wide)&&D===DIMS.substance?'pointer':'default'},
       plugins:{legend:{position:'top',labels:{boxWidth:12,color:'#5F6B7A'}},tooltip:{backgroundColor:'#1A2332',callbacks:{label:i=>i.dataset.label+': '+tx(Math.abs(i.raw),(i.datasetIndex===0?lq:rq)[i.dataIndex])+(Bs?' of '+Bs.h.toLowerCase():''),afterLabel:i=>B.firms?(i.datasetIndex===0?MEAS.importers.f(gs[i.dataIndex].fs)+' importer firms':MEAS.exporters.f(gs[i.dataIndex].fs)+' exporter firms'):''}}},
       scales:{x:{stacked:true,min:-mx,max:mx,grid:{color:'#F2F4F6'},border:{display:false},title:{display:true,text:Bs?'% of '+Bs.h.toLowerCase():'Number of firms',color:'#64707E'},ticks:{color:'#64707E',callback:v=>fv(Math.abs(v))}},y:{stacked:true,grid:{display:false},ticks:{color:'#1A2332'}}}},
     plugins:[{id:'bfl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 11px Segoe UI,Arial';c.fillStyle='#1A2332';
       ch.getDatasetMeta(0).data.forEach((p,i)=>{c.textAlign='right';c.fillText(tx(lv[i],lq[i]),p.x-6,p.y+4)});
       ch.getDatasetMeta(1).data.forEach((p,i)=>{c.textAlign='left';c.fillText(tx(rv[i],rq[i]),p.x+6,p.y+4)});
-      if(B.firms&&wide){const x=ch.chartArea.right+24;c.textAlign='left';
-        ch.getDatasetMeta(0).data.forEach((p,i)=>{const g=gs[i];c.fillStyle='#2E6EBF';c.fillText('▼ '+MEAS.importers.f(g.fs),x,p.y+4);c.fillStyle='#6B7788';c.fillText('▲ '+MEAS.exporters.f(g.fs),x+96,p.y+4)});
-        const hy=ch.chartArea.top-20;c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#2E6EBF';c.fillText('Importer',x,hy);c.fillText('firms',x,hy+12);c.fillStyle='#6B7788';c.fillText('Exporter',x+96,hy);c.fillText('firms',x+96,hy+12)}
-      c.restore()}}]})}
+      if(B.firms&&wide){const x=ch.chartArea.right+36;c.textAlign='left';
+        ch.getDatasetMeta(0).data.forEach((p,i)=>{const g=gs[i];c.fillStyle='#2E6EBF';const ti=MEAS.importers.f(g.fs),te=MEAS.exporters.f(g.fs),hv=ch.$hov,c1=x+55,c2=x+195;c.textAlign='center';c.fillText(ti,c1,p.y+4);if(hv&&hv.i===i&&hv.kind==='imp')c.fillRect(c1-c.measureText(ti).width/2,p.y+7,c.measureText(ti).width,1.5);c.fillStyle='#6B7788';c.fillText(te,c2,p.y+4);if(hv&&hv.i===i&&hv.kind==='exp')c.fillRect(c2-c.measureText(te).width/2,p.y+7,c.measureText(te).width,1.5);c.fillStyle='#2E6EBF'});
+        const hy=ch.chartArea.top-20;c.font='600 10.5px Segoe UI,Arial';c.fillStyle='#2E6EBF';c.textAlign='center';c.fillText('▼ Importer firms',x+55,hy+6);c.fillStyle='#6B7788';c.fillText('▲ Exporter firms',x+195,hy+6)}
+      c.restore()}}]});
+  if(B.firms&&wide&&D===DIMS.substance){const pos=ev=>{const r=el.getBoundingClientRect();return {x:ev.clientX-r.left,y:ev.clientY-r.top}};
+    el.onmousemove=ev=>{const h=tfHit(chB,pos(ev),[],B,wide),col=h&&pos(ev).x>chB.chartArea.right?h:null;if(col)el.style.cursor='pointer';const o=chB.$hov;if((o&&o.i)!==(col&&col.i)||(o&&o.kind)!==(col&&col.kind)){chB.$hov=col;chB.draw()}};
+    el.onmouseleave=()=>{if(chB.$hov){chB.$hov=null;chB.draw()}};
+    el.onclick=ev=>{const p=pos(ev),h=tfHit(chB,p,[],B,wide);if(h&&p.x>chB.chartArea.right&&gs[h.i])drOpen('tf',h.kind+':'+gs[h.i].k)}}}
 /* value labels: the figure above each bar or point, so nothing needs hovering */
 const VFMT=new WeakMap();
 /* no column is ever wider than this, however wide the screen */
@@ -2610,15 +2678,15 @@ function pillList(fs,cap){const gs=group(fs,RP.rows[0]).slice(0,cap),D=DIMS[RP.r
     return `<span class="pl-t${multi?' thin':''}"><i class="pl-f c${i}${RP.custom&&String(g.k).includes(' + ')?' cb':''}" style="width:${Math.max(w,v?1.5:0)}%"></i><span class="pl-v${w>=82?' in':''}" style="${w>=82?'right:calc('+(100-w)+'% + 10px)':'left:calc('+w+'% + 8px)'}"><b>${M.fmt(v)}</b> ${share}</span></span>`}).join('')}</span></div>`;
   const lg=multi?`<div class="pl-lg" aria-hidden="true">${all.map((M,i)=>`<span><i class="c${i}"></i>${M.h}</span>`).join('')}</div>`:'';
   return `<div class="pb pl">${lg}${gs.map(row).join('')||'<div class="sm">Nothing to show.</div>'}</div>`}
-const cbaseSel=id=>'<label class="rcf"><span class="sm">Against</span><select class="mfs" data-cbase="'+id+'" aria-label="Capacity to compare with">'+RATIO[id].bases.map(m=>'<option value="'+m+'"'+((ST.cbase[id]||RATIO[id].base)===m?' selected':'')+'>'+MEAS[m].h.replace(', a year','')+'</option>').join('')+'</select></label>';
+const cbaseSel=id=>'<label class="rcf"><span class="sm">Against</span><select class="mfs" data-cbase="'+id+'" aria-label="Capacity to compare with">'+RATIO[id].bases.map(m=>'<option value="'+m+'"'+((ST.cbase[id]||RATIO[id].base)===m?' selected':'')+'>'+MEAS[m].h.replace(', a year','').replace(/ capacity$/,'')+'</option>').join('')+'</select></label>';
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.cbase)return;ST.cbase[t.dataset.cbase]=t.value;selRefresh(t.dataset.cbase)});
 function cardInner(id){const R=RM[id];if(!R||!R.def)return '';const view=zoneWise(id)?'table':(ST.cv[id]||(TABLEFIRST.has(id)?'table':'chart'));
-  const ctl=`<span class="mapctl">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}${RATIO[id]&&RATIO[id].bases?cbaseSel(id):''}${ZONEWISE.has(id)?bySel(id):''}${CAPSEL.has(id)?ccapSel(id):''}${cfMenu(id)}${zoneWise(id)?'':`<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>`}${wideBtn(id)}${id==='T3'?`<button class="btn" data-open="T3">Net trade report</button><button class="btn" data-open="T1">Importers report</button><button class="btn" data-open="T2">Exporters report</button>`:openRep(id)}</span>`;
+  const ctl=`<span class="mapctl${(RATIO[id]&&RATIO[id].bases)||ZONEWISE.has(id)||CAPSEL.has(id)?' cmp':''}">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}${RATIO[id]&&RATIO[id].bases?cbaseSel(id):''}${ZONEWISE.has(id)?bySel(id):''}${CAPSEL.has(id)?ccapSel(id):''}${cfMenu(id)}${zoneWise(id)?'':`<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>`}${wideBtn(id)}${id==='T3'?`<button class="btn" data-open="T3">Net trade report</button><button class="btn" data-open="T1">Importers report</button><button class="btn" data-open="T2">Exporters report</button>`:openRep(id)}</span>`;
   const body=withReport(id,()=>{const fs=factsFor(CUR),note=cardNote(),cap=note?`<div class="sm sc-cap">${esc(note)}</div>`:'';
     if(view==='table')return cap+`<div class="sc-t">${id==='C3'&&(ST.ccap.C3||'both')==='both'?c3Table():cardTable()}</div>`;
     const kind=CARDKIND[id]||'pill';
     if(!RP.col&&!CANVAS_KIND.has(kind))return cap+pillList(fs,12);
-    return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(isWide(id)?310:id==='U2'?330:380):kind==='cumarea'?500:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>${id==='T3'?`<div class="note tnote"><span class="sm">Firms: <b style="color:#2E6EBF">▼</b> imported, <b style="color:#6B7788">▲</b> exported</span></div>`:''}`});
+    return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(isWide(id)?310:id==='U2'?330:380):kind==='cumarea'?500:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>`});
   if(view==='chart'&&(R.def.col||CANVAS_KIND.has(CARDKIND[id])))later(()=>withReport(id,()=>R.def.col?pivotChart(factsFor(CUR),document.getElementById('cv-'+id),12):(DRAW[CARDKIND[id]]||cardColumns)(document.getElementById('cv-'+id))));
   return panel(CARDTITLE[id]||R.title,R.av==='y'?'':AV[R.av][1],body,ctl)}
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset.rq)return;const [id,k]=t.dataset.rq.split(':');ST.range[id][k]=t.value===''?null:+t.value;selRefresh(id)});
@@ -2662,6 +2730,13 @@ ST.rq='';ST.rg='';ST.pg={reports:{n:15,p:1},saved:{n:10,p:1}};
 const pageBar=(k,total)=>{const P=ST.pg[k],pages=Math.max(1,Math.ceil(total/P.n));P.p=Math.min(P.p,pages);const a=total?(P.p-1)*P.n+1:0,b=Math.min(total,P.p*P.n);return '<div class="pager"><label class="sm">Rows per page <select class="mfs" data-pgn="'+k+'" aria-label="Rows per page">'+[10,15,25,50].map(n=>'<option value="'+n+'"'+(P.n===n?' selected':'')+'>'+n+'</option>').join('')+'</select></label><span class="sm">'+a+'–'+b+' of '+total+'</span><span class="pgb"><button type="button" class="btn" data-pgp="'+k+':-1" aria-label="Previous page"'+(P.p<=1?' disabled':'')+'>‹</button><span class="sm">Page '+P.p+' of '+pages+'</span><button type="button" class="btn" data-pgp="'+k+':1" aria-label="Next page"'+(P.p>=pages?' disabled':'')+'>›</button></span></div>'};
 const pgRedraw=k=>{const g=document.getElementById(k==='saved'?'savedgrid':'catgrid');if(g){g.innerHTML=k==='saved'?savedGrid():catGrid();fitFill()}};
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.pgn)return;ST.pg[t.dataset.pgn].n=+t.value;ST.pg[t.dataset.pgn].p=1;pgRedraw(t.dataset.pgn)});
+function flashEl(el){if(!el)return;el.scrollIntoView({block:'start'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1600)}
+function kpiGo(spec){const [a,b]=spec.split(':');
+  if(a==='sc'){ST.sc.tier='1';ST.tab='overview';go();requestAnimationFrame(()=>requestAnimationFrame(()=>{const k=document.getElementById('sccnt');flashEl(k&&k.closest('.panel'))}));return}
+  if(a==='alerts'){ST.tab='overview';go();requestAnimationFrame(()=>requestAnimationFrame(()=>{const w=document.getElementById('watch');if(!w)return;const g=[...w.querySelectorAll('[data-gt]')].find(x=>/Dispatches not shown/i.test(x.parentElement.textContent));if(g&&g.getAttribute('aria-expanded')!=='true')g.click();flashEl(w.closest('.panel'))}));return}
+  ST.tab=a;go();requestAnimationFrame(()=>requestAnimationFrame(()=>flashEl(document.getElementById('sc-'+b))))}
+document.addEventListener('click',e=>{const k=e.target.closest('[data-kgo]');if(!k||e.target.closest('a,button,[data-dr],.ent'))return;drOpen('kp',k.dataset.kgo)});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset&&e.target.dataset.kgo){e.preventDefault();drOpen('kp',e.target.dataset.kgo)}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pgp]');if(!b||b.disabled)return;const [k,d]=b.dataset.pgp.split(':');ST.pg[k].p+=+d;pgRedraw(k);const g=document.getElementById(k==='saved'?'savedgrid':'catgrid');if(g&&window.scrollY>g.offsetTop)window.scrollTo(0,0)});
 const catDesc=r=>{const d=r[5]||{},rows=(d.rows||[]).map(x=>DIMS[x]?DIMS[x].h:x).join(' › '),m=(d.m||[]).slice(0,3).map(k=>MEAS[k]?MEAS[k].h.replace(', a year',''):k).join(', ');return (rows?'By '+rows.toLowerCase().replace(/^./,c=>c.toUpperCase())+(d.col?', by '+(DIMS[d.col]?DIMS[d.col].h.toLowerCase():d.col):''):'')+(m?'<br>'+m:'')};
 function catGrid(){const isSuper=ST.role==='super',q=ST.rq.trim().toLowerCase(),secs=uniq(REPORTS.map(r=>r[0])).filter(x=>!ST.rg||x===ST.rg);
@@ -2718,6 +2793,114 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-cfgtab],[d
     document.querySelectorAll('[data-worse]').forEach(i=>CFG.worse[i.dataset.worse]=+i.value);
     document.querySelectorAll('[data-sc]').forEach(i=>{const [id,k]=i.dataset.sc.split(':'),r=CFG.score.find(x=>x.id===id);if(r)r[k]=k==='on'?i.checked:Math.max(0,+i.value||0)});document.querySelectorAll('[data-sccap]').forEach(i=>CFG.scoreCap=Math.max(1,+i.value||100));
      document.querySelectorAll('[data-warn]').forEach(i=>CFG.matterWarn=+i.value);rebuildMatters();toast('Saved. An audit_log row was written for each change. Dashboards use the new values from the next refresh.')}});
+/* ===================== the detail drawer: click a company, region, zonal unit or substance anywhere to see all of it ===================== */
+const ENT={ready:0},DR={stack:[],from:null};
+function entMaps(){if(ENT.ready)return;ENT.ready=1;ENT.cu=new Map(PALL.map(p=>[p.urn,p]));ENT.cn=new Map();PALL.forEach(p=>ENT.cn.set(p.name,(ENT.cn.get(p.name)||0)+1));ENT.co=new Map(PALL.map(p=>[p.name,p]));ENT.ci=new Map(PALL.map(p=>[p.i,p]));ENT.zn=new Map(ZONES.map(Z=>[Z.z,Z]));
+  ENT.rg=new Map();REGIONS.forEach(r=>{ENT.rg.set(r[0],r[0]);ENT.rg.set(r[0].replace(/ Region$/,''),r[0])});ENT.sb=new Map();SUBS.forEach(S=>{ENT.sb.set(S.sh,S.id);ENT.sb.set(S.name,S.id)})}
+function entOf(t,ctx){entMaps();t=String(t==null?'':t).trim();if(t.length<2)return null;
+  if(LOSSCAT.includes(t))return ['lc',t];
+  if(ENT.co.has(t)){if(ENT.cn.get(t)===1)return ['co',ENT.co.get(t).i];const m=ctx&&String(ctx).match(/URN\/[A-Z]+\/\d{4}\/\d{4}/),p=m&&ENT.cu.get(m[0]);return p&&p.name===t?['co',p.i]:null}if(ENT.zn.has(t))return ['zn',t];if(ENT.rg.has(t))return ['rg',ENT.rg.get(t)];if(ENT.sb.has(t))return ['sb',ENT.sb.get(t)];return null}
+function chartEnt(t){const x=entOf(t);if(x)return x;t=String(t==null?'':t);if(/…$/.test(t)){const q=t.slice(0,-1),m=PALL.filter(p=>p.name.startsWith(q));if(m.length&&m.every(p=>p.name===m[0].name)&&ENT.cn.get(m[0].name)===1)return ['co',m[0].i]}return null}
+/* mark every company, region, zonal unit and substance name that stands alone in a cell or label */
+const ENT_SKIP='select,option,button,summary,thead,label,input,textarea,.drawer,.cattabs,.stabs,h1,h2,h3,.mmenu,svg';
+function markEnt(root){if(!root)return;entMaps();root.querySelectorAll('b,td,span,a,div,li,strong,p').forEach(el=>{if(el.children.length||el.dataset.ent||el.closest(ENT_SKIP))return;const t=el.textContent.trim();if(t.length<2||t.length>60)return;
+  const ctxEl=el.closest('tr')||el.parentElement;let x=entOf(t,ctxEl?ctxEl.textContent:'');if(!x&&el.classList.contains('tag')&&SM[t])x=['sb',t];if(x&&x[0]==='lc'&&!el.closest('[id^="tw-"][id$="Loss"],[id^="ld-"],#drBody'))x=null;if(!x)return;el.classList.add('ent');el.dataset.ent=x[0]+':'+x[1];el.tabIndex=0;el.setAttribute('role','button');el.title='See all details'})}
+let entT=0;new MutationObserver(()=>{clearTimeout(entT);entT=setTimeout(()=>markEnt(document.getElementById('main')),60)}).observe(document.getElementById('main'),{childList:true,subtree:true});
+/* ---- pieces */
+const drTile=(l,v,s)=>'<div class="drt"><div class="l">'+l+'</div><div class="v">'+v+'</div>'+(s?'<div class="s">'+s+'</div>':'')+'</div>';
+const drLink=(t,k,label)=>'<button type="button" class="entlink" data-dr="'+t+':'+esc(String(k))+'">'+esc(label)+'</button>';
+const drSec=(h,b,extra)=>'<section class="drs"><div class="drsh"><h3>'+h+'</h3>'+(extra||'')+'</div>'+b+'</section>';
+const drMode=(opts,cur)=>'<div class="seg2" role="group">'+opts.map(([v,l])=>'<button type="button" data-drm="'+v+'" class="'+(cur===v?'on':'')+'" aria-pressed="'+(cur===v)+'">'+l+'</button>').join('')+'</div>';
+const drList=rows=>rows.length?'<ul class="drlist">'+rows.join('')+'</ul>':'<div class="sm">None.</div>';
+/* ---- company */
+function drCompany(p){const E=CUR[CUR.length-1],qs=[E-3,E-2,E-1,E],notes=NOTES.filter(n=>n.p===p),cases=CASES.filter(c=>c.p===p);
+  const util=h=>h.capPer>0?h.use/h.capPer*100:0,utilM=h=>h.capMPer>0?h.mfg/h.capMPer*100:0;
+  const late=p.f4.filter((x,i)=>x===false&&p.late&&p.late[qs[i]]).length,missed=p.f4.filter(x=>x===false).length-late,due=p.f4.filter(x=>x!=null).length,status=p.cx?'Cancelled or surrendered':p.st;
+  const fil='<div class="drqs">'+p.f4.map((x,i)=>'<div class="drq '+(x===true?'ok':x===false?(p.late&&p.late[qs[i]]?'lt':'no'):'na')+'"><b>'+(qs[i]<0?'–':QLAB(qs[i]))+'</b><span>'+(x===true?'Filed on time':x===false?(p.late&&p.late[qs[i]]?'Filed late':'Not filed'):(qs[i]<p.regQ?'Not registered yet':'Not yet due'))+'</span></div>').join('')+'</div>';
+  const hold=p.hs.map(h=>'<div class="drhold"><div class="drh1">'+drLink('sb',h.id,SM[h.id].sh)+' '+tierTag(h.id)+'</div><div class="drh2"><span>Consumption</span><b>'+fq(h.cap)+' a year</b><span>used '+fq(h.use)+' · '+f1(util(h))+'% in use</span></div>'
+    +(h.capM>0?'<div class="drh2"><span>Manufacture</span><b>'+fq(h.capM)+' a year</b><span>made '+fq(h.mfg)+' · '+f1(utilM(h))+'% in use</span></div>':'')+'</div>').join('');
+  const tiles=[drTile('Risk score',p.score||0,p.f&&p.f.length?p.f.length+' flag'+(p.f.length>1?'s':''):'Nothing flagged'),drTile('Returns filed, last four quarters',due?(due-missed)+' of '+due:'–',(missed?missed+' not filed':'None outstanding')+(late?' · '+late+' filed late':''))];
+  if(notes.length)tiles.push(drTile('Dispatches not shown as received',notes.length,fq(sum(notes,n=>n.qty))));if(cases.length)tiles.push(drTile('Loss and damage cases',cases.length,cases.filter(c=>c.status!=='Closed').length+' still open'));
+  const body='<div class="drg">'+tiles.join('')+'</div>'
+    +(p.f&&p.f.length?drSec('Why it is flagged','<div class="drtags">'+p.f.map(x=>'<span class="tag '+x[0]+'">'+esc(x[1])+'</span>').join('')+'</div>'):'')
+    +drSec('Returns, last four quarters',fil)+drSec('Substances held',hold)
+    +(notes.length?drSec('Dispatches not shown as received',drList(notes.slice(0,5).map(n=>'<li><span><b>'+esc(n.no)+'</b> · '+esc(n.S.sh)+'<br><span class="sm">Buyer '+drLink('co',n.buyer.i,n.buyer.name)+'</span></span><span class="n">'+fq(n.qty)+'<br><span class="sm">'+n.days+' days</span></span></li>'))):'')
+    +(cases.length?drSec('Loss and damage cases',drList(cases.slice(0,5).map(c=>'<li><span><b>'+esc(c.no)+'</b> · '+drLink('lc',c.cat,c.cat)+'<br><span class="sm">'+esc(SM[c.h.id].sh)+'</span></span><span class="n">'+fq(c.qty)+'<br><span class="sm">'+esc(c.status)+'</span></span></li>'))):'');
+  return {chip:'Company',title:p.name,sub:p.urn+' · '+'<span class="drsubl">'+drLink('zn',p.z,p.z)+'</span> · '+drLink('rg',p.r,p.r.replace(/ Region$/,''))+'<br>'+esc(status)+' · registered '+p.reg+(p.exp>0?' · valid for '+Math.round(p.exp)+' more days':' · expired '+Math.round(-p.exp)+' days ago'),body:body,rep:['X2','Open the risk report']}}
+/* ---- zonal unit and region */
+function drArea(s,kind){return '<div class="drg">'+drTile('Companies',fmt(s.n))+drTile('Returns filed',f1(s.q.rate)+'%','India '+f1(IN.q.rate)+'%')+drTile('Unmatched dispatches',f1(s.unmPct)+'%',s.notes+' notes open')+drTile('Far under capacity',s.anom,'companies')+drTile('Tier 1 companies',s.hr)+drTile('Share of India’s use',f1(s.share)+'%','risk-weighted')+'</div>'
+  +(s.why&&s.why.length?drSec('Needs attention','<ul class="drlist">'+s.why.map(w=>'<li><span>'+esc(w[1])+'</span></li>').join('')+'</ul>'):'')}
+function drTop(ps,m){const rank={risk:p=>p.score||0,miss:p=>p.f4.filter(x=>x===false).length*1000+(p.score||0),cap:p=>sum(p.hs,h=>h.cap)};const val={risk:p=>'score '+(p.score||0),miss:p=>p.f4.filter(x=>x===false).length+' of 4 missed',cap:p=>fq(sum(p.hs,h=>h.cap))};
+  return drSec({risk:'Highest-risk companies',miss:'Companies with the most missed returns',cap:'Largest companies by capacity'}[m],drList([...ps].sort((a,b)=>rank[m](b)-rank[m](a)).slice(0,8).map(p=>'<li><span>'+drLink('co',p.i,p.name)+'<br><span class="sm">'+p.z+' · '+p.subs.join(', ')+'</span></span><span class="n">'+val[m](p)+'</span></li>')),drMode([['risk','Highest risk'],['miss','Missed returns'],['cap','Largest capacity']],m))}
+function drZone(z,m){m=m||'risk';const s=ZS[z],Z=ZONES.find(x=>x.z===z);return {chip:'Zonal unit',title:z,sub:drLink('rg',Z.r,Z.r.replace(/ Region$/,''))+' region · '+fmt(s.n)+' companies',body:drArea(s)+drTop(P.filter(p=>p.z===z),m),rep:['K1','Open the compliance report']}}
+function drRegion(r,m){m=m||'risk';const s=RS[r],zs=ZONES.filter(Z=>Z.r===r);return {chip:'Region',title:r,sub:zs.length+' zonal units: '+zs.map(Z=>Z.z).join(', '),body:drArea(s)
+  +drSec('Zonal units',drList(zs.map(Z=>'<li><span>'+drLink('zn',Z.z,Z.z)+'</span><span class="n">'+f1(ZS[Z.z].q.rate)+'% returns filed<br><span class="sm">'+fmt(ZS[Z.z].n)+' companies</span></span></li>')))+drTop(P.filter(p=>p.r===r),m),rep:['K1','Open the compliance report']}}
+/* ---- substance */
+function drSub(id,m){m=m||'cap';const S=SM[id],hs=P.filter(p=>holds(p,id)).map(p=>({p,h:H(p,id)})),useT=sum(hs,x=>x.h.use),cpT=sum(hs,x=>x.h.capPer),mfgT=sum(hs,x=>x.h.mfg||0),cmpT=sum(hs,x=>x.h.capMPer||0),mfrs=hs.filter(x=>x.h.capM>0).length,impT=sum(hs,x=>x.h.imp),expT=sum(hs,x=>x.h.exp);
+  const val={cap:x=>x.h.cap,capm:x=>x.h.capM||0,use:x=>x.h.use},ttl={cap:'Largest holders by consumption capacity',capm:'Largest holders by manufacture capacity',use:'Biggest users by declared use'};
+  const modes=[['cap','Consumption capacity']].concat(mfrs?[['capm','Manufacture capacity']]:[],[['use','Declared use']]);if(!val[m]||(m==='capm'&&!mfrs))m='cap';
+  const top=[...hs].filter(x=>val[m](x)>0).sort((a,b)=>val[m](b)-val[m](a)).slice(0,8);
+  const tiles=[drTile('Registered holders',fmt(hs.length),mfrs?mfrs+' also manufacture it':'None manufacture it'),drTile('Consumption capacity in use',cpT?f1(useT/cpT*100)+'%':'–',fq(useT)+' used in '+perLabel(CUR))];
+  if(mfrs)tiles.push(drTile('Manufacture capacity in use',cmpT?f1(mfgT/cmpT*100)+'%':'–',fq(mfgT)+' made in '+perLabel(CUR)));
+  if(impT||expT)tiles.push(drTile('Imports and exports',fq(impT)+' in',fq(expT)+' out'));
+  return {chip:'Substance',title:S.sh,sub:'Tier '+tierOf(id)+' · '+TIERN[tierOf(id)].split(' · ')[1]+' · HSN '+S.hsn,body:'<div class="drg">'+tiles.join('')+'</div>'+drSec(ttl[m],drList(top.map(x=>'<li><span>'+drLink('co',x.p.i,x.p.name)+'<br><span class="sm">'+x.p.z+'</span></span><span class="n">'+fq(val[m](x))+'</span></li>')),drMode(modes,m)),rep:['C1','Open the capacity report']}}
+/* ---- the firms that import or export a substance */
+function drTrade(key,m){const [kind0,id]=String(key).split(/:(.+)/),kind=m==='exp'?'exp':m==='imp'?'imp':kind0,S=SM[id];if(!S)return {chip:'',title:id,sub:'',body:'',rep:['T3','Open the trade report']};
+  const hs=P.filter(p=>holds(p,id)).map(p=>({p:p,h:H(p,id)})),val=x=>kind==='imp'?x.h.imp:x.h.exp,fi=hs.filter(x=>val(x)>0).sort((a,b)=>val(b)-val(a)),tot=sum(fi,val),use=sum(hs,x=>x.h.use),word=kind==='imp'?'importer':'exporter';
+  const body='<div class="drg">'+drTile((kind==='imp'?'Importer':'Exporter')+' firms',fmt(fi.length),'of '+fmt(hs.length)+' registered holders')+drTile(kind==='imp'?'Imported':'Exported',fq(tot),use?f1(tot/use*100)+'% of declared use':'')+'</div>'
+    +drSec((kind==='imp'?'Importers':'Exporters')+', largest first',drList(fi.slice(0,15).map(x=>'<li><span>'+drLink('co',x.p.i,x.p.name)+'<br><span class="sm">'+x.p.z+'</span></span><span class="n">'+fq(val(x))+'</span></li>'))+(fi.length>15?'<div class="drmore"><span class="sm">Top 15 of '+fmt(fi.length)+' shown</span><button type="button" class="entlink" data-drrep="tf:'+kind+':'+id+'">View all in the report ›</button></div>':''),drMode([['imp','Importers'],['exp','Exporters']],kind));
+  return {chip:'',title:S.sh+' · '+word+' firms',sub:perLabel(CUR),body:body,rep:['tf:'+kind+':'+id,kind==='imp'?'Open all importers in a report':'Open all exporters in a report']}}
+/* ---- a headline figure */
+function drKpi(k){const live=P,utilOf=(ps,man)=>{const c=sum(ps,p=>sum(p.hs,h=>man?(h.capMPer||0):h.capPer)),u=sum(ps,p=>sum(p.hs,h=>man?(h.mfg||0):h.use));return c>0?u/c*100:null};
+  const regs=REGIONS.map(r=>r[0]),byR=fn=>regs.map(r=>({r:r,v:fn(live.filter(p=>p.r===r),r)})),pv=v=>v==null?'–':f1(v)+'%';
+  const regList=(rows,show,order)=>drSec('By region',drList(rows.slice().sort(order).map(x=>'<li><span>'+drLink('rg',x.r,x.r.replace(/ Region$/,''))+'</span><span class="n">'+show(x.v)+'</span></li>')));
+  const topCo=(ps,rank,show,title)=>drSec(title,drList(ps.slice().sort((a,b)=>rank(b)-rank(a)).slice(0,6).map(p=>'<li><span>'+drLink('co',p.i,p.name)+'<br><span class="sm">'+p.z+'</span></span><span class="n">'+show(p)+'</span></li>')));
+  let r;const per=perLabel(CUR)+(CMPOK?' · against '+perLabel(CMP):'');
+  if(k==='reg'){const nw=live.filter(p=>p.isNew).length;r={title:'Registered companies',body:'<div class="drg">'+drTile('Registered',fmt(IN.n),CMPOK?dl(IN.g)+' '+vs():'')+drTile('Newly registered',fmt(nw),'in '+perLabel(CUR))+'</div>'+regList(byR(ps=>ps.length),v=>fmt(v)+' companies',(a,b)=>b.v-a.v)+drSec('By tier',drList([1,2,3].map(t=>'<li><span>Tier '+t+' <span class="sm">· '+TIERN[t].split(' · ')[1]+'</span></span><span class="n">'+fmt(live.filter(p=>p.subs.some(id=>tierOf(id)===t)).length)+' companies</span></li>')))}}
+  else if(k==='t1'){const t1=live.filter(p=>p.subs.some(id=>tierOf(id)===1));r={title:'Tier 1 companies',body:'<div class="drg">'+drTile('Tier 1 companies',fmt(t1.length),f1(t1.length/live.length*100)+'% of all companies')+drTile('Tier 1 substances',SUBS.filter(S=>tierOf(S.id)===1).length,SUBS.filter(S=>tierOf(S.id)===1).map(S=>S.sh).join(', '))+'</div>'
+    +drSec('By substance',drList(SUBS.filter(S=>tierOf(S.id)===1).map(S=>'<li><span>'+drLink('sb',S.id,S.sh)+'</span><span class="n">'+fmt(live.filter(p=>holds(p,S.id)).length)+' companies</span></li>')))+regList(byR(ps=>ps.filter(p=>p.subs.some(id=>tierOf(id)===1)).length),v=>fmt(v)+' companies',(a,b)=>b.v-a.v)+topCo(t1,p=>p.score||0,p=>'score '+(p.score||0),'Highest-risk Tier 1 companies')}}
+  else if(k==='ret'){const E=CUR[CUR.length-1],no=live.filter(p=>p.fLast===false);r={title:'Returns filed',body:'<div class="drg">'+drTile('Returns filed',pv(IN.q.rate),'India · '+per)+drTile('Not filed, latest quarter',fmt(no.length),QLAB(E))+'</div>'
+    +regList(byR(ps=>{const a=ps.filter(p=>p.fLast!=null);return a.length?a.filter(p=>p.fLast).length/a.length*100:null}),pv,(a,b)=>(a.v==null)-(b.v==null)||a.v-b.v)+drSec('Zonal units with the lowest rate',drList(ZONES.slice().sort((a,b)=>ZS[a.z].q.rate-ZS[b.z].q.rate).slice(0,5).map(Z=>'<li><span>'+drLink('zn',Z.z,Z.z)+'</span><span class="n">'+pv(ZS[Z.z].q.rate)+'</span></li>')))+topCo(no,p=>p.score||0,p=>'score '+(p.score||0),'Highest-risk companies that have not filed')}}
+  else if(k==='unm'){const nn=NOTES.length,co=uniq(NOTES.map(n=>n.p.i)).length;r={title:'Unmatched dispatches',body:'<div class="drg">'+drTile('Unmatched',pv(IN.unmPct),'of dispatches · '+per)+drTile('Notes open',fmt(nn),co+' compan'+(co===1?'y':'ies'))+'</div>'
+    +drSec('Zonal units with the most unmatched',drList(ZONES.slice().sort((a,b)=>ZS[b.z].unmPct-ZS[a.z].unmPct).slice(0,6).map(Z=>'<li><span>'+drLink('zn',Z.z,Z.z)+'</span><span class="n">'+pv(ZS[Z.z].unmPct)+'<br><span class="sm">'+ZS[Z.z].notes+' notes open</span></span></li>')))
+    +drSec('Largest unmatched dispatches',drList(NOTES.slice().sort((a,b)=>b.qty-a.qty).slice(0,6).map(n=>'<li><span><b>'+esc(n.no)+'</b> · '+esc(n.S.sh)+'<br>'+drLink('co',n.p.i,n.p.name)+'</span><span class="n">'+fq(n.qty)+'<br><span class="sm">'+n.days+' days</span></span></li>')))}}
+  else{const man=k==='mfr',name=man?'Manufacture capacity in use':'Consumption capacity in use',pp=man?live.filter(p=>p.hs.some(h=>h.capM>0)):live;
+    r={title:name,body:'<div class="drg">'+drTile(name,pv(utilOf(pp,man)),'India · '+per)+drTile(man?'Companies that manufacture':'Companies under 12% of capacity',fmt(man?pp.length:live.filter(p=>p.low).length),man?'':'low use')+'</div>'
+    +drSec('By substance',drList(SUBS.map(S=>{const hp=live.filter(p=>holds(p,S.id)),c=sum(hp,p=>man?(H(p,S.id).capMPer||0):H(p,S.id).capPer),u=sum(hp,p=>man?(H(p,S.id).mfg||0):H(p,S.id).use);return {S:S,v:c>0?u/c*100:null}}).filter(x=>x.v!=null).sort((a,b)=>b.v-a.v).map(x=>'<li><span>'+drLink('sb',x.S.id,x.S.sh)+'</span><span class="n">'+pv(x.v)+'</span></li>')))
+    +regList(byR(ps=>utilOf(ps,man)),pv,(a,b)=>(a.v==null)-(b.v==null)||b.v-a.v)}}
+  const g=Object.values(KGO).find(x=>x[0]===k);return {chip:'',title:r.title,sub:per,body:r.body,go:[g[2],g[3]]}}
+/* ---- loss and damage category */
+function drLoss(cat,m){const ps=scopePS(),both=CMPOK;m=both&&m==='cmp'?'cmp':'cur';const set=m==='cmp'?CMP:CUR,all=CASES.filter(c=>c.cat===cat&&ps.includes(c.p)),cs=all.filter(c=>set.includes(c.q)).sort((a,b)=>b.qty-a.qty),other=all.filter(c=>(m==='cmp'?CUR:CMP).includes(c.q)).length;
+  const open=cs.filter(c=>c.status!=='Closed').length,subs=uniq(cs.map(c=>c.S.id)),cos=uniq(cs.map(c=>c.p.i));
+  const tiles=[drTile('Cases',cs.length,both?(m==='cmp'?perLabel(CUR)+': '+other:perLabel(CMP)+': '+other):''),drTile('Still open',open,cs.length?cs.length-open+' closed':'')];
+  if(cs.length)tiles.push(drTile('Quantity lost',fq(sum(cs,c=>c.qty)),'across '+cos.length+' compan'+(cos.length===1?'y':'ies')));
+  const bySub=subs.map(id=>({id,n:cs.filter(c=>c.S.id===id).length,q:sum(cs.filter(c=>c.S.id===id),c=>c.qty)})).sort((a,b)=>b.q-a.q);
+  const body='<div class="drg">'+tiles.join('')+'</div>'
+    +(bySub.length?drSec('By substance',drList(bySub.map(x=>'<li><span>'+drLink('sb',x.id,SM[x.id].sh)+'</span><span class="n">'+x.n+' case'+(x.n===1?'':'s')+' · '+fq(x.q)+'</span></li>'))):'')
+    +drSec(cs.length?'Cases, largest first':'Cases',cs.length?drList(cs.slice(0,10).map(c=>'<li><span><b>'+esc(c.no)+'</b> · '+QLAB(c.q)+'<br>'+drLink('co',c.p.i,c.p.name)+' <span class="sm">· '+esc(c.S.sh)+'</span></span><span class="n">'+fq(c.qty)+'<br><span class="sm">'+esc(c.status)+'</span></span></li>'))+(cs.length>10?'<div class="drmore"><span class="sm">Top 10 of '+fmt(cs.length)+' shown</span><button type="button" class="entlink" data-drrep="L1">View all in the report ›</button></div>':''):'<div class="sm">No cases in '+perLabel(set)+'.</div>',both?drMode([['cur',perLabel(CUR)],['cmp',perLabel(CMP)]],m):'');
+  return {chip:'Loss and damage',title:cat,sub:perLabel(set)+' · '+cs.length+' case'+(cs.length===1?'':'s'),body:body,rep:['L1','Open the loss and damage report']}}
+/* ---- the shell */
+(function(){const d=document.createElement('div');d.innerHTML='<div class="dr-ov" id="drOv" hidden></div><aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drT" hidden tabindex="-1"><header class="drhd"><button type="button" id="drBack" class="btn drb" aria-label="Back" hidden>‹</button><div class="drtt"><span class="drchip" id="drChip"></span><h2 id="drT"></h2><div class="sm drsub" id="drS"></div></div><button type="button" id="drClose" class="btn drx" aria-label="Close">✕</button></header><div class="drbody" id="drBody"></div><footer class="drf" id="drF"></footer></aside>';document.body.append(...d.children)})();
+function drRender(){const e=DR.stack[DR.stack.length-1];if(!e)return;entMaps();let r;
+  if(e.t==='co')r=drCompany(ENT.ci.get(+e.k));else if(e.t==='zn')r=drZone(e.k,e.m);else if(e.t==='rg')r=drRegion(e.k,e.m);else if(e.t==='lc')r=drLoss(e.k,e.m);else if(e.t==='kp')r=drKpi(e.k);else if(e.t==='tf')r=drTrade(e.k,e.m);else r=drSub(e.k,e.m);
+  document.getElementById('drChip').textContent=r.chip;document.getElementById('drT').textContent=r.title;document.getElementById('drS').innerHTML=r.sub;document.getElementById('drBody').innerHTML=r.body;document.getElementById('drBody').scrollTop=0;
+  document.getElementById('drF').innerHTML=(r.go?'<button type="button" class="btn pri" data-drgo="'+r.go[0]+'">'+r.go[1]+'</button>':'<button type="button" class="btn pri" data-drrep="'+r.rep[0]+'">'+r.rep[1]+'</button>')+'<button type="button" class="btn" data-drclose="1">Close</button>';document.getElementById('drBack').hidden=DR.stack.length<2}
+function drOpen(t,k){entMaps();clearTimeout(DR.t);const top=DR.stack[DR.stack.length-1];if(top&&top.t===t&&String(top.k)===String(k))return;if(!DR.stack.length)DR.from=document.activeElement;DR.stack.push({t:t,k:k,m:null});drRender();
+  const d=document.getElementById('drawer');document.documentElement.classList.add('dr-lock');document.getElementById('drOv').hidden=false;d.hidden=false;requestAnimationFrame(()=>{d.classList.add('open');document.getElementById('drClose').focus()})}
+function drClose(){const d=document.getElementById('drawer');if(d.hidden)return;d.classList.remove('open');document.documentElement.classList.remove('dr-lock');document.getElementById('drOv').hidden=true;clearTimeout(DR.t);DR.t=setTimeout(()=>{d.hidden=true},190);DR.stack=[];if(DR.from&&DR.from.focus&&document.contains(DR.from))DR.from.focus();DR.from=null}
+document.addEventListener('click',e=>{const t=e.target;
+  const en=t.closest('.ent');if(en&&!t.closest('.drawer')){e.preventDefault();const [k,v]=en.dataset.ent.split(/:(.+)/);return drOpen(k,v)}
+  const dl=t.closest('[data-dr]');if(dl){const [k,v]=dl.dataset.dr.split(/:(.+)/);return drOpen(k,v)}
+  const dm=t.closest('[data-drm]');if(dm){const top=DR.stack[DR.stack.length-1];if(top){top.m=dm.dataset.drm;const y=document.getElementById('drBody').scrollTop;drRender();document.getElementById('drBody').scrollTop=y}return}
+  if(t.closest('#drBack')){DR.stack.pop();return drRender()}
+  if(t.closest('#drClose,[data-drclose]')||t.id==='drOv')return drClose();
+  const gp=t.closest('[data-drgo]');if(gp){const sp=gp.dataset.drgo;drClose();return kpiGo(sp)}
+  const rp=t.closest('[data-drrep]');if(rp){const id=rp.dataset.drrep;drClose();if(id.indexOf('tf:')===0){const [,kd,sid]=id.split(':');return openReport(kd==='imp'?'T1':'T2',{rows:['premises'],m:kd==='imp'?['imp','exp','use']:['exp','imp','use'],sort:kd,f:{substance:[sid]}})}return openReport(id)}});
+document.addEventListener('keydown',e=>{const d=document.getElementById('drawer');
+  if(d&&!d.hidden){if(e.key==='Escape'){e.preventDefault();return drClose()}
+    if(e.key==='Tab'){const f=[...d.querySelectorAll('button:not([hidden]),[href],select,input,[tabindex]:not([tabindex="-1"])')].filter(x=>x.offsetParent!==null);if(f.length){const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}}return}
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('ent')){e.preventDefault();e.target.click()}});
+markEnt(document.getElementById('main'));
 
 go();
 </script>
