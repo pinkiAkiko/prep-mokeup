@@ -602,7 +602,7 @@ main>.foot{margin-top:auto}
 .g{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:12px}
 @media(min-width:1280px){.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g73{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.g57{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
 .panel{background:#fff;border:1px solid var(--b1);border-radius:4px;min-width:0}
-.phd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--b2)}
+.phd{--cg:12px;display:flex;flex-wrap:wrap;gap:6px var(--cg);align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--b2)}
 .phd h2{font-size:14px;font-weight:600;margin:0}
 .phd .q{font-size:11.5px;color:var(--muted)}
 .pb{padding:12px 14px}
@@ -915,7 +915,7 @@ section.panel:has(>.tdo){display:flex;flex-direction:column}
 .panel.pwide #zp .mm .v{font-size:20px}
 .arow>.panel.pwide:first-child{contain:none;min-height:0;overflow:visible}
 .arow>.panel.pwide:first-child #watch{flex:none;max-height:560px}}
-.phd>.wbtn{margin-left:auto}
+.phd>.wbtn:first-of-type{}
 .phd>.seg2{margin-left:auto}
 .phd>.seg2~.wbtn,.phd>.mapctl~.wbtn{margin-left:0}
 /* the loss chart takes whatever height its row gives it, so the card has no empty space under it */
@@ -925,7 +925,7 @@ section.panel>[id^="ld-"]{flex:1 1 auto;display:flex;flex-direction:column;min-h
 [id^="ld-"]>.pbc>.cv{flex:1 1 auto;height:auto;min-height:300px}
 @media(max-width:1279px){[id^="ld-"]>.pbc{flex:none}[id^="ld-"]>.pbc>.cv{flex:none;height:320px}}
 [id^="ld-"]>.qqnote{margin-top:auto}
-.panel:has([data-ldv]) .phd{flex-wrap:wrap;column-gap:8px}
+.panel:has([data-ldv]) .phd{flex-wrap:wrap;--cg:8px}
 .panel:has([data-ldv]) .pa{gap:8px}
 .panel:has([data-ldv]) .seg2 button{padding:0 8px}
 .ldmeta{padding:8px 14px 0}
@@ -940,6 +940,16 @@ section.panel>[id^="ld-"]{flex:1 1 auto;display:flex;flex-direction:column;min-h
 .sintro .wreset{margin-left:auto}
 .wreset[hidden]{display:none}
 @media(min-width:1280px){.wbtn{display:inline-flex}}
+.panel.hasw{position:relative}
+.panel.hasw>.phd:has(>.mapctl){padding-top:16px}
+.wbtn svg{width:13px;height:13px;flex:none}
+.phd>.wbtn,.phd>.wbtn:hover{position:absolute;top:12px;right:9px;z-index:6;width:20px;height:20px;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:4px;background:transparent;box-shadow:none;color:var(--sub);opacity:0;pointer-events:none;transition:opacity .22s ease .08s,color .12s}
+.panel.hasw>.phd{transition:padding-right .22s ease .08s}
+.panel.hasw:hover>.phd,.panel.hasw:has(>.phd>.wbtn:focus-visible)>.phd,.panel.hasw:has(>.phd>.wbtn[aria-pressed="true"])>.phd{padding-right:36px}
+.panel.hasw:hover>.phd>.wbtn,.phd>.wbtn:focus-visible,.phd>.wbtn[aria-pressed="true"]{opacity:1;pointer-events:auto}
+.phd>.wbtn:hover,.phd>.wbtn:focus-visible,.phd>.wbtn[aria-pressed="true"]{color:var(--blue)}
+@media(hover:none){.phd>.wbtn{opacity:1;pointer-events:auto}.panel.hasw>.phd{padding-right:36px}}
+
 /* first column: a name over its detail, no stray indent, and it stays put when the table scrolls sideways */
 .sc-t .t td:first-child>span[style*="width:18px"]{display:none}
 .sc-t .t td:first-child>b+.sm{display:block;margin-top:2px;white-space:normal}
@@ -1559,7 +1569,7 @@ function zoneStatus(s){const why=[];let c='g';
 /* the risk score: each flag has points and can be switched off. Super Admin sets both in Configuration. */
 const SCORE_DEF=[['tier1','Holds a Tier 1 substance',18,1],['missLast','Missed the latest return',18,1],['miss2','Missed 2 or more of the last 4 returns',14,1],['low','Use under 12% of capacity',20,1],['high','Use above capacity',16,1],['unm','Unmatched dispatch',18,1],['big','Top-10% capacity holder',10,1],['recon','Reconciliation gap',8,1]];
 CFG.score=SCORE_DEF.map(([id,h,pts,on])=>id==='low'?{id,get h(){return 'Use under '+CFG.th.low.t[2]+'% of capacity'},pts,on:!!on}:{id,h,pts,on:!!on});CFG.scoreCap=100;
-const scoreHelp=()=>'Risk score out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. It only orders the list. The Why column shows the flags. The filter button ranks the top 10 on another basis. Super Admin sets the points in Configuration.';
+const scoreHelp=()=>'Risk score out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. Points are set in Configuration.';
 function recompute(){
   NAT={};SUBS.forEach(S=>{const hp=P.filter(p=>holds(p,S.id));NAT[S.id]={sent:sum(hp,p=>H(p,S.id).sent)||1,use:sum(hp,p=>H(p,S.id).use)||1}});
   PALL.forEach(p=>{p.big=null;p.score=0;p.f=[]});
@@ -1721,9 +1731,9 @@ function after(){const f=afterFns;afterFns=[];f.forEach(x=>x());paintPW();fitFil
 const GLB='<button type="button" class="btn" data-gloss="1">Appendix</button>';
 const pageHead=(t,meta,acts='')=>`<div class="ph1"><div><h1>${t}</h1><div class="meta">${meta}</div></div><div class="acts">${acts}</div></div>`;
 const asof=()=>`Data as on ${fd(TODAY)}, 06:00 IST · refreshed nightly at ${CFG.refresh}`;
-const panel=(title,q,body,acts='',badge='')=>{let ex='';
+const panel=(title,q,body,acts='',badge='',tail='')=>{let ex='';
   body=body.replace(/<div class="tw-bar"><span><\/span><span class="acts"><span class="sm">[^<]*<\/span>(<button class="btn" data-export="([^"]+)">Export CSV<\/button>)<\/span><\/div>/,(m,btn,id)=>{ex=btn;if(TB[id])TB[id].o.hoist=true;return ''});
-  return `<section class="panel"><div class="phd"><div class="pt"><h2>${title}</h2>${q?`<span class="info" tabindex="0" role="note" aria-label="${esc(q)}" data-tip="${esc(q)}">i</span>`:''}${badge}</div>${ex?`<span class="pa">${ex}${acts}</span>`:acts}</div>${body}</section>`};
+  return `<section class="panel"><div class="phd"><div class="pt"><h2>${title}</h2>${q?`<span class="info" tabindex="0" role="note" aria-label="${esc(q)}" data-tip="${esc(q)}">i</span>`:''}${badge}</div>${ex?`<span class="pa">${ex}${acts}</span>`:acts}${tail}</div>${body}</section>`};
 const KGO={'Registered companies':['reg','See the breakdown','reg:R1','Open registered companies by substance'],'Tier 1 companies':['t1','See the breakdown','sc:tier1','Show Tier 1 in the substance chart'],'Returns filed':['ret','See the breakdown','cmp:K1','Open returns not filed, by zone'],'Unmatched dispatches':['unm','See the breakdown','alerts:unm','Open the alert'],'Manufacture capacity in use':['mfr','See the breakdown','cap:C4','Open capacity in use, by substance'],'Consumption capacity in use':['con','See the breakdown','cap:C4','Open capacity in use, by substance']};
 const kpi=(l,v,d,c='',u='',sr='')=>{if(!CMPOK)d='';const go=KGO[l];return `<div class="kpi ${c}"${go?` data-kgo="${go[0]}" tabindex="0" role="button" aria-label="${l}: see the breakdown"`:''}><div class="kl">${l}</div><div class="kv">${v}${u?`<small>${u}</small>`:''}</div><div class="kd">${d}</div>${sr}</div>`};
 const openRep=id=>`<button class="btn orb" data-open="${id}" aria-label="Open report" title="Open report"><span class="ot">Open report</span><svg class="oi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3h7v7"/><path d="M10 14L21 3"/><path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></svg></button>`;
@@ -1812,10 +1822,9 @@ ST.pw=new Set();
 const pwTitle=p=>{const h=p.querySelector('.phd h2');return h?(p.querySelector('#sccnt')?'Substance breakdown':p.querySelector('#premcnt')?'Top 10 companies':h.textContent.trim()):''};
 function paintPW(){document.querySelectorAll('#main .g').forEach(g=>{const ps=[...g.children].filter(c=>c.classList.contains('panel'));if(ps.length<2)return;
     ps.forEach(p=>{const t=pwTitle(p),on=ST.pw.has(t);if(!t)return;p.classList.toggle('pwide',on);let b=p.querySelector('[data-pwide]');if(t==='Alerts'){if(b)b.remove();return}
-      if(!b){b=document.createElement('button');b.type='button';b.className='btn wbtn';b.dataset.pwide=t;const hd=p.querySelector('.phd'),anchor=hd&&hd.querySelector('[data-open]'),mc=p.querySelector('.mapctl');
-        if(anchor)anchor.parentNode.insertBefore(b,anchor);else if(mc)mc.appendChild(b);else if(hd)hd.appendChild(b)}
-      if(!b.isConnected)return;b.setAttribute('aria-pressed',on);b.title=on?'Back to side by side':'Show on a full-width row';b.setAttribute('aria-label',b.title);
-      b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(on?'<path d="M3 12h6M15 12h6M6 9l3 3-3 3M18 9l-3 3 3 3"/>':'<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>')+'</svg>'})})}
+      if(!b){b=document.createElement('button');b.type='button';b.className='btn wbtn';b.dataset.pwide=t;const hd=p.querySelector('.phd');if(!hd)return;hd.appendChild(b)}p.classList.add('hasw');
+      if(!b.isConnected)return;b.setAttribute('aria-pressed',on);b.title=on?'Back to side by side':'Expand to full width';b.setAttribute('aria-label',b.title);
+      b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(on?'<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>':'<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>')+'</svg>'})})}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pwide]');if(!b)return;const p=b.closest('.panel'),g=p.parentElement,ps=[...g.children].filter(c=>c.classList.contains('panel')),on=!ST.pw.has(pwTitle(p));
   (ps.length===2?ps:[p]).forEach(x=>{on?ST.pw.add(pwTitle(x)):ST.pw.delete(pwTitle(x))});paintPW();
   document.querySelectorAll('canvas').forEach(c=>{const ch=window.Chart&&Chart.getChart(c);if(ch)ch.resize()});p.scrollIntoView({block:'nearest'})});
@@ -2573,7 +2582,7 @@ ST.tab='overview';ST.cv={};ST.sel={R3:new Set()};REPORTS.forEach(r=>{if(r[5]&&r[
 ST.combo={};Object.keys(ST.sel).forEach(k=>{if(k!=='R3')ST.combo[k]=new Set()});
 ST.shut={};ST.one={};ST.wide={};
 const isWide=id=>id in ST.wide?ST.wide[id]:WIDECARDS.has(id);
-const wideBtn=id=>{const w=isWide(id);return `<button type="button" class="btn wbtn" data-wide="${id}" aria-pressed="${w}" aria-label="${w?'Back to half width':'Show full width'}" title="${w?'Back to half width':'Show full width'}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${w?'<path d="M3 12h6M15 12h6M6 9l3 3-3 3M18 9l-3 3 3 3"/>':'<path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/>'}</svg></button>`};
+const wideBtn=id=>{const w=isWide(id);return `<button type="button" class="btn wbtn" data-wide="${id}" aria-pressed="${w}" aria-label="${w?'Back to half width':'Expand to full width'}" title="${w?'Back to half width':'Expand to full width'}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${w?'<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>':'<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'}</svg></button>`};
 const SUBFILTER=new Set(['C2','C3','U2','X6']);
 const zoneSub=id=>['R2','R5','K1','T4'].includes(id);
 FLAGS.cmb=['',p=>RP.comboPred?RP.comboPred(p):true];
@@ -2784,14 +2793,14 @@ function pillList(fs,cap){const gs=group(fs,RP.rows[0]).slice(0,cap),D=DIMS[RP.r
 const cbaseSel=id=>'<label class="rcf"><span class="sm">Against</span><select class="mfs" data-cbase="'+id+'" aria-label="Capacity to compare with">'+RATIO[id].bases.map(m=>'<option value="'+m+'"'+((ST.cbase[id]||RATIO[id].base)===m?' selected':'')+'>'+MEAS[m].h.replace(', a year','').replace(/ capacity$/,'')+'</option>').join('')+'</select></label>';
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset||!t.dataset.cbase)return;ST.cbase[t.dataset.cbase]=t.value;selRefresh(t.dataset.cbase)});
 function cardInner(id){const R=RM[id];if(!R||!R.def)return '';const view=zoneWise(id)?'table':(ST.cv[id]||(TABLEFIRST.has(id)?'table':'chart'));
-  const ctl=`<span class="mapctl${(RATIO[id]&&RATIO[id].bases)||ZONEWISE.has(id)||CAPSEL.has(id)?' cmp':''}">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}${RATIO[id]&&RATIO[id].bases?cbaseSel(id):''}${ZONEWISE.has(id)?bySel(id):''}${CAPSEL.has(id)?ccapSel(id):''}${cfMenu(id)}${zoneWise(id)?'':`<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>`}${wideBtn(id)}${id==='T3'?`<button class="btn" data-open="T3">Net trade report</button><button class="btn" data-open="T1">Importers report</button><button class="btn" data-open="T2">Exporters report</button>`:openRep(id)}</span>`;
+  const ctl=`<span class="mapctl${(RATIO[id]&&RATIO[id].bases)||ZONEWISE.has(id)||CAPSEL.has(id)?' cmp':''}">${ST.sel[id]?selMenu(id):''}${ST.range[id]?rangeMenu(id):''}${RATIO[id]&&RATIO[id].bases?cbaseSel(id):''}${ZONEWISE.has(id)?bySel(id):''}${CAPSEL.has(id)?ccapSel(id):''}${cfMenu(id)}${zoneWise(id)?'':`<span class="seg2" role="group" aria-label="View">${['chart','table'].map(v=>`<button type="button" data-cv="${id}:${v}" aria-pressed="${view===v}" class="${view===v?'on':''}">${v==='chart'?'Chart':'Table'}</button>`).join('')}</span>`}${id==='T3'?`<button class="btn" data-open="T3">Net trade report</button><button class="btn" data-open="T1">Importers report</button><button class="btn" data-open="T2">Exporters report</button>`:openRep(id)}</span>`;
   const body=withReport(id,()=>{const fs=factsFor(CUR),note=cardNote(),cap=note?`<div class="sm sc-cap">${esc(note)}</div>`:'';
     if(view==='table')return cap+`<div class="sc-t">${id==='C3'&&(ST.ccap.C3||'both')==='both'?c3Table():cardTable()}</div>`;
     const kind=CARDKIND[id]||'pill';
     if(!RP.col&&!CANVAS_KIND.has(kind))return cap+pillList(fs,12);
     return cap+`<div class="pb pbc"><div class="cv" style="min-height:${id==='K4'?440:kind==='donut'&&!RP.col?260:kind==='butterfly'?(RP.rows[0]==='zone'?400:340):kind==='bubble'?(isWide(id)?310:id==='U2'?330:380):kind==='cumarea'?500:['lollipop','cumarea','radar','polar'].includes(kind)?340:290}px"><canvas id="cv-${id}" role="img" aria-label="${esc(R.title)}"></canvas></div></div>`});
   if(view==='chart'&&(R.def.col||CANVAS_KIND.has(CARDKIND[id])))later(()=>withReport(id,()=>R.def.col?pivotChart(factsFor(CUR),document.getElementById('cv-'+id),12):(DRAW[CARDKIND[id]]||cardColumns)(document.getElementById('cv-'+id))));
-  return panel(CARDTITLE[id]||R.title,R.av==='y'?'':AV[R.av][1],body,ctl)}
+  return panel(CARDTITLE[id]||R.title,R.av==='y'?'':AV[R.av][1],body,ctl,'',wideBtn(id)).replace('<section class="panel">','<section class="panel hasw">')}
 document.addEventListener('change',e=>{const t=e.target;if(!t.dataset.rq)return;const [id,k]=t.dataset.rq.split(':');ST.range[id][k]=t.value===''?null:+t.value;selRefresh(id)});
 function selRefresh(id){const box=document.getElementById('sc-'+id);if(!box)return;const m=document.getElementById('msub-'+id),open=!!(m&&m.open),ch=window.Chart&&Chart.getChart('cv-'+id);if(ch)ch.destroy();
   box.innerHTML=cardInner(id);if(open){const n=document.getElementById('msub-'+id);if(n)n.open=true}after()}
