@@ -779,9 +779,10 @@ html.dr-lock{overflow:hidden}
 .cfgp .t td .uin{margin:0 auto}
 .uin .cfgin{text-align:center}
 .cgh td{background:#F4F6F8;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);padding:6px 12px}
-.uin{display:inline-flex;align-items:stretch;width:132px;border:1px solid var(--line);border-radius:4px;background:#fff;overflow:hidden;vertical-align:middle}
+.uin{display:inline-flex;align-items:stretch;width:150px;border:1px solid var(--line);border-radius:4px;background:#fff;overflow:hidden;vertical-align:middle}
 .cfgrow .uin,.cfgcards .uin,td .uin:only-child{max-width:100%}
 .uin.sm{width:76px}
+.cfgp>.tabs{margin-bottom:8px}
 .uin .cfgin{color:var(--navy)}
 .adjc{min-width:260px}
 .adj{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12.5px;margin:2px 0}
@@ -1393,7 +1394,7 @@ const CFG={
   alert:{file:{on:1,minMiss:3,gap:6,minCo:30},anom:{on:1,extra:2},apps:{on:1,extra:2},unm:{on:1,mult:3},growth:{on:1},big:{on:1},imp:{on:1}},
   review:[30,60,90], defaultReview:60,
   refresh:'02:00', matterWarn:25, exportCap:100000, pageSize:25, returnDue:'15 Oct 2026'};
-const TIERN={1:'Tier 1 · every gram',2:'Tier 2 · pharma leakage',3:'Tier 3 · bulk volume'};
+const TIERN={1:'Tier 1 · high priority',2:'Tier 2 · medium priority',3:'Tier 3 · low priority'};
 const tierOf=id=>CFG.tier[id];
 const thv=(k,id)=>CFG.th[k].t[(id?tierOf(id):3)-1];
 const TODAY=new Date(2026,10,24,6,0);
@@ -1586,7 +1587,7 @@ function zoneStatus(s){const why=[];let c='g';
 /* the risk score: each flag has points and can be switched off. Super Admin sets both in Configuration. */
 const SCORE_DEF=[['tier1','Holds a Tier 1 substance',18,1],['missLast','Missed the latest return',18,1],['miss2','Missed 2 or more of the last 4 returns',14,1],['low','Use under 12% of capacity',20,1],['high','Use above capacity',16,1],['unm','Unmatched dispatch',18,1],['big','Top-10% capacity holder',10,1],['recon','Reconciliation gap',8,1]];
 CFG.score=SCORE_DEF.map(([id,h,pts,on])=>id==='low'?{id,get h(){return 'Use under '+CFG.th.low.t[2]+'% of capacity'},pts,on:!!on}:{id,h,pts,on:!!on});CFG.scoreCap=100;
-const scoreHelp=()=>'Risk score out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. Points are set in Configuration.';
+const scoreHelp=()=>'Overall risk, out of '+CFG.scoreCap+'. Each flag adds points: '+CFG.score.filter(x=>x.on).sort((a,b)=>b.pts-a.pts).map(x=>x.h.toLowerCase()+' '+x.pts).join(', ')+'. Points are set in Configuration.';
 function recompute(){
   NAT={};SUBS.forEach(S=>{const hp=P.filter(p=>holds(p,S.id));NAT[S.id]={sent:sum(hp,p=>H(p,S.id).sent)||1,use:sum(hp,p=>H(p,S.id).use)||1}});
   PALL.forEach(p=>{p.big=null;p.score=0;p.f=[]});
@@ -1914,7 +1915,7 @@ function dashHQ(){const L=lists(),hi=L.att.filter(x=>x.m.sev===3).length,act=Obj
 <g id="mapLabels"></g></svg><div class="legend" id="mapLegend"></div></div><div id="zp"></div></div></div>`,`<div class="mapctl"><div class="seg2" role="group" aria-label="Show the map by">${[['reg','Region'],['zone','Zonal unit']].map(([k,l])=>`<button type="button" data-mv="${k}" aria-pressed="${ST.mv===k}" class="${ST.mv===k?'on':''}">${l}</button>`).join('')}</div><div class="seg2" role="group" aria-label="Colour the map by">${Object.entries(MM).map(([k,m])=>`<button type="button" data-mm="${k}" aria-pressed="${ST.mm===k}" class="${ST.mm===k?'on':''}">${m.lab}</button>`).join('')}</div></div>`)}</div>`+
    `<div class="g">${panel('Regional dashboard','Rates, not counts, so a small region is judged fairly. Select a row to see its zones on the map.',`<div id="regcmp">${regCmpBody()}</div>`,regCmpCtl())}</div>`+qqPanel()+
    `${SHOW_VOLUME?'<div class="g">'+panel('Volume against filing','Up: more of India\'s use. Left: fewer returns filed. Top-left is the audit focus.',`<div class="pb"><div class="cv" style="height:420px"><canvas id="cBubble" aria-label="Zones by share of use and returns filed"></canvas></div></div>`,openRep('X6'))+'</div>':''}<div class="g g73">${panel('Top 10 non-compliant companies',scoreHelp(),premTable('hqPrem',P,10),fltMenu('prem')+openRep('X2'),`<span class="cnt" id="premcnt">of ${fmt(P.filter(p=>p.score>0).length)}</span>`)}${panel('Loss and damage','Form N cases by category.',lossBlock(P,'hqLoss'),ldCtl(1),'<span class="cnt" id="ldcnt">'+LDS.hqLoss.tot+' cases</span>')}</div>`+
-   `<div class="g">${panel(scTitle(),'Each company is counted once, so the bars add up to the total. Quantities are never added across substances. Tier 1: every gram matters. Tier 3: watch the percentages.',substanceChart(P),scCtl('C1'),`<span class="cnt" id="sccnt"></span>`)}</div>`+
+   `<div class="g">${panel(scTitle(),'Each company is counted once, so the bars add up to the total. Quantities are never added across substances. Tier 1 is high priority and Tier 3 is low priority.',substanceChart(P),scCtl('C1'),`<span class="cnt" id="sccnt"></span>`)}</div>`+
    `<div class="g">${panel('Import and export','Declared against an NOC. Not yet checked against Customs.',tradeBlock(P),'<span class="pa">'+fltMenu('trade')+openRep('T3')+'</span>')}</div>`+
    gapsBlock()+footer()}
 
@@ -2025,7 +2026,7 @@ function substanceTable(ps,keep){const rows=SUBS.map(S=>{const hp=ps.filter(p=>h
 
 const useP=p=>{const c=sum(p.hs,h=>h.capPer);return c>0?sum(p.hs,h=>h.use)/c*100:null};
 const PBASIS={
-  score:{h:'Overall risk score',col:'Risk score',title:'Top 10 non-compliant companies',val:p=>p.score,show:p=>p.score,ok:p=>p.score>0},
+  score:{h:'Overall risk',col:'Overall risk',title:'Top 10 non-compliant companies',val:p=>p.score,show:p=>p.score,ok:p=>p.score>0},
   missed:{h:'Returns missed in the last 4 quarters',col:'Missed',title:'Top 10 companies by returns missed',val:p=>p.f4.filter(x=>x===false).length,show:p=>p.f4.filter(x=>x===false).length+' of 4',ok:p=>p.f4.some(x=>x===false)},
   unm:{h:'Unmatched dispatch quantity',col:'Unmatched',title:'Top 10 companies by unmatched dispatch',val:p=>sum(p.hs,h=>h.unm),show:p=>fq(sum(p.hs,h=>h.unm)),ok:p=>sum(p.hs,h=>h.unm)>0},
   low:{h:'Lowest use of capacity',col:'Capacity used',title:'Top 10 companies by lowest use of capacity',val:p=>{const u=useP(p);return u==null?-1e9:-u},show:p=>f1(useP(p))+'%',ok:p=>useP(p)!=null},
@@ -2151,7 +2152,7 @@ function ruleWhy(m){return {
   file:'Raised when the share of a zonal unit\'s companies that filed the quarterly return falls below the filing target.',
   unm:'Raised when what a zone sent out of a substance is not shown as received on any buyer\'s return, above the limit for that substance\'s tier.',
   anom:'Raised when too many companies in a zone use only a small share of their installed capacity. Capacity far above use is the first sign of under-reporting.',
-  growth:'Raised when the number of companies holding a Tier 1 substance grows faster than the limit in a year. Tier 1 is where every gram matters.',
+  growth:'Raised when the number of companies holding a Tier 1 substance grows faster than the limit in a year. Tier 1 is the highest priority.',
   big:'Raised when any of the biggest holders of a substance (the top 10% by capacity) did not file the quarter\'s return.',
   imp:'Raised when a substance\'s imports grow faster than its declared use. Stock may be building up, or use is under-declared.',
   apps:'Raised when several applications in a zone have waited longer than the allowed number of days.'}[m.k]||'Raised by a rule in Configuration.'}
@@ -2434,7 +2435,7 @@ const MEAS={
   t1:{h:'Tier 1 companies',f:fs=>dp(fs).filter(p=>p.subs.some(id=>tierOf(id)===1)).length,fmt:fmt,add:1,bad:1},
   cases:{h:'Loss cases',f:fs=>sum(live(fs),f=>f.cs.length),fmt:fmt,add:1,bad:1},
   lossq:{h:'Quantity lost',f:fs=>sum(live(fs),f=>sum(f.cs,c=>c.qty)),fmt:fq,unit:1,add:1,bad:1},
-  score:{h:'Risk score',f:fs=>Math.max(0,...dp(fs).map(p=>p.score||0)),fmt:fmt}};
+  score:{h:'Overall risk',f:fs=>Math.max(0,...dp(fs).map(p=>p.score||0)),fmt:fmt}};
 const ZORD=ZONES.map(Z=>Z.z),RORD=REGIONS.map(r=>r[0]),SORD=SUBS.map(s=>s.id);
 const qOf=f=>f.qv??f.q;
 const DIMS={
@@ -2908,13 +2909,13 @@ function savedView(){return pageHead('Saved views','Your own report layouts, kep
 document.addEventListener('input',e=>{const t=e.target;if(!t.dataset||!t.dataset.sq)return;ST.sq=t.value;ST.pg.saved.p=1;const g=document.getElementById('savedgrid');if(g){g.innerHTML=savedGrid();fitFill()}});
 
 /* ===================== Super Admin configuration ===================== */
-function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['alerts','Alerts'],['score','Risk score'],['perf','Data refresh and performance'],['log','Change log']];
+function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['alerts','Alerts'],['score','Overall risk'],['perf','Data refresh and performance'],['log','Change log']];
   let b='';
   const SW=(attr,on)=>'<label class="sw"><input type="checkbox" '+attr+(on?' checked':'')+'><i></i><span class="t-on">On</span><span class="t-off">Off</span></label>',UIN=(attr,val,u,w,extra)=>'<span class="uin'+(u?'':' sm')+'"><input class="cfgin" type="number" '+(extra||'')+' value="'+val+'" '+attr+(w?' style="width:'+w+'px"':'')+'>'+(u?'<em>'+u+'</em>':'')+'</span>';
   if(ST.cfgTab==='th'){const G=[['Alerts',['file','unm','anom','growth','imp','apps','appsn','minq']],['Companies',['low']]],U={'%':'percent',companies:'companies',pts:'points',days:'days',applications:'applications',kg:'kg'};
-    b='<div class="pb note">A substance takes the value of its tier, so one change applies to every substance in that tier. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Limit</th><th>Judged at</th><th class="n">Tier 1</th><th class="n">Tier 2</th><th class="n">Tier 3</th><th>Unit</th></tr></thead><tbody>'
+    b='<div class="frame"><table class="t"><thead><tr><th>Limit</th><th>Judged at</th><th class="n">Tier 1</th><th class="n">Tier 2</th><th class="n">Tier 3</th><th>Unit</th></tr></thead><tbody>'
       +G.map(g=>'<tr class="cgh"><td colspan="6">'+g[0]+'</td></tr>'+g[1].filter(k=>CFG.th[k]).map(k=>{const t=CFG.th[k];return '<tr><td><b>'+t.h+'</b><div class="sm">'+(t.note||(t.better==='up'?'Breached when the figure falls below the limit':'Breached when the figure rises above the limit'))+'</div></td><td>'+t.scope+'</td>'+t.t.map((v,i)=>'<td class="n">'+UIN('data-th="'+k+':'+i+'" aria-label="'+t.h+', tier '+(i+1)+'"',v,'',0,'step="0.1"')+'</td>').join('')+'<td class="sm">'+(U[t.u]||t.u)+'</td></tr>'}).join('')).join('')+'</tbody></table></div>'}
-  if(ST.cfgTab==='tier')b='<div class="pb note">The tier decides which limits apply and how the dashboards group substances. Proposed by the portal; to be confirmed by NCB.</div><div class="frame"><table class="t"><thead><tr><th>Substance</th><th>Tier</th></tr></thead><tbody>'+SUBS.map(S=>'<tr><td><b>'+S.sh+'</b><div class="sm">HSN '+S.hsn+'</div></td><td><span class="tseg" role="radiogroup" aria-label="Tier for '+S.sh+'">'+[1,2,3].map(t=>'<label class="t'+t+'"><input type="radio" name="tier-'+S.id+'" data-tier="'+S.id+'" value="'+t+'"'+(tierOf(S.id)===t?' checked':'')+'><span>Tier '+t+'</span></label>').join('')+'</span></td></tr>').join('')+'</tbody></table></div><div class="pb sm">'+[1,2,3].map(t=>'<b>Tier '+t+'</b> '+TIERN[t].split(' · ')[1]).join(' · ')+'</div>';
+  if(ST.cfgTab==='tier')b='<div class="frame"><table class="t"><thead><tr><th>Substance</th><th>Tier</th></tr></thead><tbody>'+SUBS.map(S=>'<tr><td><b>'+S.sh+'</b><div class="sm">HSN '+S.hsn+'</div></td><td><span class="tseg" role="radiogroup" aria-label="Tier for '+S.sh+'">'+[1,2,3].map(t=>'<label class="t'+t+'"><input type="radio" name="tier-'+S.id+'" data-tier="'+S.id+'" value="'+t+'"'+(tierOf(S.id)===t?' checked':'')+'><span>Tier '+t+'</span></label>').join('')+'</span></td></tr>').join('')+'</tbody></table></div>';
   if(ST.cfgTab==='alerts'){const A=CFG.alert,T=CFG.th,on=k=>SW('data-aon="'+k+'"',A[k].on),fld=(lab,k,fd)=>'<label class="adj"><span>'+lab+'</span><span class="uin sm"><input class="cfgin" type="number" min="0" step="1" value="'+A[k][fd]+'" data-asv="'+k+':'+fd+'" aria-label="'+lab+'"></span></label>';
     const R=[['file','Returns not filed','A zonal unit’s returns filed fall below '+T.file.t[2]+'% and at least '+A.file.minMiss+' companies did not file.','More than '+A.file.gap+' points below the limit, with at least '+A.file.minCo+' companies.',[fld('Companies that must miss','file','minMiss'),fld('High: points below the limit','file','gap'),fld('High: companies in the unit','file','minCo')]],
       ['anom','Companies far under capacity',T.anom.t[2]+' or more companies in a zonal unit use under '+T.low.t[2]+'% of their capacity.','The count reaches '+(T.anom.t[2]+A.anom.extra)+' or more.',[fld('High: extra companies over the limit','anom','extra')]],
@@ -2923,15 +2924,15 @@ function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['alert
       ['growth','Tier 1 companies growing too fast','Companies holding a Tier 1 substance grow '+T.growth.t[0]+'% or more in a year.','Always high.',[]],
       ['big','Biggest holders that did not file','Any of the top 10% holders by capacity did not file the latest return.','Always high.',[]],
       ['imp','Imports outrunning use','Imports grow faster than use by more than the substance’s Tier limit.','Always medium.',[]]];
-    b='<div class="pb note">Each alert has its own switch. The limits themselves are on the Thresholds tab, and a switched-off alert stops appearing on the dashboard. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Alert</th><th>Raised when</th><th>High priority when</th><th>Adjust</th><th>Active</th></tr></thead><tbody>'+R.map(r=>'<tr><td><b>'+r[1]+'</b></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td class="adjc">'+(r[4].join('')||'<span class="sm">Nothing to adjust</span>')+'</td><td>'+on(r[0])+'</td></tr>').join('')+'</tbody></table></div>'
-      +'<div class="pb cfgrow"><div><div class="fl" style="font-weight:600">Warn HQ when alerts exceed</div><div class="note">Today: '+MATTERS.length+'. A long list usually means the thresholds are too tight.</div></div>'+UIN('data-warn="1" aria-label="Warn HQ when alerts exceed"',CFG.matterWarn,'alerts',0,'min="1"')+'</div>'}
+    b='<div class="frame"><table class="t"><thead><tr><th>Alert</th><th>Raised when</th><th>High priority when</th><th>Adjust</th><th>Active</th></tr></thead><tbody>'+R.map(r=>'<tr><td><b>'+r[1]+'</b></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td class="adjc">'+(r[4].join('')||'<span class="sm">Nothing to adjust</span>')+'</td><td>'+on(r[0])+'</td></tr>').join('')+'</tbody></table></div>'
+      +'<div class="pb cfgrow"><div><div class="fl" style="font-weight:600">Warn HQ when alerts exceed</div></div>'+UIN('data-warn="1" aria-label="Warn HQ when alerts exceed"',CFG.matterWarn,'alerts',0,'min="1"')+'</div>'}
   if(ST.cfgTab==='score'){const tot=sum(CFG.score.filter(x=>x.on),x=>x.pts);
-    b='<div class="pb note">Each flag adds its points to a company’s risk score, up to the highest score. Switch a flag off to leave it out. The score decides the order of the Top 10 list. Changes apply from the next nightly refresh.</div><div class="frame"><table class="t"><thead><tr><th>Flag</th><th class="n">Points</th><th>Active</th></tr></thead><tbody>'+CFG.score.map(x=>'<tr><td><b>'+x.h+'</b></td><td class="n">'+UIN('data-sc="'+x.id+':pts" aria-label="Points for '+x.h+'"',x.pts,'',0,'min="0" max="100"')+'</td><td>'+SW('data-sc="'+x.id+':on"',x.on)+'</td></tr>').join('')
-      +'<tr class="cgh"><td colspan="3">Highest score</td></tr><tr><td><b>Highest score possible</b><div class="sm">All active flags together add '+tot+' points. A score is never shown above this.</div></td><td class="n">'+UIN('data-sccap="1" aria-label="Highest score"',CFG.scoreCap,'',0,'min="1" max="1000"')+'</td><td></td></tr></tbody></table></div>'}
-  if(ST.cfgTab==='perf')b='<div class="pb cfgcards"><div class="cc1"><div class="fl" style="font-weight:600">Nightly summary refresh</div><input class="fi" style="max-width:130px" type="time" value="'+CFG.refresh+'" data-cfg="refresh"><div class="note">Dashboards read summary tables, never the live returns. Also refreshed one hour after each return due date.</div></div>'
-    +'<div class="cc1"><div class="fl" style="font-weight:600">Rows per page</div>'+UIN('data-cfg="pageSize" aria-label="Rows per page"',CFG.pageSize,'rows',0,'min="5" max="200"')+'<div class="note">The starting page size for the report and saved-view tables, and for company lists.</div></div>'
-    +'<div class="cc1"><div class="fl" style="font-weight:600">Largest export prepared at once</div>'+UIN('data-cfg="exportCap" aria-label="Largest export"',CFG.exportCap,'rows',0,'min="1000"')+'<div class="note">Bigger exports are built in the background.</div></div>'
-    +'<div class="cc1"><div class="fl" style="font-weight:600">Return due date for '+QLAB(LASTQ)+'</div><input class="fi" style="max-width:160px" value="'+CFG.returnDue+'" readonly><div class="note">Read from the return calendar, not set here.</div></div></div>'
+    b='<div class="frame"><table class="t"><thead><tr><th>Flag</th><th class="n">Points</th><th>Active</th></tr></thead><tbody>'+CFG.score.map(x=>'<tr><td><b>'+x.h+'</b></td><td class="n">'+UIN('data-sc="'+x.id+':pts" aria-label="Points for '+x.h+'"',x.pts,'',0,'min="0" max="100"')+'</td><td>'+SW('data-sc="'+x.id+':on"',x.on)+'</td></tr>').join('')
+      +'<tr class="cgh"><td colspan="3">Highest overall risk</td></tr><tr><td><b>Highest overall risk possible</b><div class="sm">All active flags together add '+tot+' points. Overall risk is never shown above this.</div></td><td class="n">'+UIN('data-sccap="1" aria-label="Highest overall risk"',CFG.scoreCap,'',0,'min="1" max="1000"')+'</td><td></td></tr></tbody></table></div>'}
+  if(ST.cfgTab==='perf')b='<div class="pb cfgcards"><div class="cc1"><div class="fl" style="font-weight:600">Nightly summary refresh</div><input class="fi" style="max-width:130px" type="time" value="'+CFG.refresh+'" data-cfg="refresh"></div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Rows per page</div>'+UIN('data-cfg="pageSize" aria-label="Rows per page"',CFG.pageSize,'rows',0,'min="5" max="200"')+'</div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Largest export prepared at once</div>'+UIN('data-cfg="exportCap" aria-label="Largest export"',CFG.exportCap,'rows',0,'min="1000"')+'</div>'
+    +'<div class="cc1"><div class="fl" style="font-weight:600">Return due date for '+QLAB(LASTQ)+'</div><input class="fi" style="max-width:160px" value="'+CFG.returnDue+'" readonly></div></div>'
     +'<div class="sec" style="padding:0 14px">Summary tables behind the dashboards</div>'+table('aggT',[{k:'t',h:'Table'},{k:'g',h:'One row per'},{k:'n',h:'Rows today',n:1,f:x=>fmt(x.n)},{k:'s',h:'Fed by'}],[
       {t:'Holdings by quarter',g:'Company, substance and quarter',n:QF.length,s:'Registered substances, returns, return lines'},
       {t:'Zonal units by quarter',g:'Zonal unit, substance and quarter',n:13*8*24,s:'Holdings by quarter'},
@@ -2939,7 +2940,7 @@ function cfgView(){const tabs=[['th','Thresholds'],['tier','Risk tiers'],['alert
       {t:'Movements by quarter',g:'Consignment note and quarter',n:NOTES.length*40,s:'Consignment notes, their acknowledgements, return lines'}],{});
   if(ST.cfgTab==='log')b=table('logT',[{k:'on',h:'When'},{k:'who',h:'Who'},{k:'what',h:'What changed'},{k:'b',h:'Before'},{k:'a',h:'After'}],[
     {on:'12 Nov 2026 16:40',who:'Super Admin',what:'Unmatched dispatches, Tier 1',b:'1.0%',a:'0.5%'},{on:'12 Nov 2026 16:38',who:'Super Admin',what:'2-Bromo-4-MPP tier',b:'Tier 2',a:'Tier 1'},{on:'30 Oct 2026 11:05',who:'Super Admin',what:'Rows per page',b:'50',a:'25'}],{});
-  return pageHead('Configuration','Analytics settings for every office. Every change is recorded with the value before and after.')+
+  return pageHead('Configuration','')+
    `<section class="panel cfgp"><div class="tabs" role="tablist">${tabs.map(t=>`<button role="tab" class="${ST.cfgTab===t[0]?'on':''}" data-cfgtab="${t[0]}">${t[1]}</button>`).join('')}</div>${b}${ST.cfgTab==='log'?'':'<div class="cfgbar" id="cfgbar" hidden><span class="cn" id="cfgn"></span><button type="button" class="btn" data-cfgdiscard="1">Discard</button><button type="button" class="btn pri" data-cfgsave="1">Save changes</button></div>'}</section>`}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-cfgtab],[data-cfgsave]');if(!b)return;
   if(b.dataset.cfgtab){ST.cfgTab=b.dataset.cfgtab;go()}
@@ -2978,7 +2979,7 @@ function drCompany(p){const E=CUR[CUR.length-1],qs=[E-3,E-2,E-1,E],notes=NOTES.f
   const fil='<div class="drqs">'+p.f4.map((x,i)=>'<div class="drq '+(x===true?'ok':x===false?(p.late&&p.late[qs[i]]?'lt':'no'):'na')+'"><b>'+(qs[i]<0?'–':QLAB(qs[i]))+'</b><span>'+(x===true?'Filed on time':x===false?(p.late&&p.late[qs[i]]?'Filed late':'Not filed'):(qs[i]<p.regQ?'Not registered yet':'Not yet due'))+'</span></div>').join('')+'</div>';
   const hold=p.hs.map(h=>'<div class="drhold"><div class="drh1">'+drLink('sb',h.id,SM[h.id].sh)+' '+tierTag(h.id)+'</div><div class="drh2"><span>Consumption</span><b>'+fq(h.cap)+' a year</b><span>used '+fq(h.use)+' · '+f1(util(h))+'% in use</span></div>'
     +(h.capM>0?'<div class="drh2"><span>Manufacture</span><b>'+fq(h.capM)+' a year</b><span>made '+fq(h.mfg)+' · '+f1(utilM(h))+'% in use</span></div>':'')+'</div>').join('');
-  const tiles=[drTile('Risk score',p.score||0,p.f&&p.f.length?p.f.length+' flag'+(p.f.length>1?'s':''):'Nothing flagged'),drTile('Returns filed, last four quarters',due?(due-missed)+' of '+due:'–',(missed?missed+' not filed':'None outstanding')+(late?' · '+late+' filed late':''))];
+  const tiles=[drTile('Overall risk',p.score||0,p.f&&p.f.length?p.f.length+' flag'+(p.f.length>1?'s':''):'Nothing flagged'),drTile('Returns filed, last four quarters',due?(due-missed)+' of '+due:'–',(missed?missed+' not filed':'None outstanding')+(late?' · '+late+' filed late':''))];
   if(notes.length)tiles.push(drTile('Dispatches not shown as received',notes.length,fq(sum(notes,n=>n.qty))));if(cases.length)tiles.push(drTile('Loss and damage cases',cases.length,cases.filter(c=>c.status!=='Closed').length+' still open'));
   const body='<div class="drg">'+tiles.join('')+'</div>'
     +(p.f&&p.f.length?drSec('Why it is flagged','<div class="drtags">'+p.f.map(x=>'<span class="tag '+x[0]+'">'+esc(x[1])+'</span>').join('')+'</div>'):'')
@@ -2989,7 +2990,7 @@ function drCompany(p){const E=CUR[CUR.length-1],qs=[E-3,E-2,E-1,E],notes=NOTES.f
 /* ---- zonal unit and region */
 function drArea(s,kind){return '<div class="drg">'+drTile('Companies',fmt(s.n))+drTile('Returns filed',f1(s.q.rate)+'%','India '+f1(IN.q.rate)+'%')+drTile('Unmatched dispatches',f1(s.unmPct)+'%',s.notes+' notes open')+drTile('Far under capacity',s.anom,'companies')+drTile('Tier 1 companies',s.hr)+drTile('Share of India’s use',f1(s.share)+'%','risk-weighted')+'</div>'
   +(s.why&&s.why.length?drSec('Needs attention','<ul class="drlist">'+s.why.map(w=>'<li><span>'+esc(w[1])+'</span></li>').join('')+'</ul>'):'')}
-function drTop(ps,m){const rank={risk:p=>p.score||0,miss:p=>p.f4.filter(x=>x===false).length*1000+(p.score||0),cap:p=>sum(p.hs,h=>h.cap)};const val={risk:p=>'score '+(p.score||0),miss:p=>p.f4.filter(x=>x===false).length+' of 4 missed',cap:p=>fq(sum(p.hs,h=>h.cap))};
+function drTop(ps,m){const rank={risk:p=>p.score||0,miss:p=>p.f4.filter(x=>x===false).length*1000+(p.score||0),cap:p=>sum(p.hs,h=>h.cap)};const val={risk:p=>'overall risk '+(p.score||0),miss:p=>p.f4.filter(x=>x===false).length+' of 4 missed',cap:p=>fq(sum(p.hs,h=>h.cap))};
   return drSec({risk:'Highest-risk companies',miss:'Companies with the most missed returns',cap:'Largest companies by capacity'}[m],drList([...ps].sort((a,b)=>rank[m](b)-rank[m](a)).slice(0,8).map(p=>'<li><span>'+drLink('co',p.i,p.name)+'<br><span class="sm">'+p.z+' · '+p.subs.join(', ')+'</span></span><span class="n">'+val[m](p)+'</span></li>')),drMode([['risk','Highest risk'],['miss','Missed returns'],['cap','Largest capacity']],m))}
 function drZone(z,m){m=m||'risk';const s=ZS[z],Z=ZONES.find(x=>x.z===z);return {chip:'Zonal unit',title:z,sub:drLink('rg',Z.r,Z.r.replace(/ Region$/,''))+' region · '+fmt(s.n)+' companies',body:drArea(s)+drTop(P.filter(p=>p.z===z),m),rep:['K1','Open the compliance report']}}
 function drRegion(r,m){m=m||'risk';const s=RS[r],zs=ZONES.filter(Z=>Z.r===r);return {chip:'Region',title:r,sub:zs.length+' zonal units: '+zs.map(Z=>Z.z).join(', '),body:drArea(s)
@@ -3059,9 +3060,9 @@ function glossTerms(){const T=CFG.th,tl=t=>SUBS.filter(S=>tierOf(S.id)===t).map(
    ['Dispatches and trade','Reconciliation gap','A difference between a company’s dispatch and receipt records.'],
    ['Dispatches and trade','Importer and exporter firms','Companies that imported or exported the substance in the period.'],
    ['Dispatches and trade','Net trade','Imports less exports.'],
-   ['Risk','Risk score','The total of points for each flag a company meets, up to '+CFG.scoreCap+'. It ranks the Top 10 list. Points are set in Configuration.'],
+   ['Risk','Overall risk','The total of points for each flag a company meets, up to '+CFG.scoreCap+'. It ranks the Top 10 list. Points are set in Configuration.'],
    ['Risk','Top-10% capacity holder','A company in the top tenth by capacity for a substance it holds.'],
-   ['Risk','Why it is flagged','The flags that make up a company’s risk score.'],
+   ['Risk','Why it is flagged','The flags that make up a company’s overall risk.'],
    ['Alerts','Alert','Raised when a figure crosses a limit set in Configuration.'],
    ['Alerts','Priority','High, Medium or Low, shown by the dot beside each alert.'],
    ['Alerts','Threshold','A limit, set by tier in Configuration, that triggers an alert.'],
